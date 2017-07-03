@@ -1,0 +1,50 @@
+.panel-body{
+    padding:0px;
+}
+.panel-heading{
+    background-color: #66bb6a;
+    color:white
+}
+.ui-panel-titlebar {
+    background-color: #66bb6a;
+    color:white
+}
+.overview{
+  padding: 0 !important;
+  min-height: 140px;
+  position: relative;
+  margin-bottom: 0px !important; 
+}
+.overview-content {
+    padding: 16px;
+}
+.overview-content a{
+    color:black; 
+}
+.overview-content .overview-title {
+      font-size: 18px;
+ }
+.overview-content .overview-badge {
+      float: right;
+      color: #757575; }
+.overview-content .overview-detail {
+      display: block;
+      font-size: 24px;
+      margin-top: 5px; 
+}
+.overview-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+    }
+.overview-footer img {
+      display: block; 
+}
+
+.resize{
+    color:white;
+}
+
+.deviceMap{
+    height:400px;
+}

@@ -1,0 +1,94 @@
+<div class="ui-g">
+  <div  class="ui-g-12 text-left">
+      <button [hasPermission]="'menu:create'"  pButton type="button" label="新增" (click)="onCreate()"></button>
+  </div>
+  <div class="ui-g-12">
+    <p-treeTable [value]="menuTree" (onNodeExpand)="loadNode($event)">
+      <p-column field="name" header="名称"></p-column>
+      <p-column field="code" header="编码"></p-column>
+      <p-column field="style" header="样式"></p-column>
+      <p-column field="icon" header="图标"></p-column>
+      <p-column field="position" header="位置"></p-column>
+      <p-column field="display" header="显示"></p-column>
+      <p-column field="" header="操作">
+        <ng-template let-node="rowData" pTemplate="body">
+            <button  [hasPermission]="'menu:edit'" pButton type="button" label="编辑" (click)="onEdit(node.data.id)"></button>
+            <button [hasPermission]="'menu:delete'"  pButton type="button" label="删除" (click)="onDelete(node)"></button>
+        </ng-template>
+      </p-column>
+    </p-treeTable>
+  </div>
+</div>
+
+
+<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">位置<span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <p-dropdown [options]="menuPositions" [(ngModel)]="menu.position"
+                    placeholder="--请选择菜单位置--" [style]="{'width':'300px'}" ></p-dropdown>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name" class="col-sm-3 control-label">名称<span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="menu.name">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="code" class="col-sm-3 control-label">编码<span class="text-danger">*</span></label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="code" name="code" [(ngModel)]="menu.code">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="style" class="col-sm-3 control-label">样式</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="style" name="style" [(ngModel)]="menu.style">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="icon" class="col-sm-3 control-label">ICON</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="icon" name="icon" [(ngModel)]="menu.icon">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="display" class="col-sm-3 control-label">显示</label>
+      <div class="col-sm-6">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="menu.display" id="display" name="display">
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">上级菜单</label>
+      <div class="col-sm-6">
+        <p-autoComplete [(ngModel)]="parent" [suggestions]="filteredParents" (completeMethod)="filteredParent($event)"
+                        field="info" [size]="30" placeholder="根据编码搜索父节点" [minLength]="1" [delay]="500">
+          <ng-template let-parent pTemplate="item">
+            {{parent.code}}（{{parent.name}}）
+          </ng-template>
+        </p-autoComplete>
+      </div>
+    </div>
+
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>
+      <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()"
+              class="ui-button-secondary"></button>
+    </div>
+  </p-footer>
+</p-dialog>

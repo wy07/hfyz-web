@@ -1,0 +1,89 @@
+<div class="ui-g-12 ui-md-4" >
+  <div class="panel panel-default  overview">
+    <div class="panel-body" >
+         <div class="overview-content">
+          <a (click)="toOtherPage('/device/all','deviceAdmin')"><span class="overview-title">新增车辆</span></a>
+          <!--span class="overview-badge">+%60</span -->
+          <span class="overview-detail">230  台/月</span>
+      </div>
+            
+      <div class="overview-footer">
+          <img src="assets/images/sales.svg" style="width: 100%">
+       </div>
+      
+    </div>
+  </div>
+</div>
+<div class="ui-g-12 ui-md-4" >
+  <div class="panel panel-default overview"  >
+    
+    <div class="panel-body" >
+      <div class="overview-content">
+          <a  (click)="toOtherPage('/alarm/all','alarm')"><span class="overview-title">投诉总数</span></a>
+          <!--span class="overview-badge">-%60</span -->
+          <span class="overview-detail">230 起/月</span>
+      </div>
+            
+      <div class="overview-footer">
+          <img src="assets/images/views.svg" style="width: 100%">
+       </div>
+    </div>
+  </div>
+</div>
+<div class="ui-g-12 ui-md-4" >
+  <div class="panel panel-default  overview" >
+    <div class="panel-body" >
+      <div class="overview-content">
+          <a (click)="toOtherPage('/monitor/all','monitor')"><span class="overview-title">执法总数</span></a>
+          <!--span class="overview-badge">+%12</span-->
+          <span class="overview-detail">230 件/月</span>
+      </div>
+            
+      <div class="overview-footer">
+          <img src="assets/images/progress.svg" style="width: 100%">
+       </div>
+    </div>
+  </div>
+</div>
+<!--div class="ui-g-12 ui-lg-5">
+    <p-panel >
+        <p-header>待办任务</p-header>
+
+    </p-panel>
+</div>
+<div class="ui-g-12 ui-lg-7">
+    <p-panel >
+        <p-header>日程安排</p-header>
+
+    </p-panel>
+</div -->
+<div class="ui-g-12 ui-lg-8">
+  <p-panel [style]="{'height':'400px'}" >
+    <p-header >
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">**走势图</span>
+            
+            <div class="pull-right" >
+                <a href="#" class="resize" >＋</a>
+            </div>
+        </div> 
+    </p-header>
+    <p-chart type="line" [data]="data"  ></p-chart>
+   
+</p-panel>
+  
+</div>
+<div class="ui-g-12 ui-lg-4">
+    <p-panel  [style]="{'height':'400px'}">
+    <p-header >
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">**走势图</span>
+            
+            <div class="pull-right" >
+                <a href="#" class="resize" >＋</a>
+            </div>
+        </div> 
+    </p-header>
+     <p-chart type="doughnut" [data]="datapie"  ></p-chart>
+    </p-panel>
+</div>
