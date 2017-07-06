@@ -6,7 +6,11 @@ import {MenuListComponent} from "./../../menu/list/menu-list.component"
 import {SystemCodeListComponent} from "./../../systemCode/list/system-code-list.component"
 import {OrganizationComponent} from "./../../organization/organization.component"
 import {HomeComponent} from "./../../home/home.component";
-export const components={
+import {InfoPublishComponent} from "../../infoManage/info-publish/info-publish.component";
+import {InfoCheckComponent} from "../../infoManage/info-check/info-check.component";
+import {InfoListComponent} from "../../infoManage/info-list/info-list.component";
+export const components
+={
                     role:RoleComponent
                     ,user:UserComponent
                     ,admin:AdminComponent
@@ -15,4 +19,7 @@ export const components={
                     ,unit:SystemCodeListComponent
                     ,home:HomeComponent
                     ,organization:OrganizationComponent
+                    ,publish:InfoPublishComponent
+                    ,check:InfoCheckComponent
+                    ,list:InfoListComponent
                 }

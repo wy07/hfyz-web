@@ -78,7 +78,10 @@ import { UserService } from './hfyz/user/user.service';
 import {HomeComponent} from "./hfyz/home/home.component";
 import {OrganizationComponent} from "./hfyz/organization/organization.component"
 import { SharedPermissionModule } from './hfyz/common/permission/shared.module';
-import { OrganizationService } from './hfyz/organization/shared/org.service'
+import { OrganizationService } from './hfyz/organization/shared/org.service';
+import { InfoListComponent } from './hfyz/infoManage/info-list/info-list.component';
+import { InfoPublishComponent } from './hfyz/infoManage/info-publish/info-publish.component';
+import { InfoCheckComponent } from './hfyz/infoManage/info-check/info-check.component'
 export function ConfigLoader(configService: ConfigService) {
     //Note: this factory need to return a function (that return a promise)
     return () => configService.load();
@@ -99,7 +102,7 @@ export function ConfigLoader(configService: ConfigService) {
         , DynamicComponent
         , MenuListComponent
         , HomeComponent
-        , OrganizationComponent
+        , OrganizationComponent, InfoListComponent, InfoPublishComponent, InfoCheckComponent
     ],
     imports: [
         BrowserModule
