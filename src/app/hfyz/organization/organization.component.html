@@ -1,6 +1,10 @@
 <div class="ui-g">
- 
   <div class="ui-g-12">
-    <p-organizationChart [value]="orgList"></p-organizationChart>
+    <p-treeTable [value]="orgList" (onNodeExpand)="loadNode($event)" styleClass="syscodeTable">
+      <p-column field="name" header="名称"></p-column>
+      <p-column field="codeNum" header="机构代码"></p-column>
+    </p-treeTable>
   </div>
 </div>
+
+
