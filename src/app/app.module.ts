@@ -7,7 +7,7 @@ import { LoginModule } from './hfyz/login/login.module';
 import { BasicModule } from './hfyz/basic/basic.module';
 import { HomeModule } from './hfyz/home/home.module';
 import { CommonModule } from './hfyz/common/common.module';
-import { LogManageModule } from './hfyz/logManage/log-manage.module';
+import { LogManageModule } from './hfyz/log-manage/log-manage.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -33,9 +33,9 @@ import { ToastModule, ToastsManager } from 'ng2-toastr';
 import { NgRadio } from 'ng-radio';
 import { DynamicComponent } from './hfyz/common/dynamic/dynamic.component';
 
-import { InfoListComponent } from './hfyz/infoManage/info-list/info-list.component';
-import { InfoPublishComponent } from './hfyz/infoManage/info-publish/info-publish.component';
-import { InfoCheckComponent } from './hfyz/infoManage/info-check/info-check.component'
+import { InfoListComponent } from './hfyz/info-manage/info-list/info-list.component';
+import { InfoPublishComponent } from './hfyz/info-manage/info-publish/info-publish.component';
+import { InfoCheckComponent } from './hfyz/info-manage/info-check/info-check.component';
 
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
