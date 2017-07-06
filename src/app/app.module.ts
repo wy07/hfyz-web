@@ -18,10 +18,6 @@ import { RestangularModule } from 'ngx-restangular';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app.routes';
-// import { LayoutComponent } from './hfyz/layout/layout.component';
-// import { FooterComponent } from './hfyz/layout/footer.component';
-// import { TopBarComponent } from './hfyz/layout/topbar.component';
-// import { SideBarComponent } from './hfyz/layout/sidebar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabViewModule } from 'primeng/primeng';
@@ -36,6 +32,11 @@ import { NoRightComponent } from './hfyz/security/noright.component';
 import { ToastModule, ToastsManager } from 'ng2-toastr';
 import { NgRadio } from 'ng-radio';
 import { DynamicComponent } from './hfyz/common/dynamic/dynamic.component';
+
+import { InfoListComponent } from './hfyz/infoManage/info-list/info-list.component';
+import { InfoPublishComponent } from './hfyz/infoManage/info-publish/info-publish.component';
+import { InfoCheckComponent } from './hfyz/infoManage/info-check/info-check.component'
+
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
     return () => configService.load();
@@ -49,6 +50,7 @@ export function ConfigLoader(configService: ConfigService) {
         , SideBarComponent
         , NoRightComponent
         , DynamicComponent
+        , InfoListComponent, InfoPublishComponent, InfoCheckComponent
     ],
     imports: [
         BrowserModule,
