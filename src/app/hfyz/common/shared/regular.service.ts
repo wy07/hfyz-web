@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 
 @Injectable()
-export class RegularService{
+export class RegularService {
     Int_regular: any;
     Float_regular: any;
     Sn_regular: any;
 
     constructor() {
-        this.Int_regular        = /^[0-9]*$/;
-        this.Float_regular      = /^[0-9.]*$/;
-        this.Sn_regular         = /^[0-9a-zA-Z\W]+$/;
+        this.Int_regular = /^[0-9]*$/;
+        this.Float_regular = /^[0-9.]*$/;
+        this.Sn_regular = /^[0-9a-zA-Z\W]+$/;
     };
 
     isInt(value) {
@@ -21,7 +21,7 @@ export class RegularService{
     }
 
     isBlank(value) {
-        if(value==null || value==''){
+        if (value === null || value === '') {
             return true;
         }
         return false;
@@ -30,4 +30,4 @@ export class RegularService{
     isSn(value) {
         return this.Sn_regular.test(value);
     }
-}
+};
