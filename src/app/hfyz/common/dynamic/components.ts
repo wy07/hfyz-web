@@ -6,9 +6,9 @@ import { UserComponent } from './../../basic/user/user.component';
 import { LogManageComponent } from './../../log-manage/log-manage.component';
 import { AdminComponent } from './../../admin/admin.component';
 import { HomeComponent } from './../../home/home.component';
-import {InfoPublishComponent} from '../../info-manage/info-publish/info-publish.component';
-import {InfoCheckComponent} from '../../info-manage/info-check/info-check.component';
-import {InfoListComponent} from '../../info-manage/info-list/info-list.component';
+import { InfoPublishComponent } from '../../info-manage/info-publish/info-publish.component';
+import { InfoCheckComponent } from '../../info-manage/info-check/info-check.component';
+import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
 
 export const components = {
     role: RoleComponent,
@@ -19,8 +19,8 @@ export const components = {
     unit: SystemCodeComponent,
     home: HomeComponent,
     organization: OrganizationComponent,
-    publish:InfoPublishComponent,
-    check:InfoCheckComponent,
-    list:InfoListComponent,
-    logManage: LogManageComponent
+    infoPublish: InfoPublishComponent,
+    infoCheck: InfoCheckComponent,
+    infoList: InfoListComponent,
+    operationLog: LogManageComponent
 };

@@ -1,3 +1,4 @@
+import { InfoManageModule } from './hfyz/info-manage/info-manage.module';
 import { SideBarComponent } from './hfyz/layout/side-bar/sidebar.component';
 import { TopBarComponent } from './hfyz/layout/top-bar/topbar.component';
 import { FooterComponent } from './hfyz/layout/footer/footer.component';
@@ -50,7 +51,6 @@ export function ConfigLoader(configService: ConfigService) {
         , SideBarComponent
         , NoRightComponent
         , DynamicComponent
-        , InfoListComponent, InfoPublishComponent, InfoCheckComponent
     ],
     imports: [
         BrowserModule,
@@ -67,7 +67,8 @@ export function ConfigLoader(configService: ConfigService) {
         CommonModule,
         HomeModule,
         BasicModule,
-        LoginModule
+        LoginModule,
+        InfoManageModule
     ],
 
     /*providers: [ConfigService,
