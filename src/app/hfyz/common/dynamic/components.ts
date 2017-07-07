@@ -9,8 +9,7 @@ import {HomeComponent} from "./../../home/home.component";
 import {InfoPublishComponent} from "../../infoManage/info-publish/info-publish.component";
 import {InfoCheckComponent} from "../../infoManage/info-check/info-check.component";
 import {InfoListComponent} from "../../infoManage/info-list/info-list.component";
-export const components
-={
+export const components ={
                     role:RoleComponent
                     ,user:UserComponent
                     ,admin:AdminComponent
@@ -19,7 +18,7 @@ export const components
                     ,unit:SystemCodeListComponent
                     ,home:HomeComponent
                     ,organization:OrganizationComponent
-                    ,publish:InfoPublishComponent
-                    ,check:InfoCheckComponent
-                    ,list:InfoListComponent
+                    ,infoPublish:InfoPublishComponent
+                    ,infoCheck:InfoCheckComponent
+                    ,infoList:InfoListComponent
                 }

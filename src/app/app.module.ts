@@ -62,8 +62,8 @@ import { Router } from '@angular/router';
 
 import { RoleComponent } from './hfyz/role/role.component';
 import { UserComponent } from './hfyz/user/user.component';
-import { AuthService } from './hfyz/security/auth.service'
-import { AuthGuard } from './hfyz/security/auth.guard'
+import { AuthService } from './hfyz/security/auth.service';
+import { AuthGuard } from './hfyz/security/auth.guard';
 import { LoginComponent } from './hfyz/security/login.component';
 import { NoRightComponent } from './hfyz/security/noright.component';
 import { AdminService } from './hfyz/admin/admin.service';
@@ -81,7 +81,11 @@ import { SharedPermissionModule } from './hfyz/common/permission/shared.module';
 import { OrganizationService } from './hfyz/organization/shared/org.service';
 import { InfoListComponent } from './hfyz/infoManage/info-list/info-list.component';
 import { InfoPublishComponent } from './hfyz/infoManage/info-publish/info-publish.component';
-import { InfoCheckComponent } from './hfyz/infoManage/info-check/info-check.component'
+import { InfoCheckComponent } from './hfyz/infoManage/info-check/info-check.component';
+
+import { CKEditorModule } from 'ng2-ckeditor';
+
+
 export function ConfigLoader(configService: ConfigService) {
     //Note: this factory need to return a function (that return a promise)
     return () => configService.load();
@@ -119,7 +123,7 @@ export function ConfigLoader(configService: ConfigService) {
         , InputTextModule, CheckboxModule, TreeModule, DropdownModule
         , PaginatorModule, GrowlModule, SplitButtonModule
         , CalendarModule, RadioButtonModule
-        , DialogModule, InputSwitchModule ,ListboxModule
+        , DialogModule, InputSwitchModule , ListboxModule
         , DataGridModule
         , PanelModule
         , MessagesModule
@@ -132,6 +136,7 @@ export function ConfigLoader(configService: ConfigService) {
         , MultiSelectModule
         , AutoCompleteModule
         , ChartModule
+        , CKEditorModule
         , OrganizationChartModule
         , SharedPermissionModule
         , ToastModule.forRoot()
