@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CalendarModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-info-publish',
