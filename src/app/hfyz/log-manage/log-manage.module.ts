@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RestangularModule } from 'ngx-restangular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {PanelModule} from 'primeng/primeng';
+import { PanelModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [

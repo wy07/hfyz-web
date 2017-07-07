@@ -1,3 +1,4 @@
+import { MapModule } from './hfyz/map/map.module';
 import { InfoManageModule } from './hfyz/info-manage/info-manage.module';
 import { SideBarComponent } from './hfyz/layout/side-bar/sidebar.component';
 import { TopBarComponent } from './hfyz/layout/top-bar/topbar.component';
@@ -15,11 +16,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RestangularModule } from 'ngx-restangular';
-
 import { AppComponent } from './app.component';
-
 import { AppRoutingModule } from './app.routes';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabViewModule } from 'primeng/primeng';
 import { APP_INITIALIZER } from '@angular/core';
@@ -68,7 +66,8 @@ export function ConfigLoader(configService: ConfigService) {
         HomeModule,
         BasicModule,
         LoginModule,
-        InfoManageModule
+        InfoManageModule,
+        MapModule
     ],
 
     /*providers: [ConfigService,
@@ -90,7 +89,6 @@ export function ConfigLoader(configService: ConfigService) {
         , AdminService
         , NgRadio],
     bootstrap: [AppComponent]
-
 })
 export class AppModule {
 

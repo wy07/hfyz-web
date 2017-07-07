@@ -1,5 +1,5 @@
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; 
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 
 /* You can add global styles to this file, and also import other style files */
@@ -55,5 +55,14 @@ body .ui-tabview .ui-tabview-panel {
 
 .layout-tabmenu[_ngcontent-c3]   .layout-tabmenu-contents[_ngcontent-c3]  {
   /*opacity: 0.92;*/
+}
+
+body  .car-info .ui-panel-titlebar{
+  height: auto;
+  padding: 3px;
+}
+
+body .car-info .ui-panel-content{
+  padding: 3px 5px;
 }
 

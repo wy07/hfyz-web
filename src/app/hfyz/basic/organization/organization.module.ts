@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { OrganizationChartModule } from 'primeng/primeng';
+import { OrganizationChartModule, TreeTableModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [
@@ -20,7 +20,8 @@ import { OrganizationChartModule } from 'primeng/primeng';
         ReactiveFormsModule,
         BrowserAnimationsModule,
         CommonModule,
-        OrganizationChartModule
+        OrganizationChartModule,
+        TreeTableModule
     ],
     exports: [
     ],
