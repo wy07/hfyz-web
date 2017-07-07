@@ -81,6 +81,10 @@ import {SharedPermissionModule} from './hfyz/common/permission/shared.module';
 import {OrganizationService} from './hfyz/organization/shared/org.service';
 import {RealTimeMapComponent} from "./hfyz/map/realTimeMap/real-time-map.component";
 import {HistoryMapComponent} from "./hfyz/map/historyMap/history-map.component";
+import {InfoListComponent} from './hfyz/infoManage/info-list/info-list.component';
+import {InfoPublishComponent} from './hfyz/infoManage/info-publish/info-publish.component';
+import {InfoCheckComponent} from './hfyz/infoManage/info-check/info-check.component';
+
 export function ConfigLoader(configService: ConfigService) {
   //Note: this factory need to return a function (that return a promise)
   return () => configService.load();
@@ -104,6 +108,9 @@ export function ConfigLoader(configService: ConfigService) {
     , OrganizationComponent
     , RealTimeMapComponent
     , HistoryMapComponent
+    , InfoListComponent
+    , InfoPublishComponent
+    , InfoCheckComponent
   ],
   imports: [
     BrowserModule
@@ -138,14 +145,6 @@ export function ConfigLoader(configService: ConfigService) {
     , ToastModule.forRoot()
     , RestangularModule.forRoot([Router, Http, ToastsManager], RestangularConfigFactory)
   ],
-
-  /*providers: [ConfigService,
-   {
-   provide: APP_INITIALIZER,
-   useFactory: ConfigLoader,
-   deps: [ConfigService],
-   multi:true
-   }],*/
   providers: [ConfigService
     , {
       provide: APP_INITIALIZER,
