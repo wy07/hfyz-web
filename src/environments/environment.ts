@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  grailsUrl: 'http://127.0.0.1:8090/',
+  grailsUrl: 'http://192.168.0.60:8090/',
   appbrand: '合肥市道路运输动态监管与服务系统平台'
 };
 

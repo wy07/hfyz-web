@@ -6,7 +6,7 @@
       <p-tabView #tabroot  [style]="{'width':'100%'}" 
        [controlClose]="true" (onClose)="onCloseTab($event)" [lazy]="false">
           <p-tabPanel *ngFor="let tabitem of tabs" header="{{tabitem.header}}" leftIcon="{{tabitem.icon}}" [closable]="tabitem.closable" [selected]="tabitem.selected" >
-          <dynamic-container [componentName]="tabitem.code" [inputs]="tabitem.inputs" ></dynamic-container>
+            <dynamic-container [componentName]="tabitem.code" [inputs]="tabitem.inputs" ></dynamic-container>
           </p-tabPanel>
       </p-tabView> 
     </div> 
