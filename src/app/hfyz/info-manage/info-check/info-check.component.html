@@ -1,3 +1,87 @@
-<p>
-  info-check works!
-</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon">标题：</span>
+          <input type="text" class="form-control" placeholder="请输入文档标题..."/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-addon">起草时间：</span>
+          <div>
+            <p-calendar></p-calendar>
+            -
+            <p-calendar></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary">检索</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-3">
+        <p-tree [value]="categories"></p-tree>
+      </div>
+      <div class="col-md-9">
+        <!-- <p-dataTable  [rows]="10" [paginator]="true" [pageLinks]="7" [rowsPerPageOptions]="[5,10,20]">
+         <p-column field="">
+           <ng-template pTemplate="header">
+             <input type="checkbox">
+           </ng-template>
+         </p-column>
+         <p-column field="" header="序号"></p-column>
+         <p-column field="" header="类别"></p-column>
+         <p-column field="" header="标题"></p-column>
+         <p-column field="" header="起草时间"></p-column>
+         <p-column field="" header="用户"></p-column>
+         <p-column field="" header="状态"></p-column>
+         <p-column field="" header="操作">
+           <ng-template  pTemplate="body">
+             <button type="button" class="btn btn-info">修改</button>
+             <button type="button" class="btn btn-info">删除</button>
+           </ng-template>
+         </p-column>
+         </p-dataTable>-->
+        <table class="table">
+          <tr>
+            <th>序号</th>
+            <th>类别</th>
+            <th>标题</th>
+            <th>起草时间</th>
+            <th>用户</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>政策法规</td>
+            <td>中华人民共和国行政诉讼法</td>
+            <td>2017-07-03 10:04:16</td>
+            <td>王敏</td>
+            <td>待审核</td>
+            <td>
+              <button type="button" class="btn btn-info">审核</button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>标准</td>
+            <td>机动车维修规定</td>
+            <td>2017-07-07 10:24:36</td>
+            <td>王敏</td>
+            <td>待审核</td>
+            <td>
+              <button type="button" class="btn btn-info">审核</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
