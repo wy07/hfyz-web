@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { GnssData } from '../../common/shared/gnss-data';
+import {MapService} from "../shared/map.service";
 // declare var minemap: any;
 
 declare var mapObject: any;
@@ -9,23 +10,60 @@ declare var mapObject: any;
   templateUrl: 'real-time-map.component.html',
   styleUrls: ['real-time-map.component.css']
 })
-export class RealTimeMapComponent implements OnInit {
+export class RealTimeMapComponent implements OnInit,OnDestroy {
   realTimePoint: any;
   realTimeGnssData: GnssData;
   timer: any;
   lng: number;
   lat: number;
   points: any[];
+  mapCode:string;
 
 
-  constructor() {
+  constructor(private mapService:MapService) {
     this.lng = 116.35566;
     this.lat = 39.93218;
     this.realTimeGnssData = null;
+    this.mapCode=null;
+    this.mapService.change.subscribe((value:string)=>{
+      console.log("-----change.subscribe")
+      console.log("-----change.subscribe:"+value)
+      clearTimeout(this.timer);
+      if(this.mapCode){
+        this.mapCode = value;
+        this.initMap();
+      }else{
+        this.mapCode = value;
+      }
+    })
+
   }
 
   ngOnInit() {
     mapObject.initMap('map');
+    if(this.mapCode){
+      this.initMap();
+    }
+  }
+
+  initMap(){
+    console.log(`mapCode:${this.mapCode}`);
+    mapObject.reload();
+    if(this.mapCode=='realTimeMap'){
+      console.log("in realTimeMap")
+      this.initRealTimeMap();
+    }else if(this.mapCode=='historyMap'){
+      console.log("in historyMap")
+      this.initHistoryMap();
+    }else if(this.mapCode=='otherMap'){
+      console.log("in otherMap")
+      mapObject.clean();
+    }
+  }
+
+  ngOnDestroy() {
+    console.log("-----OnDestroy");
+    clearTimeout(this.timer);
   }
 
   initRealTimeMap() {

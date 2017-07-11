@@ -17,7 +17,7 @@ declare var MPolyline: any;
 
 @Component({
   moduleId: module.id,
-  selector: 'app-map',
+  selector: 'app-h-map',
   templateUrl: 'history-map.component.html',
   styleUrls: ['history-map.component.css']
 })

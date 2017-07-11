@@ -1,9 +1,9 @@
-<div>
-  <button [hasPermission]="'menu:create'"  pButton type="button" label="实时位置" (click)="initRealTimeMap()"></button>
-  <button [hasPermission]="'menu:create'"  pButton type="button" label="历史位置" (click)="initHistoryMap()"></button>
-</div>
+<!--<div>-->
+  <!--<button [hasPermission]="'menu:create'"  pButton type="button" label="实时位置" (click)="initRealTimeMap()"></button>-->
+  <!--<button [hasPermission]="'menu:create'"  pButton type="button" label="历史位置" (click)="initHistoryMap()"></button>-->
+<!--</div>-->
 <div id="map" style="width: 100%;height: 100%"></div>
-<div *ngIf="realTimeGnssData">
+<div *ngIf="mapCode=='realTimeMap'">
   <p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
     <div class="row">
       <div class="col-sm-3">车牌号码：{{realTimeGnssData.plateNo}}</div>

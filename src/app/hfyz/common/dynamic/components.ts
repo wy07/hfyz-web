@@ -11,6 +11,7 @@ import { InfoCheckComponent } from '../../info-manage/info-check/info-check.comp
 import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
 import {RealTimeMapComponent} from '../../map/realTimeMap/real-time-map.component';
 import {HistoryMapComponent} from '../../map/historyMap/history-map.component';
+import {NullMapComponent} from "../../map/nullMap/null-map.component";
 
 
 export const components = {
@@ -26,6 +27,8 @@ export const components = {
     infoCheck: InfoCheckComponent,
     infoList: InfoListComponent,
     realTimeMap: RealTimeMapComponent,
-    historyMap: HistoryMapComponent,
+    historyMap: RealTimeMapComponent,
+    otherMap: RealTimeMapComponent,
+    nullMap:NullMapComponent,
     operationLog: LogManageComponent
 };
