@@ -11,7 +11,7 @@ import { InfoCheckComponent } from '../../info-manage/info-check/info-check.comp
 import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
 import {RealTimeMapComponent} from '../../map/realTimeMap/real-time-map.component';
 import {HistoryMapComponent} from '../../map/historyMap/history-map.component';
-
+import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
 
 export const components = {
     role: RoleComponent,
@@ -27,5 +27,6 @@ export const components = {
     infoList: InfoListComponent,
     realTimeMap: RealTimeMapComponent,
     historyMap: HistoryMapComponent,
-    operationLog: LogManageComponent
+    operationLog: LogManageComponent,
+    changepwd: ChangePwdComponent
 };

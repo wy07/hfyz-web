@@ -8,10 +8,11 @@ import { UserService } from './user.service';
 import { UserComponent } from './user.component';
 import { NgModule } from '@angular/core';
 import { DataTableModule, DialogModule, ListboxModule, ButtonModule } from 'primeng/primeng';
-
+import { ChangePwdComponent } from './changePwd/change-pwd.component'
 @NgModule({
     declarations: [
-        UserComponent
+        UserComponent,
+        ChangePwdComponent
     ],
     imports: [
         BrowserModule,
