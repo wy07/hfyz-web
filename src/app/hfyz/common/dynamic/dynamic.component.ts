@@ -64,8 +64,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    // console.log(`ngOnInit:${JSON.stringify(this.inputs)}`)
-    console.log(`ngOnInit:${this.componentName}`)
   }
 
 
@@ -120,8 +118,13 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     this.loaded = true;
     this.compRef = component;
 
+    if(!this.inputs){
+      this.inputs={};
+    }
+
+
     if(this.initMap){
-      this.mapService.change.emit(`${this.inputs.code}`);
+      this.mapService.change.emit(this.inputs);
     }
 
 
