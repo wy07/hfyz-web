@@ -3,6 +3,7 @@ import { SystemCodeModule } from './systemCode/system-code.module';
 import { ProjectMenuModule } from './menu/project-menu.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
+import { PlatFormModule } from './platForm/plat-form.module';
 import { NgModule } from '@angular/core';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { NgModule } from '@angular/core';
         UserModule,
         ProjectMenuModule,
         SystemCodeModule,
-        OrganizationModule
+        OrganizationModule,
+        PlatFormModule
     ]
 })
 export class BasicModule { };

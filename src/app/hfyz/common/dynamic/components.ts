@@ -12,6 +12,7 @@ import { InfoListComponent } from '../../info-manage/info-list/info-list.compone
 import {RealTimeMapComponent} from '../../map/realTimeMap/real-time-map.component';
 import {HistoryMapComponent} from '../../map/historyMap/history-map.component';
 import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
+import { PlatFormComponent } from '../../basic/platForm/plat-form.component';
 
 export const components = {
     role: RoleComponent,
@@ -28,5 +29,6 @@ export const components = {
     realTimeMap: RealTimeMapComponent,
     historyMap: HistoryMapComponent,
     operationLog: LogManageComponent,
-    changepwd: ChangePwdComponent
+    changepwd: ChangePwdComponent,
+    ownerCheckRecord: PlatFormComponent
 };
