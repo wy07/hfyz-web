@@ -8,9 +8,9 @@ import {HomeComponent} from './../../home/home.component';
 import {InfoPublishComponent} from '../../info-manage/info-publish/info-publish.component';
 import {InfoCheckComponent} from '../../info-manage/info-check/info-check.component';
 import {InfoListComponent} from '../../info-manage/info-list/info-list.component';
-import {RealTimeMapComponent} from '../../map/realTimeMap/real-time-map.component';
-import {HistoryMapComponent} from '../../map/historyMap/history-map.component';
 import {NullMapComponent} from "../../map/nullMap/null-map.component";
+import {CarListComponent} from "../../car/list/car-list.component";
+import {MapComponent} from "../../map/map/map.component";
 import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.component';
 
 export const components = {
@@ -24,9 +24,11 @@ export const components = {
   infoPublish: InfoPublishComponent,
   infoCheck: InfoCheckComponent,
   infoList: InfoListComponent,
-  realTimeMap: RealTimeMapComponent,
-  historyMap: HistoryMapComponent,
+  realTimeMap: MapComponent,
+  historyMap: MapComponent,
+  otherMap: MapComponent,
   nullMap: NullMapComponent,
   operationLog: LogManageComponent,
+  carList: CarListComponent,
   changepwd: ChangePwdComponent
 };

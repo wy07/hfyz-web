@@ -66,7 +66,6 @@ export class LayoutComponent implements OnInit {
   onCloseTab(event) {
     let currentTab=this.tabs[event.index];
     if(!currentTab.initMap){
-      console.log("======aaaa init");
       this.tabs.splice(event.index, 1);
       event.close();
     }else{
@@ -77,29 +76,30 @@ export class LayoutComponent implements OnInit {
 
   public addTab(menu) {
     let mapMenus = ['realTimeMap', 'historyMap', 'otherMap'];
-
-    console.log(`aaaa=${mapMenus.find(x => x === menu.code) === undefined}`);
     this.initMap = false;
     if (mapMenus.find(x => x === menu.code) === undefined) {
-      console.log("=====1")
       this.activeTab(menu);
     } else {
       console.log('1')
-      this.mapService.change.emit(`${menu.code}`);
+      let menuInputs=this.getInputs(menu.inputs,menu.code);
+      if(menuInputs.id){
+        menuInputs['key']=`${menu.code}-${menuInputs.id}`
+      }else{
+        menuInputs['key']=`${menu.code}`
+      }
+
+      this.mapService.change.emit(menuInputs);
 
       //如果没有地图，加载地图模板
       if (this.tabs.find(x => x.initMap === true) === undefined) {
         this.initMap = true;
-        this.initMapTab(menu);
+        this.initMapTab(menu,menuInputs);
         return
       }
       console.log('2')
 
-
-
       let mapTab = this.tabs.find(x => x.hasMap === true && x.initMap === true);
       let mapTabIndex = this.tabs.findIndex(x => x.hasMap === true && x.initMap === true);
-      let oldMapTabIndex = this.tabs.findIndex(x => x.code === mapTab.code);
       let currentTab = this.tabs.find(x => x.code === menu.code);
 
       console.log('3')
@@ -107,18 +107,15 @@ export class LayoutComponent implements OnInit {
       //如果有地图，当前component未加载,新加tab并交换位置
       if (currentTab === undefined) {
         console.log('4')
-
-        console.log(`currentTab === undefined`)
-
         let newTab = {
           header: mapTab.header //menu.name
           , icon: mapTab.icon
           , selected: false
           , closable: true
           , disabled: false
-          , index: oldMapTabIndex + 1
+          , index: mapTabIndex + 1
           , code: mapTab.code
-          , inputs: {code: mapTab.code}
+          , inputs: mapTab.inputs
           , hasMap: true
           , initMap: false
         };
@@ -126,80 +123,77 @@ export class LayoutComponent implements OnInit {
 
         mapTab.header = menu.name;
         mapTab.icon = menu.icon;
-        mapTab.selected = menu.true;
-        mapTab.code = menu.icon;
+        mapTab.selected = true;
         mapTab.index = this.tabs.length;
         mapTab.code = menu.code;
-        mapTab.inputs = {code: menu.code};
+        mapTab.inputs = menuInputs;
         this.tabs.push(newTab);
-        this.tabs[oldMapTabIndex] = newTab;
-
-        console.log(`mapTab.disabled:${mapTab.disabled}`)
-
+        this.tabs[mapTabIndex] = newTab;
         if(mapTab.disabled){
-          this.tabs.splice(oldMapTabIndex, 1);
+          this.tabs.splice(mapTabIndex, 1);
           mapTab.disabled=false;
         }
 
         this.tabs[this.tabs.length - 1] = mapTab;
-
-
-
-        console.log(`CODE:${this.tabs[this.tabs.length - 1].code}====this.tabs.length:${this.tabs.length}`);
-
         this.tabroot.activeIndex = this.tabs.length - 1;
-      } else if (mapTab.code == currentTab.code) { //如果有地图，component已加载，交换位置
+      } else if (mapTab.code == currentTab.code) {
         console.log('5')
-
-        console.log(`mapTab.code == currentTab.code`)
         if(mapTab.disabled){
           mapTab.disabled=false;
           mapTab.index = this.tabs.length;
           this.tabs.push(mapTab);
           this.tabs.splice(mapTabIndex, 1);
           this.tabroot.activeIndex = this.tabs.length - 1;
-
+        }else{
+          this.tabroot.activeIndex = mapTabIndex;
         }
-      }else{
+      }else{ //如果有地图，component已加载，交换位置
         console.log('6')
-
-        console.log(`mapTab.code != currentTab.code`)
-
-
         let currentMapTabIndex = this.tabs.findIndex(x => x.code === currentTab.code);
 
         let tempTab = {
           header: mapTab.header //menu.name
           , icon: mapTab.icon
           , selected: false
-
-          , disabled: false
+          , disabled: mapTab.disabled
           , closable: true
-          , index: oldMapTabIndex + 1
+          , index: mapTabIndex + 1
           , code: mapTab.code
-          , inputs: {code: mapTab.code}
+          , inputs: mapTab.inputs
           , hasMap: true
           , initMap: false
         };
         mapTab.header = menu.name;
         mapTab.icon = menu.icon;
         mapTab.selected = true;
-        mapTab.code = menu.icon;
         mapTab.index = this.tabs.length;
         mapTab.code = menu.code;
-        mapTab.inputs = {code: menu.code};
+        mapTab.inputs = menuInputs;
+        mapTab.disabled=false;
+
+        if(tempTab.disabled){
+
+        }
 
 
-        this.tabs[oldMapTabIndex] = tempTab;
+        this.tabs[mapTabIndex] = tempTab;
         this.tabs[currentMapTabIndex] = mapTab;
         this.tabroot.activeIndex = currentMapTabIndex;
       }
     }
-    console.log("========tabs:")
-    console.log(JSON.stringify(this.tabs))
   }
 
-  private initMapTab(menu) {
+  private getInputs(inputs,code){
+    if(!inputs){
+      return {code:code}
+    }
+    if(!inputs.hasOwnProperty('code')){
+      inputs.code=code;
+    }
+    return inputs;
+  }
+
+  private initMapTab(menu,inputs) {
     let index = this.tabs.length;
 
     this.tabs.push({
@@ -207,11 +201,10 @@ export class LayoutComponent implements OnInit {
       , icon: menu.icon
       , selected: true
       , closable: true
-
       , disabled: false
       , index: index
       , code: menu.code
-      , inputs: {code: menu.code}
+      , inputs: inputs
       , hasMap: true
       , initMap: true
     });
@@ -248,7 +241,6 @@ export class LayoutComponent implements OnInit {
   }
 
   getComponentName(tab) {
-    // console.log(`getComponentName1:${tab.hasMap}==${!tab.initMap}`)
     if (tab.hasMap && !tab.initMap) {
       return 'nullMap';
     } else {
@@ -264,8 +256,6 @@ export class LayoutComponent implements OnInit {
   }
 
   handleChange(event) {
-    console.log("in handleChange"+event.index);
-
     if (event.index === undefined){
       return;
     }
@@ -276,18 +266,17 @@ export class LayoutComponent implements OnInit {
     let mapTab = this.tabs.find(x => x.hasMap === true && x.initMap === true);
 
     let oldMapTabIndex = this.tabs.findIndex(x => x.hasMap === true && x.initMap === true);
-    this.mapService.change.emit(`${currentTab.code}`);
+    this.mapService.change.emit(currentTab.inputs);
 
     let tempTab = {
       header: mapTab.header //menu.name
       , icon: mapTab.icon
       , selected: false
-
       , disabled: false
       , closable: true
       , index: oldMapTabIndex + 1
       , code: mapTab.code
-      , inputs: {code: mapTab.code}
+      , inputs: mapTab.inputs
       , hasMap: true
       , initMap: false
     };
@@ -298,8 +287,6 @@ export class LayoutComponent implements OnInit {
     mapTab.index = currentTab.index;
     mapTab.code = currentTab.code;
     mapTab.inputs =currentTab.inputs;
-
-    console.log(`oldMapTabIndex:${oldMapTabIndex},event.index:${event.index}`)
 
     this.tabs[oldMapTabIndex] = tempTab;
     this.tabs[event.index] = mapTab;
