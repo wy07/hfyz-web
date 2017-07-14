@@ -1,34 +1,34 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-<div class="row">
-  <div class="col-sm-12">
-    <form class="form-horizontal">
-      <div class="form-group">
-        <div class="col-sm-4">
-          <div class="input-group">
-            <span class="input-group-addon">企业名称：</span>
-            <input type="text" class="form-control" [(ngModel)]="company" name="company"/>
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-4">
+              <div class="input-group">
+                <span class="input-group-addon">企业名称：</span>
+                <input type="text" class="form-control" [(ngModel)]="company" name="company"/>
+              </div>
+            </div>
+            <div class="col-md-5">
+            <div class="input-group">
+              <span class="input-group-addon">查岗时间：</span>
+              <div>
+                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd"></p-calendar>
+                -
+                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd"></p-calendar>
+              </div>
+            </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="submit" class="btn btn-primary" (click)="initData()">检索</button>
+              <button type="submit" class="btn btn-primary" (click)="cancel()">取消</button>
+            </div>
           </div>
-        </div>
-        <div class="col-md-5">
-        <div class="input-group">
-          <span class="input-group-addon">查岗时间：</span>
-          <div>
-            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd"></p-calendar>
-            -
-            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd"></p-calendar>
-          </div>
-        </div>
-        </div>
-        <div class="col-sm-2">
-          <button type="submit" class="btn btn-primary" (click)="initData()">检索</button>
-          <button type="submit" class="btn btn-primary">取消</button>
-        </div>
+        </form>
       </div>
-    </form>
+      </div>
   </div>
-  </div>
-</div>
 <div class="panel panel-info">
   <div class="panel-body">
     <table class="table">

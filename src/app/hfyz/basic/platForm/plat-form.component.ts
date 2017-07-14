@@ -20,6 +20,7 @@ export class PlatFormComponent implements OnInit {
   max: number;
   total: number;
   currentPage: number;
+  flag: boolean;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
@@ -32,22 +33,30 @@ export class PlatFormComponent implements OnInit {
     this.endDate = '';
     this.max = 10;
     this.total = 0;
+    this.flag = false;
   }
 
   ngOnInit() {
     this.initData();
   }
-
-
+  validation() {
+    if (this.endDate !== '' && this.startDate !== '' && this.endDate < this.startDate) {
+      this._toastr.info('请选择正确的日期！');
+      return false;
+    }
+    return true;
+  }
   initData(offset = 0) {
-    const sd = this.datePipe.transform( this.startDate, 'yyyy-MM-dd');
-    const ed = this.datePipe.transform( this.endDate, 'yyyy-MM-dd');
-    this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
-      res => {
-        this.checkRecordList = res.checkRecordList;
-        this.total = res.total;
-      }
-    );
+    if (this.validation()) {
+      const sd = this.datePipe.transform( this.startDate, 'yyyy-MM-dd');
+      const ed = this.datePipe.transform( this.endDate, 'yyyy-MM-dd');
+      this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
+        res => {
+          this.checkRecordList = res.checkResult.checkRecordList;
+          this.total = res.checkResult.total;
+        }
+      );
+    }
   }
 
   paginate(event) {
@@ -55,5 +64,12 @@ export class PlatFormComponent implements OnInit {
       this.currentPage = event.page;
       this.initData(this.max * event.page);
     }
+  }
+  cancel() {
+    this.flag = true;
+    this.company = '';
+    this.startDate = '';
+    this.endDate = '';
+    this.initData();
   }
 }
