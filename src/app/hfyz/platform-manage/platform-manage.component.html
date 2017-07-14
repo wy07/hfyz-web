@@ -4,17 +4,18 @@
       <div class=" col-md-4">
         <div class="input-group">
           <span class="inputPM input-group-addon ">平台名称：</span>
-          <input type="text" class="form-control" [(ngModel)]="platformName" placeholder="请输入平台名称..."/>
+          <input type="text" class="form-control" [(ngModel)]="name" placeholder="请输入平台名称..."/>
         </div>
       </div>
       <div class="col-md-4">
         <div class="input-group">
           <span class="inputPM input-group-addon">平台代码：</span>
-          <input type="text" class="form-control" [(ngModel)]="platformCode" placeholder="请输入平台代码..."/>
+          <input type="text" class="form-control" [(ngModel)]="code" placeholder="请输入平台代码..."/>
         </div>
       </div>
       <div class="col-md-4">
         <button pButton label="查询" type="button" (click)="onSearch()"></button>
+        <button pButton label="重置" type="button"  (click)="onReset()"></button>
         <button pButton label="新增" type="button"  (click)="onCreat()"></button>
       </div>
     </div>
@@ -30,9 +31,9 @@
           <p-column field="code" header="平台代码"></p-column>
           <p-column field="contactName" header="平台联系人"></p-column>
           <p-column field="" header="操作">
-            <ng-template let-platform="rowData"  pTemplate="body">
-                <button pButton type="button" label="编辑" (click)="onEdit(platform)"></button>
-                <button pButton type="button" label="删除" (click)="onDelete(platform)"></button>
+            <ng-template let-a="rowData"  pTemplate="body">
+                <button pButton type="button" label="编辑" (click)="onEdit(a)"></button>
+                <button pButton type="button" label="删除" (click)="onDelete(a)"></button>
             </ng-template>
           </p-column>
         </p-dataTable>
@@ -46,44 +47,44 @@
     <div class="form-group">
       <label for="ip" class="col-xs-4 col-sm-4 dialog-label">平台IP地址：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platformCode">
+        <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
       </div>
     </div>
     <div class="form-group">
       <label for="port" class="col-xs-4 col-sm-4 dialog-label">端口号：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="port" name="name"  >
+        <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
       </div>
     </div>
     <div class="form-group">
       <label for="name" class="col-xs-4 col-sm-4 dialog-label">平台名称：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="name" name="name"  >
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
       </div>
     </div>
     <div class="form-group">
       <label for="code" class="col-xs-4 col-sm-4 dialog-label">平台代码：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="code" name="code" >
+        <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
       </div>
     </div>
     <div class="form-group">
       <label for="contactName" class="col-xs-4 col-sm-4 dialog-label">平台联系人：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="contactName" name="contactName" >
+        <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
       </div>
     </div>
     <div class="form-group">
       <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台联系电话：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="contactPhone" name="contactPhone" >
+        <input type="text" class="form-control" id="contactPhone" name="contactPhone" [(ngModel)]="platform.contactPhone">
       </div>
     </div>
 
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-      <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>
+      <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?onSave():update()"></button>
       <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>
     </div>
   </p-footer>
