@@ -17,6 +17,9 @@ var mapObject = (function() {
         maplet.resize(document.getElementById(elm).clientWidth, document.documentElement.clientHeight - 200);
       };
     },
+    reload:function () {
+      maplet.centerAndZoom(new MPoint(116.35566, 39.93218), 12);
+    },
     clean:function () {
       if(maplet){
         console.log("in  clean");
