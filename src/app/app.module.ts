@@ -35,9 +35,8 @@ import { DynamicComponent } from './hfyz/common/dynamic/dynamic.component';
 import { InfoListComponent } from './hfyz/info-manage/info-list/info-list.component';
 import { InfoPublishComponent } from './hfyz/info-manage/info-publish/info-publish.component';
 import { InfoCheckComponent } from './hfyz/info-manage/info-check/info-check.component';
-// import {PlatformManageComponent} from './hfyz/platform-manage/platform-manage.component';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
-
+import {CarModule} from './hfyz/car/car.module';
 
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
@@ -73,6 +72,7 @@ export function ConfigLoader(configService: ConfigService) {
         InfoManageModule,
         MapModule,
         PlatformManageModule,
+        CarModule
     ],
 
     /*providers: [ConfigService,
