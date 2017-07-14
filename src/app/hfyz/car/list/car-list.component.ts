@@ -28,8 +28,8 @@ export class CarListComponent implements OnInit {
     this.totalCars=0;
     this.cars=[];
     this.licenseNo='';
-    this.businessTypes=[{label: '班线客车', value: '班线客车'},{label: '旅游包车', value: '旅游包车'},{label: '危险品运输车', value: '危险品运输车'}]
-    this.businessType=this.businessTypes[0].value;
+    this.businessTypes=[{label: '全部', value: ''},{label: '班线客车', value: '班线客车'},{label: '旅游包车', value: '旅游包车'},{label: '危险品运输车', value: '危险品运输车'}]
+    this.businessType='';
     this.layoutComponent = this.inj.get(LayoutComponent);
   }
 
@@ -42,10 +42,10 @@ export class CarListComponent implements OnInit {
   }
 
   loadDate(offset = 0){
-    if(this.regularService.isBlank(this.businessType)){
-      this.toastr.error('请选择行业类别');
-      return false;
-    }
+    // if(this.regularService.isBlank(this.businessType)){
+    //   this.toastr.error('请选择行业类别');
+    //   return false;
+    // }
     this.carService.search(this.businessType,this.licenseNo,this.max, offset).subscribe(
       res => {
         this.cars = res.carList;
@@ -62,12 +62,17 @@ export class CarListComponent implements OnInit {
   }
 
   showRealTimeMap(item){
-    let menu={name:'实时数据',icon:'fa-map',code:'realTimeMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    let menu={name:'实时状态',icon:'fa-map',code:'realTimeMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    this.layoutComponent.addTab(menu);
+  }
+
+  showRealTimeMonitorMap(item){
+    let menu={name:'实时监控',icon:'fa-map',code:'realTimeMonitorMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
     this.layoutComponent.addTab(menu);
   }
 
   showHistoryMapp(item){
-    let menu={name:'历史数据',icon:'fa-map',code:'historyMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    let menu={name:'历史轨迹',icon:'fa-map',code:'historyMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
     this.layoutComponent.addTab(menu);
   }
 

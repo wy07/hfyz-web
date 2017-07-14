@@ -29,6 +29,7 @@ export const components = {
   operationLog: LogManageComponent,
   platformManage: PlatformManageComponent,
   realTimeMap: MapComponent,
+  realTimeMonitorMap: MapComponent,
   historyMap: MapComponent,
   otherMap: MapComponent,
   nullMap: NullMapComponent,
