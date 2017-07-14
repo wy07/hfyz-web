@@ -253,7 +253,7 @@ export class MapComponent implements OnInit,OnDestroy {
       $this.getRealTimeGnssData();
       this.timer = setInterval(function () {
         $this.getRealTimeGnssData();
-      }, 1000)
+      }, 2000)
     }else{
       this.toastr.error("请输入车架号");
     }
@@ -268,7 +268,7 @@ export class MapComponent implements OnInit,OnDestroy {
       $this.getRealTimeMonitorGnssData();
       this.timer = setInterval(function () {
         $this.getRealTimeMonitorGnssData();
-      }, 1000)
+      }, 2000)
     }else{
       this.toastr.error("请输入车架号");
     }
@@ -325,6 +325,6 @@ export class MapComponent implements OnInit,OnDestroy {
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimePoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeMonitorGnssData));
+    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData));
   }
 }
