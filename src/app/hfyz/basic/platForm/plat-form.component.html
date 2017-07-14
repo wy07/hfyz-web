@@ -7,16 +7,16 @@
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">企业名称：</span>
-            <input type="text" class="form-control"/>
+            <input type="text" class="form-control" [(ngModel)]="company" name="company"/>
           </div>
         </div>
         <div class="col-md-5">
         <div class="input-group">
           <span class="input-group-addon">查岗时间：</span>
           <div>
-            <p-calendar></p-calendar>
+            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd"></p-calendar>
             -
-            <p-calendar></p-calendar>
+            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd"></p-calendar>
           </div>
         </div>
         </div>
@@ -43,7 +43,7 @@
         <th>查岗人</th>
         <th>应答时间</th>
         <th>应答内容</th>
-        <th>响应时间</th>
+        <th>响应时间/秒</th>
       </tr>
       </thead>
       <tbody>

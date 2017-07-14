@@ -7,14 +7,8 @@ export class PlatFormService {
   constructor(public restangular: Restangular) {
   }
 
-  list(max, offset) {
+  list(max, offset, company, sd, ed) {
     return this.restangular.all('ownerCheckRecords').customGET('list',
-        {max: max, offset: offset});
+        {max: max, offset: offset, company: company, startDate: sd, endDate: ed});
   }
-  // search(position,query) {
-  //   return this.restangular.all('menus').customGET('search', {
-  //     query: query,
-  //     position:position
-  //   });
-  // }
 }

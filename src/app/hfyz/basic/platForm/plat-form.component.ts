@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlatFormService } from './shared/plat-form.service';
+import DateTimeFormat = Intl.DateTimeFormat;
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'plat-form',
@@ -23,27 +25,27 @@ export class PlatFormComponent implements OnInit {
     , private _toastr: ToastsManager
     , private _regularService: RegularService
     , private  _platFormService: PlatFormService
+    , private datePipe: DatePipe
   ) {
     this.company = '';
     this.startDate = '';
     this.endDate = '';
     this.max = 10;
     this.total = 0;
-    this.initData();
   }
 
   ngOnInit() {
+    this.initData();
   }
 
 
   initData(offset = 0) {
-    console.log('------company----' + this.company);
-    console.log('----startDate----' + this.startDate);
-    console.log('-----endDate--------' + this.endDate);
-    this._platFormService.list(this.max, offset).subscribe(
+    const sd = this.datePipe.transform( this.startDate, 'yyyy-MM-dd');
+    const ed = this.datePipe.transform( this.endDate, 'yyyy-MM-dd');
+    this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
       res => {
         this.checkRecordList = res.checkRecordList;
-        this.total = res.checkRecordList[0].total;
+        this.total = res.total;
       }
     );
   }
