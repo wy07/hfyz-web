@@ -34,8 +34,9 @@
       <p-column field="carColor" header="车身颜色"></p-column>
       <p-column field="" header="操作">
         <ng-template let-item="rowData" pTemplate="body">
-          <button type="button" class="btn btn-default" (click)="showRealTimeMap(item)">实时数据</button>
-          <button type="button" class="btn btn-default" (click)="showHistoryMapp(item)">历史数据</button>
+          <button type="button" class="btn btn-default" (click)="showRealTimeMap(item)">实时状态</button>
+          <button type="button" class="btn btn-default" (click)="showRealTimeMonitorMap(item)">实时监控</button>
+          <button type="button" class="btn btn-default" (click)="showHistoryMapp(item)">历史轨迹</button>
         </ng-template>
       </p-column>
     </p-dataTable>

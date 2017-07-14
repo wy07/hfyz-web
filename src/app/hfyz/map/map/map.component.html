@@ -29,6 +29,21 @@
       <button type="button" class="btn btn-default" (click)="getHistoryMap()">查询</button>
     </div>
   </div>
+  <div *ngIf="mapCode=='realTimeMonitorMap'">
+    <div class="col-sm-7">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="realTimeMonitorFrameNo" class="col-sm-3 control-label">车架号</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" [(ngModel)]="realTimeMonitorFrameNo" id="realTimeMonitorFrameNo" placeholder="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-default" (click)="getRealTimeMonitorMap()">查询</button>
+    </div>
+  </div>
 
   <div id="map" style="width: 100%;height: 100%"></div>
 </div>
@@ -50,6 +65,25 @@
       <div class="col-sm-3">车辆状态：{{realTimeGnssData?.vehicleState}}</div>
       <div class="col-sm-3">报警状态：{{realTimeGnssData?.alarmState}}</div>
       <div class="col-sm-3">更新时间：{{realTimeGnssData?.dateStr}}</div>
+    </div>
+  </p-panel>
+</div>
+
+<div *ngIf="mapCode=='realTimeMonitorMap'">
+  <p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
+    <div class="row">
+      <div class="col-sm-3">车牌号码：{{realTimeMonitorGnssData?.plateNo}}</div>
+      <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
+      <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
+      <div class="col-sm-3">经纬度：{{realTimeMonitorGnssData?.geoPoint}}</div>
+      <div class="col-sm-3">速度：{{realTimeMonitorGnssData?.gpsSpeed}}km/s</div>
+      <div class="col-sm-3">行驶记录速度：{{realTimeMonitorGnssData?.recSpeed}}km/s</div>
+      <div class="col-sm-3">总里程数：{{realTimeMonitorGnssData?.totalMileage}}</div>
+      <div class="col-sm-3">方向：{{realTimeMonitorGnssData?.direction}}</div>
+      <div class="col-sm-3">海拔高度：{{realTimeMonitorGnssData?.altitude}}</div>
+      <div class="col-sm-3">车辆状态：{{realTimeMonitorGnssData?.vehicleState}}</div>
+      <div class="col-sm-3">报警状态：{{realTimeMonitorGnssData?.alarmState}}</div>
+      <div class="col-sm-3">更新时间：{{realTimeMonitorGnssData?.dateStr}}</div>
     </div>
   </p-panel>
 </div>

@@ -13,6 +13,7 @@ declare var mapObject: any;
 export class MapComponent implements OnInit,OnDestroy {
   realTimePoint: any;
   realTimeGnssData: GnssData;
+  realTimeMonitorGnssData: GnssData;
   timer: any;
   lng: number;
   lat: number;
@@ -21,6 +22,8 @@ export class MapComponent implements OnInit,OnDestroy {
 
   realTimeMapKey:string;
   realTimeMapFrameNo:string;
+  realTimeMonitorKey:string;
+  realTimeMonitorFrameNo:string;
   historyMapKey:string;
   historyMapFrameNo:string;
 
@@ -31,11 +34,158 @@ export class MapComponent implements OnInit,OnDestroy {
     this.lng = 116.35566;
     this.lat = 39.93218;
     this.realTimeGnssData = null;
+    this.realTimeMonitorGnssData = null;
     this.mapCode=null;
     this.realTimeMapKey='';
     this.realTimeMapFrameNo='';
     this.historyMapKey='';
     this.historyMapFrameNo='';
+    this.realTimeMonitorKey='';
+    this.realTimeMonitorFrameNo='';
+    this.points = [{
+      'dateStr': '2017-06-30 07:36:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.35566,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:37:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.35666,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:38:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.35766,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 1
+    }, {
+      'dateStr': '2017-06-30 07:39:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.35816,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 1
+    }, {
+      'dateStr': '2017-06-30 07:40:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.35966,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:41:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.36166,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:42:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.36267,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:43:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.36467,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:44:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.36568,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:45:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.36667,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    }, {
+      'dateStr': '2017-06-30 07:46:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': '116.37168,39.93218',
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 1
+    }];
     this.mapService.change.subscribe((inputs:any)=>{
       clearTimeout(this.timer);
       mapObject.clean();
@@ -48,6 +198,11 @@ export class MapComponent implements OnInit,OnDestroy {
         if(this.historyMapKey!=inputs.key){
           this.historyMapKey=inputs.key;
           this.historyMapFrameNo=inputs.frameNo;
+        }
+      }else if(inputs.code==='realTimeMonitorMap'){
+        if(this.realTimeMonitorKey!=inputs.key){
+          this.realTimeMonitorKey=inputs.key;
+          this.realTimeMonitorFrameNo=inputs.frameNo;
         }
       }
 
@@ -76,6 +231,10 @@ export class MapComponent implements OnInit,OnDestroy {
       if(this.historyMapFrameNo){
         this.getHistoryMap();
       }
+    }else if(this.mapCode==='realTimeMonitorMap'){
+      if(this.realTimeMonitorFrameNo){
+        this.getRealTimeMonitorMap();
+      }
     }else{
       mapObject.clean();
     }
@@ -98,159 +257,32 @@ export class MapComponent implements OnInit,OnDestroy {
     }else{
       this.toastr.error("请输入车架号");
     }
-
   }
+
+  getRealTimeMonitorMap(){
+    if(this.realTimeMonitorFrameNo){
+      clearTimeout(this.timer);
+      this.lng = 116.35566;
+      this.lat = 39.93218;
+      let $this = this;
+      $this.getRealTimeMonitorGnssData();
+      this.timer = setInterval(function () {
+        $this.getRealTimeMonitorGnssData();
+      }, 1000)
+    }else{
+      this.toastr.error("请输入车架号");
+    }
+  }
+
   getHistoryMap(){
     if(this.historyMapFrameNo){
-      this.points = [{
-        'dateStr': '2017-06-30 07:36:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.35566,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:37:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.35666,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:38:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.35766,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 1
-      }, {
-        'dateStr': '2017-06-30 07:39:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.35816,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 1
-      }, {
-        'dateStr': '2017-06-30 07:40:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.35966,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:41:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.36166,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:42:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.36267,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:43:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.36467,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:44:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.36568,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:45:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.36667,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 0
-      }, {
-        'dateStr': '2017-06-30 07:46:11',
-        'plateColor': 2,
-        'plateNo': '皖A35898',
-        'posEncrypt': 0,
-        'geoPoint': '116.37168,39.93218',
-        'gpsSpeed': 60,
-        'totalMileage': 1,
-        'recSpeed': 60,
-        'direction': 350,
-        'altitude': 0,
-        'vehicleState': 3,
-        'alarmState': 1
-      }];
       this.showPath();
     }else{
       this.toastr.error("请输入车架号");
     }
   }
+
+
 
   showPath() {
     for (let point of this.points) {
@@ -275,5 +307,24 @@ export class MapComponent implements OnInit,OnDestroy {
       'alarmState': 0
     };
     mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData));
+  }
+
+  getRealTimeMonitorGnssData() {
+    this.lng += 0.001;
+    this.realTimeMonitorGnssData = {
+      'dateStr': '2017-06-30 07:36:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': `${this.lng},${this.lat}`,
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    };
+    mapObject.realTimePoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeMonitorGnssData));
   }
 }

@@ -26,6 +26,7 @@ export const components = {
   infoCheck: InfoCheckComponent,
   infoList: InfoListComponent,
   realTimeMap: MapComponent,
+  realTimeMonitorMap: MapComponent,
   historyMap: MapComponent,
   otherMap: MapComponent,
   nullMap: NullMapComponent,

@@ -62,12 +62,17 @@ export class CarListComponent implements OnInit {
   }
 
   showRealTimeMap(item){
-    let menu={name:'实时数据',icon:'fa-map',code:'realTimeMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    let menu={name:'实时状态',icon:'fa-map',code:'realTimeMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    this.layoutComponent.addTab(menu);
+  }
+
+  showRealTimeMonitorMap(item){
+    let menu={name:'实时监控',icon:'fa-map',code:'realTimeMonitorMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
     this.layoutComponent.addTab(menu);
   }
 
   showHistoryMapp(item){
-    let menu={name:'历史数据',icon:'fa-map',code:'historyMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
+    let menu={name:'历史轨迹',icon:'fa-map',code:'historyMap',inputs:{frameNo:item.frameNo,id:item.frameNo}};
     this.layoutComponent.addTab(menu);
   }
 
