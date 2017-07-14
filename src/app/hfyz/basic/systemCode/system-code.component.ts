@@ -39,7 +39,6 @@ export class SystemCodeComponent implements OnInit {
     , private inj: Injector) {
     this.displayDialog = false;
     this.systemCode = {};
-
   }
 
   ngOnInit() {

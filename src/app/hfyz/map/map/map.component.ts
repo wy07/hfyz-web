@@ -1,45 +1,47 @@
-import { Component, OnInit, OnChanges, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GnssData } from '../../common/shared/gnss-data';
-// declare var minemap: any;
-
+import {MapService} from "../shared/map.service";
+import {ToastsManager} from "ng2-toastr";
+import {RegularService} from "../../common/shared/regular.service";
 declare var mapObject: any;
 
 @Component({
   selector: 'app-map',
-  templateUrl: 'real-time-map.component.html',
-  styleUrls: ['real-time-map.component.css']
+  templateUrl: 'map.component.html',
+  styleUrls: ['map.component.css']
 })
-export class RealTimeMapComponent implements OnInit {
+export class MapComponent implements OnInit,OnDestroy {
   realTimePoint: any;
   realTimeGnssData: GnssData;
+  realTimeMonitorGnssData: GnssData;
   timer: any;
   lng: number;
   lat: number;
   points: any[];
+  mapCode:string;
+
+  realTimeMapKey:string;
+  realTimeMapFrameNo:string;
+  realTimeMonitorKey:string;
+  realTimeMonitorFrameNo:string;
+  historyMapKey:string;
+  historyMapFrameNo:string;
 
 
-  constructor() {
+  constructor(private toastr: ToastsManager
+    , private regularService: RegularService
+    ,private mapService:MapService) {
     this.lng = 116.35566;
     this.lat = 39.93218;
     this.realTimeGnssData = null;
-  }
-
-  ngOnInit() {
-    mapObject.initMap('map');
-  }
-
-  initRealTimeMap() {
-    mapObject.clean();
-    let $this = this;
-    $this.getRealTimeGnssData();
-    this.timer = setInterval(function () {
-      $this.getRealTimeGnssData();
-    }, 1000)
-  }
-
-  initHistoryMap() {
-    clearTimeout(this.timer);
-    mapObject.clean();
+    this.realTimeMonitorGnssData = null;
+    this.mapCode=null;
+    this.realTimeMapKey='';
+    this.realTimeMapFrameNo='';
+    this.historyMapKey='';
+    this.historyMapFrameNo='';
+    this.realTimeMonitorKey='';
+    this.realTimeMonitorFrameNo='';
     this.points = [{
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -184,8 +186,103 @@ export class RealTimeMapComponent implements OnInit {
       'vehicleState': 3,
       'alarmState': 1
     }];
-    this.showPath();
+    this.mapService.change.subscribe((inputs:any)=>{
+      clearTimeout(this.timer);
+      mapObject.clean();
+      if(inputs.code==='realTimeMap'){
+        if(this.realTimeMapKey!=inputs.key){
+          this.realTimeMapKey=inputs.key;
+          this.realTimeMapFrameNo=inputs.frameNo;
+        }
+      }else if(inputs.code==='historyMap'){
+        if(this.historyMapKey!=inputs.key){
+          this.historyMapKey=inputs.key;
+          this.historyMapFrameNo=inputs.frameNo;
+        }
+      }else if(inputs.code==='realTimeMonitorMap'){
+        if(this.realTimeMonitorKey!=inputs.key){
+          this.realTimeMonitorKey=inputs.key;
+          this.realTimeMonitorFrameNo=inputs.frameNo;
+        }
+      }
+
+      if(this.mapCode){
+        this.mapCode = inputs.code;
+        this.initMap();
+      }else{
+        this.mapCode = inputs.code;
+      }
+    })
   }
+
+  ngOnInit() {
+    mapObject.initMap('map');
+    if(this.mapCode){
+      this.initMap();
+    }
+  }
+
+  initMap(){
+    if(this.mapCode=='realTimeMap'){
+      if(this.realTimeMapFrameNo){
+        this.getRealTimeMap();
+      }
+    }else if(this.mapCode=='historyMap'){
+      if(this.historyMapFrameNo){
+        this.getHistoryMap();
+      }
+    }else if(this.mapCode==='realTimeMonitorMap'){
+      if(this.realTimeMonitorFrameNo){
+        this.getRealTimeMonitorMap();
+      }
+    }else{
+      mapObject.clean();
+    }
+  }
+
+  ngOnDestroy() {
+    clearTimeout(this.timer);
+  }
+
+  getRealTimeMap(){
+    if(this.realTimeMapFrameNo){
+      clearTimeout(this.timer);
+      this.lng = 116.35566;
+      this.lat = 39.93218;
+      let $this = this;
+      $this.getRealTimeGnssData();
+      this.timer = setInterval(function () {
+        $this.getRealTimeGnssData();
+      }, 2000)
+    }else{
+      this.toastr.error("请输入车架号");
+    }
+  }
+
+  getRealTimeMonitorMap(){
+    if(this.realTimeMonitorFrameNo){
+      clearTimeout(this.timer);
+      this.lng = 116.35566;
+      this.lat = 39.93218;
+      let $this = this;
+      $this.getRealTimeMonitorGnssData();
+      this.timer = setInterval(function () {
+        $this.getRealTimeMonitorGnssData();
+      }, 2000)
+    }else{
+      this.toastr.error("请输入车架号");
+    }
+  }
+
+  getHistoryMap(){
+    if(this.historyMapFrameNo){
+      this.showPath();
+    }else{
+      this.toastr.error("请输入车架号");
+    }
+  }
+
+
 
   showPath() {
     for (let point of this.points) {
@@ -212,4 +309,22 @@ export class RealTimeMapComponent implements OnInit {
     mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData));
   }
 
+  getRealTimeMonitorGnssData() {
+    this.lng += 0.001;
+    this.realTimeMonitorGnssData = {
+      'dateStr': '2017-06-30 07:36:11',
+      'plateColor': 2,
+      'plateNo': '皖A35898',
+      'posEncrypt': 0,
+      'geoPoint': `${this.lng},${this.lat}`,
+      'gpsSpeed': 60,
+      'totalMileage': 1,
+      'recSpeed': 60,
+      'direction': 350,
+      'altitude': 0,
+      'vehicleState': 3,
+      'alarmState': 0
+    };
+    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData));
+  }
 }
