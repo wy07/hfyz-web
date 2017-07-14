@@ -45,8 +45,8 @@ export class MapComponent implements OnInit,OnDestroy {
           this.realTimeMapFrameNo=inputs.frameNo;
         }
       }else if(inputs.code==='historyMap'){
-        if(this.realTimeMapKey!=inputs.key){
-          this.realTimeMapKey=inputs.key;
+        if(this.historyMapKey!=inputs.key){
+          this.historyMapKey=inputs.key;
           this.historyMapFrameNo=inputs.frameNo;
         }
       }
@@ -87,6 +87,9 @@ export class MapComponent implements OnInit,OnDestroy {
 
   getRealTimeMap(){
     if(this.realTimeMapFrameNo){
+      clearTimeout(this.timer);
+      this.lng = 116.35566;
+      this.lat = 39.93218;
       let $this = this;
       $this.getRealTimeGnssData();
       this.timer = setInterval(function () {
