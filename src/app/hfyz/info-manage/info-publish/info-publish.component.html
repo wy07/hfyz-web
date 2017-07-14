@@ -1,25 +1,25 @@
-<div class="panel panel-default">
+<div class="ui-g"  *ngIf="actionStr=='list'">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-4">
         <div class="input-group">
           <span class="input-group-addon">标题：</span>
-          <input type="text" class="form-control" placeholder="请输入文档标题..."/>
+          <input type="text" [(ngModel)]="textTitle" class="form-control" placeholder="请输入文档标题..."/>
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-group">
           <span class="input-group-addon">起草时间：</span>
           <div>
-            <p-calendar></p-calendar>
+            <p-calendar  [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd" name="dateBegin" ></p-calendar>
             -
-            <p-calendar></p-calendar>
+            <p-calendar  [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" name="dateEnd"></p-calendar>
           </div>
         </div>
       </div>
       <div class="col-md-2">
-        <button type="button" class="btn btn-primary">检索</button>
-        <button type="button" class="btn btn-primary">新增</button>
+        <button  pButton type="button" label="检索" (click)="onSearch()" ></button>
+        <button  pButton type="button" label="新增" (click)="onCreate()" ></button>
       </div>
     </div>
   </div>
@@ -27,61 +27,110 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-     <!-- <p-dataTable  [rows]="10" [paginator]="true" [pageLinks]="7" [rowsPerPageOptions]="[5,10,20]">
-      <p-column field="">
-        <ng-template pTemplate="header">
-          <input type="checkbox">
-        </ng-template>
-      </p-column>
-      <p-column field="" header="序号"></p-column>
-      <p-column field="" header="类别"></p-column>
-      <p-column field="" header="标题"></p-column>
-      <p-column field="" header="起草时间"></p-column>
-      <p-column field="" header="用户"></p-column>
-      <p-column field="" header="状态"></p-column>
+      <p-dataTable  [value]="publishList" [emptyMessage]="'暂无数据'" >
+     <!-- <p-column field="" header="序号"></p-column>-->
+      <p-column field="type" header="类别"></p-column>
+      <p-column field="title" header="标题"></p-column>
+      <p-column field="dateCreated" header="起草时间"></p-column>
+      <p-column field="username" header="用户"></p-column>
+      <p-column field="status" header="状态"></p-column>
       <p-column field="" header="操作">
-        <ng-template  pTemplate="body">
-          <button type="button" class="btn btn-info">修改</button>
-          <button type="button" class="btn btn-info">删除</button>
+        <ng-template  pTemplate="body" let-infoItem="rowData">
+          <button  pButton type="button"  class="btn btn-info" label="编辑" (click)="onEdit(infoItem)"></button>
+          <button  pButton type="button" class="btn btn-info" label="删除" (click)="onDelete(infoItem)"></button>
         </ng-template>
       </p-column>
-      </p-dataTable>-->
-        <table class="table">
-          <tr>
-            <th>序号</th>
-            <th>类别</th>
-            <th>标题</th>
-            <th>起草时间</th>
-            <th>用户</th>
-            <th>状态</th>
-            <th>操作</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>政策法规</td>
-            <td>中华人民共和国行政诉讼法</td>
-            <td>2017-07-03 10:04:16</td>
-            <td>王敏</td>
-            <td>起草</td>
-            <td>
-              <button type="button" class="btn btn-info">修改</button>
-              <button type="button" class="btn btn-info">删除</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>标准</td>
-            <td>机动车维修规定</td>
-            <td>2017-07-07 10:24:36</td>
-            <td>王敏</td>
-            <td>起草</td>
-            <td>
-              <button type="button" class="btn btn-info">修改</button>
-              <button type="button" class="btn btn-info">删除</button>
-            </td>
-          </tr>
-        </table>
+      </p-dataTable>
       </div>
     </div>
   </div>
 </div>
+
+
+<div *ngIf="actionStr == 'details'">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="form-group"  >
+        <span>信息编辑</span>
+      </div>
+    </div>
+
+    <div class="panel-body">
+    <form class="form-horizontal">
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">类别 &nbsp;</label>
+      <p-dropdown [options]="infoType" [(ngModel)]="infoaudit.type"  name="selectedType" placeholder="请选择类别"></p-dropdown>
+
+    </div>
+
+    <div class="form-group">
+      <label  class="col-sm-2 control-label">标题</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" [(ngModel)]="infoaudit.title" name="title" placeholder="请输入...">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label  class="col-sm-2 control-label">起草时间</label>
+      <div class="col-sm-6" *ngIf="isAdd==true">
+        <p-calendar  [showTime]="true" [(ngModel)]="infoaudit.vimTime" name="dataCreate"></p-calendar>
+      </div>
+      <div class="col-sm-6" *ngIf="isAdd==false">
+        <!--<label  class="form-control" > {{infoaudit.vimTime| date:'yyyy-MM-dd HH:mm:ss' }}</label>-->
+        {{infoaudit.vimTime| date:'yyyy-MM-dd HH:mm:ss' }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+      <div class="col-sm-8">
+        <ckeditor name="ckeditor"
+                  [(ngModel)]="infoaudit.content"
+                  [readonly]="false"
+                  debounce="500">
+        </ckeditor>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">用户</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="inputPassword3"  [(ngModel)]="currentUser" name="userName" placeholder="{{currentUser}}" >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">状态</label>
+      <!--<p-dropdown [options]="infoStatus" [(ngModel)]="infoaudit.status" name="selectedStutas"></p-dropdown>-->
+      <div class="col-sm-2" >{{"起草"}}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputFile" class="col-sm-2 control-label">附件</label>
+      <input type="file" id="exampleInputFile" class="col-sm-1 control-label">
+    </div>
+
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-2">
+      <button  pButton type="button" label="保存" (click)="onSaveNew()" ></button>
+      <button  pButton type="button" label="退出" (click)="onQuit()" ></button>
+    </div>
+    </div>
+
+  </form>
+    </div>
+</div>
+</div>
+
+
+<p-dialog header="提示" [(visible)]="displayDialog" modal="modal" height="200" width="300" [responsive]="true">
+ <P>是否保存信息？请选择！</P>
+
+  <p-footer>
+    <!--<button type="button" pButton icon="fa-check" (click)="onSure()" label="是"></button>-->
+    <button type="button" pButton icon="fa-check" (click)="isAdd?onSure():update()" label="是"></button>
+    <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
+  </p-footer>
+</p-dialog>
