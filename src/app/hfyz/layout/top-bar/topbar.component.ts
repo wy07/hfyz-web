@@ -46,9 +46,20 @@ export class TopBarComponent implements OnInit {
 					this._authService.logout();
 					path = 'login';
 				}
+				if (path === 'changepwd') {
+				  this.addTab(path);
+        }
 				this._router.navigate([path]);
 			}
 
 		}
 	}
+  addTab(path) {
+	  const menu = {};
+	  menu['name'] = '修改密码';
+	  menu['code'] = path;
+    menu['selected'] = true;
+    menu['closable'] = true;
+    this.layoutComponent.addTab(menu);
+  }
 }
