@@ -115,8 +115,14 @@ export class PlatformManageComponent implements OnInit {
   }
 
   validate() {
+    // IP地址验证
     if (this.regularService.isBlank(this.platform.ip)) {
       this.toastr.error('平台IP地址不能为空');
+      return false;
+    }
+    if (this.platform.ip === '0.0.0.0' || this.platform.ip === '255.255.255.255' ||
+      !(this.platform.ip.match(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/))) {
+      this.toastr.error('请输入正确的IP地址');
       return false;
     }
     if (this.regularService.isBlank(this.platform.port)) {
