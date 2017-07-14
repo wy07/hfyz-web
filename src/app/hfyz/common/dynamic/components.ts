@@ -12,6 +12,7 @@ import {NullMapComponent} from "../../map/nullMap/null-map.component";
 import {CarListComponent} from "../../car/list/car-list.component";
 import {MapComponent} from "../../map/map/map.component";
 import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.component';
+import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
 
 export const components = {
   role: RoleComponent,
@@ -30,5 +31,6 @@ export const components = {
   nullMap: NullMapComponent,
   operationLog: LogManageComponent,
   carList: CarListComponent,
-  changepwd: ChangePwdComponent
+  changepwd: ChangePwdComponent,
+  ownerCheckRecord: PlatFormComponent
 };

@@ -1,0 +1,67 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+<div class="row">
+  <div class="col-sm-12">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <div class="col-sm-4">
+          <div class="input-group">
+            <span class="input-group-addon">企业名称：</span>
+            <input type="text" class="form-control" [(ngModel)]="company" name="company"/>
+          </div>
+        </div>
+        <div class="col-md-5">
+        <div class="input-group">
+          <span class="input-group-addon">查岗时间：</span>
+          <div>
+            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd"></p-calendar>
+            -
+            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd"></p-calendar>
+          </div>
+        </div>
+        </div>
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-primary" (click)="initData()">检索</button>
+          <button type="submit" class="btn btn-primary">取消</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+</div>
+<div class="panel panel-info">
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>企业名称</th>
+        <th>查岗时间</th>
+        <th>查岗内容</th>
+        <th>问题答案</th>
+        <th>信息状态</th>
+        <th>查岗类型</th>
+        <th>查岗人</th>
+        <th>应答时间</th>
+        <th>应答内容</th>
+        <th>响应时间/秒</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let checkRecord of checkRecordList">
+          <td>{{checkRecord.companyCode}}</td>
+          <td>{{checkRecord.dateCreated}}</td>
+          <td>{{checkRecord.question}}</td>
+          <td>{{checkRecord.answer}}</td>
+          <td>{{checkRecord.responsed ? '已响应':'未响应'}}</td>
+          <td>{{checkRecord.auto ? '自动':'手动'}}</td>
+          <td>{{checkRecord.operator || '无'}}</td>
+          <td>{{checkRecord.responseDate || '无'}}</td>
+          <td>{{checkRecord.responseContent || '无'}}</td>
+          <td>{{checkRecord.responseTime || '无'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
+  </div>
+</div>
+</div>
