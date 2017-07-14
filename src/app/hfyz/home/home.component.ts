@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {ChartModule,PanelModule} from 'primeng/primeng';
+import { ChartModule, PanelModule } from 'primeng/primeng';
 @Component({
-	selector: 'home',
-	templateUrl: 'home.component.html',
-	styleUrls: ['home.component.css']
+    selector: 'home',
+    templateUrl: 'home.component.html',
+    styleUrls: ['home.component.css']
 })
 
 export class HomeComponent implements OnInit {
-	data: any;
-	datapie:any;
-	ngOnInit() { 
-		this.data = {
+    data: any;
+    datapie: any;
+    ngOnInit() {
+        this.data = {
             labels: ['一月', '二月', '三月', '四月', '五月', '6月', '7月'],
             datasets: [
                 {
@@ -27,24 +27,22 @@ export class HomeComponent implements OnInit {
                 }
             ]
         }
-		this.datapie = {
-            labels: ['出租车','旅游车','公交车'],
+        this.datapie = {
+            labels: ['出租车', '旅游车', '公交车'],
             datasets: [
                 {
                     data: [300, 50, 100],
                     backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
                     ],
                     hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
                     ]
-                }]    
-            };
+                }]
+        };
     }
-	
-	
-}
+};

@@ -1,24 +1,31 @@
+import { OrganizationComponent } from './../../basic/organization/organization.component';
+import { SystemCodeComponent } from './../../basic/systemCode/system-code.component';
+import { MenuComponent } from './../../basic/menu/menu.component';
+import { RoleComponent } from './../../basic/role/role.component';
+import { UserComponent } from './../../basic/user/user.component';
+import { LogManageComponent } from './../../log-manage/log-manage.component';
+import { AdminComponent } from './../../admin/admin.component';
+import { HomeComponent } from './../../home/home.component';
+import { InfoPublishComponent } from '../../info-manage/info-publish/info-publish.component';
+import { InfoCheckComponent } from '../../info-manage/info-check/info-check.component';
+import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
+import {RealTimeMapComponent} from '../../map/realTimeMap/real-time-map.component';
+import {HistoryMapComponent} from '../../map/historyMap/history-map.component';
 
-import {RoleComponent} from "./../../role/role.component";
-import {UserComponent} from "./../../user/user.component";
-import {AdminComponent} from "./../../admin/admin.component";
-import {MenuListComponent} from "./../../menu/list/menu-list.component"
-import {SystemCodeListComponent} from "./../../systemCode/list/system-code-list.component"
-import {OrganizationComponent} from "./../../organization/organization.component"
-import {HomeComponent} from "./../../home/home.component";
-import {InfoPublishComponent} from "../../infoManage/info-publish/info-publish.component";
-import {InfoCheckComponent} from "../../infoManage/info-check/info-check.component";
-import {InfoListComponent} from "../../infoManage/info-list/info-list.component";
-export const components ={
-                    role:RoleComponent
-                    ,user:UserComponent
-                    ,admin:AdminComponent
-                    ,menu:MenuListComponent
-                    ,systemcode:SystemCodeListComponent
-                    ,unit:SystemCodeListComponent
-                    ,home:HomeComponent
-                    ,organization:OrganizationComponent
-                    ,infoPublish:InfoPublishComponent
-                    ,infoCheck:InfoCheckComponent
-                    ,infoList:InfoListComponent
-                }
+
+export const components = {
+    role: RoleComponent,
+    user: UserComponent,
+    // admin: AdminComponent,
+    menu: MenuComponent,
+    systemcode: SystemCodeComponent,
+    unit: SystemCodeComponent,
+    home: HomeComponent,
+    organization: OrganizationComponent,
+    infoPublish: InfoPublishComponent,
+    infoCheck: InfoCheckComponent,
+    infoList: InfoListComponent,
+    realTimeMap: RealTimeMapComponent,
+    historyMap: HistoryMapComponent,
+    operationLog: LogManageComponent
+};
