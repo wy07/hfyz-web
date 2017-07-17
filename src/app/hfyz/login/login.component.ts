@@ -38,34 +38,34 @@ export class LoginComponent {
   }
 
   login(event) {
-    console.log('login');
+    console.log('login======');
     let body = this.loginForm.value;
-    this._authService.login(this.loginForm.value).subscribe(
-      /*return this._http.post(environment.grailsUrl+'api/login', {
-              username: body.username,
-              password: body.password
-          }, { headers: HttpHeaders })
-          .toPromise().then(*/
-      response => {
+    console.log(`username:${this.loginForm.value.username}`)
+    console.log(`password:${this.loginForm.value.password}`)
+    this._authService.login(this.loginForm.value.username, this.loginForm.value.password ).subscribe(
+      res => {
+        console.log("--------in login ")
+        sessionStorage.setItem('currentUser', JSON.stringify({ username: this.loginForm.value.username
+          ,password:this.loginForm.value.password
+          , token: res.token
+          ,roles: res.roles}));
+        sessionStorage.setItem('username', this.loginForm.value.username);
+        sessionStorage.setItem('password', this.loginForm.value.password);
+        sessionStorage.setItem('token', res.token);
 
-        let accesstoken = response && response.access_token;
-        if (accesstoken) {
-          sessionStorage.setItem('currentUser', JSON.stringify({ username: body.username, token: accesstoken,
-                                                                 roles: response.roles, refreshtoken: response.refresh_token }));
-          this._authService.isLoggedIn = true;
-          console.log(body.username);
-          this._adminService.getUserByName(body.username).subscribe(data => {
-            sessionStorage.removeItem('myprofile');
-            sessionStorage.setItem('myprofile', JSON.stringify(data.user))
-            console.log(data.user.roleRights);
-            this._configService.setRoleRights(data.user.roleRights)
-            let redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
 
-            this._router.navigate([redirect]);
-          });
-        }
+        this._adminService.getUserByName(res.sub).subscribe(data => {
+          console.log("--------in getUserByName ")
+          console.log(`data:${JSON.stringify(data)}`)
 
-        console.log(sessionStorage.getItem('currentUser'))
+          sessionStorage.removeItem('myprofile');
+          sessionStorage.setItem('myprofile', JSON.stringify(data.user))
+          console.log(data.user.roleRights);
+          this._configService.setRoleRights(data.user.roleRights)
+          let redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
+          console.log(redirect)
+          this._router.navigate([redirect]);
+        });
       },
       error => {
         this._authService.isLoggedIn = false;
