@@ -21,6 +21,7 @@ export class PlatFormComponent implements OnInit {
   total: number;
   currentPage: number;
   flag: boolean;
+  maxDate: any;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
@@ -29,18 +30,23 @@ export class PlatFormComponent implements OnInit {
     , private datePipe: DatePipe
   ) {
     this.company = '';
-    this.startDate = '';
-    this.endDate = '';
+    this.startDate = null;
+    this.endDate = null;
     this.max = 10;
     this.total = 0;
     this.flag = false;
+    this.maxDate = new Date();
   }
 
   ngOnInit() {
     this.initData();
   }
   validation() {
-    if (this.endDate !== '' && this.startDate !== '' && this.endDate < this.startDate) {
+    if (this.startDate !== null && this.endDate.getTime() === this.startDate.getTime()) {
+      this._toastr.info('选择的日期不能相同！');
+      return false;
+    }
+    if (this.endDate !== null && this.startDate !== null && this.endDate < this.startDate) {
       this._toastr.info('请选择正确的日期！');
       return false;
     }
@@ -68,8 +74,8 @@ export class PlatFormComponent implements OnInit {
   cancel() {
     this.flag = true;
     this.company = '';
-    this.startDate = '';
-    this.endDate = '';
+    this.startDate = null;
+    this.endDate = null;
     this.initData();
   }
 }
