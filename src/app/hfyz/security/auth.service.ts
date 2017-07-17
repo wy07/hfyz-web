@@ -57,9 +57,10 @@ export class AuthService {
 	digitalConverters(digital){
 		return (String(digital).length >= 2) ? digital : '0' + digital
 	}*/
-  login(body) {
+  login(username: string, password: string) {
     //return this.restangular.all('api').customPOST('login',{username: body.username,password: body.password})
-    return this._restangular.one('api').customPOST(body, 'login');
+    // return this._restangular.one('api').customPOST(body, 'login');
+    return this._restangular.all('login').post({username: username, password: password});
   }
 
   logout() {
@@ -69,7 +70,7 @@ export class AuthService {
     let headers = new Headers({ 'Accept': 'application/json' });
     headers.append('Authorization','Bearer '+currentUser.token);
     let options = new RequestOptions({ headers: headers });
-    
+
     this._http.post(environment.grailsUrl+'logout/index', {
         },  options)
         .toPromise().then(response =>{
