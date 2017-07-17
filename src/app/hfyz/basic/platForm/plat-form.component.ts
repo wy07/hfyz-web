@@ -22,6 +22,8 @@ export class PlatFormComponent implements OnInit {
   currentPage: number;
   flag: boolean;
   maxDate: any;
+  sd: any;
+  ed: any;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
@@ -42,7 +44,7 @@ export class PlatFormComponent implements OnInit {
     this.initData();
   }
   validation() {
-    if (this.startDate !== null && this.endDate.getTime() === this.startDate.getTime()) {
+    if (this.startDate !== null && this.endDate !== null && this.endDate.getTime() === this.startDate.getTime()) {
       this._toastr.info('选择的日期不能相同！');
       return false;
     }
@@ -54,9 +56,11 @@ export class PlatFormComponent implements OnInit {
   }
   initData(offset = 0) {
     if (this.validation()) {
-      const sd = this.datePipe.transform( this.startDate, 'yyyy-MM-dd');
-      const ed = this.datePipe.transform( this.endDate, 'yyyy-MM-dd');
-      this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
+        this.sd = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+      if (this.endDate !== null) {
+        this.ed = this.endDate.getFullYear() + '-' + this.endDate.getMonth() + 1 + '-' + this.endDate.getDate() + 1;
+      }
+      this._platFormService.list(this.max, offset, this.company, this.sd, this.ed).subscribe(
         res => {
           this.checkRecordList = res.checkResult.checkRecordList;
           this.total = res.checkResult.total;
