@@ -1,17 +1,17 @@
-import { Headers} from '@angular/http';
-import {environment} from "../../../environments/environment";
+import { Headers } from '@angular/http';
+import { environment } from "../../../environments/environment";
 
 
-export function RestangularConfigFactory (RestangularProvider, router, http, toastr) {
+export function RestangularConfigFactory(RestangularProvider, router, http, toastr) {
 
   const refreshAccesstoken = function () {
     const username = sessionStorage.getItem('username');
     const password = sessionStorage.getItem('password');
     if (username && password) {
       return http.post(environment.gatewayServer + '/login'
-        , {username: username, password: password})
+        , { username: username, password: password })
         .map(res => res.json());
-    }else {
+    } else {
       console.log('数据不完善');
       router.navigate(['/login']);
     }
@@ -20,7 +20,7 @@ export function RestangularConfigFactory (RestangularProvider, router, http, toa
   // RestangularProvider.setBaseUrl(AppConfig.baseUrl);
   RestangularProvider.addFullRequestInterceptor((element, operation, path, url, headers, params) => {
     console.log(`addFullRequestInterceptor======path:${path},params:${JSON.stringify(params)},element:${JSON.stringify(element)},operation:${JSON.stringify(operation)},url:${JSON.stringify(url)}`);
-    params = Object.assign({}, params, {platform: 'web'});
+    params = Object.assign({}, params, { platform: 'web' });
     RestangularProvider.setBaseUrl(environment.gatewayServer);
     const token = sessionStorage.getItem('token');
     if (path !== 'login') {
@@ -41,13 +41,13 @@ export function RestangularConfigFactory (RestangularProvider, router, http, toa
           return response.repeatRequest(response.request);
         })
         .subscribe(
-          res => responseHandler(res),
-          err => {
-            router.navigate(['/login']);
-          }
+        res => responseHandler(res),
+        err => {
+          router.navigate(['/login']);
+        }
         );
       return false; // error handled
-    }else if (response.status === 500||response.status === 400) {
+    } else if (response.status === 500 || response.status === 400) {
       if (response.data.errors) {
         console.log(response.data.errors[0]);
         toastr.error(response.data.errors[0]);
