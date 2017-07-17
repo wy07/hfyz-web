@@ -43,38 +43,34 @@ export class LoginComponent implements OnInit {
   }
 
   login(event) {
-    this.loading = true;
-    console.log('login');
-    const body = this.loginForm.value;
-    this._authService.login(this.loginForm.value).subscribe(
-      /*return this._http.post(environment.grailsUrl+'api/login', {
-              username: body.username,
-              password: body.password
-          }, { headers: HttpHeaders })
-          .toPromise().then(*/
-      response => {
-        this.loading = false;
-        const accesstoken = response && response.access_token;
-        if (accesstoken) {
-          sessionStorage.setItem('currentUser', JSON.stringify({
-            username: body.username, token: accesstoken,
-            roles: response.roles, refreshtoken: response.refresh_token
-          }));
-          this._authService.isLoggedIn = true;
-          console.log(body.username);
-          this._adminService.getUserByName(body.username).subscribe(data => {
-            sessionStorage.removeItem('myprofile');
-            sessionStorage.setItem('myprofile', JSON.stringify(data.user));
-            console.log(data.user.roleRights);
-            this._configService.setRoleRights(data.user.roleRights);
-            const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
+    console.log('login======');
+    let body = this.loginForm.value;
+    console.log(`username:${this.loginForm.value.username}`)
+    console.log(`password:${this.loginForm.value.password}`)
+    this._authService.login(this.loginForm.value.username, this.loginForm.value.password ).subscribe(
+      res => {
+        console.log("--------in login ")
+        sessionStorage.setItem('currentUser', JSON.stringify({ username: this.loginForm.value.username
+          ,password:this.loginForm.value.password
+          , token: res.token
+          ,roles: res.roles}));
+        sessionStorage.setItem('username', this.loginForm.value.username);
+        sessionStorage.setItem('password', this.loginForm.value.password);
+        sessionStorage.setItem('token', res.token);
 
-            this._router.navigate([redirect]);
-          }, err => {
-            this.loading = false;
-          });
-        }
-        console.log(sessionStorage.getItem('currentUser'));
+
+        this._adminService.getUserByName(res.sub).subscribe(data => {
+          console.log("--------in getUserByName ")
+          console.log(`data:${JSON.stringify(data)}`)
+
+          sessionStorage.removeItem('myprofile');
+          sessionStorage.setItem('myprofile', JSON.stringify(data.user))
+          console.log(data.user.roleRights);
+          this._configService.setRoleRights(data.user.roleRights)
+          let redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
+          console.log(redirect)
+          this._router.navigate([redirect]);
+        });
       },
       error => {
         this.loading = false;

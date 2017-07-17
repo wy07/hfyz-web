@@ -57,9 +57,10 @@ export class AuthService {
 	digitalConverters(digital){
 		return (String(digital).length >= 2) ? digital : '0' + digital
 	}*/
-  login(body) {
-    // return this.restangular.all('api').customPOST('login',{username: body.username,password: body.password})
-    return this._restangular.one('api').customPOST(body, 'login');
+  login(username: string, password: string) {
+    //return this.restangular.all('api').customPOST('login',{username: body.username,password: body.password})
+    // return this._restangular.one('api').customPOST(body, 'login');
+    return this._restangular.all('login').post({username: username, password: password});
   }
 
   logout() {

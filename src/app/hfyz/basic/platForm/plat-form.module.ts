@@ -1,18 +1,17 @@
-import { RoleModule } from './../role/role.module';
+import { PlatFormService } from './shared/plat-form.service';
+import { PlatFormComponent } from './plat-form.component';
 import { CommonModule } from './../../common/common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { UserService } from './user.service';
-import { UserComponent } from './user.component';
 import { NgModule } from '@angular/core';
-import { DataTableModule, DialogModule, ListboxModule, ButtonModule } from 'primeng/primeng';
-import { ChangePwdComponent } from './changePwd/change-pwd.component'
+import { DataTableModule, DialogModule, ListboxModule, ButtonModule, DataGridModule, TreeModule, PaginatorModule, CalendarModule } from 'primeng/primeng';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
     declarations: [
-        UserComponent,
-        ChangePwdComponent
+      PlatFormComponent
     ],
     imports: [
         BrowserModule,
@@ -25,12 +24,16 @@ import { ChangePwdComponent } from './changePwd/change-pwd.component'
         DialogModule,
         ListboxModule,
         ButtonModule,
-        RoleModule,
+        DataGridModule,
+        TreeModule,
+        PaginatorModule,
+        CalendarModule
     ],
     exports: [
     ],
     providers: [
-        UserService
+      PlatFormService,
+      DatePipe
     ]
 })
-export class UserModule { };
+export class PlatFormModule { };
