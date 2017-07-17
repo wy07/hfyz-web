@@ -1,5 +1,5 @@
 import { AuthService } from './../security/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -12,7 +12,8 @@ import { ConfigService } from './../config/config.service';
   styleUrls: ['../../app.component.css', 'login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   appbrand: string;
   error: string;
@@ -36,6 +37,9 @@ export class LoginComponent {
       username: ['', Validators.compose([Validators.required, Validators.maxLength(10)])]
       , password: ['', Validators.compose([Validators.required, Validators.maxLength(20)])]
     });
+  }
+
+  ngOnInit() {
   }
 
   login(event) {
