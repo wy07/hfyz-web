@@ -8,7 +8,7 @@ export class PlatFormService {
   }
 
   list(max, offset, company, sd, ed) {
-    return this.restangular.all('ownerCheckRecords').customGET('list',
+    return this.restangular.all('owner-check-records').customGET('list',
         {max: max, offset: offset, company: company, startDate: sd, endDate: ed});
   }
 }
