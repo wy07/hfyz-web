@@ -1,9 +1,8 @@
 import { AuthService } from './../security/auth.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-// import { AuthService } from './auth.service';
 import { AdminService } from '../admin/admin.service';
 import { environment } from '../../../environments/environment';
 import { ConfigService } from './../config/config.service';
@@ -13,11 +12,13 @@ import { ConfigService } from './../config/config.service';
   styleUrls: ['../../app.component.css', 'login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   appbrand: string;
   error: string;
   returnUrl: string;
+  loading: Boolean;
   constructor(public _authService: AuthService
     , public _router: Router
     , public _http: Http
@@ -25,6 +26,7 @@ export class LoginComponent {
     , private _adminService: AdminService
     , private _activatedRoute: ActivatedRoute
     , public _configService: ConfigService) {
+    this.loading = false;
     this.error = '';
     this.appbrand = environment.appbrand;
     this._activatedRoute.params.subscribe(params => {
@@ -35,6 +37,9 @@ export class LoginComponent {
       username: ['', Validators.compose([Validators.required, Validators.maxLength(10)])]
       , password: ['', Validators.compose([Validators.required, Validators.maxLength(20)])]
     });
+  }
+
+  ngOnInit() {
   }
 
   login(event) {
@@ -68,6 +73,7 @@ export class LoginComponent {
         });
       },
       error => {
+        this.loading = false;
         this._authService.isLoggedIn = false;
         this.error = '用户名或密码不正确！';
         // this.renderPage(error)
@@ -79,7 +85,7 @@ export class LoginComponent {
                   sessionStorage.removeItem('myprofile');
                   sessionStorage.setItem('myprofile',JSON.stringify(data.user))
                   //this._configService.load()
-                  let redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/home';
+                  const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/home';
                   console.log(redirect)
                   this._router.navigate([redirect]);
               })

@@ -54,12 +54,12 @@ export class SideBarComponent implements OnInit {
 		}
 	}
 	ngOnInit() {
-		this.sidebarMenu = this._configService.getConfiguration().SIDE_BAR
-		this.changeContentClass()
+		this.sidebarMenu = this._configService.getConfiguration().SIDE_BAR;
+		this.changeContentClass();
 
 	}
 	addTab(menu) {
-		this.layoutComponent.addTab(menu)
+		this.layoutComponent.addTab(menu);
 	}
 	showContent(event: any, menu) {
 		event.preventDefault()
