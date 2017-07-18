@@ -43,7 +43,7 @@
         <th>查岗人</th>
         <th>应答时间</th>
         <th>应答内容</th>
-        <th>响应时间/秒</th>
+        <th>响应时间(分:秒)</th>
       </tr>
       </thead>
       <tbody>
@@ -57,7 +57,7 @@
           <td>{{checkRecord.operator || '无'}}</td>
           <td>{{checkRecord.responseDate || '无'}}</td>
           <td>{{checkRecord.responseContent || '无'}}</td>
-          <td>{{checkRecord.responseTime || '无'}}</td>
+          <td>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</td>
         </tr>
       </tbody>
     </table>
