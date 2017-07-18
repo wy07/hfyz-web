@@ -14,9 +14,9 @@
             <div class="input-group">
               <span class="input-group-addon">查岗时间：</span>
               <div>
-                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
                 -
-                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
               </div>
             </div>
             </div>
@@ -43,7 +43,7 @@
         <th>查岗人</th>
         <th>应答时间</th>
         <th>应答内容</th>
-        <th>响应时间/秒</th>
+        <th>响应时间(分:秒)</th>
       </tr>
       </thead>
       <tbody>
@@ -57,7 +57,7 @@
           <td>{{checkRecord.operator || '无'}}</td>
           <td>{{checkRecord.responseDate || '无'}}</td>
           <td>{{checkRecord.responseContent || '无'}}</td>
-          <td>{{checkRecord.responseTime || '无'}}</td>
+          <td>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</td>
         </tr>
       </tbody>
     </table>
