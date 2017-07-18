@@ -1,21 +1,17 @@
 import {NgModule} from '@angular/core';
-import {PlatformManageService} from './shared/platform-manage.service';
 import {HttpModule} from '@angular/http';
-import {
-  DropdownModule,
-  DataTableModule,
-  DialogModule,
-  ButtonModule,
-} from 'primeng/primeng';
+import {DropdownModule, DataTableModule, DialogModule, ButtonModule} from 'primeng/primeng';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PlatformManageComponent} from './platform-manage.component';
+import {WarningComponent} from './warning.component';
+import {WarningService} from './shared/warning.service';
+
 
 @NgModule({
   declarations: [
-    PlatformManageComponent
+    WarningComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +27,9 @@ import {PlatformManageComponent} from './platform-manage.component';
   ],
   exports: [],
   providers: [
-    PlatformManageService
+    WarningService
   ]
 })
-export class PlatformManageModule {
+export class WarningModule {
 }
 ;
