@@ -14,9 +14,9 @@
             <div class="input-group">
               <span class="input-group-addon">查岗时间：</span>
               <div>
-                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
                 -
-                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
               </div>
             </div>
             </div>
