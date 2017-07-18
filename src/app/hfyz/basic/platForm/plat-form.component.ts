@@ -58,9 +58,7 @@ export class PlatFormComponent implements OnInit {
     if (this.validation()) {
         this.sd = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
       if (this.endDate !== null) {
-        console.log(this.endDate);
         this.ed = this.endDate.getFullYear() + '-' + (this.endDate.getMonth() + 1) + '-' + (this.endDate.getDate() + 1);
-        console.log(this.ed);
       }
       this._platFormService.list(this.max, offset, this.company, this.sd, this.ed).subscribe(
         res => {
@@ -82,6 +80,7 @@ export class PlatFormComponent implements OnInit {
     this.company = '';
     this.startDate = null;
     this.endDate = null;
+    this.ed = null;
     this.initData();
   }
 }
