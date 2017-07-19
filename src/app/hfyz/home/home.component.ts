@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule, PanelModule } from 'primeng/primeng';
+import * as EventBus from 'vertx3-eventbus-client';
+
 @Component({
     selector: 'home',
     templateUrl: 'home.component.html',
@@ -9,8 +11,21 @@ import { ChartModule, PanelModule } from 'primeng/primeng';
 export class HomeComponent implements OnInit {
     data: any;
     datapie: any;
+
+  constructor() {
+    // eb.send('queue', 'hello vert1x', (res) => console.log('res: ' + res));
+  }
+
     ngOnInit() {
-        this.data = {
+      let eb = new EventBus('http://www.shifudao.com:3180/eventbus',{});
+      eb.onopen=function(){
+        eb.registerHandler("out.realtime.data.00005001.00005001.address", function(err, res) {
+          console.log("registerHandler====callback")
+          console.log(JSON.stringify(res))
+        })
+      }
+
+      this.data = {
             labels: ['一月', '二月', '三月', '四月', '五月', '6月', '7月'],
             datasets: [
                 {
@@ -44,5 +59,10 @@ export class HomeComponent implements OnInit {
                     ]
                 }]
         };
+
+      // eb.registerHandler('out.realtime.data.00005001.00005001.address',{},function (err, res) {
+      //   console.log("registerHandler====callback")
+      // })
+
     }
 };
