@@ -20,6 +20,8 @@ export class PlatFormComponent implements OnInit {
   max: number;
   total: number;
   currentPage: number;
+  flag: boolean;
+  maxDate: any;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
@@ -32,20 +34,43 @@ export class PlatFormComponent implements OnInit {
     this.endDate = '';
     this.max = 10;
     this.total = 0;
+    this.flag = false;
+    this.maxDate = new Date();
   }
 
   ngOnInit() {
     this.initData();
   }
+  validation() {
+    if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)){
+      if (this.endDate.getTime() === this.startDate.getTime()) {
+        this._toastr.info('选择的日期不能相同！');
+        return false;
+      }
 
-
+      if (this.endDate < this.startDate) {
+        this._toastr.info('请选择正确的日期！');
+        return false;
+      }
+    }
+    return true;
+  }
   initData(offset = 0) {
-    const sd = this.datePipe.transform( this.startDate, 'yyyy-MM-dd');
-    const ed = this.datePipe.transform( this.endDate, 'yyyy-MM-dd');
+    if (!this.validation()) {
+      return false;
+    }
+    let sd = '';
+    let ed = '';
+    if (!this._regularService.isBlank(this.startDate)) {
+      sd = this.datePipe.transform(this.startDate, 'yyyy-MM-dd HH:mm');
+    }
+    if (!this._regularService.isBlank(this.endDate)) {
+      ed = this.datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
+    }
     this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
       res => {
-        this.checkRecordList = res.checkRecordList;
-        this.total = res.total;
+        this.checkRecordList = res.checkResult.checkRecordList;
+        this.total = res.checkResult.total;
       }
     );
   }
@@ -55,5 +80,12 @@ export class PlatFormComponent implements OnInit {
       this.currentPage = event.page;
       this.initData(this.max * event.page);
     }
+  }
+  cancel() {
+    this.flag = true;
+    this.company = '';
+    this.startDate = null;
+    this.endDate = null;
+    this.initData();
   }
 }

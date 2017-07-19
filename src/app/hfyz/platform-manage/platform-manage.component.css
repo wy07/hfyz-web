@@ -6,7 +6,10 @@
   margin-bottom: 0;
   text-align: right;
 }
-.p-dialog{
+.w-dialog{
   height: 400px;
   overflow:scroll;
+}
+.notNull{
+  color: red;
 }

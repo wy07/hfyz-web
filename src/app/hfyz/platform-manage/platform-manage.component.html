@@ -42,41 +42,40 @@
   </div>
 </div>
 
-<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500"   [responsive]="true"
-          class="P-dialog">
-  <div class="form-horizontal">
+<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500"   [responsive]="true">
+  <div class="form-horizontal w-dialog">
     <div class="form-group">
-      <label for="ip" class="col-xs-4 col-sm-4 dialog-label">平台IP地址：</label>
+      <label for="ip" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台IP地址：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
       </div>
     </div>
     <div class="form-group">
-      <label for="port" class="col-xs-4 col-sm-4 dialog-label">端口号：</label>
+      <label for="port" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>端口号：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
       </div>
     </div>
     <div class="form-group">
-      <label for="name" class="col-xs-4 col-sm-4 dialog-label">平台名称：</label>
+      <label for="name" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台名称：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
       </div>
     </div>
     <div class="form-group">
-      <label for="code" class="col-xs-4 col-sm-4 dialog-label">平台代码：</label>
+      <label for="code" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台代码：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
       </div>
     </div>
     <div class="form-group">
-      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label">平台联系人：</label>
+      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系人：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
       </div>
     </div>
     <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台联系电话：</label>
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系电话：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="contactPhone" name="contactPhone" [(ngModel)]="platform.contactPhone">
       </div>

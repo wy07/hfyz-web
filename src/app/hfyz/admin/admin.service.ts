@@ -13,7 +13,7 @@ export class AdminService {
 
 
   getRoles() {
-    return this.restangular.all('sysusers').customGET('getRoles');
+    return this.restangular.all('sysusers').customGET('get-roles');
     /*return this.http.get(environment.grailsUrl+'sysuser/getRoles',this.getAuthHeader()).toPromise().then(res=> {
         return res.json()
     }, error=> {
@@ -22,7 +22,7 @@ export class AdminService {
   }
   getUserByName(name) {
     console.log(name)
-    return this.restangular.all('sysusers').customGET('getUserByName', { name: name });
+    return this.restangular.all('sysusers').customGET('get-user-by-name', { name: name });
     /*return this.http.get(environment.grailsUrl+'sysuser/getUserByName?name='+name,this.getAuthHeader()).toPromise().then(res=> {
       return res.json()
     }, error=> {
