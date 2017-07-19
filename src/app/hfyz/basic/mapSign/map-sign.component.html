@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+<div class="panel panel-info" *ngIf="mapSignList?.length>0">
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>路标名称</th>
+        <th>路标类型</th>
+        <th>经度</th>
+        <th>纬度</th>
+        <th>是否显示</th>
+        <th>删除</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mapSign of mapSignList">
+          <td>{{mapSign.name}}</td>
+          <td>{{mapSign.mapSignType}}</td>
+          <td>{{mapSign.longitude}}</td>
+          <td>{{mapSign.latitude}}</td>
+          <!--<td>{{mapSign.display?'显示':'隐藏'}}</td>-->
+          <td>
+            <p-dropdown [options]="displayList" [(ngModel)]="mapSign.display" placeholder="{{mapSign.display?'显示':'隐藏'}}" (onChange)="changeDisplay(mapSign)"></p-dropdown>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-primary" (click)="delete(mapSign)">删除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="mapSignList?.length>0"></p-paginator>
+  </div>
+</div>
+  <div *ngIf="mapSignList?.length<=0" class="center">
+    <h4>暂无路标信息</h4>
+  </div>
+</div>

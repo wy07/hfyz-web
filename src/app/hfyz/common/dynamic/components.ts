@@ -14,6 +14,7 @@ import {MapComponent} from '../../map/map/map.component';
 import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.component';
 import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
 import {PlatformManageComponent} from '../../platform-manage/platform-manage.component';
+import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 
 export const components = {
   role: RoleComponent,
@@ -35,5 +36,6 @@ export const components = {
   nullMap: NullMapComponent,
   carList: CarListComponent,
   changepwd: ChangePwdComponent,
-  ownerCheckRecord: PlatFormComponent
+  ownerCheckRecord: PlatFormComponent,
+  mapSign: MapSignComponent
 };
