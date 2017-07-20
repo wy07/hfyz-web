@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
-import {Router, ActivatedRoute} from '@angular/router';
 import {RegularService} from '../../../../hfyz/common/shared/regular.service';
 import {ChangePwdService} from '../../../../hfyz/basic/user/changePwd/change-pwd.service';
 @Component({
@@ -17,7 +16,7 @@ export class ChangePwdComponent {
   constructor(private _toastr: ToastsManager
     , private _regular: RegularService
     , private _changePwdService: ChangePwdService
-    , private _router: Router) {
+   ) {
     this.originPwd = '';
     this.newPwd = '';
     this.affirmPwd = '';
