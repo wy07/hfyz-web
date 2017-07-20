@@ -1,0 +1,25 @@
+<div class="panel-body" *ngIf="mapSignList?.length>0" >
+  <div class="row">
+    <div class="col-md-12">
+      <p-dataTable [value]="mapSignList">
+        <p-column field="name" header="路标名称"></p-column>
+        <p-column field="mapSignType" header="路标类型"></p-column>
+        <p-column field="longitude" header="经度"></p-column>
+        <p-column field="latitude" header="纬度"></p-column>
+        <p-column field="display" header="是否显示"></p-column>
+        <p-column field="" header="操作">
+          <ng-template let-mapSign="rowData"  pTemplate="body">
+            <button pButton type="button" class="btn btn-primary" (click)="delete(mapSign)" label="删除"></button>
+            <button pButton *ngIf="mapSign.display==='显示'" type="button" class="btn btn-primary" (click)="changeDisplay(mapSign)" label="隐藏"></button>
+            <button pButton *ngIf="mapSign.display==='隐藏'" type="button" class="btn btn-primary" (click)="changeDisplay(mapSign)" label="显示"></button>
+          </ng-template>
+        </p-column>
+      </p-dataTable>
+      <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="mapSignList?.length>0"></p-paginator>
+    </div>
+  </div>
+</div>
+<div *ngIf="mapSignList?.length<=0" class="center">
+  <h4>暂无路标信息</h4>
+</div>
+

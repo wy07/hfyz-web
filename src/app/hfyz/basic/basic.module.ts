@@ -5,6 +5,7 @@ import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { PlatFormModule } from './platForm/plat-form.module';
 import { NgModule } from '@angular/core';
+import { MapSignModule } from './mapSign/map-sign.module';
 
 @NgModule({
     imports: [
@@ -13,7 +14,8 @@ import { NgModule } from '@angular/core';
         ProjectMenuModule,
         SystemCodeModule,
         OrganizationModule,
-        PlatFormModule
+        PlatFormModule,
+        MapSignModule
     ]
 })
 export class BasicModule { };
