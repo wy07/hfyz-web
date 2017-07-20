@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <button pButton label="查询" type="button" (click)="onSearch()"></button>
+        <button pButton label="查询" type="button" (click)="initData()"></button>
         <button pButton label="重置" type="button" (click)="onReset()"></button>
       </div>
     </div>
@@ -23,8 +23,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'" [rows]="10" [paginator]="true"
-                     [rowsPerPageOptions]="[5,10,20]">
+        <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
           <p-column field="frameNo" header="车架号"></p-column>
           <p-column field="carLicenseNo" header="车牌号"></p-column>
           <p-column field="carColor" header="车辆颜色"></p-column>
@@ -36,13 +35,15 @@
             </ng-template>
           </p-column>
         </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
       </div>
     </div>
   </div>
 </div>
 
 
-<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true" disabled="disabled">
+<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true"
+          disabled="disabled">
   <div class="form-horizontal w-dialog">
     <div class="form-group ">
       <label for="frameNo" class="col-xs-4 col-sm-4 dialog-label">车架号：</label>
@@ -53,76 +54,79 @@
     <div class="form-group">
       <label for="carLicenseNo" class="col-xs-4 col-sm-4 dialog-label">车牌号：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="carLicenseNo"  disabled="disabled" [(ngModel)]="warning.carLicenseNo">
+        <input type="text" class="form-control" id="carLicenseNo" disabled="disabled"
+               [(ngModel)]="warning.carLicenseNo">
       </div>
     </div>
     <div class="form-group">
       <label for="carColor" class="col-xs-4 col-sm-4 dialog-label">车辆颜色：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="carColor"  disabled="disabled" [(ngModel)]="warning.carColor ">
+        <input type="text" class="form-control" id="carColor" disabled="disabled" [(ngModel)]="warning.carColor ">
       </div>
     </div>
     <div class="form-group">
       <label for="warningSource" class="col-xs-4 col-sm-4 dialog-label">报警信息来源：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningSource" disabled="disabled" [(ngModel)]="warning.warningSource">
+        <input type="text" class="form-control" id="warningSource" disabled="disabled"
+               [(ngModel)]="warning.warningSource">
       </div>
     </div>
     <div class="form-group">
       <label for="warningType" class="col-xs-4 col-sm-4 dialog-label">报警类型：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningType"  disabled="disabled" [(ngModel)]="warning.warningType">
+        <input type="text" class="form-control" id="warningType" disabled="disabled" [(ngModel)]="warning.warningType">
       </div>
     </div>
     <div class="form-group">
       <label for="warningTime" class="col-xs-4 col-sm-4 dialog-label">报警时间：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningTime"  disabled="disabled" [(ngModel)]="warning.warningTime">
+        <input type="text" class="form-control" id="warningTime" disabled="disabled" [(ngModel)]="warning.warningTime">
       </div>
     </div>
     <div class="form-group">
       <label for="warningTimes" class="col-xs-4 col-sm-4 dialog-label">报警次数：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningTimes"  disabled="disabled" [(ngModel)]="warning.warningTimes">
+        <input type="text" class="form-control" id="warningTimes" disabled="disabled"
+               [(ngModel)]="warning.warningTimes">
       </div>
     </div>
     <!--督办信息，暂时隐藏-->
-<!--    <div class="form-group">
-      <label for="superviseId" class="col-xs-4 col-sm-4 dialog-label">报警督办ID：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="superviseId"  disabled="disabled" [(ngModel)]="warning.superviseId">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="endTime" class="col-xs-4 col-sm-4 dialog-label">督办截止时间：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="endTime"  disabled="disabled" [(ngModel)]="warning.endTime">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="superviseLevel" class="col-xs-4 col-sm-4 dialog-label">督办级别：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="superviseLevel"  disabled="disabled" [(ngModel)]="warning.superviseLevel">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="supervisePeople" class="col-xs-4 col-sm-4 dialog-label">督办人：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="supervisePeople" disabled="disabled"  [(ngModel)]="warning.supervisePeople">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="supervisePhone" class="col-xs-4 col-sm-4 dialog-label">督办联系电话：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="supervisePhone" disabled="disabled"  [(ngModel)]="warning.supervisePhone">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="superviseEmail" class="col-xs-4 col-sm-4 dialog-label">督办联系电子邮箱：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="superviseEmail"  disabled="disabled" [(ngModel)]="warning.superviseEmail">
-      </div>
-    </div>-->
+    <!--    <div class="form-group">
+          <label for="superviseId" class="col-xs-4 col-sm-4 dialog-label">报警督办ID：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="superviseId"  disabled="disabled" [(ngModel)]="warning.superviseId">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="endTime" class="col-xs-4 col-sm-4 dialog-label">督办截止时间：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="endTime"  disabled="disabled" [(ngModel)]="warning.endTime">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="superviseLevel" class="col-xs-4 col-sm-4 dialog-label">督办级别：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="superviseLevel"  disabled="disabled" [(ngModel)]="warning.superviseLevel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="supervisePeople" class="col-xs-4 col-sm-4 dialog-label">督办人：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="supervisePeople" disabled="disabled"  [(ngModel)]="warning.supervisePeople">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="supervisePhone" class="col-xs-4 col-sm-4 dialog-label">督办联系电话：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="supervisePhone" disabled="disabled"  [(ngModel)]="warning.supervisePhone">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="superviseEmail" class="col-xs-4 col-sm-4 dialog-label">督办联系电子邮箱：</label>
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="form-control" id="superviseEmail"  disabled="disabled" [(ngModel)]="warning.superviseEmail">
+          </div>
+        </div>-->
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
