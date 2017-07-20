@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RegularService } from '../../../../hfyz/common/shared/regular.service';
-
+import {Component} from '@angular/core';
+import {ToastsManager} from 'ng2-toastr';
+import {Router, ActivatedRoute} from '@angular/router';
+import {RegularService} from '../../../../hfyz/common/shared/regular.service';
+import {ChangePwdService} from '../../../../hfyz/basic/user/changePwd/change-pwd.service';
 @Component({
   selector: 'change-pwd',
   templateUrl: 'change-pwd.component.html',
@@ -13,9 +13,12 @@ export class ChangePwdComponent {
   originPwd: string;
   newPwd: string;
   affirmPwd: string;
+
   constructor(private _toastr: ToastsManager
-    , private _regular: RegularService) {
-    this.originPwd  = '';
+    , private _regular: RegularService
+    , private _changePwdService: ChangePwdService
+    , private _router: Router) {
+    this.originPwd = '';
     this.newPwd = '';
     this.affirmPwd = '';
   }
@@ -43,8 +46,14 @@ export class ChangePwdComponent {
     }
     return true;
   }
+
   onSubmit() {
     if (this.validation()) {
+      this._changePwdService.changePwd(this.originPwd, this.newPwd).subscribe(
+        res => {
+          this._toastr.info('密码修改成功！');
+        }
+      );
     }
   }
 }
