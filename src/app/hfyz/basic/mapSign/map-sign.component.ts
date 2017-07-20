@@ -18,7 +18,6 @@ export class MapSignComponent implements OnInit {
   max: any;
   total: any;
   displayList: any;
-  display: any;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
@@ -31,7 +30,7 @@ export class MapSignComponent implements OnInit {
     this.total = 0;
     this.displayList = [];
     this.displayList.push({ label: '显示', value: 'true' });
-    this.displayList.push({ label: '隐藏', value: 'false' });
+    this.displayList.push({ label: '隐藏', value: 'false'});
   }
 
   ngOnInit() {
@@ -57,12 +56,14 @@ export class MapSignComponent implements OnInit {
     }
   }
   changeDisplay(mapSign) {
-      this._mapSignService.changeDisplay(mapSign.id, mapSign.display).subscribe(
+    if (confirm('确认修改"' + mapSign.name + '"路标状态？')) {
+      this._mapSignService.changeDisplay(mapSign.id, mapSign.display === '显示' ? false : true).subscribe(
         res => {
           this.initData();
           this._toastr.info(`修改成功`);
         }
       );
+    }
   }
 
   paginate(event) {

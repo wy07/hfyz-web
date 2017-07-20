@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { DataTableModule, DialogModule, ListboxModule, ButtonModule, DataGridModule, TreeModule, PaginatorModule, CalendarModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, DialogModule, ListboxModule, ButtonModule, DataGridModule, TreeModule, PaginatorModule, CalendarModule } from 'primeng/primeng';
 import { DatePipe } from '@angular/common';
 import {DropdownModule} from 'primeng/primeng';
 
@@ -22,6 +22,7 @@ import {DropdownModule} from 'primeng/primeng';
         BrowserAnimationsModule,
         CommonModule,
         DataTableModule,
+        SharedModule,
         DialogModule,
         ListboxModule,
         ButtonModule,
