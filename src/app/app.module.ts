@@ -37,6 +37,7 @@ import { InfoPublishComponent } from './hfyz/info-manage/info-publish/info-publi
 import { InfoCheckComponent } from './hfyz/info-manage/info-check/info-check.component';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
+import {PeopleModule} from './hfyz/people/people.module';
 
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
@@ -72,7 +73,8 @@ export function ConfigLoader(configService: ConfigService) {
         InfoManageModule,
         MapModule,
         PlatformManageModule,
-        CarModule
+        CarModule,
+        PeopleModule
     ],
 
     /*providers: [ConfigService,
