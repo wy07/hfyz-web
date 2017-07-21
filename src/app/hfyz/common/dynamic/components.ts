@@ -15,6 +15,7 @@ import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.componen
 import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
 import {PlatformManageComponent} from '../../platform-manage/platform-manage.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
+import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 
 export const components = {
@@ -39,5 +40,6 @@ export const components = {
   changepwd: ChangePwdComponent,
   ownerCheckRecord: PlatFormComponent,
   peopleList: PeopleListComponent,
+  warning: WarningComponent,
   mapSign: MapSignComponent
 };
