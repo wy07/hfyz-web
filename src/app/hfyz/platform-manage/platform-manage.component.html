@@ -31,9 +31,9 @@
           <p-column field="code" header="平台代码"></p-column>
           <p-column field="contactName" header="平台联系人"></p-column>
           <p-column field="" header="操作">
-            <ng-template let-a="rowData" pTemplate="body">
-              <button pButton type="button" label="编辑" (click)="onEdit(a)"></button>
-              <button pButton type="button" label="删除" (click)="onDelete(a)"></button>
+            <ng-template let-palrform="rowData" pTemplate="body">
+              <button pButton type="button" label="编辑" (click)="onEdit(palrform)"></button>
+              <button pButton type="button" label="删除" (click)="onDelete(palrform)"></button>
             </ng-template>
           </p-column>
         </p-dataTable>
