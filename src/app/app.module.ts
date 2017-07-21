@@ -22,6 +22,7 @@ import {APP_INITIALIZER} from '@angular/core';
 import {ConfigService} from './hfyz/config/config.service';
 import {RestangularConfigFactory} from './hfyz/common/restangular-config-factory';
 import {Router} from '@angular/router';
+import {ChangePwdService} from './hfyz/basic/user/changePwd/change-pwd.service';
 import {AuthService} from './hfyz/security/auth.service';
 import {AuthGuard} from './hfyz/security/auth.guard';
 import {NoRightComponent} from './hfyz/security/noright.component';
@@ -93,7 +94,8 @@ export function ConfigLoader(configService: ConfigService) {
     , AuthGuard
     , AuthService
     , AdminService
-    , NgRadio],
+    , NgRadio
+    , ChangePwdService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
