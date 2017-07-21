@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PlatFormService } from './shared/plat-form.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import {DatePipe} from '@angular/common';
+import {EventBuservice} from "../../common/shared/eventbus.service";
 
 @Component({
   selector: 'plat-form',
@@ -28,6 +29,7 @@ export class PlatFormComponent implements OnInit {
     , private _regularService: RegularService
     , private  _platFormService: PlatFormService
     , private datePipe: DatePipe
+    , private eventBuservice:EventBuservice
   ) {
     this.company = '';
     this.startDate = '';
@@ -87,5 +89,23 @@ export class PlatFormComponent implements OnInit {
     this.startDate = null;
     this.endDate = null;
     this.initData();
+  }
+
+  inspect(){
+    console.log("in inspect")
+
+
+    let $this=this;
+    let eb = this.eventBuservice.getEb();
+    eb.send("inspect.manual.trigger",{code:'0001'}, function(err, res) {
+      console.log("inspect.manual.trigger====callback");
+      console.log(res)
+      console.log(JSON.stringify(res));
+      if(res.body.result=="success"){
+        $this._toastr.info('生成查岗成功');
+      }else{
+        $this._toastr.error('生成查岗成功');
+      }
+    });
   }
 }
