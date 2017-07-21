@@ -1,0 +1,25 @@
+<router-outlet></router-outlet>
+
+<p-dialog header="查岗" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label for="name" class="col-sm-3 control-label">名称</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" name="name" > <!--[(ngModel)]="systemCode.name"-->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="codeNum" class="col-sm-3 control-label">编码</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="codeNum" name="codeNum">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <!--<button  type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>-->
+      <!--<button  type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>-->
+    </div>
+  </p-footer>
+</p-dialog>

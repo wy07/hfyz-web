@@ -37,6 +37,8 @@ import { InfoCheckComponent } from './hfyz/info-manage/info-check/info-check.com
 import { TabViewModule, BlockUIModule } from 'primeng/primeng';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
+import { DialogModule } from 'primeng/primeng';
+
 
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
@@ -73,7 +75,8 @@ export function ConfigLoader(configService: ConfigService) {
         MapModule,
         BlockUIModule,
         PlatformManageModule,
-        CarModule
+        CarModule,
+        DialogModule
     ],
 
     /*providers: [ConfigService,
