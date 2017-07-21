@@ -19,6 +19,9 @@ export class PlatformManageComponent implements OnInit {
   displayDialog: boolean;
   formTitle: string;
   isAdd: boolean;
+  max: number;
+  total: number;
+  currentPage: number;
 
   constructor(private renderer: Renderer
     , private toastr: ToastsManager
@@ -27,27 +30,28 @@ export class PlatformManageComponent implements OnInit {
     this.displayDialog = false;
     this.platform = {};
     this.clearForm();
+    this.max = 10;
   }
 
   ngOnInit() {
     this.initData();
   }
 
-  initData() {
-    this.platformService.list().subscribe(
+  initData(offset = 0) {
+    this.platformService.list(this.max, offset, this.name, this.code).subscribe(
       res => {
-        this.platformList = res.platformList;
+        this.platformList = res.platformList.platformList;
+        this.total = res.platformList.total;
       }
     );
   }
 
-  // 查询
-  onSearch() {
-    this.platformService.search(this.name, this.code).subscribe(
-      res => {
-        this.platformList = res.platformList;
-      }
-    );
+  // 点击分页按钮
+  paginate(event) {
+    if (this.currentPage !== event.page) {
+      this.currentPage = event.page;
+      this.initData(this.max * event.page);
+    }
   }
 
   // 重置

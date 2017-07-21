@@ -4,7 +4,6 @@ import { ToastsManager } from 'ng2-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapSignService } from './shared/map-sign.service';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'map-sign',
@@ -17,20 +16,15 @@ export class MapSignComponent implements OnInit {
   currentPage: number;
   max: any;
   total: any;
-  displayList: any;
   constructor(private _router: Router
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
     , private _regularService: RegularService
     , private _mapSignService: MapSignService
-    , private datePipe: DatePipe
   ) {
     this.mapSignList = [];
     this.max = 10;
     this.total = 0;
-    this.displayList = [];
-    this.displayList.push({ label: '显示', value: 'true' });
-    this.displayList.push({ label: '隐藏', value: 'false'});
   }
 
   ngOnInit() {
@@ -57,7 +51,7 @@ export class MapSignComponent implements OnInit {
   }
   changeDisplay(mapSign) {
     if (confirm('确认修改"' + mapSign.name + '"路标状态？')) {
-      this._mapSignService.changeDisplay(mapSign.id, mapSign.display === '显示' ? false : true).subscribe(
+      this._mapSignService.changeDisplay(mapSign.id, !mapSign.display).subscribe(
         res => {
           this.initData();
           this._toastr.info(`修改成功`);

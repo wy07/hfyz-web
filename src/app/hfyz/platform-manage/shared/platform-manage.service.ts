@@ -6,13 +6,13 @@ export class PlatformManageService {
   constructor(public restangular: Restangular) {
   }
 
-  list() {
-    return this.restangular.all('platform-manages').customGET('list');
-  }
-
-  search(name, code) {
-    // alert(name + code);
-    return this.restangular.all('platform-manages').customGET('search', {name: name, code: code});
+  list(max, offset, name, code) {
+    return this.restangular.all('platform-manages').customGET('list', {
+      max: max,
+      offset: offset,
+      name: name,
+      code: code
+    });
   }
 
   delete(id) {
