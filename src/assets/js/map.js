@@ -40,7 +40,7 @@ var mapObject = (function() {
       // };
     },
 
-    realTimePoint: function (geoPoint, info) {
+    realTimePoint: function (geoPoint, info,direction) {
       if (realTimePoint) {
         maplet.clearOverlays(true);
       }
@@ -48,21 +48,21 @@ var mapObject = (function() {
       realTimePoint = new MPoint(geoPoint);
       var realTimeMarker = new MMarker(
         realTimePoint,
-        new MIcon("assets/images/car.png", 64, 32),
+        getDirectionMIcon(direction),
         new MInfoWindow("详细信息", info)
       );
       maplet.addOverlay(realTimeMarker);
       realTimeMarker.openInfoWindow();
     },
 
-    realTimeMonitorPoint: function (geoPoint, info) {
+    realTimeMonitorPoint: function (geoPoint, info,direction) {
       if (realTimePoint) {
         maplet.clearOverlays(true);
       }
       realTimePoint = new MPoint(geoPoint);
       var realTimeMarker = new MMarker(
         realTimePoint,
-        new MIcon("assets/images/car.png", 64, 32),
+        getDirectionMIcon(direction),
         new MInfoWindow("详细信息", info)
       );
       maplet.addOverlay(realTimeMarker);
@@ -104,6 +104,18 @@ function showMonitorContent(){
     $("#monitor-action-content").hide();
     $("#monitor-info-btn").addClass(' disabled');
     $("#monitor-action-btn").removeClass(' disabled');
+  }
+}
+
+function getDirectionMIcon(direction) {
+  if(direction<=45||direction>=315){
+    return new MIcon("assets/images/car0.png", 24, 48,0,0);
+  }else if(direction<=135){
+    return new MIcon("assets/images/car1.png", 48, 24,0,0);
+  }else if(direction<=225){
+    return new MIcon("assets/images/car2.png", 24, 48,0,0);
+  }else{
+    return new MIcon("assets/images/car3.png", 48, 24,0,0);
   }
 }
 

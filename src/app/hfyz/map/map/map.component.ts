@@ -19,6 +19,8 @@ export class MapComponent implements OnInit,OnDestroy {
   lat: number;
   points: any[];
   mapCode:string;
+  directions:any[];
+  directionIndex:number;
 
   realTimeMapKey:string;
   realTimeMapFrameNo:string;
@@ -42,6 +44,8 @@ export class MapComponent implements OnInit,OnDestroy {
     this.historyMapFrameNo='';
     this.realTimeMonitorKey='';
     this.realTimeMonitorFrameNo='';
+    this.directions=[10,46,80,100,138,160,250,320,360];
+    this.directionIndex=0;
     this.points = [{
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -64,7 +68,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 320,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
@@ -77,7 +81,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 0,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 1
@@ -90,7 +94,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 10,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 1
@@ -103,7 +107,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 30,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
@@ -116,7 +120,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 100,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
@@ -181,7 +185,7 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': 100,
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 1
@@ -255,7 +259,7 @@ export class MapComponent implements OnInit,OnDestroy {
         $this.getRealTimeGnssData();
       }, 2000)
     }else{
-      this.toastr.error("请输入车架号");
+      this.toastr.error("请输入车牌号");
     }
   }
 
@@ -270,7 +274,7 @@ export class MapComponent implements OnInit,OnDestroy {
         $this.getRealTimeMonitorGnssData();
       }, 2000)
     }else{
-      this.toastr.error("请输入车架号");
+      this.toastr.error("请输入车牌号");
     }
   }
 
@@ -278,7 +282,7 @@ export class MapComponent implements OnInit,OnDestroy {
     if(this.historyMapFrameNo){
       this.showPath();
     }else{
-      this.toastr.error("请输入车架号");
+      this.toastr.error("请输入车牌号");
     }
   }
 
@@ -292,6 +296,7 @@ export class MapComponent implements OnInit,OnDestroy {
 
   getRealTimeGnssData() {
     this.lng += 0.001;
+    this.directionIndex+=1;
     this.realTimeGnssData = {
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -301,16 +306,17 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': this.directions[this.directionIndex%8],
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData));
+    mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData),this.realTimeGnssData.direction);
   }
 
   getRealTimeMonitorGnssData() {
     this.lng += 0.001;
+    this.directionIndex+=1;
     this.realTimeMonitorGnssData = {
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -320,11 +326,11 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': 350,
+      'direction': this.directions[this.directionIndex%8],
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData));
+    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),this.realTimeMonitorGnssData.direction);
   }
 }
