@@ -2,6 +2,7 @@ var realTimePoint;
 
 var historyMap;
 var maplet= null;
+var monitorBtn="info";
 
 var mapObject = (function() {
   return {
@@ -54,6 +55,21 @@ var mapObject = (function() {
       realTimeMarker.openInfoWindow();
     },
 
+    realTimeMonitorPoint: function (geoPoint, info) {
+      if (realTimePoint) {
+        maplet.clearOverlays(true);
+      }
+      realTimePoint = new MPoint(geoPoint);
+      var realTimeMarker = new MMarker(
+        realTimePoint,
+        new MIcon("assets/images/car.png", 64, 32),
+        new MInfoWindow("详细信息", info)
+      );
+      maplet.addOverlay(realTimeMarker);
+      realTimeMarker.openInfoWindow();
+      showMonitorContent();
+    },
+
     historyPoints: function (geoPoint, alarmState, info) {
       var historyPoint = new MPoint(geoPoint);
       var historyMarker = new MMarker(
@@ -66,3 +82,28 @@ var mapObject = (function() {
   }
 
 })(mapObject||{});
+
+$(document).on("click","button[id='monitor-info-btn']",function(){
+  monitorBtn='info';
+  showMonitorContent()
+});
+
+$(document).on("click","button[id='monitor-action-btn']",function(){
+  monitorBtn='action';
+  showMonitorContent()
+});
+
+function showMonitorContent(){
+  if(monitorBtn=='action'){
+    $("#monitor-action-content").show();
+    $("#monitor-info-content").hide();
+    $("#monitor-action-btn").addClass(' disabled');
+    $("#monitor-info-btn").removeClass(' disabled');
+  }else{
+    $("#monitor-info-content").show();
+    $("#monitor-action-content").hide();
+    $("#monitor-info-btn").addClass(' disabled');
+    $("#monitor-action-btn").removeClass(' disabled');
+  }
+}
+

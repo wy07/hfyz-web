@@ -15,6 +15,7 @@ import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.componen
 import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
 import {PlatformManageComponent} from '../../platform-manage/platform-manage.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
+import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 
 export const components = {
   role: RoleComponent,
@@ -30,11 +31,13 @@ export const components = {
   operationLog: LogManageComponent,
   platformManage: PlatformManageComponent,
   realTimeMap: MapComponent,
+  realTimeMonitorMap: MapComponent,
   historyMap: MapComponent,
   otherMap: MapComponent,
   nullMap: NullMapComponent,
   carList: CarListComponent,
   changepwd: ChangePwdComponent,
   ownerCheckRecord: PlatFormComponent,
-  peopleList: PeopleListComponent
+  peopleList: PeopleListComponent,
+  mapSign: MapSignComponent
 };

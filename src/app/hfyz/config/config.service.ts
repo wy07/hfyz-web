@@ -15,7 +15,7 @@ export class ConfigService {
 
   load() {
     return new Promise((resolve) => {
-      this._restangular.all('systemCode').customGET('getmenu').subscribe(config => {
+      this._restangular.all('system-codes').customGET('getmenu').subscribe(config => {
         console.log('######');
         console.log(config);
         this.config = config;

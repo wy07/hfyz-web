@@ -75,7 +75,7 @@ export class LayoutComponent implements OnInit {
   }
 
   public addTab(menu) {
-    let mapMenus = ['realTimeMap', 'historyMap', 'otherMap'];
+    let mapMenus = ['realTimeMap', 'historyMap', 'otherMap','realTimeMonitorMap'];
     this.initMap = false;
     if (mapMenus.find(x => x === menu.code) === undefined) {
       this.activeTab(menu);
