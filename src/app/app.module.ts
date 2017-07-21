@@ -35,6 +35,7 @@ import {InfoCheckComponent} from './hfyz/info-manage/info-check/info-check.compo
 import {TabViewModule, BlockUIModule} from 'primeng/primeng';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
+import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
 
 export function ConfigLoader(configService: ConfigService) {
@@ -73,6 +74,7 @@ export function ConfigLoader(configService: ConfigService) {
     BlockUIModule,
     PlatformManageModule,
     CarModule,
+    PeopleModule,
     WarningModule
 
   ],
