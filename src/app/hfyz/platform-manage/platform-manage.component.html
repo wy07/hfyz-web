@@ -14,9 +14,9 @@
         </div>
       </div>
       <div class="col-md-4">
-        <button pButton label="查询" type="button" (click)="onSearch()"></button>
-        <button pButton label="重置" type="button"  (click)="onReset()"></button>
-        <button pButton label="新增" type="button"  (click)="onCreat()"></button>
+        <button pButton label="查询" type="button" (click)="initData()"></button>
+        <button pButton label="重置" type="button" (click)="onReset()"></button>
+        <button pButton label="新增" type="button" (click)="onCreat()"></button>
       </div>
     </div>
   </div>
@@ -24,63 +24,95 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <p-dataTable  [value]="platformList" [emptyMessage]="'暂无数据'" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[5,10,20]">
+        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
           <p-column field="ip" header="平台IP地址"></p-column>
           <p-column field="port" header="端口号"></p-column>
           <p-column field="name" header="平台名称"></p-column>
           <p-column field="code" header="平台代码"></p-column>
           <p-column field="contactName" header="平台联系人"></p-column>
           <p-column field="" header="操作">
-            <ng-template let-a="rowData"  pTemplate="body">
-                <button pButton type="button" label="编辑" (click)="onEdit(a)"></button>
-                <button pButton type="button" label="删除" (click)="onDelete(a)"></button>
+            <ng-template let-palrform="rowData" pTemplate="body">
+              <button pButton type="button" label="编辑" (click)="onEdit(palrform)"></button>
+              <button pButton type="button" label="删除" (click)="onDelete(palrform)"></button>
             </ng-template>
           </p-column>
         </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
       </div>
     </div>
   </div>
 </div>
 
 <p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
-  <div class="form-horizontal">
+  <div class="form-horizontal w-dialog">
     <div class="form-group">
-      <label for="ip" class="col-xs-4 col-sm-4 dialog-label">平台IP地址：</label>
+      <label for="ip" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台IP地址：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
       </div>
     </div>
     <div class="form-group">
-      <label for="port" class="col-xs-4 col-sm-4 dialog-label">端口号：</label>
+      <label for="port" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>端口号：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
       </div>
     </div>
     <div class="form-group">
-      <label for="name" class="col-xs-4 col-sm-4 dialog-label">平台名称：</label>
+      <label for="name" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台名称：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
       </div>
     </div>
     <div class="form-group">
-      <label for="code" class="col-xs-4 col-sm-4 dialog-label">平台代码：</label>
+      <label for="code" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台代码：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
       </div>
     </div>
     <div class="form-group">
-      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label">平台联系人：</label>
+      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系人：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
       </div>
     </div>
     <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台联系电话：</label>
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系电话：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="contactPhone" name="contactPhone" [(ngModel)]="platform.contactPhone">
+        <input type="text" class="form-control" id="contactPhone" name="contactPhone"
+               [(ngModel)]="platform.contactPhone">
       </div>
     </div>
-
+    <div class="form-group">
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台车辆数：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="carNum" name="contactPhone" [(ngModel)]="platform.carNum">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">在线车辆数：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="onLineNum" name="contactPhone" [(ngModel)]="platform.onLineNum">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台未上线车辆：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="outLineNum" name="contactPhone" [(ngModel)]="platform.outLineNum">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">历史上线车辆数：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="allOnLineNum" name="contactPhone"
+               [(ngModel)]="platform.allOnLineNum">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">违法违规车辆数：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="illegalNum" name="contactPhone" [(ngModel)]="platform.illegalNum">
+      </div>
+    </div>
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
