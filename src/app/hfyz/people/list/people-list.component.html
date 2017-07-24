@@ -26,16 +26,16 @@
   </div>
 
   <div class="panel-body">
-    <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">
-      <p-column field="name" header="姓名"></p-column>
-      <p-column field="gender" header="性别"></p-column>
-      <p-column field="IDCardNo" header="身份证号码"></p-column>
-      <p-column field="birthday" header="出生日期"></p-column>
-      <p-column field="nation" header="民族"></p-column>
-      <p-column field="nativePlace" header="籍贯"></p-column>
-      <p-column field="technologyTitle" header="技术职称"></p-column>
-      <p-column field="phoneNo" header="联系电话"></p-column>
-      <p-column field="" header="操作">
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList" >
+      <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
+      <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
+      <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
+      <p-column field="birthday" header="出生日期" [style]="{'width':'10%'}"></p-column>
+      <p-column field="nation" header="民族" [style]="{'width':'5%'}"></p-column>
+      <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
+      <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
+      <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
+      <p-column field="" header="操作" [style]="{'width':'10%'}">
         <ng-template let-a="rowData" pTemplate="body">
           <button type="button" class="btn btn-info" (click)="moreInfo(a)">查看详情</button>
         </ng-template>

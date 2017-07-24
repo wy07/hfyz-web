@@ -1,7 +1,8 @@
-import {Component, OnInit, Renderer} from '@angular/core';
+import {Component, OnInit, Renderer, Injector} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {RegularService} from '../common/shared/regular.service';
 import {WarningService} from './shared/warning.service';
+import {LayoutComponent} from "../layout/main-tab/layout.component";
 
 @Component({
   selector: 'app-warning',
@@ -18,13 +19,16 @@ export class WarningComponent implements OnInit {
   max: number;
   total: number;
   currentPage: number;
+  layoutComponent:any;
 
   constructor(private renderer: Renderer
     , private toastr: ToastsManager
-    , private warningService: WarningService) {
+    , private warningService: WarningService
+    , private inj: Injector) {
     this.displayDialog = false;
     this.warning = {};
     this.max = 10;
+    this.layoutComponent = this.inj.get(LayoutComponent);
   }
 
   ngOnInit() {
@@ -73,5 +77,10 @@ export class WarningComponent implements OnInit {
 
   cancle() {
     this.displayDialog = false;
+  }
+
+  showRealTimeMap(item){
+    let menu={name:'实时状态',icon:'fa-map',code:'realTimeMap',inputs:{frameNo:item.carLicenseNo,id:item.frameNo}};
+    this.layoutComponent.addTab(menu);
   }
 }
