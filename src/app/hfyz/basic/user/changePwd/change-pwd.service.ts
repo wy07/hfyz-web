@@ -7,6 +7,6 @@ export class ChangePwdService {
   constructor(public restangular: Restangular) {
   }
   changePwd(originPwd, newPwd) {
-    return this.restangular.all('change-pwd').post({originPwd: originPwd, newPwd: newPwd});
+    return this.restangular.all('change-pwd').customPOST({originPwd: originPwd, newPwd: newPwd});
   }
 }

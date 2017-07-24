@@ -12,6 +12,7 @@
           <div *ngIf="user.username!='admin'">
           <button [hasPermission]="'user:edit'" pButton type="button" label="编辑" (click)="onEdit(user)"></button>
           <button [hasPermission]="'user:delete'"  pButton type="button" label="删除" (click)="onDelete(user)"></button>
+          <button [hasPermission]="'user:resetPassword'"  pButton type="button" label="重置密码" (click)="onResetPassword(user)"></button>
           </div>
         </ng-template>
       </p-column>
