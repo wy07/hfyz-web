@@ -127,7 +127,7 @@ export class UserComponent implements OnInit {
     }
   }
   onResetPassword(user) {
-    if (confirm(' 你确定要重置'+ user.username +'的密码吗' +  '？')) {
+    if (confirm(' 您确定要重置'+ user.username +'的密码吗' +  '？')) {
       this._userService.resetPassword(user.id).subscribe(
         res => {
           this._toastr.info(`重置密码成功` + user.username);
