@@ -78,6 +78,7 @@ export class UserComponent implements OnInit {
       }
     );
   }
+
   onCreate() {
     this.user.roles = null
     this._roleService.listForSelect(this.currentRoleString, this.currentUserId).subscribe(
@@ -121,6 +122,16 @@ export class UserComponent implements OnInit {
         res => {
           this.initData()
           this._toastr.info(`成功移除用户——` + user.name);
+        }
+      );
+    }
+  }
+  onResetPassword(user) {
+    if (confirm(' 您确定要重置'+ user.username +'的密码吗' +  '？')) {
+      this._userService.resetPassword(user.id).subscribe(
+        res => {
+          this._toastr.info(`重置密码成功` + user.username);
+          alert(user.username + '的随机密码为：' + res.newPassword);
         }
       );
     }

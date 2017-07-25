@@ -9,7 +9,7 @@ export class UserService {
   }
 
   list(operatorId) {
-    return this.restangular.all('sysusers').customGET('list',{operatorId:operatorId});
+    return this.restangular.all('sysusers').customGET('list',{operatorId: operatorId});
   }
   delete(id) {
     return this.restangular.one('sysusers', id).customDELETE('delete', {});
@@ -21,8 +21,14 @@ export class UserService {
   save(formData) {
     return this.restangular.all('sysusers').customPOST(formData, 'save');
   }
+
   update(id, formData) {
-    return this.restangular.one('sysusers',id).customPOST(formData, 'update');
+    return this.restangular.one('sysusers', id).customPOST(formData, 'update');
   }
-  
+
+  resetPassword(id) {
+    return this.restangular.one('sysusers', id).customPOST({}, 'reset-password');
+  }
+
+
 }

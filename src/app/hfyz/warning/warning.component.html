@@ -25,7 +25,11 @@
       <div class="col-md-12">
         <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
           <p-column field="frameNo" header="车架号"></p-column>
-          <p-column field="carLicenseNo" header="车牌号"></p-column>
+          <p-column field="carLicenseNo" header="车牌号">
+            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+              <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
+            </ng-template>
+          </p-column>
           <p-column field="carColor" header="车辆颜色"></p-column>
           <p-column field="warningSource" header="报警信息来源"></p-column>
           <p-column field="warningType" header="报警类型"></p-column>
