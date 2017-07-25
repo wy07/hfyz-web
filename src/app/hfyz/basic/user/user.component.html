@@ -12,6 +12,7 @@
           <div *ngIf="user.username!='admin'">
           <button [hasPermission]="'user:edit'" pButton type="button" label="编辑" (click)="onEdit(user)"></button>
           <button [hasPermission]="'user:delete'"  pButton type="button" label="删除" (click)="onDelete(user)"></button>
+          <button [hasPermission]="'user:resetPassword'"  pButton type="button" label="重置密码" (click)="onResetPassword(user)"></button>
           </div>
         </ng-template>
       </p-column>
@@ -25,19 +26,12 @@
       <div class="col-sm-3">
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name">
       </div>
-    
       <label for="username" class="col-sm-2 control-label">账号<span class="required">*</span></label>
       <div class="col-sm-3">
         <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username">
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="password" class="col-sm-2 control-label">密码<span class="required">*</span></label>
-      <div class="col-sm-3">
-        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password">
-      </div>
-    </div>
     <div class="form-group">
       <label for="roles" class="col-sm-2 control-label">角色<span class="required">*</span></label>
       <div class="col-sm-3">
@@ -49,6 +43,7 @@
       </div>
     </div>
   </div>
+    <div *ngIf="isAdd" class="alert alert-danger">提示：新增人员默认密码为: '666666'</div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
       <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>

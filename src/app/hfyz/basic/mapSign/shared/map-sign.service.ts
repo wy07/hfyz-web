@@ -15,6 +15,6 @@ export class MapSignService {
   }
 
   changeDisplay(id, display) {
-    return this.restangular.one('map-signs', id).customPOST({display: display}, 'changeDisplay');
+    return this.restangular.one('map-signs', id).customPOST({display: display}, 'change-display');
   }
 }

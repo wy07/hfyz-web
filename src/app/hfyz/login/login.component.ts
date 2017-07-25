@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       res => {
         this._authService.isLoggedIn = true;
         console.log("--------in login ")
+        this._authService.isLoggedIn = true;
         sessionStorage.setItem('currentUser', JSON.stringify({ username: this.loginForm.value.username
           ,password:this.loginForm.value.password
           , token: res.token
