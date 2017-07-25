@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="isDetails==false">
   <div class="panel-heading">
     <div class="row">
       <div class=" col-md-4">
@@ -30,9 +30,10 @@
           <p-column field="name" header="平台名称"></p-column>
           <p-column field="code" header="平台代码"></p-column>
           <p-column field="contactName" header="平台联系人"></p-column>
-          <p-column field="" header="操作">
+          <p-column field="" header="操作" [style]="{'width':'24%'}">
             <ng-template let-palrform="rowData" pTemplate="body">
               <button pButton type="button" label="编辑" (click)="onEdit(palrform)"></button>
+              <button pButton type="button" label="详情" (click)="preEdit(palrform.id)"></button>
               <button pButton type="button" label="删除" (click)="onDelete(palrform)"></button>
             </ng-template>
           </p-column>
@@ -46,72 +47,47 @@
 <p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
   <div class="form-horizontal w-dialog">
     <div class="form-group">
-      <label for="ip" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台IP地址：</label>
+      <label for="ip" class="col-xs-4 col-sm-4 dialog-label">平台IP地址：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
       </div>
+      <label class="notNull">*</label>
     </div>
     <div class="form-group">
-      <label for="port" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>端口号：</label>
+      <label for="port" class="col-xs-4 col-sm-4 dialog-label">端口号：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
       </div>
+      <label class="notNull">*</label>
     </div>
     <div class="form-group">
-      <label for="name" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台名称：</label>
+      <label for="name" class="col-xs-4 col-sm-4 dialog-label">平台名称：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
       </div>
+      <label class="notNull">*</label>
     </div>
     <div class="form-group">
-      <label for="code" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台代码：</label>
+      <label for="code" class="col-xs-4 col-sm-4 dialog-label">平台代码：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
       </div>
+      <label class="notNull">*</label>
     </div>
     <div class="form-group">
-      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系人：</label>
+      <label for="contactName" class="col-xs-4 col-sm-4 dialog-label">平台联系人：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
       </div>
+      <label class="notNull">*</label>
     </div>
     <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label"><label class="notNull">*&nbsp;&nbsp;</label>平台联系电话：</label>
+      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台联系电话：</label>
       <div class="col-xs-6 col-sm-6">
         <input type="text" class="form-control" id="contactPhone" name="contactPhone"
                [(ngModel)]="platform.contactPhone">
       </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台车辆数：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="carNum" name="contactPhone" [(ngModel)]="platform.carNum">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">在线车辆数：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="onLineNum" name="contactPhone" [(ngModel)]="platform.onLineNum">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">平台未上线车辆：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="outLineNum" name="contactPhone" [(ngModel)]="platform.outLineNum">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">历史上线车辆数：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="allOnLineNum" name="contactPhone"
-               [(ngModel)]="platform.allOnLineNum">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-xs-4 col-sm-4 dialog-label">违法违规车辆数：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="illegalNum" name="contactPhone" [(ngModel)]="platform.illegalNum">
-      </div>
+      <label class="notNull">*</label>
     </div>
   </div>
   <p-footer>
@@ -121,3 +97,93 @@
     </div>
   </p-footer>
 </p-dialog>
+
+<!--paltform-details-->
+<div class="panel panel-default" *ngIf="isDetails==true">
+  <div class="row">
+    <div class="col-md-2">
+      <button pButton class="return" label="返回" type="button" (click)="return()"></button>
+    </div>
+    <div class="col-md-8" ><h4 align="center" class="title">平台详情</h4></div>
+  </div>
+  <div class="panel-heading ">
+
+    <div class="row ">
+      <div class="form-group basicInfo">
+        <label class="col-md-2 right">端口号：</label>
+        <p class="col-md-1">{{platform.port}}</p>
+        <label class="col-md-2 right">平台IP地址：</label>
+        <p class="col-md-2">{{platform.ip}}</p>
+        <label class="col-md-2 right">平台名称：</label>
+        <p class="col-md-3">{{platform.name}}</p>
+      </div>
+      <div class="form-group viewTitle">
+        <label class="col-md-2 right">平台联系人：</label>
+        <p class="col-md-1">{{platform.contactName}}</p>
+        <label class="col-md-2 right">平台联系电话：</label>
+        <p class="col-md-2">{{platform.contactPhone}}</p>
+        <label class="col-md-2 right">平台代码：</label>
+        <p class="col-md-3">{{platform.code}}</p>
+      </div>
+      <div class="form-group viewTitle">
+        <label class="col-md-2 right">平台历史上线车辆：</label>
+        <p class="col-md-1">****</p>
+        <label class="col-md-2 right">平台未上线车辆：</label>
+        <p class="col-md-2">****</p>
+        <label class="col-md-2 right">平台在线车辆：</label>
+        <p class="col-md-3">****</p>
+      </div>
+    </div>
+  </div>
+  <!--平台下属企业信息-->
+  <div class="panel-body">
+    <div class="row">
+      <h4 align="center">下属企业信息</h4>
+      <div class="col-md-12">
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th>企业名称</th>
+            <th>业户名称</th>
+            <th>平台车辆数量</th>
+            <th>在线车辆数量</th>
+            <th>历史上线车辆数量</th>
+            <th>违法违规车辆</th>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p-paginator rows="{{max}}" ></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>
