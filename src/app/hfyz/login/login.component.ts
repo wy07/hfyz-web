@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
     console.log(`password:${this.loginForm.value.password}`)
     this._authService.login(this.loginForm.value.username, this.loginForm.value.password ).subscribe(
       res => {
+        this._authService.isLoggedIn = true;
         console.log("--------in login ")
         this._authService.isLoggedIn = true;
         sessionStorage.setItem('currentUser', JSON.stringify({ username: this.loginForm.value.username
