@@ -33,6 +33,7 @@ import {TabViewModule, BlockUIModule} from 'primeng/primeng';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
 import { DialogModule } from 'primeng/primeng';
+import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
 
 export function ConfigLoader(configService: ConfigService) {
@@ -72,8 +73,8 @@ export function ConfigLoader(configService: ConfigService) {
     PlatformManageModule,
     CarModule,
     WarningModule,
-    DialogModule
-
+    DialogModule,
+    PeopleModule
   ],
   /*providers: [ConfigService,
    {

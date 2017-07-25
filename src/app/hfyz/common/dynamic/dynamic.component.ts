@@ -1,20 +1,39 @@
+import { MapSignComponent } from './../../basic/mapSign/map-sign.component';
+import { WarningComponent } from './../../warning/warning.component';
+import { PeopleListComponent } from './../../people/list/people-list.component';
+import { PlatFormComponent } from './../../basic/platForm/plat-form.component';
+import { ChangePwdComponent } from './../../basic/user/changePwd/change-pwd.component';
+import { CarListComponent } from './../../car/list/car-list.component';
+import { NullMapComponent } from './../../map/nullMap/null-map.component';
+import { MapComponent } from './../../map/map/map.component';
+import { PlatformManageComponent } from './../../platform-manage/platform-manage.component';
+import { LogManageComponent } from './../../log-manage/log-manage.component';
+import { InfoListComponent } from './../../info-manage/info-list/info-list.component';
+import { InfoCheckComponent } from './../../info-manage/info-check/info-check.component';
+import { InfoPublishComponent } from './../../info-manage/info-publish/info-publish.component';
+import { OrganizationComponent } from './../../basic/organization/organization.component';
+import { HomeComponent } from './../../home/home.component';
+import { SystemCodeComponent } from './../../basic/systemCode/system-code.component';
+import { MenuComponent } from './../../basic/menu/menu.component';
+import { UserComponent } from './../../basic/user/user.component';
+import { RoleComponent } from './../../basic/role/role.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
   ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
 import {components} from './components';
-// import { RoleComponent } from './../../role/role.component';
-// import {UserComponent} from './../../user/user.component';
-import {AdminComponent} from './../../admin/admin.component';
-import {MapService} from "../../map/shared/map.service";
-// import { MenuListComponent } from './../../menu/list/menu-list.component';
+import {MapService} from '../../map/shared/map.service';
 @Component({
   selector: 'dynamic-container',
-  entryComponents: Object.keys(components).map(key => components[key]),
+  // entryComponents: Object.keys(test).map(key => test[key]),
+  entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
+                    InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
+                    MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+                    WarningComponent, MapSignComponent],
   template: `
     <ng-template #container></ng-template>
-    <div *ngIf="!loaded" class="loader"></div>
+    <div *ngIf='!loaded' class='loader'></div>
   `,
   styles: [`
     .loader {
@@ -77,7 +96,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
   loadComponent() {
 
-    console.log("======loadComponent:")
+    console.log('======loadComponent:')
     let factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
 

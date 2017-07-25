@@ -31,9 +31,9 @@ export class AppComponent implements OnInit {
         console.log(JSON.stringify(res));
       });
 
-      eb.registerHandler('lms.data.京G79489', function (err, res) {
-        console.log('lms.data.京G79489====callback');
-        console.log('======lms.data.京G79489=====' + JSON.stringify(res));
+      eb.registerHandler('hfyz.data.京G79489', function (err, res) {
+        console.log('hfyz.data.京G79489====callback');
+        console.log('======hfyz.data.京G79489=====' + JSON.stringify(res));
       });
 
       eb.registerHandler('inspect.response.0001', function (err, res) {

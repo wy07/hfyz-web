@@ -81,4 +81,7 @@ export class HomeComponent implements OnInit {
       // })
 
     }
+
+    toOtherPage(url, string) {
+    }
 };

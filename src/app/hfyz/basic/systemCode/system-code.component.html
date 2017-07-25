@@ -1,6 +1,6 @@
 <div class="ui-g">
   <div  class="ui-g-12 ">
-    <p-dropdown [options]="systemCodeTypes" [(ngModel)]="type" (onChange)="reload($event)"
+    <p-dropdown [options]="systemCodeTypes" [(ngModel)]="type" (onChange)="reload()"
                 [style]="{'width':'300px'}" [autoWidth]="false" class="pull-left" filter="filter"></p-dropdown>
     <button [hasPermission]="'systemcode:create'" pButton type="button" label="新增" (click)="onCreate()"  class="pull-right"></button>
   </div>

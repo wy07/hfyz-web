@@ -7,7 +7,7 @@
             <div class="col-sm-4">
               <div class="input-group">
                 <span class="input-group-addon">企业名称：</span>
-                <input type="text" class="form-control" [(ngModel)]="company" name="company"/>
+                <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入企业名称..."/>
               </div>
             </div>
             <div class="col-md-5">
@@ -30,41 +30,49 @@
       </div>
       </div>
   </div>
-<div class="panel panel-info" *ngIf="checkRecordList?.length>0">
-  <div class="panel-body">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>企业名称</th>
-        <th>查岗时间</th>
-        <th>查岗内容</th>
-        <th>问题答案</th>
-        <th>信息状态</th>
-        <th>查岗类型</th>
-        <th>查岗人</th>
-        <th>应答时间</th>
-        <th>应答内容</th>
-        <th>响应时间(分:秒)</th>
-      </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let checkRecord of checkRecordList">
-          <td>{{checkRecord.companyCode}}</td>
-          <td>{{checkRecord.dateCreated}}</td>
-          <td>{{checkRecord.question}}</td>
-          <td>{{checkRecord.answer}}</td>
-          <td>{{checkRecord.responsed ? '已响应':'未响应'}}</td>
-          <td>{{checkRecord.auto ? '自动':'手动'}}</td>
-          <td>{{checkRecord.operator || '无'}}</td>
-          <td>{{checkRecord.responseDate || '无'}}</td>
-          <td>{{checkRecord.responseContent || '无'}}</td>
-          <td>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
+  <div class="panel-body" *ngIf="checkRecordList?.length>0" >
+    <div class="row">
+      <div class="col-md-12">
+        <p-dataTable [value]="checkRecordList">
+          <p-column field="companyCode" header="企业名称"></p-column>
+          <p-column field="dateCreated" header="查岗时间"></p-column>
+          <p-column field="question" header="查岗内容"></p-column>
+          <p-column field="answer" header="问题答案"></p-column>
+          <p-column field="responsed" header="信息状态">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.responsed ? '已响应':'未响应'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="auto" header="查岗类型">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.auto ? '自动':'手动'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="operator" header="查岗人">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.operator || '无'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="responseDate" header="应答时间">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.responseDate || '无'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="responseContent" header="应答内容">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.responseContent || '无'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="responseTime" header="响应时间(分:秒)">
+            <ng-template let-checkRecord="rowData" pTemplate="body">
+              <span>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</span>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+        <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
+      </div>
+    </div>
   </div>
-</div>
   <div *ngIf="checkRecordList?.length<=0" class="center">
     <h4>暂无查岗信息</h4>
   </div>
