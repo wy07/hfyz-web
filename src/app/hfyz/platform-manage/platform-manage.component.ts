@@ -17,6 +17,7 @@ export class PlatformManageComponent implements OnInit {
   code: string;
 
   displayDialog: boolean;
+  isDetails: boolean;
   formTitle: string;
   isAdd: boolean;
   max: number;
@@ -28,6 +29,7 @@ export class PlatformManageComponent implements OnInit {
     , private platformService: PlatformManageService
     , private regularService: RegularService) {
     this.displayDialog = false;
+    this.isDetails = false;
     this.platform = {};
     this.clearForm();
     this.max = 10;
@@ -91,6 +93,9 @@ export class PlatformManageComponent implements OnInit {
   }
 
   preEdit(id) {
+    if (this.displayDialog == false) {
+      this.isDetails = true;
+    }
     this.platformService.edit(id).subscribe(
       res => {
         if (res.result == 'success') {
@@ -163,6 +168,11 @@ export class PlatformManageComponent implements OnInit {
         }
       );
     }
+  }
+
+  // 返回
+  return() {
+    this.isDetails = false;
   }
 
 // 清除dialog数据
