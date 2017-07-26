@@ -4,5 +4,6 @@ const data = {
   , 'LICENSE_TYPE': '证件类型'
   , 'UNIT_NATURE': '单位性质'
   , 'MAP_SIGN_TYPE' : '路标类型'
+  , 'ALARM_TYPE' : '告警类型'
 };
 export const SYSTEM_CODE_TYPES: any = data;
