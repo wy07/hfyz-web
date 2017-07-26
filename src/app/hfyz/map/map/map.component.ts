@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GnssData } from '../../common/shared/gnss-data';
-import {MapService} from "../shared/map.service";
-import {ToastsManager} from "ng2-toastr";
-import {RegularService} from "../../common/shared/regular.service";
+import { MapService } from '../shared/map.service';
+import { ToastsManager } from 'ng2-toastr';
+import { RegularService } from '../../common/shared/regular.service';
 declare var mapObject: any;
 
 @Component({
@@ -10,7 +10,7 @@ declare var mapObject: any;
   templateUrl: 'map.component.html',
   styleUrls: ['map.component.css']
 })
-export class MapComponent implements OnInit,OnDestroy {
+export class MapComponent implements OnInit, OnDestroy {
   realTimePoint: any;
   realTimeGnssData: GnssData;
   realTimeMonitorGnssData: GnssData;
@@ -18,34 +18,34 @@ export class MapComponent implements OnInit,OnDestroy {
   lng: number;
   lat: number;
   points: any[];
-  mapCode:string;
-  directions:any[];
-  directionIndex:number;
+  mapCode: string;
+  directions: any[];
+  directionIndex: number;
 
-  realTimeMapKey:string;
-  realTimeMapFrameNo:string;
-  realTimeMonitorKey:string;
-  realTimeMonitorFrameNo:string;
-  historyMapKey:string;
-  historyMapFrameNo:string;
+  realTimeMapKey: string;
+  realTimeMapFrameNo: string;
+  realTimeMonitorKey: string;
+  realTimeMonitorFrameNo: string;
+  historyMapKey: string;
+  historyMapFrameNo: string;
 
 
   constructor(private toastr: ToastsManager
     , private regularService: RegularService
-    ,private mapService:MapService) {
+    , private mapService: MapService) {
     this.lng = 116.35566;
     this.lat = 39.93218;
     this.realTimeGnssData = null;
     this.realTimeMonitorGnssData = null;
-    this.mapCode=null;
-    this.realTimeMapKey='';
-    this.realTimeMapFrameNo='';
-    this.historyMapKey='';
-    this.historyMapFrameNo='';
-    this.realTimeMonitorKey='';
-    this.realTimeMonitorFrameNo='';
-    this.directions=[10,46,80,100,138,160,250,320,360];
-    this.directionIndex=0;
+    this.mapCode = null;
+    this.realTimeMapKey = '';
+    this.realTimeMapFrameNo = '';
+    this.historyMapKey = '';
+    this.historyMapFrameNo = '';
+    this.realTimeMonitorKey = '';
+    this.realTimeMonitorFrameNo = '';
+    this.directions = [10, 46, 80, 100, 138, 160, 250, 320, 360];
+    this.directionIndex = 0;
     this.points = [{
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -190,30 +190,30 @@ export class MapComponent implements OnInit,OnDestroy {
       'vehicleState': 3,
       'alarmState': 1
     }];
-    this.mapService.change.subscribe((inputs:any)=>{
+    this.mapService.change.subscribe((inputs: any) => {
       clearTimeout(this.timer);
       mapObject.clean();
-      if(inputs.code==='realTimeMap'){
-        if(this.realTimeMapKey!=inputs.key){
-          this.realTimeMapKey=inputs.key;
-          this.realTimeMapFrameNo=inputs.frameNo;
+      if (inputs.code === 'realTimeMap') {
+        if (this.realTimeMapKey !== inputs.key) {
+          this.realTimeMapKey = inputs.key;
+          this.realTimeMapFrameNo = inputs.frameNo;
         }
-      }else if(inputs.code==='historyMap'){
-        if(this.historyMapKey!=inputs.key){
-          this.historyMapKey=inputs.key;
-          this.historyMapFrameNo=inputs.frameNo;
+      } else if (inputs.code === 'historyMap') {
+        if (this.historyMapKey !== inputs.key) {
+          this.historyMapKey = inputs.key;
+          this.historyMapFrameNo = inputs.frameNo;
         }
-      }else if(inputs.code==='realTimeMonitorMap'){
-        if(this.realTimeMonitorKey!=inputs.key){
-          this.realTimeMonitorKey=inputs.key;
-          this.realTimeMonitorFrameNo=inputs.frameNo;
+      } else if (inputs.code === 'realTimeMonitorMap') {
+        if (this.realTimeMonitorKey !== inputs.key) {
+          this.realTimeMonitorKey = inputs.key;
+          this.realTimeMonitorFrameNo = inputs.frameNo;
         }
       }
 
-      if(this.mapCode){
+      if (this.mapCode) {
         this.mapCode = inputs.code;
         this.initMap();
-      }else{
+      } else {
         this.mapCode = inputs.code;
       }
     })
@@ -221,25 +221,25 @@ export class MapComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     mapObject.initMap('map');
-    if(this.mapCode){
+    if (this.mapCode) {
       this.initMap();
     }
   }
 
-  initMap(){
-    if(this.mapCode=='realTimeMap'){
-      if(this.realTimeMapFrameNo){
+  initMap() {
+    if (this.mapCode === 'realTimeMap') {
+      if (this.realTimeMapFrameNo) {
         this.getRealTimeMap();
       }
-    }else if(this.mapCode=='historyMap'){
-      if(this.historyMapFrameNo){
+    } else if (this.mapCode === 'historyMap') {
+      if (this.historyMapFrameNo) {
         this.getHistoryMap();
       }
-    }else if(this.mapCode==='realTimeMonitorMap'){
-      if(this.realTimeMonitorFrameNo){
+    } else if (this.mapCode === 'realTimeMonitorMap') {
+      if (this.realTimeMonitorFrameNo) {
         this.getRealTimeMonitorMap();
       }
-    }else{
+    } else {
       mapObject.clean();
     }
   }
@@ -248,8 +248,8 @@ export class MapComponent implements OnInit,OnDestroy {
     clearTimeout(this.timer);
   }
 
-  getRealTimeMap(){
-    if(this.realTimeMapFrameNo){
+  getRealTimeMap() {
+    if (this.realTimeMapFrameNo) {
       clearTimeout(this.timer);
       this.lng = 116.35566;
       this.lat = 39.93218;
@@ -258,13 +258,13 @@ export class MapComponent implements OnInit,OnDestroy {
       this.timer = setInterval(function () {
         $this.getRealTimeGnssData();
       }, 2000)
-    }else{
-      this.toastr.error("请输入车牌号");
+    } else {
+      this.toastr.error('请输入车牌号');
     }
   }
 
-  getRealTimeMonitorMap(){
-    if(this.realTimeMonitorFrameNo){
+  getRealTimeMonitorMap() {
+    if (this.realTimeMonitorFrameNo) {
       clearTimeout(this.timer);
       this.lng = 116.35566;
       this.lat = 39.93218;
@@ -273,16 +273,16 @@ export class MapComponent implements OnInit,OnDestroy {
       this.timer = setInterval(function () {
         $this.getRealTimeMonitorGnssData();
       }, 2000)
-    }else{
-      this.toastr.error("请输入车牌号");
+    } else {
+      this.toastr.error('请输入车牌号');
     }
   }
 
-  getHistoryMap(){
-    if(this.historyMapFrameNo){
+  getHistoryMap() {
+    if (this.historyMapFrameNo) {
       this.showPath();
-    }else{
-      this.toastr.error("请输入车牌号");
+    } else {
+      this.toastr.error('请输入车牌号');
     }
   }
 
@@ -296,7 +296,7 @@ export class MapComponent implements OnInit,OnDestroy {
 
   getRealTimeGnssData() {
     this.lng += 0.001;
-    this.directionIndex+=1;
+    this.directionIndex += 1;
     this.realTimeGnssData = {
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -306,17 +306,17 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': this.directions[this.directionIndex%8],
+      'direction': this.directions[this.directionIndex % 8],
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData),this.realTimeGnssData.direction);
+    mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData), this.realTimeGnssData.direction);
   }
 
   getRealTimeMonitorGnssData() {
     this.lng += 0.001;
-    this.directionIndex+=1;
+    this.directionIndex += 1;
     this.realTimeMonitorGnssData = {
       'dateStr': '2017-06-30 07:36:11',
       'plateColor': 2,
@@ -326,11 +326,11 @@ export class MapComponent implements OnInit,OnDestroy {
       'gpsSpeed': 60,
       'totalMileage': 1,
       'recSpeed': 60,
-      'direction': this.directions[this.directionIndex%8],
+      'direction': this.directions[this.directionIndex % 8],
       'altitude': 0,
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),this.realTimeMonitorGnssData.direction);
+    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData), this.realTimeMonitorGnssData.direction);
   }
 }
