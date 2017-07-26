@@ -27,7 +27,7 @@ export class RoleService {
   }
 
   savePermission(id,permissions){
-    return this.restangular.one('permission-groups', id).customPOST(permissions, 'save');
+    return this.restangular.one('roles', id).all('permission-groups').post({permissions: permissions});
   }
   listForSelect(roles,operatorId){
      return this.restangular.all('roles').customGET('list-for-select', {roles: roles, operatorId: operatorId});
