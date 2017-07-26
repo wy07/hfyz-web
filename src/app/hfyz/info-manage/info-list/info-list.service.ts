@@ -9,11 +9,6 @@ export class InfoListService {
   constructor(public restangular: Restangular) {
   }
 
-/*  list(parentId) {
-
-    return this.restangular.all('infoaudits').customGET('list', {parentId: parentId});
-  }*/
-
   list(max, offset) {
     return this.restangular.all('infoaudits').customGET('list', {
       max: max,
