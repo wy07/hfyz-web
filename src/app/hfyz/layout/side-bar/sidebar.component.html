@@ -1,9 +1,9 @@
 <div *ngIf="sidebarMenu!==undefined" class="layout-sidebar" style="overflow: visible;">
     <div class="layout-tabmenu">
         <ul class="layout-tabmenu-nav">
-          <ng-template ngFor let-menu [ngForOf]="sidebarMenu" > 
-            <li [ngClass]="(menu.code!==undefined && menu.code==activeMenu)?'active-item':''">
-                 <div [hasPermission]="menu.code">
+          <ng-template ngFor let-menu [ngForOf]="sidebarMenu" >
+            <li [ngClass]="(menu.code!==undefined && menu.code==activeMenu)?'active-item':''" >
+                 <div [hasPermission]="menu.code" id ="{{menu.code}}">
                     <a   class="tabmenuitem-link"  href="#" (click)="menu.code.indexOf('root')==-1?addTab(menu):showContent($event,menu)">
                         <i class="fa {{menu.icon}}"></i>
                     </a>
@@ -16,18 +16,18 @@
           </ng-template>
         </ul>
         <div class="layout-tabmenu-contents" >
-            <div class="layout-tabmenu-content">
+            <div class="layout-tabmenu-content" id="{{childrenMenuCode}}" >
                 <div class="layout-submenu-title clearfix">
                     <span>{{contentLabel}}</span>
                     <a class="menu-button"  (click)="hideContent($event)" >
                         <i class="fa fa-bars"></i>
-                    </a> 
+                    </a>
                 </div>
                 <div class="layout-submenu-content">
                     <div class="nano has-scrollbar">
                         <div class="nano-content menu-scroll-content" tabindex="0" style="margin-right: -15px;">
                         <ul  class="navigation-menu" >
-                            <ng-template ngFor let-childmenu [ngForOf]="menuChildren" > 
+                            <ng-template ngFor let-childmenu [ngForOf]="menuChildren" >
                             <div [hasPermission]="childmenu.code">
                                 <li  *ngIf="childmenu.name!='divider' ; else elseBlock">
                                     <a (click)="addTab(childmenu)"  href="#" >
@@ -35,7 +35,7 @@
                                         <span>{{childmenu.name}}</span>
                                     </a>
                                 </li>
-                            
+
                                 <ng-template #elseBlock>
                                     <li class="hoverdown-divider"></li>
                                 </ng-template>
