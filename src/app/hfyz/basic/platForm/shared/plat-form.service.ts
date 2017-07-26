@@ -11,4 +11,8 @@ export class PlatFormService {
     return this.restangular.all('owner-check-records').customGET('list',
         {max: max, offset: offset, company: company, startDate: sd, endDate: ed});
   }
+
+  inspect(id,answer){
+    return this.restangular.one('owner-check-records',id).customPOST({answer:answer},'inspect')
+  }
 }

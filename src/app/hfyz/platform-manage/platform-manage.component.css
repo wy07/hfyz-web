@@ -13,3 +13,15 @@
 .notNull{
   color: red;
 }
+.basicInfo{
+  padding: 15px 10px;
+}
+.right{
+  text-align: right;
+}
+.return{
+  margin: 10px;
+}
+.title{
+  padding:10px;
+}

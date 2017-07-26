@@ -25,7 +25,11 @@
       <div class="col-md-12">
         <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
           <p-column field="frameNo" header="车架号"></p-column>
-          <p-column field="carLicenseNo" header="车牌号"></p-column>
+          <p-column field="carLicenseNo" header="车牌号">
+            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+              <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
+            </ng-template>
+          </p-column>
           <p-column field="carColor" header="车辆颜色"></p-column>
           <p-column field="warningSource" header="报警信息来源"></p-column>
           <p-column field="warningType" header="报警类型"></p-column>
@@ -44,50 +48,47 @@
 
 <p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true"
           disabled="disabled">
-  <div class="form-horizontal w-dialog">
+  <div class="form-horizontal">
     <div class="form-group ">
       <label for="frameNo" class="col-xs-4 col-sm-4 dialog-label">车架号：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="frameNo" disabled="disabled" [(ngModel)]="warning.frameNo">
+        <p id="frameNo">{{warning.frameNo}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="carLicenseNo" class="col-xs-4 col-sm-4 dialog-label">车牌号：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="carLicenseNo" disabled="disabled"
-               [(ngModel)]="warning.carLicenseNo">
+        <p id="carLicenseNo">{{warning.carLicenseNo}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="carColor" class="col-xs-4 col-sm-4 dialog-label">车辆颜色：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="carColor" disabled="disabled" [(ngModel)]="warning.carColor ">
+        <p id="carColor">{{warning.carColor}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="warningSource" class="col-xs-4 col-sm-4 dialog-label">报警信息来源：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningSource" disabled="disabled"
-               [(ngModel)]="warning.warningSource">
+        <p id="warningSource">{{warning.warningSource}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="warningType" class="col-xs-4 col-sm-4 dialog-label">报警类型：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningType" disabled="disabled" [(ngModel)]="warning.warningType">
+        <p id="warningType">{{warning.warningType}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="warningTime" class="col-xs-4 col-sm-4 dialog-label">报警时间：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningTime" disabled="disabled" [(ngModel)]="warning.warningTime">
+        <p id="warningTime">{{warning.warningTime}}</p>
       </div>
     </div>
     <div class="form-group">
       <label for="warningTimes" class="col-xs-4 col-sm-4 dialog-label">报警次数：</label>
       <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="warningTimes" disabled="disabled"
-               [(ngModel)]="warning.warningTimes">
+        <p id="warningTimes">{{warning.warningTimes}}</p>
       </div>
     </div>
     <!--督办信息，暂时隐藏-->

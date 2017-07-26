@@ -32,8 +32,10 @@ import {DynamicComponent} from './hfyz/common/dynamic/dynamic.component';
 import {TabViewModule, BlockUIModule} from 'primeng/primeng';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
-import { DialogModule } from 'primeng/primeng';
+import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
+import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
+import {PlatFormService} from "./hfyz/basic/platForm/shared/plat-form.service";
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
@@ -71,9 +73,11 @@ export function ConfigLoader(configService: ConfigService) {
     BlockUIModule,
     PlatformManageModule,
     CarModule,
+    PeopleModule,
     WarningModule,
-    DialogModule
-
+    DialogModule,
+    ButtonModule,
+    MessagesModule
   ],
   /*providers: [ConfigService,
    {
@@ -93,7 +97,8 @@ export function ConfigLoader(configService: ConfigService) {
     , AuthService
     , AdminService
     , NgRadio
-    , ChangePwdService],
+    , ChangePwdService
+    , PlatFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
