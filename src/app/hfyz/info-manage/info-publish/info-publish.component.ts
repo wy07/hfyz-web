@@ -10,9 +10,6 @@ import {tokenReference} from "@angular/compiler";
 import {UserService} from "../../basic/user/user.service";
 import {DatePipe} from "@angular/common";
 
-
-
-
 @Component({
   selector: 'info-publish',
   templateUrl: './info-publish.component.html',
@@ -38,12 +35,16 @@ export class InfoPublishComponent implements OnInit {
   dateBegin: Date;
   dateEnd: Date;
 
+  congfig: any;
+  max: number;
+  total: number;
+  currentPage: number;
   isAdd: boolean;
   currentUser: string;
   currentUserId: number
   currentRoleArray = []
   currentRoleString: string
-  ckeditorContent = '';
+
   constructor(private _renderer: Renderer
     , private _router: Router
     , private _activatedRoute: ActivatedRoute
@@ -57,6 +58,29 @@ export class InfoPublishComponent implements OnInit {
     , private _authService: AuthService) {
     console.log('========InfoPublishComponent==========');
     this.displayDialog = false;
+
+    this.congfig = {
+      toolbar :
+        [
+          { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+          { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+          {
+            name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'
+            , 'Iframe']
+          },
+          { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'] },
+          { name: 'document', items: ['Source', 'NewPage', 'Preview'] },
+          '/',
+          { name: 'styles', items: ['Styles', 'Format'] },
+          { name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
+          { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+          { name: 'tools', items: ['Maximize', '-', 'About'] },
+          { name: 'colors', items: ['TextColor', 'BGColor'] }
+        ],
+      filebrowserUploadUrl : '/filemanager/index.html'
+     };
+
+
     this.infoType = [];
 
     this.infoType.push({label: '政策法律法规', value:  '政策法律法规'});
@@ -87,18 +111,36 @@ export class InfoPublishComponent implements OnInit {
     this.user = { id: '', operator: this.currentUserId };
     this.infoaudit = {};
     this.actionStr = 'list';
+    this.max = 10;
     this.initData();
   }
 
   ngOnInit() {
   }
 
-  initData() {
+/*  initData() {
     this.infoPublishService.list(this.currentUserId).subscribe(
       res => {
         this.publishList = res.publishList;
       }
   );
+  }*/
+
+  initData(offset = 0) {
+    this.infoPublishService.list(this.max, offset).subscribe(
+      res => {
+        this.publishList = res.publishList.publishList;
+        this.total = res.publishList.total;
+      }
+    );
+  }
+
+  // 点击分页按钮
+  paginate(event) {
+    if (this.currentPage !== event.page) {
+      this.currentPage = event.page;
+      this.initData(this.max * event.page);
+    }
   }
 
   onCreate() {
@@ -108,13 +150,16 @@ export class InfoPublishComponent implements OnInit {
 
   }
 
-  onSearch() {
-    if (this.validateDate()) {
-      const dateBegin = this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd hh:mm');
-      const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd hh:mm');
-      this.infoPublishService.search(this.textTitle, dateBegin, dateEnd).subscribe(
+  onSearch(offset = 0) {
+    if (this.validateDate() || (this.textTitle != null)) {
+      const dateBegin = this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm');
+      const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm');
+      console.log(dateBegin)
+      this.infoPublishService.search(this.textTitle, dateBegin, dateEnd, this.max, offset).subscribe(
         res => {
-          this.publishList = res.publishList;
+          //this.publishList = res.publishList;
+          this.publishList = res.publishList.publishList;
+          this.total = res.publishList.total;
         }
       );
     }

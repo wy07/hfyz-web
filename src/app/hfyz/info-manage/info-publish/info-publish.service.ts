@@ -9,9 +9,18 @@ export class InfoPublishService {
   constructor(public restangular: Restangular) {
   }
 
+/*
   list(parentId) {
 
     return this.restangular.all('infoaudits').customGET('list', {parentId: parentId});
+  }
+*/
+
+  list(max, offset) {
+    return this.restangular.all('infoaudits').customGET('list', {
+      max: max,
+      offset: offset,
+    });
   }
 
   save(formData) {
@@ -27,15 +36,16 @@ export class InfoPublishService {
   }
 
   update(id, formData) {
-   console.log('======formData======' + formData)
     return this.restangular.one('infoaudits', id).customPOST(formData, 'update');
   }
 
-  search(textTitle, dateBegin, dateEnd) {
+  search(textTitle, dateBegin, dateEnd, max, offset) {
     return this.restangular.all('infoaudits').customGET('search', {
       textTitle: textTitle
       , dateBegin: dateBegin
       , dateEnd: dateEnd
+      , max: max
+      , offset: offset
     });
   }
 }

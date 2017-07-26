@@ -41,6 +41,7 @@
         </ng-template>
       </p-column>
       </p-dataTable>
+      <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
       </div>
     </div>
   </div>
@@ -77,8 +78,7 @@
         <p-calendar  [showTime]="true" [(ngModel)]="infoaudit.vimTime" name="dataCreate"></p-calendar>
       </div>
       <div class="col-sm-6" *ngIf="isAdd==false">
-        <!--<label  class="form-control" > {{infoaudit.vimTime| date:'yyyy-MM-dd HH:mm:ss' }}</label>-->
-        {{infoaudit.vimTime| date:'yyyy-MM-dd HH:mm:ss' }}
+        {{infoaudit.dataCreate| date:'yyyy-MM-dd HH:mm:ss' }}
       </div>
     </div>
 
@@ -87,6 +87,7 @@
       <div class="col-sm-8">
         <ckeditor name="ckeditor"
                   [(ngModel)]="infoaudit.content"
+                  [config]= congfig
                   [readonly]="false"
                   debounce="500">
         </ckeditor>
@@ -102,7 +103,6 @@
 
     <div class="form-group">
       <label class="col-sm-2 control-label">状态</label>
-      <!--<p-dropdown [options]="infoStatus" [(ngModel)]="infoaudit.status" name="selectedStutas"></p-dropdown>-->
       <div class="col-sm-2" >{{"起草"}}</div>
     </div>
 
@@ -129,7 +129,6 @@
  <P>是否保存信息？请选择！</P>
 
   <p-footer>
-    <!--<button type="button" pButton icon="fa-check" (click)="onSure()" label="是"></button>-->
     <button type="button" pButton icon="fa-check" (click)="isAdd?onSure():update()" label="是"></button>
     <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
   </p-footer>

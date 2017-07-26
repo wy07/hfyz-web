@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { InfoPublishService } from './info-publish.service';
 import { InfoPublishComponent } from './info-publish.component';
 import { NgModule } from '@angular/core';
-import {DataTableModule, SharedModule, CalendarModule, DropdownModule, DialogModule, ListboxModule, ButtonModule} from 'primeng/primeng';
+import {DataTableModule, SharedModule, CalendarModule, DropdownModule, DialogModule, ListboxModule, ButtonModule, PaginatorModule} from 'primeng/primeng';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DatePipe } from '@angular/common';
 
@@ -29,6 +29,7 @@ import { DatePipe } from '@angular/common';
     ButtonModule,
     SharedModule,
     CalendarModule,
+    PaginatorModule,
   ],
   exports: [
   ],
