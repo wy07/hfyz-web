@@ -42,6 +42,16 @@
         <p-listbox [options]="orgList" [(ngModel)]="user.org"   filter="filter" [style]="{'width':'150px','max-height':'150px'}"></p-listbox>
       </div>
     </div>
+
+    <div class="form-group">
+      <label for="companyCode" class="col-sm-2 control-label">业户组织机构代码</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="companyCode" name="companyCode" [(ngModel)]="user.companyCode">
+      </div>
+      <div class="col-sm-6">
+        <p class="form-control-static">若为业户用户，请指定【业户组织机构代码】</p>
+      </div>
+    </div>
   </div>
     <div *ngIf="isAdd" class="alert alert-danger">提示：新增人员默认密码为: '666666'</div>
   <p-footer>

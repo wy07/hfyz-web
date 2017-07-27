@@ -4,6 +4,7 @@ import {Restangular} from 'ngx-restangular';
 
 @Injectable()
 export class PlatFormService {
+
   constructor(public restangular: Restangular) {
   }
 

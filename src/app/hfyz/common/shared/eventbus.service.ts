@@ -1,13 +1,15 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {Restangular} from 'ngx-restangular';
 
 @Injectable()
 export class EventBuservice {
   private eb;
+  notify:EventEmitter<any>;
 
 
   constructor(public restangular: Restangular) {
     this.eb=null;
+    this.notify = new EventEmitter();
   }
 
   setEb(eb){
