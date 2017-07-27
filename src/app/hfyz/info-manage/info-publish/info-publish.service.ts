@@ -24,7 +24,7 @@ export class InfoPublishService {
   }
 
   save(formData) {
-    return this.restangular.all('infoaudit').customPOST(formData, 'save');
+    return this.restangular.all('infoaudits').customPOST(formData, 'save');
   }
 
   delete(id) {
