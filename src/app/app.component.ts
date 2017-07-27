@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { EventBuservice } from './hfyz/common/shared/eventbus.service';
@@ -21,20 +22,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     console.log('in AppComponent');
-    let eb = new EventBus('http://127.0.0.1:8001/eventbus', {});
+    const eb = new EventBus(environment.eventBusUrl, {});
     console.log(eb);
     console.log(eb.o);
-    let $this = this;
+    const $this = this;
     eb.onopen = function () {
       eb.registerHandler('test.hello', function (err, res) {
         console.log('test.hello====callback');
         console.log(JSON.stringify(res));
       });
 
-      eb.registerHandler('hfyz.data.京G79489', function (err, res) {
-        console.log('hfyz.data.京G79489====callback');
-        console.log('======hfyz.data.京G79489=====' + JSON.stringify(res));
-      });
+      // eb.registerHandler('hfyz.data.京G79489', function (err, res) {
+      //   console.log('hfyz.data.京G79489====callback');
+      //   console.log('======hfyz.data.京G79489=====' + JSON.stringify(res));
+      // });
 
       eb.registerHandler('inspect.response.0001', function (err, res) {
         console.log('inspect.response.0001====callback');

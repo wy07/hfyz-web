@@ -41,6 +41,7 @@ var mapObject = (function() {
     },
 
     realTimePoint: function (geoPoint, info,direction) {
+      maplet.centerAndZoom(new MPoint(117.126826, 31.852467), 12);
       if (realTimePoint) {
         maplet.clearOverlays(true);
       }

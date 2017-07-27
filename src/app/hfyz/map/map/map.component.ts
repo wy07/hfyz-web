@@ -1,3 +1,4 @@
+import { EventBuservice } from './../../common/shared/eventbus.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GnssData } from '../../common/shared/gnss-data';
 import { MapService } from '../shared/map.service';
@@ -26,15 +27,19 @@ export class MapComponent implements OnInit, OnDestroy {
   realTimeMapFrameNo: string;
   realTimeMonitorKey: string;
   realTimeMonitorFrameNo: string;
+  oldRealTimeMonitorFrameNo: string;
   historyMapKey: string;
   historyMapFrameNo: string;
+  eb: any;
 
 
   constructor(private toastr: ToastsManager
     , private regularService: RegularService
+    , private eventBuservice: EventBuservice
     , private mapService: MapService) {
-    this.lng = 116.35566;
-    this.lat = 39.93218;
+    this.eb = this.eventBuservice.getEb();
+    this.lng = 117.126826;
+    this.lat = 31.852467;
     this.realTimeGnssData = null;
     this.realTimeMonitorGnssData = null;
     this.mapCode = null;
@@ -210,6 +215,8 @@ export class MapComponent implements OnInit, OnDestroy {
         }
       }
 
+      console.log('===this.mapCode===' + this.mapCode);
+
       if (this.mapCode) {
         this.mapCode = inputs.code;
         this.initMap();
@@ -248,26 +255,49 @@ export class MapComponent implements OnInit, OnDestroy {
     clearTimeout(this.timer);
   }
 
+  registerHandler() {
+    const address = 'hfyz.data.' + this.realTimeMapFrameNo;
+    const $this = this;
+    this.eb.registerHandler(address, function (err, res) {
+      console.log('======hfyz.data.京G79489=====' + JSON.stringify(res));
+      $this.getRealTimeGnssDataByEventBus(res.body);
+    });
+  }
+
+  unRegisterHandler() {
+    const address = 'hfyz.data.' + this.oldRealTimeMonitorFrameNo;
+    this.eb.unregisterHandler(address, function (err, res) {
+      console.log('===getRealTimeMap===hfyz.data.京G79489==2===' + JSON.stringify(res));
+    });
+  }
+
   getRealTimeMap() {
+    console.log('======getRealTime==1===' + this.realTimeMapFrameNo)
+    this.unRegisterHandler();
     if (this.realTimeMapFrameNo) {
-      clearTimeout(this.timer);
-      this.lng = 116.35566;
-      this.lat = 39.93218;
-      let $this = this;
-      $this.getRealTimeGnssData();
-      this.timer = setInterval(function () {
-        $this.getRealTimeGnssData();
-      }, 2000)
+      this.registerHandler();
     } else {
       this.toastr.error('请输入车牌号');
     }
+    // if (this.realTimeMapFrameNo) {
+    //   clearTimeout(this.timer);
+    //   this.lng = 116.35566;
+    //   this.lat = 39.93218;
+    //   let $this = this;
+    //   $this.getRealTimeGnssData();
+    //   this.timer = setInterval(function () {
+    //     $this.getRealTimeGnssData();
+    //   }, 2000)
+    // } else {
+    //   this.toastr.error('请输入车牌号');
+    // }
   }
 
   getRealTimeMonitorMap() {
     if (this.realTimeMonitorFrameNo) {
       clearTimeout(this.timer);
-      this.lng = 116.35566;
-      this.lat = 39.93218;
+      this.lng = 117.126826;
+      this.lat = 31.852467;
       let $this = this;
       $this.getRealTimeMonitorGnssData();
       this.timer = setInterval(function () {
@@ -292,6 +322,28 @@ export class MapComponent implements OnInit, OnDestroy {
     for (let point of this.points) {
       mapObject.historyPoints(point.geoPoint, point.alarmState, GnssData.getRealTimeInfo(point));
     }
+  }
+
+  getRealTimeGnssDataByEventBus(data) {
+    const points = data.msg.geoPoint.split(',')
+    this.realTimeGnssData = {
+      'dateStr': data.msg.dateStr,
+      'plateColor': data.msg.plateColor,
+      'plateNo': this.realTimeMapFrameNo,
+      'posEncrypt': data.msg.posEncrypt,
+      'geoPoint': `${points[1]},${points[0]}`,
+      'gpsSpeed': data.msg.gpsSpeed,
+      'totalMileage': data.msg.totalMileage,
+      'recSpeed': data.msg.recSpeed,
+      'direction': data.msg.direction,
+      'altitude': data.msg.altitude,
+      'vehicleState': data.msg.vehicleState,
+      'alarmState': data.msg.alarmState
+    };
+    console.log('=====this.realTimeGnssData======' + JSON.stringify(this.realTimeGnssData));
+    mapObject.realTimePoint(this.realTimeGnssData.geoPoint,
+      GnssData.getRealTimeInfo(this.realTimeGnssData),
+      this.realTimeGnssData.direction);
   }
 
   getRealTimeGnssData() {
