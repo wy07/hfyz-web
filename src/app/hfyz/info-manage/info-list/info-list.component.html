@@ -1,87 +1,93 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="input-group">
-          <span class="input-group-addon">标题：</span>
-          <input type="text" class="form-control" placeholder="请输入文档标题..."/>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="input-group">
-          <span class="input-group-addon">起草时间：</span>
-          <div>
-            <p-calendar></p-calendar>
-            -
-            <p-calendar></p-calendar>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-primary">检索</button>
-      </div>
-    </div>
-  </div>
+<div class="panel panel-default"  *ngIf="actionStr=='list'">
 
   <div class="panel-body">
     <div class="row">
       <div class="col-md-3">
-        <p-tree [value]="infoCategories"></p-tree>
+      <p-tree [value]="infoCategories" selectionMode="single" [(selection)]="selectedType"
+              (onNodeSelect)="onSelect()" (onNodeUnselect)="nodeUnselect($event)"></p-tree>
+      <div style="margin-top:8px">已选择:{{selectedType ? selectedType.label : 'none'}}</div>
       </div>
+
       <div class="col-md-9">
-        <!-- <p-dataTable  [rows]="10" [paginator]="true" [pageLinks]="7" [rowsPerPageOptions]="[5,10,20]">
-         <p-column field="">
-           <ng-template pTemplate="header">
-             <input type="checkbox">
-           </ng-template>
-         </p-column>
-         <p-column field="" header="序号"></p-column>
-         <p-column field="" header="类别"></p-column>
-         <p-column field="" header="标题"></p-column>
-         <p-column field="" header="起草时间"></p-column>
-         <p-column field="" header="用户"></p-column>
-         <p-column field="" header="状态"></p-column>
-         <p-column field="" header="操作">
-           <ng-template  pTemplate="body">
-             <button type="button" class="btn btn-info">修改</button>
-             <button type="button" class="btn btn-info">删除</button>
-           </ng-template>
-         </p-column>
-         </p-dataTable>-->
-        <table class="table">
-          <tr>
-            <th>序号</th>
-            <th>类别</th>
-            <th>标题</th>
-            <th>起草时间</th>
-            <th>用户</th>
-            <th>状态</th>
-            <th>操作</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>政策法规</td>
-            <td>中华人民共和国行政诉讼法</td>
-            <td>2017-07-03 10:04:16</td>
-            <td>王敏</td>
-            <td>已通过</td>
-            <td>
-              <button type="button" class="btn btn-info">审核</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>标准</td>
-            <td>机动车维修规定</td>
-            <td>2017-07-07 10:24:36</td>
-            <td>王敏</td>
-            <td>已通过</td>
-            <td>
-              <button type="button" class="btn btn-info">审核</button>
-            </td>
-          </tr>
-        </table>
+        <p-dataTable  [value]="publishList" [emptyMessage]="'暂无数据'" >
+          <p-column field="title" header="标题"></p-column>
+          <p-column field="dateCreated" header="起草时间"></p-column>
+          <p-column field="username" header="用户"></p-column>
+          <p-column field="status" header="状态"></p-column>
+          <p-column field="" header="操作">
+            <ng-template  pTemplate="body" let-infoItem="rowData">
+              <button  pButton type="button"  class="btn btn-info" label="查看" (click)="onDisplay(infoItem)"></button>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="actionStr == 'details'">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="form-group"  >
+        <span>信息详情</span>
+      </div>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal">
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">类别 &nbsp;</label>
+          {{infoaudit.type}}
+        </div>
+
+        <div class="form-group">
+          <label  class="col-sm-2 control-label">标题</label>
+          <div class="col-sm-6">
+            {{infoaudit.title}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label  class="col-sm-2 control-label">起草时间</label>
+          <div class="col-sm-6" >
+            {{infoaudit.dateCreated| date:'yyyy-MM-dd HH:mm:ss' }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label  class="col-sm-2 control-label">内容</label>
+          <div class="col-sm-8" [innerHTML]="infoaudit.content"></div>
+        </div>
+
+        <div class="form-group">
+          <label  class="col-sm-2 control-label">用户</label>
+          <div class="col-sm-2">
+            {{currentUser}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label">状态</label>
+          <div class="col-sm-2" >{{infoaudit.status}}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputFile" class="col-sm-2 control-label">附件下载</label>
+          <input type="file" id="exampleInputFile" class="col-sm-1 control-label">
+        </div>
+
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-2">
+            <button  pButton type="button" label="退出" (click)="onQuit()" ></button>
+          </div>
+        </div>
+
+      </form>
     </div>
   </div>
 </div>
