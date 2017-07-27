@@ -23,16 +23,16 @@ export class RoleService {
     return this.restangular.one('roles',id).customPOST(formData, 'update');
   }
   getPermission(roles){
-    return this.restangular.all('permissionGroups').customGET('list', {roles: roles});
+    return this.restangular.all('permission-groups').customGET('list', {roles: roles});
   }
 
   savePermission(id,permissions){
-    return this.restangular.one('permissionGroups', id).customPOST(permissions, 'save');
+    return this.restangular.one('roles', id).all('permission-groups').post({permissions: permissions});
   }
   listForSelect(roles,operatorId){
-     return this.restangular.all('roles').customGET('listForSelect', {roles: roles, operatorId: operatorId});
+     return this.restangular.all('roles').customGET('list-for-select', {roles: roles, operatorId: operatorId});
   }
   orgListForSelect(roles){
-    return this.restangular.all('organizations').customGET('listForSelect', {roles: roles});
+    return this.restangular.all('organizations').customGET('list-for-select', {roles: roles});
   }
 }

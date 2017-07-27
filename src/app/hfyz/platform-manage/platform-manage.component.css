@@ -1,0 +1,27 @@
+.inputPM{
+  padding: 6px 6px !important;
+}
+.dialog-label{
+  padding-top: 7px;
+  margin-bottom: 0;
+  text-align: right;
+}
+.w-dialog{
+  height: 400px;
+  overflow:scroll;
+}
+.notNull{
+  color: red;
+}
+.basicInfo{
+  padding: 15px 10px;
+}
+.right{
+  text-align: right;
+}
+.return{
+  margin: 10px;
+}
+.title{
+  padding:10px;
+}

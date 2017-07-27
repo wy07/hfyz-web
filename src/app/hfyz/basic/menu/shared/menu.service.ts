@@ -10,10 +10,6 @@ export class MenuService {
     return this.restangular.all('menus').customGET('list',{parentId:parentId});
   }
 
-  types(){
-    return this.restangular.all('menus').customGET('type-list');
-  }
-
   delete(id) {
     return this.restangular.one('menus', id).customDELETE('delete', {});
   }

@@ -10,30 +10,19 @@ export class OrganizationService {
     return this.restangular.all('organizations').customGET('list');
   }
 
-  types(){
-    return this.restangular.all('menus').customGET('type-list');
-  }
-
   delete(id) {
-    return this.restangular.one('menus', id).customDELETE('delete', {});
+    return this.restangular.one('organizations', id).customDELETE('delete', {});
   }
 
   edit(id) {
-    return this.restangular.one('menus', id).customGET('edit');
+    return this.restangular.one('organizations', id).customGET('edit');
   }
 
   save(formData) {
-    return this.restangular.all('menus').customPOST(formData, 'save');
+    return this.restangular.all('organizations').customPOST(formData, 'save');
   }
 
   update(id, formData) {
-    return this.restangular.one('menus',id).customPOST(formData, 'update');
-  }
-
-  search(position,query) {
-    return this.restangular.all('menus').customGET('search', {
-      query: query,
-      position:position
-    });
+    return this.restangular.one('organizations',id).customPOST(formData, 'update');
   }
 }

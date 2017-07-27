@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RealTimeMapComponent} from "./real-time-map.component";
+import { PlatformManageComponent } from './platform-manage.component';
 
-describe('RealTimeMapComponent', () => {
-  let component: RealTimeMapComponent;
-  let fixture: ComponentFixture<RealTimeMapComponent>;
+describe('PlatformManageComponent', () => {
+  let component: PlatformManageComponent;
+  let fixture: ComponentFixture<PlatformManageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RealTimeMapComponent ]
+      declarations: [ PlatformManageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RealTimeMapComponent);
+    fixture = TestBed.createComponent(PlatformManageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

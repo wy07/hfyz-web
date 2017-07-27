@@ -3,7 +3,9 @@ import { SystemCodeModule } from './systemCode/system-code.module';
 import { ProjectMenuModule } from './menu/project-menu.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
+import { PlatFormModule } from './platForm/plat-form.module';
 import { NgModule } from '@angular/core';
+import { MapSignModule } from './mapSign/map-sign.module';
 
 @NgModule({
     imports: [
@@ -11,7 +13,9 @@ import { NgModule } from '@angular/core';
         UserModule,
         ProjectMenuModule,
         SystemCodeModule,
-        OrganizationModule
+        OrganizationModule,
+        PlatFormModule,
+        MapSignModule
     ]
 })
 export class BasicModule { };
