@@ -1,5 +1,5 @@
 import { Headers } from '@angular/http';
-import { environment } from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 
 export function RestangularConfigFactory(RestangularProvider, router, http, toastr) {
@@ -19,7 +19,8 @@ export function RestangularConfigFactory(RestangularProvider, router, http, toas
 
   // RestangularProvider.setBaseUrl(AppConfig.baseUrl);
   RestangularProvider.addFullRequestInterceptor((element, operation, path, url, headers, params) => {
-    console.log(`addFullRequestInterceptor======path:${path},params:${JSON.stringify(params)},element:${JSON.stringify(element)},operation:${JSON.stringify(operation)},url:${JSON.stringify(url)}`);
+    console.log(`addFullRequestInterceptor======path:${path},params:${JSON.stringify(params)},
+    element:${JSON.stringify(element)},operation:${JSON.stringify(operation)},url:${JSON.stringify(url)}`);
     params = Object.assign({}, params, { platform: 'web' });
     RestangularProvider.setBaseUrl(environment.gatewayServer);
     const token = sessionStorage.getItem('token');

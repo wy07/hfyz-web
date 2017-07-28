@@ -3,14 +3,14 @@ import {InfoListComponent} from './info-list/info-list.component';
 import {NgModule} from '@angular/core';
 import {DataTableModule, SharedModule, CalendarModule, DropdownModule, PaginatorModule} from 'primeng/primeng';
 import {TreeModule} from 'primeng/primeng';
-import {InfoPublishService} from "./info-publish/info-publish.service";
-import {BrowserModule} from "@angular/platform-browser";
-import {FormsModule} from "@angular/forms";
+import {InfoPublishService} from './info-publish/info-publish.service';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {InfoPublishModule} from "./info-publish/info-publish.module";
+import {InfoPublishModule} from './info-publish/info-publish.module';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DatePipe } from '@angular/common';
-import {InfoListService} from "./info-list/info-list.service";
+import {InfoListService} from './info-list/info-list.service';
 
 
 @NgModule({

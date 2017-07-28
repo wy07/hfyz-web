@@ -1,5 +1,6 @@
 // import { Component, OnInit } from '@angular/core';
-// import { TabViewModule, PanelModule, TreeModule, TreeNode, MenuModule, MenuItem, DialogModule, CheckboxModule, PickListModule, InputTextareaModule, GrowlModule, Message, SelectItem, ButtonModule } from 'primeng/primeng';
+// import { TabViewModule, PanelModule, TreeModule, TreeNode, MenuModule, MenuItem, DialogModule,
+//          CheckboxModule, PickListModule, InputTextareaModule, GrowlModule, Message, SelectItem, ButtonModule } from 'primeng/primeng';
 // import { AdminService } from './admin.service';
 // @Component({
 // 	selector: 'admin',

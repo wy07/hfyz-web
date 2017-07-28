@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class OrganizationService {
@@ -23,6 +23,6 @@ export class OrganizationService {
   }
 
   update(id, formData) {
-    return this.restangular.one('organizations',id).customPOST(formData, 'update');
+    return this.restangular.one('organizations', id).customPOST(formData, 'update');
   }
 }

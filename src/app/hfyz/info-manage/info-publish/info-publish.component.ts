@@ -1,14 +1,14 @@
 import { InfoPublishService } from './info-publish.service';
 import { Component, OnInit, Injector, Renderer } from '@angular/core';
 import {AuthService} from '../../security/auth.service';
-import {RegularService} from "../../common/shared/regular.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ToastsManager} from "ng2-toastr";
-import {RoleService} from "../../basic/role/role.service";
+import {RegularService} from '../../common/shared/regular.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ToastsManager} from 'ng2-toastr';
+import {RoleService} from '../../basic/role/role.service';
 import {SelectItem} from 'primeng/primeng';
-import {tokenReference} from "@angular/compiler";
-import {UserService} from "../../basic/user/user.service";
-import {DatePipe} from "@angular/common";
+import {tokenReference} from '@angular/compiler';
+import {UserService} from '../../basic/user/user.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'info-publish',
@@ -157,7 +157,7 @@ export class InfoPublishComponent implements OnInit {
       console.log(dateBegin)
       this.infoPublishService.search(this.textTitle, dateBegin, dateEnd, this.max, offset).subscribe(
         res => {
-          //this.publishList = res.publishList;
+          // this.publishList = res.publishList;
           this.publishList = res.publishList.publishList;
           this.total = res.publishList.total;
         }
@@ -168,7 +168,7 @@ export class InfoPublishComponent implements OnInit {
   onEdit(infoaudit)  {
     this.infoPublishService.edit(infoaudit.id).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.infoaudit = res.infoaudit;
           this.isAdd = false;
           this.actionStr = 'details';

@@ -1,20 +1,6 @@
 export class GnssData {
-  constructor(public dateStr: string,
-    public plateColor: number,
-    public plateNo: string,
-    public posEncrypt: number,
-    public geoPoint: string,
-    public gpsSpeed: number,
-    public totalMileage: number,
-    public recSpeed: number,
-    public direction: number,
-    public altitude: number,
-    public vehicleState: number,
-    public alarmState: number) {
-  }
-
   static getRealTimeInfo(realTimeGnssData: GnssData) {
-    let html = `
+    const html = `
       车牌号码：${realTimeGnssData.plateNo}<br/>
       车辆颜色：${realTimeGnssData.plateColor}<br/>
       经纬度：${realTimeGnssData.geoPoint}<br/>
@@ -31,7 +17,7 @@ export class GnssData {
   }
 
   static getRealTimeMonitorInfo(realTimeGnssData: GnssData) {
-    let html = `
+    const html = `
       <button id="monitor-info-btn" class="btn btn-info">实时信息</button>
       <button id="monitor-action-btn" class="btn btn-info">车辆操作</button>
       <div id="monitor-info-content">
@@ -55,5 +41,19 @@ export class GnssData {
       </div>
     `;
     return html;
+  }
+
+  constructor(public dateStr: string,
+    public plateColor: number,
+    public plateNo: string,
+    public posEncrypt: number,
+    public geoPoint: string,
+    public gpsSpeed: number,
+    public totalMileage: number,
+    public recSpeed: number,
+    public direction: number,
+    public altitude: number,
+    public vehicleState: number,
+    public alarmState: number) {
   }
 }

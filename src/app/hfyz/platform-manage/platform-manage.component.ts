@@ -93,12 +93,12 @@ export class PlatformManageComponent implements OnInit {
   }
 
   preEdit(id) {
-    if (this.displayDialog == false) {
+    if (this.displayDialog === false) {
       this.isDetails = true;
     }
     this.platformService.edit(id).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.platform = res.platform;
         } else {
           this.toastr.error('获取数据失败');

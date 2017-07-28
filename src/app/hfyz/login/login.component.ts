@@ -44,32 +44,34 @@ export class LoginComponent implements OnInit {
 
   login(event) {
     console.log('login======');
-    let body = this.loginForm.value;
+    const body = this.loginForm.value;
     console.log(`username:${this.loginForm.value.username}`)
     console.log(`password:${this.loginForm.value.password}`)
-    this._authService.login(this.loginForm.value.username, this.loginForm.value.password ).subscribe(
+    this._authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
       res => {
         this._authService.isLoggedIn = true;
-        console.log("--------in login ")
+        console.log('--------in login ')
         this._authService.isLoggedIn = true;
-        sessionStorage.setItem('currentUser', JSON.stringify({ username: this.loginForm.value.username
-          ,password:this.loginForm.value.password
+        sessionStorage.setItem('currentUser', JSON.stringify({
+          username: this.loginForm.value.username
+          , password: this.loginForm.value.password
           , token: res.token
-          ,roles: res.roles}));
+          , roles: res.roles
+        }));
         sessionStorage.setItem('username', this.loginForm.value.username);
         sessionStorage.setItem('password', this.loginForm.value.password);
         sessionStorage.setItem('token', res.token);
 
 
         this._adminService.getUserByName(res.sub).subscribe(data => {
-          console.log("--------in getUserByName ")
+          console.log('--------in getUserByName ')
           console.log(`data:${JSON.stringify(data)}`)
 
           sessionStorage.removeItem('myprofile');
           sessionStorage.setItem('myprofile', JSON.stringify(data.user))
           console.log(data.user.roleRights);
           this._configService.setRoleRights(data.user.roleRights)
-          let redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
+          const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
           console.log(redirect)
           this._router.navigate([redirect]);
         });

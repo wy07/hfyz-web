@@ -259,7 +259,6 @@ export class MapComponent implements OnInit, OnDestroy {
     const address = 'hfyz.data.' + this.realTimeMapFrameNo;
     const $this = this;
     this.eb.registerHandler(address, function (err, res) {
-      console.log('======hfyz.data.京G79489=====' + JSON.stringify(res));
       $this.getRealTimeGnssDataByEventBus(res.body);
     });
   }
@@ -298,7 +297,7 @@ export class MapComponent implements OnInit, OnDestroy {
       clearTimeout(this.timer);
       this.lng = 117.126826;
       this.lat = 31.852467;
-      let $this = this;
+      const $this = this;
       $this.getRealTimeMonitorGnssData();
       this.timer = setInterval(function () {
         $this.getRealTimeMonitorGnssData();
@@ -319,19 +318,20 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
   showPath() {
-    for (let point of this.points) {
+    for (const point of this.points) {
       mapObject.historyPoints(point.geoPoint, point.alarmState, GnssData.getRealTimeInfo(point));
     }
   }
 
   getRealTimeGnssDataByEventBus(data) {
-    const points = data.msg.geoPoint.split(',')
+    // const points = data.msg.geoPoint.split(',')
     this.realTimeGnssData = {
       'dateStr': data.msg.dateStr,
       'plateColor': data.msg.plateColor,
       'plateNo': this.realTimeMapFrameNo,
       'posEncrypt': data.msg.posEncrypt,
-      'geoPoint': `${points[1]},${points[0]}`,
+      // 'geoPoint': `${points[1]},${points[0]}`,
+      'geoPoint': data.msg.geoPoint,
       'gpsSpeed': data.msg.gpsSpeed,
       'totalMileage': data.msg.totalMileage,
       'recSpeed': data.msg.recSpeed,
@@ -363,7 +363,9 @@ export class MapComponent implements OnInit, OnDestroy {
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimePoint(this.realTimeGnssData.geoPoint, GnssData.getRealTimeInfo(this.realTimeGnssData), this.realTimeGnssData.direction);
+    mapObject.realTimePoint(this.realTimeGnssData.geoPoint,
+                            GnssData.getRealTimeInfo(this.realTimeGnssData),
+                            this.realTimeGnssData.direction);
   }
 
   getRealTimeMonitorGnssData() {
@@ -383,6 +385,8 @@ export class MapComponent implements OnInit, OnDestroy {
       'vehicleState': 3,
       'alarmState': 0
     };
-    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint, GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData), this.realTimeMonitorGnssData.direction);
+    mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint,
+                                   GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),
+                                   this.realTimeMonitorGnssData.direction);
   }
 }
