@@ -17,6 +17,7 @@ import { SystemCodeComponent } from './../../basic/systemCode/system-code.compon
 import { MenuComponent } from './../../basic/menu/menu.component';
 import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
+import { ConfigureComponent } from './../../basic/configure/configure.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -26,11 +27,11 @@ import {components} from './components';
 import {MapService} from '../../map/shared/map.service';
 @Component({
   selector: 'dynamic-container',
-  // entryComponents: Object.keys(test).map(key => test[key]),
+  // entryComponents: Object.keys(components).map(key => components[key]),
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent],
+                    WarningComponent, MapSignComponent, ConfigureComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
