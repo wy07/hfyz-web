@@ -63,15 +63,16 @@ export class ConfigureComponent implements OnInit {
   }
 
   update() {
-    if (this.validate()) {
-      this._configureService.update(this.configure.id, this.configure).subscribe(
-        res => {
-          this._toastr.success('保存成功');
-          this.initData();
-          this.displayDialog = false;
-        }
-      );
+    if (!this.validate()) {
+        return;
     }
+    this._configureService.update(this.configure.id, this.configure).subscribe(
+      res => {
+        this._toastr.success('保存成功');
+        this.initData();
+        this.displayDialog = false;
+      }
+    );
   }
 
   cancle() {
