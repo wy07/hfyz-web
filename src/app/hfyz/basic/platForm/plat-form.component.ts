@@ -98,6 +98,11 @@ export class PlatFormComponent implements OnInit {
     this.initData();
   }
 
+  onInspect(){
+    this.inspectDisplay=true;
+    this.inspectQ={};
+  }
+
   inspect() {
     if(this._regularService.isBlank(this.inspectQ.companyCode)){
       this._toastr.info('业户组织机构代码不能为空！');
