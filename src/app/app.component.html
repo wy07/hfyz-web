@@ -1,25 +1,27 @@
 <router-outlet></router-outlet>
-
 <p-dialog header="查岗" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
+  <p class=" text-right">
+    距离查岗关闭还有<strong class="text-danger">{{showTime(time)}}</strong>。
+  </p>
   <div class="form-horizontal">
     <div class="form-group">
-      <label for="name" class="col-sm-3 control-label">名称</label>
+      <label class="col-sm-3 control-label">问题</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="name" name="name" > <!--[(ngModel)]="systemCode.name"-->
+        <p class="form-control-static">{{inspectInfo.question}}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label for="codeNum" class="col-sm-3 control-label">编码</label>
+      <label for="codeNum" class="col-sm-3 control-label">答案</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="codeNum" name="codeNum">
+        <input type="text" class="form-control" id="codeNum" name="codeNum" [(ngModel)]="inspectInfo.answer">
       </div>
     </div>
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-      <!--<button  type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>-->
-      <!--<button  type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>-->
+      <button type="button" pButton icon="fa-check" (click)="inspect(inspectInfo.id)" label="应答"></button>
+      <button type="button" pButton icon="fa-close" (click)="displayDialog=false" label="取消"></button>
     </div>
   </p-footer>
 </p-dialog>

@@ -1,15 +1,17 @@
 import { environment } from './../../../../environments/environment';
-import { Injectable } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
 import * as EventBus from 'vertx3-eventbus-client';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class EventBuservice {
   private eb;
+  notify: EventEmitter<any>;
 
 
   constructor(public restangular: Restangular) {
     this.eb = null;
+    this.notify = new EventEmitter();
   }
 
 
@@ -29,7 +31,7 @@ export class EventBuservice {
       }
 
       this.eb.onopen = function () {
-        this.eb.registerHandler(address, function(res, rej) {
+        this.eb.registerHandler(address, function (res, rej) {
           resolve(res)
           reject(rej)
         });
