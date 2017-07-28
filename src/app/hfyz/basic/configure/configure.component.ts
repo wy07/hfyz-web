@@ -43,11 +43,11 @@ export class ConfigureComponent implements OnInit {
       this.initData(this.max * event.page);
     }
   }
-  onEdit(configure) {
+  onEdit(id) {
     this.clearConfigure();
     this.configureTitle = `编辑配置`;
     this.displayDialog = true;
-    this.preEdit(configure.id);
+    this.preEdit(id);
   }
 
   preEdit(id) {
