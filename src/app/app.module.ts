@@ -37,6 +37,7 @@ import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.modul
 import {CarModule} from './hfyz/car/car.module';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
+import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
@@ -51,7 +52,6 @@ export function ConfigLoader(configService: ConfigService) {
     , SideBarComponent
     , NoRightComponent
     , DynamicComponent
-    // , PlatformManageComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +75,8 @@ export function ConfigLoader(configService: ConfigService) {
     PlatformManageModule,
     CarModule,
     PeopleModule,
-    WarningModule
+    WarningModule,
+    OwnerIdentityModule
 
   ],
 

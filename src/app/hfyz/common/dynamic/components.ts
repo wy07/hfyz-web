@@ -17,6 +17,7 @@ import {PlatformManageComponent} from '../../platform-manage/platform-manage.com
 import {PeopleListComponent} from '../../people/list/people-list.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
+import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 
 export const components = {
   role: RoleComponent,
@@ -41,5 +42,6 @@ export const components = {
   ownerCheckRecord: PlatFormComponent,
   peopleList: PeopleListComponent,
   warning: WarningComponent,
-  mapSign: MapSignComponent
+  mapSign: MapSignComponent,
+  ownerIdentity: OwnerIdentityComponent
 };
