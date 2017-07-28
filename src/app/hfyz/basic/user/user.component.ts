@@ -65,7 +65,7 @@ export class UserComponent implements OnInit {
   onEdit(user) {
     this._userService.edit(user.id).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.user = res.user;
           this.roleList = res.roleList
           console.log(this.user.roles)
@@ -127,7 +127,7 @@ export class UserComponent implements OnInit {
     }
   }
   onResetPassword(user) {
-    if (confirm(' 您确定要重置'+ user.username +'的密码吗' +  '？')) {
+    if (confirm(' 您确定要重置' + user.username + '的密码吗' + '？')) {
       this._userService.resetPassword(user.id).subscribe(
         res => {
           this._toastr.info(`重置密码成功` + user.username);

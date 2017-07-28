@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <p-dataTable [value]="configureList" [emptyMessage]="'暂无数据'">
+          <p-column field="name" header="名称"></p-column>
+          <p-column field="configValue" header="值"></p-column>
+          <p-column field="note" header="备注"></p-column>
+          <p-column field="" header="操作" [style]="{'width':'24%'}">
+            <ng-template let-configure="rowData" pTemplate="body">
+              <button pButton type="button" label="编辑"  (click)="onEdit(configure.id)"></button>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="{{configureTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
+  <div class="form-horizontal w-dialog">
+    <div class="form-group">
+      <label for="name" class="col-xs-4 col-sm-4 dialog-label">名称：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="configure.name">
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="configValue" class="col-xs-4 col-sm-4 dialog-label">值：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="configValue" name="configValue" [(ngModel)]="configure.configValue">
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="configValue" class="col-xs-4 col-sm-4 dialog-label">备注：</label>
+      <div class="col-xs-6 col-sm-6">
+        <textarea class="form-control" id="note" name="note" [(ngModel)]="configure.note"
+                  style="resize:none;width:220px;height:98px;"  maxlength="1500"></textarea>
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button pButton type="button" icon="fa-check" label="保存" (click)="update()"></button>
+      <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>
+    </div>
+  </p-footer>
+</p-dialog>

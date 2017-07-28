@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Renderer, Input } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, OnInit } from '@angular/core';
 import { ConfigService } from './../../config/config.service';
 
 // Directive decorator
 @Directive({ selector: '[hasPermission]' })
 // Directive class
-export class PermissionDirective {
+export class PermissionDirective implements OnInit {
     @Input() hasPermission: string;
     rights: string;
     constructor(private _el: ElementRef
@@ -14,10 +14,10 @@ export class PermissionDirective {
     }
     ngOnInit() {
         let result = false
-        if (this.rights == '*:*') {
+        if (this.rights === '*:*') {
             result = true
         } else {
-            let targetRight = this.hasPermission.split(":")
+            const targetRight = this.hasPermission.split(':')
             if (this.rights.indexOf(this.hasPermission) > -1) {
                 result = true
             }
@@ -26,4 +26,4 @@ export class PermissionDirective {
             this._renderer.setElementStyle(this._el.nativeElement, 'display', 'none');
         }
     }
-}
+};

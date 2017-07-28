@@ -18,20 +18,21 @@ import { MenuComponent } from './../../basic/menu/menu.component';
 import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
+import { ConfigureComponent } from './../../basic/configure/configure.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
   ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
-import {components} from './components';
-import {MapService} from '../../map/shared/map.service';
+import { components } from './components';
+import { MapService } from '../../map/shared/map.service';
 @Component({
   selector: 'dynamic-container',
-  // entryComponents: Object.keys(test).map(key => test[key]),
+  // entryComponents: Object.keys(components).map(key => components[key]),
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, OwnerIdentityComponent],
+                    WarningComponent, MapSignComponent, OwnerIdentityComponent, ConfigureComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
@@ -53,7 +54,7 @@ import {MapService} from '../../map/shared/map.service';
 })
 
 export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
-  @ViewChild('container', {read: ViewContainerRef})
+  @ViewChild('container', { read: ViewContainerRef })
   container: ViewContainerRef;
   @Input() componentName;
   @Input() inputs: any;
@@ -80,7 +81,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     , private initStatus: ApplicationInitStatus
     , private appRef: ApplicationRef
     , private mapService: MapService) {
-    //this.loadComponent()
+    // this.loadComponent()
   }
 
   ngOnInit() {
@@ -98,7 +99,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
   loadComponent() {
 
     console.log('======loadComponent:')
-    let factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
+    const factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
 
 
@@ -118,7 +119,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
      if (this.compRef) {
      this.compRef.destroy();
      }*/
-    let component = this.container.createComponent(factory);
+    const component = this.container.createComponent(factory);
 
     /*this.initStatus.donePromise.then(() => {
      component =this.container.createComponent(factory);
@@ -128,7 +129,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
     // detectChanges
 
-    if(this.componentName!='nullMap'){
+    if (this.componentName !== 'nullMap') {
       setInterval(() => {
         component.changeDetectorRef.markForCheck();
       }, 50);
@@ -138,12 +139,12 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     this.loaded = true;
     this.compRef = component;
 
-    if(!this.inputs){
-      this.inputs={};
+    if (!this.inputs) {
+      this.inputs = {};
     }
 
 
-    if(this.initMap){
+    if (this.initMap) {
       this.mapService.change.emit(this.inputs);
     }
 

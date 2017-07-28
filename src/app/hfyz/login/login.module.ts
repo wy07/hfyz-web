@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DataTableModule, DialogModule, ListboxModule, ButtonModule, BlockUIModule } from 'primeng/primeng';
+import {EventBuservice} from "../common/shared/eventbus.service";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { DataTableModule, DialogModule, ListboxModule, ButtonModule, BlockUIModu
     exports: [
     ],
     providers: [
+      EventBuservice
     ]
 })
 export class LoginModule { };

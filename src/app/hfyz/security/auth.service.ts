@@ -5,16 +5,17 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { Restangular } from "ngx-restangular";
+import { Restangular } from 'ngx-restangular';
 @Injectable()
 export class AuthService {
-  public isLoggedIn: boolean = false;
+  public isLoggedIn: boolean;
   public redirectUrl: string;
   public token: string;
   constructor(private _restangular: Restangular) {
+    this.isLoggedIn = false;
     if (sessionStorage.getItem('currentUser')) {
       this.isLoggedIn = true
-      var currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
       this.token = currentUser && currentUser.token;
     }
   }
@@ -52,19 +53,20 @@ export class AuthService {
       const year: number = Dates.getFullYear();
       const month: any = ( Dates.getMonth() + 1 ) < 10 ? '0' + ( Dates.getMonth() + 1 ) : ( Dates.getMonth() + 1 );
       const day: any = Dates.getDate() < 10 ? '0' + Dates.getDate() : Dates.getDate();
-      return year + '-' + month + '-' + day+' '+this.digitalConverters(Dates.getHours()) + ':' + this.digitalConverters(Dates.getMinutes()) + ':' + this.digitalConverters(Dates.getSeconds());
+      return year + '-' + month + '-' + day+' '+this.digitalConverters(Dates.getHours()) +
+       ':' + this.digitalConverters(Dates.getMinutes()) + ':' + this.digitalConverters(Dates.getSeconds());
     };
 	digitalConverters(digital){
 		return (String(digital).length >= 2) ? digital : '0' + digital
 	}*/
   login(username: string, password: string) {
-    //return this.restangular.all('api').customPOST('login',{username: body.username,password: body.password})
+    // return this.restangular.all('api').customPOST('login',{username: body.username,password: body.password})
     // return this._restangular.one('api').customPOST(body, 'login');
-    return this._restangular.all('login').post({username: username, password: password});
+    return this._restangular.all('login').post({ username: username, password: password });
   }
 
   logout() {
-    //return this.restangular.all('login').customPOST({},'index')
+    // return this.restangular.all('login').customPOST({},'index')
 
     /*let currentUser=JSON.parse(sessionStorage.getItem('currentUser'))
     let headers = new Headers({ 'Accept': 'application/json' });

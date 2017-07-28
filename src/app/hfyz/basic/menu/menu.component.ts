@@ -78,7 +78,7 @@ export class MenuComponent implements OnInit {
     preEdit(id) {
         this.menuService.edit(id).subscribe(
             res => {
-                if (res.result == 'success') {
+                if (res.result === 'success') {
                     console.log(JSON.stringify(res.menu))
                     this.menu = res.menu;
                     if (res.parent) {
@@ -115,14 +115,14 @@ export class MenuComponent implements OnInit {
     }
 
     filteredParent(event) {
-        let query = event.query.trim();
+        const query = event.query.trim();
         if (this.regularService.isBlank(query)) {
             return false;
         }
         this.menuService.search(this.menu.position, query).subscribe(
             res => {
                 this.filteredParents = res.menuList;
-                for (let item of this.filteredParents) {
+                for (const item of this.filteredParents) {
                     // item.info = `${item.code}（${item.name}）`;
                 }
             }
