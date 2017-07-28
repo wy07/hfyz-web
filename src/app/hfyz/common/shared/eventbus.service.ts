@@ -1,23 +1,46 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { environment } from './../../../../environments/environment';
+import * as EventBus from 'vertx3-eventbus-client';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class EventBuservice {
   private eb;
-  notify:EventEmitter<any>;
+  notify: EventEmitter<any>;
 
 
   constructor(public restangular: Restangular) {
-    this.eb=null;
+    this.eb = null;
     this.notify = new EventEmitter();
   }
 
-  setEb(eb){
-    this.eb=eb;
+
+  setEb(eb) {
+    this.eb = eb;
   }
 
-  getEb(){
+  getEb() {
     return this.eb;
+  }
+
+  carRealTimeRegisterHandler(address): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log('======carRealTimeRegisterHandler=====' + address);
+      if (typeof (this.eb) === 'undefined' || !this.eb) {
+        this.eb = new EventBus(environment.eventBusUrl, {});
+      }
+
+      this.eb.onopen = function () {
+        this.eb.registerHandler(address, function (res, rej) {
+          resolve(res)
+          reject(rej)
+        });
+      }
+    })
+  }
+
+  unregisterHandler(address, callback) {
+    this.eb.unregisterHandler(address, callback);
   }
 
   //  eventBus(){

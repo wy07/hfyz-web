@@ -3,9 +3,9 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { DataTableModule, ChartModule, PanelModule,DropdownModule,SplitButtonModule,PaginatorModule} from 'primeng/primeng';
-import {CarListComponent} from "./list/car-list.component";
-import {CarService} from "./shared/car.service";
+import { DataTableModule, ChartModule, PanelModule, DropdownModule, SplitButtonModule, PaginatorModule } from 'primeng/primeng';
+import { CarListComponent } from './list/car-list.component';
+import { CarService } from './shared/car.service';
 
 @NgModule({
   declarations: [

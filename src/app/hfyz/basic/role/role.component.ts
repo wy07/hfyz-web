@@ -16,9 +16,9 @@ export class RoleComponent implements OnInit {
 
   roleList: any;
   type: number;
-  //layoutComponent
-  displayDialog: boolean = false
-  displayAssign: boolean = false
+  // layoutComponent
+  displayDialog: boolean;
+  displayAssign: boolean;
   formTitle: string
   role: any;
   isAdd: boolean;
@@ -37,11 +37,12 @@ export class RoleComponent implements OnInit {
     , private _regularService: RegularService
     , private _authService: AuthService
   ) {
-
+    this.displayDialog = false;
+    this.displayAssign = false;
     this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';')
     this.currentRoleString = this._authService.getCurrentUser('roleId')
     this.currentUserId = this._authService.getCurrentUser('id')
-    //this.layoutComponent = this._inj.get(LayoutComponent);
+    // this.layoutComponent = this._inj.get(LayoutComponent);
     this.role = { id: '' };
     this.initData();
     console.log('!!!!')
@@ -68,7 +69,7 @@ export class RoleComponent implements OnInit {
   preEdit(id) {
     this._roleService.edit(id, this.currentRoleString).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.role = res.role
           this.orgList = res.orgList
         } else {
@@ -134,11 +135,11 @@ export class RoleComponent implements OnInit {
   }
   showCreateDialog() { }
   savePermission() {
-    if (this.selectedPermission.length == []) {
+    if (this.selectedPermission.length === []) {
       this._toastr.error('请为角色分配权限！');
     } else {
       this.displayAssign = false
-      let permissions = []
+      const permissions = []
       for (let i = 0; i < this.selectedPermission.length; i++) {
         permissions.push(this.selectedPermission[i].data)
       }

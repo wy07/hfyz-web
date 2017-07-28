@@ -1,11 +1,11 @@
-import {RegularService} from './../../common/shared/regular.service';
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {Router, ActivatedRoute} from '@angular/router';
-import {PlatFormService} from './shared/plat-form.service';
+import { RegularService } from './../../common/shared/regular.service';
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PlatFormService } from './shared/plat-form.service';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {DatePipe} from '@angular/common';
-import {EventBuservice} from "../../common/shared/eventbus.service";
+import { DatePipe } from '@angular/common';
+import { EventBuservice } from '../../common/shared/eventbus.service';
 
 @Component({
   selector: 'plat-form',
@@ -30,7 +30,7 @@ export class PlatFormComponent implements OnInit {
     , private _activatedRoute: ActivatedRoute
     , private _toastr: ToastsManager
     , private _regularService: RegularService
-    , private  _platFormService: PlatFormService
+    , private _platFormService: PlatFormService
     , private datePipe: DatePipe
     , private eventBuservice: EventBuservice) {
     this.company = '';
@@ -98,13 +98,13 @@ export class PlatFormComponent implements OnInit {
     this.initData();
   }
 
-  onInspect(){
-    this.inspectDisplay=true;
-    this.inspectQ={};
+  onInspect() {
+    this.inspectDisplay = true;
+    this.inspectQ = {};
   }
 
   inspect() {
-    if(this._regularService.isBlank(this.inspectQ.companyCode)){
+    if (this._regularService.isBlank(this.inspectQ.companyCode)) {
       this._toastr.info('业户组织机构代码不能为空！');
       return false;
     }
@@ -118,9 +118,9 @@ export class PlatFormComponent implements OnInit {
       return false;
     }
 
-    let $this = this;
-    let eb = this.eventBuservice.getEb();
-    eb.send("inspect.manual.trigger"
+    const $this = this;
+    const eb = this.eventBuservice.getEb();
+    eb.send('inspect.manual.trigger'
       , {
         question: this.inspectQ.question
         , answer: this.inspectQ.answer
@@ -128,9 +128,9 @@ export class PlatFormComponent implements OnInit {
         , operator: 1
       }
       , function (err, res) {
-        console.log("inspect.manual.trigger====callback");
+        console.log('inspect.manual.trigger====callback');
         console.log(JSON.stringify(res))
-        if (res.body.result == "success") {
+        if (res.body.result === 'success') {
           $this._toastr.info('生成查岗成功');
           $this.inspectDisplay = false;
         } else {

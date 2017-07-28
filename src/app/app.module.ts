@@ -35,7 +35,7 @@ import {CarModule} from './hfyz/car/car.module';
 import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
-import {PlatFormService} from "./hfyz/basic/platForm/shared/plat-form.service";
+import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
