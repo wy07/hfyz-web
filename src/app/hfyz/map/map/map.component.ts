@@ -4,7 +4,6 @@ import {MapService} from "../shared/map.service";
 import {ToastsManager} from "ng2-toastr";
 import {RegularService} from "../../common/shared/regular.service";
 declare var mapObject: any;
-
 @Component({
   selector: 'app-map',
   templateUrl: 'map.component.html',
