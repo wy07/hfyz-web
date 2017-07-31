@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class MenuService {
@@ -7,7 +7,7 @@ export class MenuService {
   }
 
   list(parentId) {
-    return this.restangular.all('menus').customGET('list',{parentId:parentId});
+    return this.restangular.all('menus').customGET('list', { parentId: parentId });
   }
 
   delete(id) {
@@ -23,13 +23,13 @@ export class MenuService {
   }
 
   update(id, formData) {
-    return this.restangular.one('menus',id).customPOST(formData, 'update');
+    return this.restangular.one('menus', id).customPOST(formData, 'update');
   }
 
-  search(position,query) {
+  search(position, query) {
     return this.restangular.all('menus').customGET('search', {
       query: query,
-      position:position
+      position: position
     });
   }
 }

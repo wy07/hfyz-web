@@ -1,13 +1,13 @@
 import {Component, Injector, OnInit, Renderer} from '@angular/core';
 import {TreeNode} from 'primeng/primeng';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ToastsManager} from "ng2-toastr";
-import {RegularService} from "../../common/shared/regular.service";
-import {RoleService} from "../../basic/role/role.service";
-import {UserService} from "../../basic/user/user.service";
-import {DatePipe} from "@angular/common";
-import {AuthService} from "../../security/auth.service";
-import {InfoListService} from "./info-list.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ToastsManager} from 'ng2-toastr';
+import {RegularService} from '../../common/shared/regular.service';
+import {RoleService} from '../../basic/role/role.service';
+import {UserService} from '../../basic/user/user.service';
+import {DatePipe} from '@angular/common';
+import {AuthService} from '../../security/auth.service';
+import {InfoListService} from './info-list.service';
 
 
 @Component({
@@ -127,7 +127,7 @@ export class InfoListComponent implements OnInit {
     this.infoListService.select(this.type, this.max, offset).subscribe(
       res => {
         this.publishList = res.publishList.publishList;
-        this.total = res.publishList.total;;
+        this.total = res.publishList.total;
       }
     );
   }
@@ -135,7 +135,7 @@ export class InfoListComponent implements OnInit {
   onDisplay(infoaudit)  {
     this.infoListService.edit(infoaudit.id).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.infoaudit = res.infoaudit;
           this.actionStr = 'details';
         } else {

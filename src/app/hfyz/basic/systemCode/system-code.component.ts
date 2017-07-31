@@ -70,7 +70,7 @@ export class SystemCodeComponent implements OnInit {
   formatSystemCodeTypes(types) {
     console.log(JSON.stringify(types));
     this.systemCodeTypes = [];
-    for (let type of types) {
+    for (const type of types) {
       this.systemCodeTypes.push({ label: SYSTEM_CODE_TYPES[type], value: type });
     }
     console.log(JSON.stringify(this.systemCodeTypes));
@@ -99,7 +99,7 @@ export class SystemCodeComponent implements OnInit {
   preEdit(id: number) {
     this.systemCodeService.edit(id, this.type).subscribe(
       res => {
-        if (res.result == 'success') {
+        if (res.result === 'success') {
           this.systemCode = res.systemCode;
           if (res.parent) {
             this.parent = res.parent;
@@ -139,14 +139,14 @@ export class SystemCodeComponent implements OnInit {
   }
 
   filteredParent(event) {
-    let query = event.query.trim();
+    const query = event.query.trim();
     if (this.regularService.isBlank(query)) {
       return false;
     }
     this.systemCodeService.search(query, this.type).subscribe(
       res => {
         this.filteredParents = res.systemCodeList.filter(n => n.id !== this.systemCode.id);
-        for (let item of this.filteredParents) {
+        for (const item of this.filteredParents) {
           item.info = `${item.codeNum}（${item.name}）`;
         }
       }

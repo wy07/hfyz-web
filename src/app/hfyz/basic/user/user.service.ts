@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
@@ -9,7 +9,7 @@ export class UserService {
   }
 
   list(operatorId) {
-    return this.restangular.all('sysusers').customGET('list',{operatorId: operatorId});
+    return this.restangular.all('sysusers').customGET('list', { operatorId: operatorId });
   }
   delete(id) {
     return this.restangular.one('sysusers', id).customDELETE('delete', {});

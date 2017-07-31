@@ -54,7 +54,7 @@ import {WorkOrderComponent} from '../../work-order/work-order.component';
 })
 
 export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
-  @ViewChild('container', {read: ViewContainerRef})
+  @ViewChild('container', { read: ViewContainerRef })
   container: ViewContainerRef;
   @Input() componentName;
   @Input() inputs: any;
@@ -81,7 +81,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     , private initStatus: ApplicationInitStatus
     , private appRef: ApplicationRef
     , private mapService: MapService) {
-    //this.loadComponent()
+    // this.loadComponent()
   }
 
   ngOnInit() {
@@ -99,7 +99,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
   loadComponent() {
 
     console.log('======loadComponent:')
-    let factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
+    const factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
 
 
@@ -119,7 +119,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
      if (this.compRef) {
      this.compRef.destroy();
      }*/
-    let component = this.container.createComponent(factory);
+    const component = this.container.createComponent(factory);
 
     /*this.initStatus.donePromise.then(() => {
      component =this.container.createComponent(factory);
@@ -129,7 +129,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
     // detectChanges
 
-    if(this.componentName!='nullMap'){
+    if (this.componentName !== 'nullMap') {
       setInterval(() => {
         component.changeDetectorRef.markForCheck();
       }, 50);
@@ -139,12 +139,12 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     this.loaded = true;
     this.compRef = component;
 
-    if(!this.inputs){
-      this.inputs={};
+    if (!this.inputs) {
+      this.inputs = {};
     }
 
 
-    if(this.initMap){
+    if (this.initMap) {
       this.mapService.change.emit(this.inputs);
     }
 

@@ -29,15 +29,14 @@ import {NoRightComponent} from './hfyz/security/noright.component';
 import {ToastModule, ToastsManager} from 'ng2-toastr';
 import {NgRadio} from 'ng-radio';
 import {DynamicComponent} from './hfyz/common/dynamic/dynamic.component';
-import {InfoListComponent} from './hfyz/info-manage/info-list/info-list.component';
-import {InfoPublishComponent} from './hfyz/info-manage/info-publish/info-publish.component';
-import {InfoCheckComponent} from './hfyz/info-manage/info-check/info-check.component';
 import {TabViewModule, BlockUIModule} from 'primeng/primeng';
 import {PlatformManageModule} from './hfyz/platform-manage/platform-manage.module';
 import {CarModule} from './hfyz/car/car.module';
+import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
 import {WorkOrderModule} from './hfyz/work-order/work-order.module';
+import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
@@ -77,10 +76,11 @@ export function ConfigLoader(configService: ConfigService) {
     CarModule,
     PeopleModule,
     WarningModule,
-    WorkOrderModule
-
+    WorkOrderModule,
+    DialogModule,
+    ButtonModule,
+    MessagesModule
   ],
-
   /*providers: [ConfigService,
    {
    provide: APP_INITIALIZER,
@@ -99,7 +99,8 @@ export function ConfigLoader(configService: ConfigService) {
     , AuthService
     , AdminService
     , NgRadio
-    , ChangePwdService],
+    , ChangePwdService
+    , PlatFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

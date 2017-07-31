@@ -14,11 +14,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-    let url: string = state.url;
+    const url: string = state.url;
     if (this._authService.getCurrentUser('roleRights') === undefined) {
       this._router.navigate(['/login'])
     } else {
-      if (this._authService.getCurrentUser('username') == 'me') {
+      if (this._authService.getCurrentUser('username') === 'me') {
         return this.checkLogin(url);
       } else {
         if (this._authService.getCurrentUser('roleRights').indexOf(url.split('/')[1]) > -1) {
@@ -35,9 +35,9 @@ export class AuthGuard implements CanActivate {
 
     // Store the attempted URL for redirecting
     this._authService.redirectUrl = url;
-    let sessionId = 123456789;
+    const sessionId = 123456789;
     // Navigate to the login page with extras
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: { 'session_id': sessionId },
       fragment: 'anchor'
     };
@@ -47,4 +47,4 @@ export class AuthGuard implements CanActivate {
 
     return false;
   }
-}
+};
