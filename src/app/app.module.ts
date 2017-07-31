@@ -36,6 +36,7 @@ import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
 import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
+import {HiddenDangerModule} from './hfyz/hidden-danger/hidden-danger.module';
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
@@ -77,7 +78,8 @@ export function ConfigLoader(configService: ConfigService) {
     WarningModule,
     DialogModule,
     ButtonModule,
-    MessagesModule
+    MessagesModule,
+    HiddenDangerModule
   ],
   /*providers: [ConfigService,
    {
