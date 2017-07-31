@@ -1,12 +1,12 @@
-import {AuthService} from './../security/auth.service';
-import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {Http} from '@angular/http';
-import {FormBuilder, Validators, FormGroup} from '@angular/forms';
-import {AdminService} from '../admin/admin.service';
-import {environment} from '../../../environments/environment';
-import {ConfigService} from './../config/config.service';
-import {EventBuservice} from "../common/shared/eventbus.service";
+import { AuthService } from './../security/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Http } from '@angular/http';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AdminService } from '../admin/admin.service';
+import { environment } from '../../../environments/environment';
+import { ConfigService } from './../config/config.service';
+import { EventBuservice } from '../common/shared/eventbus.service';
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     , private _adminService: AdminService
     , private _activatedRoute: ActivatedRoute
     , public _configService: ConfigService
-    , private  eventBuservice: EventBuservice) {
+    , private eventBuservice: EventBuservice) {
     this.loading = false;
     this.error = '';
     this.appbrand = environment.appbrand;
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('companyCode', res.companyCode);
         sessionStorage.setItem('token', res.token);
 
-        this.eventBuservice.notify.emit({type:'inspect',companyCode:res.companyCode});
+        this.eventBuservice.notify.emit({ type: 'inspect', companyCode: res.companyCode });
 
 
         this._adminService.getUserByName(res.sub).subscribe(data => {

@@ -2,7 +2,6 @@ import { environment } from './../environments/environment';
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { EventBuservice } from './hfyz/common/shared/eventbus.service';
-import * as EventBus from 'vertx3-eventbus-client';
 import { PlatFormService } from './hfyz/basic/platForm/shared/plat-form.service';
 
 @Component({
@@ -25,18 +24,22 @@ export class AppComponent implements OnInit {
     this.displayDialog = false;
     this.inspectInfo = {};
     this.time = 0;
+  }
 
+  ngOnInit() {
+    this.inspectRegisterHandler();
+  }
 
+  inspectRegisterHandler() {
     const $this = this;
     this.eventBuservice.notify.subscribe((inputs: any) => {
-
       console.log(JSON.stringify(inputs));
-
       if (inputs.type === 'inspect') {
-        $this.eventBuservice.getEb().registerHandler(`inspect.response.${inputs.companyCode}`, function (err, res) {
+        this.eventBuservice.inspectRegisterHandler(inputs.companyCode, res => {
           clearInterval($this.timer);
           $this.displayDialog = true;
-          $this.inspectInfo = res.body;
+          $this.inspectInfo = res;
+          console.log('=====$this.inspectInfo=====' + JSON.stringify($this.inspectInfo));
           const now = new Date().getTime();
           const dateCreated = new Date(Date.parse($this.inspectInfo.dateCreated.replace(/-/g, '/'))).getTime();
           $this.time = Math.floor((dateCreated + 300000 - now) / 1000);
@@ -47,9 +50,19 @@ export class AppComponent implements OnInit {
               clearInterval($this.timer);
             }
           }, 1000);
-        });
+        })
       }
     })
+  }
+
+  inspect(id) {
+    this.platFormService.inspect(id, this.inspectInfo.answer).subscribe(
+      res => {
+        this.displayDialog = false;
+        this.toastr.info('查岗应答成功');
+        clearInterval(this.timer);
+      }
+    );
   }
 
   showTime(time) {
@@ -62,30 +75,5 @@ export class AppComponent implements OnInit {
     }
     str += `${sec}秒`;
     return str;
-  }
-
-
-
-  ngOnInit() {
-    console.log('in AppComponent')
-    const eb = new EventBus(environment.eventBusUrl, {});
-    const $this = this;
-    eb.onopen = function () {
-      // eb.registerHandler('test.hello', function (err, res) {
-      //   console.log('test.hello====callback');
-      //   console.log(JSON.stringify(res))
-      // });
-      $this.eventBuservice.setEb(eb);
-    }
-  }
-
-  inspect(id) {
-    this.platFormService.inspect(id, this.inspectInfo.answer).subscribe(
-      res => {
-        this.displayDialog = false;
-        this.toastr.info('查岗应答成功');
-        clearInterval(this.timer);
-      }
-    );
   }
 }
