@@ -25,13 +25,14 @@ import {
 } from '@angular/core';
 import {components} from './components';
 import {MapService} from '../../map/shared/map.service';
+import {WorkOrderComponent} from '../../work-order/work-order.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, ConfigureComponent],
+                    WarningComponent, MapSignComponent, ConfigureComponent, WorkOrderComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

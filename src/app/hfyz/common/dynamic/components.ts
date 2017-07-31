@@ -18,6 +18,7 @@ import {PeopleListComponent} from '../../people/list/people-list.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
+import {WorkOrderComponent} from '../../work-order/work-order.component';
 
 export const components = {
   role: RoleComponent,
@@ -43,5 +44,6 @@ export const components = {
   peopleList: PeopleListComponent,
   warning: WarningComponent,
   mapSign: MapSignComponent,
-  configure: ConfigureComponent
+  configure: ConfigureComponent,
+  workOrder: WorkOrderComponent
 };
