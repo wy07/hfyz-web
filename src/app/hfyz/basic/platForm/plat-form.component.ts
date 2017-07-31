@@ -119,23 +119,20 @@ export class PlatFormComponent implements OnInit {
     }
 
     const $this = this;
-    const eb = this.eventBuservice.getEb();
-    eb.send('inspect.manual.trigger'
-      , {
-        question: this.inspectQ.question
-        , answer: this.inspectQ.answer
-        , companyCode: this.inspectQ.companyCode
-        , operator: 1
+    const address = 'inspect.manual.trigger';
+    const data = {
+      question: this.inspectQ.question
+      , answer: this.inspectQ.answer
+      , companyCode: this.inspectQ.companyCode
+      , operator: 1
+    }
+    this.eventBuservice.inspectSend(address, data, res => {
+      if (res.result === 'success') {
+        $this._toastr.info('生成查岗成功');
+        $this.inspectDisplay = false;
+      } else {
+        $this._toastr.error('生成查岗失败');
       }
-      , function (err, res) {
-        console.log('inspect.manual.trigger====callback');
-        console.log(JSON.stringify(res))
-        if (res.body.result === 'success') {
-          $this._toastr.info('生成查岗成功');
-          $this.inspectDisplay = false;
-        } else {
-          $this._toastr.error('生成查岗失败');
-        }
-      });
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule, PanelModule } from 'primeng/primeng';
-import * as EventBus from 'vertx3-eventbus-client';
+// import * as EventBus from 'vertx3-eventbus-client';
 import { EventBuservice } from '../common/shared/eventbus.service';
 
 @Component({
