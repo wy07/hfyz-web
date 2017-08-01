@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { RoleService } from './../role/role.service';
 import { AuthService } from './../../security/auth.service';
 import { RegularService } from './../../common/shared/regular.service';
@@ -11,151 +12,153 @@ import { MultiSelectModule, SelectItem } from 'primeng/primeng';
 import { ListboxModule } from 'primeng/primeng';
 
 @Component({
-  selector: 'user',
-  templateUrl: 'user.component.html',
-  styleUrls: ['../../layout/layout.component.css']
+    selector: 'user',
+    templateUrl: 'user.component.html',
+    styleUrls: ['../../layout/layout.component.css']
 })
 
 export class UserComponent implements OnInit {
 
-  userList: any[];
-  type: number;
-  layoutComponent
-  displayDialog: boolean;
-  formTitle: string
-  user: any;
-  isAdd: boolean;
-  roleList: SelectItem[];
-  orgList: SelectItem[];
-  currentUserId: number
-  currentRoleArray = []
-  currentRoleString: string
-  constructor(private _renderer: Renderer
-    , private _router: Router
-    , private _activatedRoute: ActivatedRoute
-    , private _toastr: ToastsManager
-    , private _userService: UserService
-    , private _inj: Injector
-    , private _regularService: RegularService
-    , private _roleService: RoleService
-    , private _authService: AuthService) {
-    this.displayDialog = false;
-    // this.layoutComponent = this.inj.get(LayoutComponent);
-    this.currentUserId = this._authService.getCurrentUser('id');
-    this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';');
-    console.log(this.currentRoleArray)
-    this.currentRoleString = this._authService.getCurrentUser('roleId');
-    this.user = { id: '', operator: this.currentUserId };
-    this.initData();
-    // this.username=this.inj.get('username');
-  }
-
-  ngOnInit() {
-
-  }
-
-
-  initData() {
-    this._userService.list(this.currentUserId).subscribe(
-      res => {
-        this.userList = res.userList;
-      }
-    );
-  }
-  onEdit(user) {
-    this._userService.edit(user.id).subscribe(
-      res => {
-        if (res.result === 'success') {
-          this.user = res.user;
-          this.roleList = res.roleList
-          console.log(this.user.roles)
-          this.displayDialog = true
-          this.isAdd = false
-          this.formTitle = '编辑用户——' + user.name
-        } else {
-          this._toastr.error('获取数据失败');
-        }
-      }
-    );
-  }
-
-  onCreate() {
-    this.user.roles = null
-    this._roleService.listForSelect(this.currentRoleString, this.currentUserId).subscribe(
-      res => {
-        this.roleList = res.roleList;
-        this.orgList = res.orgList
-        this.formTitle = '新增用户'
-        this.isAdd = true
-        this.displayDialog = true
+    userList: any[];
+    type: number;
+    layoutComponent
+    displayDialog: boolean;
+    formTitle: string
+    user: any;
+    isAdd: boolean;
+    roleList: SelectItem[];
+    orgList: SelectItem[];
+    currentUserId: number
+    currentRoleArray = []
+    currentRoleString: string
+    constructor(private _renderer: Renderer
+        , private _router: Router
+        , private _activatedRoute: ActivatedRoute
+        , private _toastr: ToastsManager
+        , private _userService: UserService
+        , private _inj: Injector
+        , private _regularService: RegularService
+        , private _roleService: RoleService
+        , private _loadingService: TdLoadingService
+        , private _authService: AuthService) {
+        this.displayDialog = false;
+        // this.layoutComponent = this.inj.get(LayoutComponent);
+        this.currentUserId = this._authService.getCurrentUser('id');
+        this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';');
+        console.log(this.currentRoleArray)
+        this.currentRoleString = this._authService.getCurrentUser('roleId');
         this.user = { id: '', operator: this.currentUserId };
-      }
-    );
-  }
-  save() {
-    if (this.validate()) {
-      this._userService.save(this.user).subscribe(
-        res => {
-          this._toastr.success('保存成功');
-          this.initData()
-        }
-      );
-      this.displayDialog = false
-
-    }
-  }
-  update() {
-    if (this.validate()) {
-      this._userService.update(this.user.id, this.user).subscribe(
-        res => {
-          this._toastr.success('修改成功');
-          this.initData()
-        }
-      );
-      this.displayDialog = false
+        // this.username=this.inj.get('username');
     }
 
-  }
-  onDelete(user) {
-    if (confirm('确认移除用户——' + user.name + '？')) {
-      this._userService.delete(user.id).subscribe(
-        res => {
-          this.initData()
-          this._toastr.info(`成功移除用户——` + user.name);
-        }
-      );
-    }
-  }
-  onResetPassword(user) {
-    if (confirm(' 您确定要重置' + user.username + '的密码吗' + '？')) {
-      this._userService.resetPassword(user.id).subscribe(
-        res => {
-          this._toastr.info(`重置密码成功` + user.username);
-          alert(user.username + '的随机密码为：' + res.newPassword);
-        }
-      );
-    }
-  }
-  validate() {
-    let result = true
-    if (this._regularService.isBlank(this.user.name)) {
-      this._toastr.error('名称不能为空');
-      result = false;
+    ngOnInit() {
+        this.initData();
     }
 
-    if (this._regularService.isBlank(this.user.password)) {
-      this._toastr.error('密码不能为空');
-      result = false;
+
+    initData() {
+        this._loadingService.register();
+        this._userService.list(this.currentUserId).subscribe(
+            res => {
+                this._loadingService.resolve();
+                this.userList = res.userList;
+            }
+        );
     }
-    if (this._regularService.isBlank(this.user.roles)) {
-      this._toastr.error('角色不能为空');
-      result = false;
-    }
-    if (this._regularService.isBlank(this.user.username)) {
-      this._toastr.error(' 账号不能为空');
-      result = false;
+    onEdit(user) {
+        this._userService.edit(user.id).subscribe(
+            res => {
+                if (res.result === 'success') {
+                    this.user = res.user;
+                    this.roleList = res.roleList
+                    console.log(this.user.roles)
+                    this.displayDialog = true
+                    this.isAdd = false
+                    this.formTitle = '编辑用户——' + user.name
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
     }
 
-    return result;
-  }
+    onCreate() {
+        this.user.roles = null
+        this._roleService.listForSelect(this.currentRoleString, this.currentUserId).subscribe(
+            res => {
+                this.roleList = res.roleList;
+                this.orgList = res.orgList
+                this.formTitle = '新增用户'
+                this.isAdd = true
+                this.displayDialog = true
+                this.user = { id: '', operator: this.currentUserId };
+            }
+        );
+    }
+    save() {
+        if (this.validate()) {
+            this._userService.save(this.user).subscribe(
+                res => {
+                    this._toastr.success('保存成功');
+                    this.initData()
+                }
+            );
+            this.displayDialog = false
+
+        }
+    }
+    update() {
+        if (this.validate()) {
+            this._userService.update(this.user.id, this.user).subscribe(
+                res => {
+                    this._toastr.success('修改成功');
+                    this.initData()
+                }
+            );
+            this.displayDialog = false
+        }
+
+    }
+    onDelete(user) {
+        if (confirm('确认移除用户——' + user.name + '？')) {
+            this._userService.delete(user.id).subscribe(
+                res => {
+                    this.initData()
+                    this._toastr.info(`成功移除用户——` + user.name);
+                }
+            );
+        }
+    }
+    onResetPassword(user) {
+        if (confirm(' 您确定要重置' + user.username + '的密码吗' + '？')) {
+            this._userService.resetPassword(user.id).subscribe(
+                res => {
+                    this._toastr.info(`重置密码成功` + user.username);
+                    alert(user.username + '的随机密码为：' + res.newPassword);
+                }
+            );
+        }
+    }
+    validate() {
+        let result = true
+        if (this._regularService.isBlank(this.user.name)) {
+            this._toastr.error('名称不能为空');
+            result = false;
+        }
+
+        if (this._regularService.isBlank(this.user.password)) {
+            this._toastr.error('密码不能为空');
+            result = false;
+        }
+        if (this._regularService.isBlank(this.user.roles)) {
+            this._toastr.error('角色不能为空');
+            result = false;
+        }
+        if (this._regularService.isBlank(this.user.username)) {
+            this._toastr.error(' 账号不能为空');
+            result = false;
+        }
+
+        return result;
+    }
 };
