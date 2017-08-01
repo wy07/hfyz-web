@@ -17,6 +17,7 @@ import {PlatformManageComponent} from '../../platform-manage/platform-manage.com
 import {PeopleListComponent} from '../../people/list/people-list.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
+import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 
@@ -45,5 +46,6 @@ export const components = {
   warning: WarningComponent,
   mapSign: MapSignComponent,
   configure: ConfigureComponent,
-  workOrder: WorkOrderComponent
+  workOrder: WorkOrderComponent,
+  ownerIdentity: OwnerIdentityComponent
 };

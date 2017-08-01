@@ -1,46 +1,70 @@
 import { environment } from './../../../../environments/environment';
-import * as EventBus from 'vertx3-eventbus-client';
+// import * as EventBus from 'vertx3-eventbus-client';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 
+declare var vertx: any;
+
 @Injectable()
 export class EventBuservice {
-  private eb;
+  eventBus;
   notify: EventEmitter<any>;
 
 
   constructor(public restangular: Restangular) {
-    this.eb = null;
+    this.eventBus = null;
     this.notify = new EventEmitter();
   }
 
-
-  setEb(eb) {
-    this.eb = eb;
-  }
-
-  getEb() {
-    return this.eb;
-  }
-
-  carRealTimeRegisterHandler(address): Promise<any> {
-    return new Promise((resolve, reject) => {
-      console.log('======carRealTimeRegisterHandler=====' + address);
-      if (typeof (this.eb) === 'undefined' || !this.eb) {
-        this.eb = new EventBus(environment.eventBusUrl, {});
+  carRealTimeRegisterHandler(code, callback) {
+    const address = 'hfyz.data.' + code;
+    if (typeof (this.eventBus) === 'undefined' || !this.eventBus) {
+      this.eventBus = new vertx.EventBus(environment.eventBusUrl);
+    }
+    if (this.eventBus.readyState() === vertx.EventBus.OPEN) {
+      this.eventBus.registerHandler(address, callback);
+    } else {
+      const $this = this;
+      this.eventBus.onopen = function () {
+        $this.eventBus.registerHandler(address, callback);
       }
-
-      this.eb.onopen = function () {
-        this.eb.registerHandler(address, function (res, rej) {
-          resolve(res)
-          reject(rej)
-        });
-      }
-    })
+    }
   }
 
-  unregisterHandler(address, callback) {
-    this.eb.unregisterHandler(address, callback);
+  inspectRegisterHandler(code, callback) {
+    const address = 'inspect.response.' + code;
+    if (typeof (this.eventBus) === 'undefined' || !this.eventBus) {
+      this.eventBus = new vertx.EventBus(environment.eventBusUrl);
+    }
+    if (this.eventBus.readyState() === vertx.EventBus.OPEN) {
+      this.eventBus.registerHandler(address, callback);
+    } else {
+      const $this = this;
+      this.eventBus.onopen = function () {
+        $this.eventBus.registerHandler(address, callback);
+      }
+    }
+  }
+
+  inspectSend(address, data, callback) {
+    if (typeof (this.eventBus) === 'undefined' || !this.eventBus) {
+      this.eventBus = new vertx.EventBus(environment.eventBusUrl);
+    }
+    if (this.eventBus.readyState() === vertx.EventBus.OPEN) {
+      this.eventBus.send(address, data, callback)
+    } else {
+      const $this = this;
+      this.eventBus.onopen = function () {
+        $this.eventBus.send(address, data, callback)
+      }
+    }
+  }
+
+  closeEventBus() {
+    if (typeof (this.eventBus) !== 'undefined' && this.eventBus && this.eventBus.readyState() === vertx.EventBus.OPEN) {
+      this.eventBus.close();
+    }
+    this.eventBus = null;
   }
 
   //  eventBus(){
