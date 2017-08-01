@@ -35,9 +35,9 @@
             <span>{{workOrder.userID || '无'}}</span>
           </ng-template>
         </p-column>
-        <p-column field="dateCreated" header="创建时间" [style]="{'width':'5%'}"></p-column>
-        <p-column field="checkTime" header="检查时间" [style]="{'width':'5%'}"></p-column>
-        <p-column field="rectificationTime" header="整改时间" [style]="{'width':'5%'}"></p-column>
+        <p-column field="dateCreated" header="创建时间"></p-column>
+        <p-column field="checkTime" header="检查时间"></p-column>
+        <p-column field="rectificationTime" header="整改时间"></p-column>
         <p-column field="note" header="备注">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.note || '无'}}</span>

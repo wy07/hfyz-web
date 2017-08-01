@@ -30,7 +30,6 @@ export class WorkOrderComponent implements OnInit {
       res => {
         this.workOrderList = res.resultList.workOrderList;
         this.total = res.resultList.total;
-        console.log('========workOrderList==============' + JSON.stringify(this.workOrderList));
       }
     );
   }
