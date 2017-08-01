@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  gatewayServer: '192.168.2.165:7001', // 'http://127.0.0.1:7001',
+  gatewayServer: 'http://192.168.2.165:7001', // 'http://127.0.0.1:7001',
   eventBusUrl: 'http://127.0.0.1:8001/eventbus',
   appbrand: '合肥市道路运输动态监管与服务系统平台'
 };

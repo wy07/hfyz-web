@@ -36,6 +36,4 @@ import {HiddenDangerService} from './shared/hidden-danger.service';
     HiddenDangerService
   ]
 })
-export class HiddenDangerModule {
-}
-;
+export class HiddenDangerModule {};

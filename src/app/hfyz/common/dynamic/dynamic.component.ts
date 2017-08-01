@@ -19,6 +19,7 @@ import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
+import { HiddenDangerComponent } from '../../hidden-danger/hidden-danger.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -26,7 +27,7 @@ import {
 } from '@angular/core';
 import { components } from './components';
 import { MapService } from '../../map/shared/map.service';
-import {HiddenDangerComponent} from '../../hidden-danger/hidden-danger.component';
+
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),

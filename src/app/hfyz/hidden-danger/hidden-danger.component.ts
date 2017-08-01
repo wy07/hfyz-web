@@ -19,9 +19,9 @@ export class HiddenDangerComponent implements OnInit {
   // currentPage: number;
 
   constructor(
-  // private toastr: ToastsManager
-  //   , private _hiddenDangerService: HiddenDangerService
-  //   , private regularService: RegularService
+    //  private toastr: ToastsManager
+    // , private _hiddenDangerService: HiddenDangerService
+    // , private regularService: RegularService
     ) {
     // this.displayDialog = false;
     // this.hiddenDanger = {};
@@ -42,14 +42,13 @@ export class HiddenDangerComponent implements OnInit {
     // );
   }
 
-  // 点击分页按钮
   // paginate(event) {
   //   if (this.currentPage !== event.page) {
   //     this.currentPage = event.page;
   //     this.initData(this.max * event.page);
   //   }
   // }
-  // // 新增
+
   // onCreat() {
   //   this.clear();
   //   this.hiddenDangerTitle = '新增隐患';
@@ -69,7 +68,7 @@ export class HiddenDangerComponent implements OnInit {
   //   }
   // }
   //
-  // // 查看编辑
+
   // onEdit(hiddenDanger) {
   //   this.clear();
   //   this.hiddenDangerTitle = `编辑隐患`;
@@ -77,7 +76,7 @@ export class HiddenDangerComponent implements OnInit {
   //   this.displayDialog = true;
   //   this.preEdit(hiddenDanger.id);
   // }
-  //
+
   // preEdit(id) {
   //   this._hiddenDangerService.edit(id).subscribe(
   //     res => {
@@ -114,7 +113,7 @@ export class HiddenDangerComponent implements OnInit {
 //     return true;
 //   }
 //
-//   // 删除
+
 //   onDelete(hiddenDanger) {
 //     if (confirm('确认移除编号为："' + hiddenDanger.billNo + '"的隐患？')) {
 //       this._hiddenDangerService.delete(hiddenDanger.id).subscribe(
@@ -125,7 +124,7 @@ export class HiddenDangerComponent implements OnInit {
 //       );
 //     }
 //   }
-// // 清除dialog数据
+
 //   clear() {
 //     this.hiddenDanger = {};
 //   }
