@@ -29,14 +29,12 @@ export class MapComponent implements OnInit, OnDestroy {
   oldRealTimeMonitorFrameNo: string;
   historyMapKey: string;
   historyMapFrameNo: string;
-  eb: any;
 
 
   constructor(private toastr: ToastsManager
     , private regularService: RegularService
     , private eventBuservice: EventBuservice
     , private mapService: MapService) {
-    this.eb = this.eventBuservice.getEb();
     this.lng = 117.126826;
     this.lat = 31.852467;
     this.realTimeGnssData = null;
@@ -255,40 +253,19 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   registerHandler() {
-    const address = 'hfyz.data.' + this.realTimeMapFrameNo;
     const $this = this;
-    this.eb.registerHandler(address, function (err, res) {
-      $this.getRealTimeGnssDataByEventBus(res.body);
-    });
-  }
-
-  unRegisterHandler() {
-    const address = 'hfyz.data.' + this.oldRealTimeMonitorFrameNo;
-    this.eb.unregisterHandler(address, function (err, res) {
-      console.log('===getRealTimeMap===hfyz.data.京G79489==2===' + JSON.stringify(res));
-    });
+    this.eventBuservice.carRealTimeRegisterHandler(this.realTimeMapFrameNo, res => {
+      $this.getRealTimeGnssDataByEventBus(res);
+    })
   }
 
   getRealTimeMap() {
-    console.log('======getRealTime==1===' + this.realTimeMapFrameNo)
-    this.unRegisterHandler();
+    this.eventBuservice.closeEventBus();
     if (this.realTimeMapFrameNo) {
       this.registerHandler();
     } else {
       this.toastr.error('请输入车牌号');
     }
-    // if (this.realTimeMapFrameNo) {
-    //   clearTimeout(this.timer);
-    //   this.lng = 116.35566;
-    //   this.lat = 39.93218;
-    //   let $this = this;
-    //   $this.getRealTimeGnssData();
-    //   this.timer = setInterval(function () {
-    //     $this.getRealTimeGnssData();
-    //   }, 2000)
-    // } else {
-    //   this.toastr.error('请输入车牌号');
-    // }
   }
 
   getRealTimeMonitorMap() {
@@ -323,13 +300,11 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   getRealTimeGnssDataByEventBus(data) {
-    // const points = data.msg.geoPoint.split(',')
     this.realTimeGnssData = {
       'dateStr': data.msg.dateStr,
       'plateColor': data.msg.plateColor,
       'plateNo': this.realTimeMapFrameNo,
       'posEncrypt': data.msg.posEncrypt,
-      // 'geoPoint': `${points[1]},${points[0]}`,
       'geoPoint': data.msg.geoPoint,
       'gpsSpeed': data.msg.gpsSpeed,
       'totalMileage': data.msg.totalMileage,
@@ -343,28 +318,6 @@ export class MapComponent implements OnInit, OnDestroy {
     mapObject.realTimePoint(this.realTimeGnssData.geoPoint,
       GnssData.getRealTimeInfo(this.realTimeGnssData),
       this.realTimeGnssData.direction);
-  }
-
-  getRealTimeGnssData() {
-    this.lng += 0.001;
-    this.directionIndex += 1;
-    this.realTimeGnssData = {
-      'dateStr': '2017-06-30 07:36:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': `${this.lng},${this.lat}`,
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': this.directions[this.directionIndex % 8],
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    };
-    mapObject.realTimePoint(this.realTimeGnssData.geoPoint,
-                            GnssData.getRealTimeInfo(this.realTimeGnssData),
-                            this.realTimeGnssData.direction);
   }
 
   getRealTimeMonitorGnssData() {

@@ -17,6 +17,7 @@ import { SystemCodeComponent } from './../../basic/systemCode/system-code.compon
 import { MenuComponent } from './../../basic/menu/menu.component';
 import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
+import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
@@ -32,7 +33,8 @@ import {HiddenDangerComponent} from '../../hidden-danger/hidden-danger.component
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenDangerComponent],
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenDangerComponent, OwnerIdentityComponent],
+
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

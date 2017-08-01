@@ -35,6 +35,7 @@ import {CarModule} from './hfyz/car/car.module';
 import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
+import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
 import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
 import {HiddenDangerModule} from './hfyz/hidden-danger/hidden-danger.module';
 
@@ -51,7 +52,6 @@ export function ConfigLoader(configService: ConfigService) {
     , SideBarComponent
     , NoRightComponent
     , DynamicComponent
-    // , PlatformManageComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +76,7 @@ export function ConfigLoader(configService: ConfigService) {
     CarModule,
     PeopleModule,
     WarningModule,
+    OwnerIdentityModule,
     DialogModule,
     ButtonModule,
     MessagesModule,
