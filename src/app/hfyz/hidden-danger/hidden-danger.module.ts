@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {
-  DropdownModule,
   DataTableModule,
   DialogModule,
   ButtonModule,
-  PaginatorModule,
+  PaginatorModule, CalendarModule,
 } from 'primeng/primeng';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -28,11 +27,12 @@ import {HiddenDangerService} from './shared/hidden-danger.service';
     DataTableModule,
     DialogModule,
     ButtonModule,
-    DropdownModule,
     PaginatorModule,
+    CalendarModule
   ],
   exports: [],
   providers: [
+    DatePipe,
     HiddenDangerService
   ]
 })

@@ -1,146 +1,193 @@
-<!--<div class="panel panel-default">-->
-  <!--<div class="panel-heading">-->
-    <!--<div class="row">-->
-      <!--<div class=" col-md-4">-->
-        <!--<div class="input-group">-->
-          <!--<span class="inputPM input-group-addon ">隐患名称：</span>-->
-          <!--<input type="text" class="form-control" [(ngModel)]="name" placeholder="请输入隐患名称..."/>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="col-md-4">-->
-        <!--<div class="input-group">-->
-          <!--<span class="inputPM input-group-addon">隐患代码：</span>-->
-          <!--<input type="text" class="form-control" [(ngModel)]="code" placeholder="请输入隐患代码..."/>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="col-md-4">-->
-        <!--<button pButton label="查询" type="button" (click)="initData()"></button>-->
-        <!--<button pButton label="重置" type="button" (click)="onReset()"></button>-->
-        <!--<button pButton label="新增" type="button" (click)="onCreat()"></button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--列表显示-->
-  <!--<div class="panel-body">-->
-    <!--<div class="row">-->
-      <!--<div class="col-md-12">-->
-        <!--<p-dataTable [value]="hiddenDangerList" [emptyMessage]="'暂无数据'">-->
-          <!--<p-column field="billNo" header="单据编号"></p-column>-->
-          <!--<p-column field="area" header="区域"></p-column>-->
-          <!--<p-column field="enterpirse" header="业户名称"></p-column>-->
-          <!--<p-column field="examiner" header="检查人"></p-column>-->
-          <!--<p-column field="inspectionDate" header="检查日期"></p-column>-->
-          <!--<p-column field="dealineDate" header="整改期限"></p-column>-->
-          <!--<p-column field="insPosition" header="检查地点"></p-column>-->
-          <!--<p-column field="insDesc" header="检查内容"></p-column>-->
-          <!--<p-column field="insQuestion" header="存在问题"></p-column>-->
-          <!--<p-column field="proPosal" header="整改意见"></p-column>-->
-          <!--<p-column field="replyDate" header="反馈日期"></p-column>-->
-          <!--<p-column field="replyDesc" header="企业反馈"></p-column>-->
-          <!--<p-column field="status" header="状态"></p-column>-->
-          <!--<p-column field="" header="操作" [style]="{'width':'24%'}">-->
-            <!--<ng-template let-hiddenDanger="rowData" pTemplate="body">-->
-              <!--<button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)"></button>-->
-              <!--<button pButton type="button" label="详情" (click)="preEdit(hiddenDanger.id)"></button>-->
-              <!--<button pButton type="button" label="删除" (click)="onDelete(hiddenDanger)"></button>-->
-            <!--</ng-template>-->
-          <!--</p-column>-->
-        <!--</p-dataTable>-->
-        <!--<p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
+<div class="panel panel-default"  *ngIf="isDetails==false">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-3">
+              <div class="input-group">
+                <span class="input-group-addon">企业名称：</span>
+                <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入企业名称..."/>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon">上报时间：</span>
+                <div>
+                  <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
+                  -
+                  <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <button pButton label="检索" type="button"(click)="initData()"></button>
+              <button pButton label="取消" type="button" (click)="cancel()"></button>
+              <button pButton label="新增" type="button" (click)="onCreat()"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        <p-dataTable [value]="hiddenDangerList" [emptyMessage]="'暂无数据'">
+          <p-column field="billNo" header="单据编号"></p-column>
+          <p-column field="enterpirse" header="业户名称"></p-column>
+          <p-column field="examiner" header="检查人"></p-column>
+          <p-column field="inspectionDate" header="检查日期"></p-column>
+          <p-column field="dealineDate" header="整改期限"></p-column>
+          <p-column field="status" header="状态"></p-column>
+          <p-column field="" header="操作" [style]="{'width':'24%'}">
+            <ng-template let-hiddenDanger="rowData" pTemplate="body">
+              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)"></button>
+              <button pButton type="button" label="删除" (click)="onDelete(hiddenDanger)"></button>
+              <button pButton type="button" label="详情" (click)="preEdit(hiddenDanger.id)"></button>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!--<p-dialog header="{{hiddenDangerTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">-->
-  <!--<div class="form-horizontal w-dialog">-->
-    <!--<div class="form-group">-->
-      <!--<label for="area" class="col-xs-4 col-sm-4 dialog-label">区域：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="area" name="area" [(ngModel)]="hiddenDanger.area">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="enterpirse" class="col-xs-4 col-sm-4 dialog-label">业户名称：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="enterpirse" name="enterpirse" [(ngModel)]="hiddenDanger.enterpirse">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="examiner" class="col-xs-4 col-sm-4 dialog-label">检查人：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenDanger.examiner ">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="inspectionDate" class="col-xs-4 col-sm-4 dialog-label">检查日期：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="inspectionDate" name="inspectionDate" [(ngModel)]="hiddenDanger.inspectionDate">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="dealineDate" class="col-xs-4 col-sm-4 dialog-label">整改期限：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="dealineDate" name="dealineDate" [(ngModel)]="hiddenDanger.dealineDate">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="insPosition" class="col-xs-4 col-sm-4 dialog-label">检查地点：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="insPosition" name="insPosition" [(ngModel)]="hiddenDanger.insPosition">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="insDesc" class="col-xs-4 col-sm-4 dialog-label">检查内容：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="insDesc" name="insDesc" [(ngModel)]="hiddenDanger.insDesc">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="insQuestion" class="col-xs-4 col-sm-4 dialog-label">存在问题：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenDanger.insQuestion">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="proPosal" class="col-xs-4 col-sm-4 dialog-label">整改意见：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="proPosal" name="proPosal" [(ngModel)]="hiddenDanger.proPosal ">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="replyDate" class="col-xs-4 col-sm-4 dialog-label">反馈日期：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="replyDate" name="replyDate" [(ngModel)]="hiddenDanger.replyDate">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="replyDesc" class="col-xs-4 col-sm-4 dialog-label">企业反馈：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="replyDesc" name="replyDesc" [(ngModel)]="hiddenDanger.replyDesc">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label for="status" class="col-xs-4 col-sm-4 dialog-label">状态：</label>-->
-      <!--<div class="col-xs-6 col-sm-6">-->
-        <!--<input type="text" class="form-control" id="status" name="status" [(ngModel)]="hiddenDanger.status">-->
-      <!--</div>-->
-      <!--<label class="notNull">*</label>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<p-footer>-->
-    <!--<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">-->
-      <!--<button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?onSave():update()"></button>-->
-      <!--<button pButton type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>-->
-    <!--</div>-->
-  <!--</p-footer>-->
-<!--</p-dialog>-->
-0.0.0.0.0.0.0.0.0.0.00.0.
+<p-dialog header="{{hiddenDangerTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
+  <div class="form-horizontal w-dialog">
+    <div class="form-group">
+      <label for="enterpirse" class="col-xs-4 col-sm-4 dialog-label">业户名称：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="enterpirse" name="enterpirse" [(ngModel)]="hiddenDanger.enterpirse">
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="examiner" class="col-xs-4 col-sm-4 dialog-label">检查人：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenDanger.examiner ">
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="inspectionDate" class="col-xs-4 col-sm-4 dialog-label">检查日期：</label>
+      <div class="col-xs-6 col-sm-6">
+         <p-calendar name="inspectionDate" id="inspectionDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
+                    [(ngModel)]="inspection"></p-calendar>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="dealineDate" class="col-xs-4 col-sm-4 dialog-label">整改期限：</label>
+      <div class="col-xs-6 col-sm-6">
+        <p-calendar name="dealineDate" id="dealineDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
+                    [(ngModel)]="dealine">></p-calendar>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="insPosition" class="col-xs-4 col-sm-4 dialog-label">检查地点：</label>
+      <div class="col-xs-6 col-sm-6">
+        <textarea class="form-control" id="insPosition" name="insPosition" [(ngModel)]="hiddenDanger.insPosition"
+                  style="resize:none;width:220px;height:98px;"  maxlength="1500"></textarea>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="insDesc" class="col-xs-4 col-sm-4 dialog-label">检查内容：</label>
+      <div class="col-xs-6 col-sm-6">
+        <textarea class="form-control" id="insDesc" name="insDesc" [(ngModel)]="hiddenDanger.insDesc"
+                  style="resize:none;width:220px;height:98px;"  maxlength="1500"></textarea>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="insQuestion" class="col-xs-4 col-sm-4 dialog-label">存在问题：</label>
+      <div class="col-xs-6 col-sm-6">
+        <textarea class="form-control" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenDanger.insQuestion"
+                  style="resize:none;width:220px;height:98px;"  maxlength="1500"></textarea>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="proPosal" class="col-xs-4 col-sm-4 dialog-label">整改意见：</label>
+      <div class="col-xs-6 col-sm-6">
+        <textarea class="form-control" id="proPosal" name="proPosal" [(ngModel)]="hiddenDanger.proPosal"
+                  style="resize:none;width:220px;height:98px;"  maxlength="1500"></textarea>
+      </div>
+      <label class="notNull">*</label>
+    </div>
+    <div class="form-group">
+      <label for="replyDate" class="col-xs-4 col-sm-4 dialog-label">反馈日期：</label>
+      <div class="col-xs-6 col-sm-6">
+        <p-calendar name="replyDate" id="replyDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
+                    [(ngModel)]="reply">></p-calendar>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="replyDesc" class="col-xs-4 col-sm-4 dialog-label">企业反馈：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="replyDesc" name="replyDesc" [(ngModel)]="hiddenDanger.replyDesc">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="status" class="col-xs-4 col-sm-4 dialog-label">状态：</label>
+      <div class="col-xs-6 col-sm-6">
+        <input type="text" class="form-control" id="status" name="status" [(ngModel)]="hiddenDanger.status">
+      </div>
+      <label class="notNull">*</label>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?onSave():update()"></button>
+      <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()" class="ui-button-secondary"></button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<div class="panel panel-default" *ngIf="isDetails==true">
+  <div class="row">
+    <div class="col-md-2">
+      <button pButton class="return" label="返回" type="button" (click)="return()"></button>
+    </div>
+    <div class="col-md-8" ><h4 align="center" class="title">隐患整改单详情</h4></div>
+  </div>
+  <div class="panel-heading ">
+    <div class="row ">
+      <div class="form-group basicInfo">
+        <label class="col-md-2 right">单据编号：</label>
+        <p class="col-md-2">{{hiddenDanger.billNo}}</p>
+        <label class="col-md-2 right">区域：</label>
+        <p class="col-md-2">{{hiddenDanger.area || '无'}}</p>
+        <label class="col-md-2 right">业户名称：</label>
+        <p class="col-md-2">{{hiddenDanger.enterpirse}}</p>
+      </div>
+      <div class="form-group viewTitle">
+        <label class="col-md-2 right">检查人：</label>
+        <p class="col-md-1">{{hiddenDanger.examiner}}</p>
+        <label class="col-md-2 right">检查日期：</label>
+        <p class="col-md-2">{{hiddenDanger.inspectionDate}}</p>
+        <label class="col-md-2 right">整改期限：</label>
+        <p class="col-md-3">{{hiddenDanger.dealineDate}}</p>
+      </div>
+      <div class="form-group viewTitle">
+        <label class="col-md-2 right">检查内容：</label>
+        <p class="col-md-1">{{hiddenDanger.insDesc}}</p>
+        <label class="col-md-2 right">存在问题：</label>
+        <p class="col-md-2">{{hiddenDanger.insQuestion}}</p>
+        <label class="col-md-2 right">整改意见：</label>
+        <p class="col-md-3">{{hiddenDanger.proposal || '无'}}</p>
+      </div>
+      <div class="form-group viewTitle">
+        <label class="col-md-2 right">反馈日期：</label>
+        <p class="col-md-1">{{hiddenDanger.replyDate || '无'}}</p>
+        <label class="col-md-2 right">企业反馈：</label>
+        <p class="col-md-2">{{hiddenDanger.replyDesc || '无'}}</p>
+        <label class="col-md-2 right">状态：</label>
+        <p class="col-md-2">{{hiddenDanger.status}}</p>
+      </div>
+    </div>
+  </div>
+</div>

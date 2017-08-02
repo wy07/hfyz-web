@@ -6,8 +6,9 @@ export class HiddenDangerService {
   constructor(public restangular: Restangular) {
   }
 
-  list(max, offset) {
-    return this.restangular.all('hidden-dangers').customGET('list', {max: max, offset: offset});
+  list(max, offset, company, sd, ed) {
+    return this.restangular.all('hidden-dangers').customGET('list',
+      {max: max, offset: offset, company: company, startDate: sd, endDate: ed });
   }
 
   delete(id) {
@@ -18,12 +19,12 @@ export class HiddenDangerService {
     return this.restangular.one('hidden-dangers', id).customGET('edit');
   }
 
-  save(platform) {
-    return this.restangular.all('hidden-dangers').customPOST(platform, 'save');
+  save(hiddenDanger) {
+    return this.restangular.all('hidden-dangers').customPOST(hiddenDanger, 'save');
   }
 
-  update(id, Data) {
-    return this.restangular.one('hidden-dangers', id).customPOST(Data, 'update');
+  update(id, hiddenDanger) {
+    return this.restangular.one('hidden-dangers', id).customPOST(hiddenDanger, 'update');
   }
 
 }
