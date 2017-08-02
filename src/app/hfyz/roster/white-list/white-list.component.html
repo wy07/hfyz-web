@@ -1,0 +1,48 @@
+<div class="panel panel-default" *ngIf="!addFlag">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">车牌号：</span>
+          <input type="text" class="form-control" [(ngModel)]="vehicleNo"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary">检索</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">新增</button>
+        <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+
+  </div>
+</div>
+<div class="panel panel-default" *ngIf="addFlag">
+  <div class="panel-heading">
+    <h4>新增白名单信息</h4>
+  </div>
+  <div class="panel-body no-padding">
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <div class="col-xs-6 ">
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-horizontal col-md-6">
+
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <button type="button" class="btn btn-primary" (click)="submit()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

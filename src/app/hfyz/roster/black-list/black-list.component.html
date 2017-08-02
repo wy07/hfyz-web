@@ -1,0 +1,67 @@
+<div class="panel panel-default" *ngIf="!addFlag">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">车牌号：</span>
+          <input type="text" class="form-control" [(ngModel)]="vehicleNo"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-addon">布控开始时间：</span>
+          <div>
+            <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd" name="dateBegin"></p-calendar>
+            -
+            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" name="dateEnd"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary">检索</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">新增</button>
+        <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+
+  </div>
+</div>
+<div class="panel panel-default" *ngIf="addFlag">
+  <div class="panel-heading">
+    <h4>新增黑名单信息</h4>
+  </div>
+  <div class="panel-body no-padding">
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <div class="col-xs-6 ">
+          <input type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控结束时间：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <button type="button" class="btn btn-primary" (click)="submit()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
