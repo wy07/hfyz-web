@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { Component, OnInit, Injector } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
@@ -22,6 +23,7 @@ export class CarListComponent implements OnInit {
   constructor(private toastr: ToastsManager
     , private regularService: RegularService
     , private carService: CarService
+    , private _loadingService: TdLoadingService
     , private inj: Injector) {
     this.max = 10;
     this.currentPage = 0;
@@ -47,8 +49,10 @@ export class CarListComponent implements OnInit {
     //   this.toastr.error('请选择行业类别');
     //   return false;
     // }
+    this._loadingService.register();
     this.carService.search(this.businessType, this.licenseNo, this.max, offset).subscribe(
       res => {
+        this._loadingService.resolve();
         this.cars = res.carList;
         this.totalCars = res.carCount;
       }

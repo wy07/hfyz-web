@@ -19,6 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "theme.scss",
+        "../node_modules/@covalent/core/common/platform.scss",
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/primeng/resources/themes/bootstrap/theme.css",
         "../node_modules/chart.js/dist/Chart.js",

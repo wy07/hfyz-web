@@ -37,6 +37,8 @@ import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
 import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
 import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
+import { CovalentLoadingModule } from '@covalent/core';
+
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)
@@ -78,7 +80,8 @@ export function ConfigLoader(configService: ConfigService) {
     OwnerIdentityModule,
     DialogModule,
     ButtonModule,
-    MessagesModule
+    MessagesModule,
+    CovalentLoadingModule
   ],
   /*providers: [ConfigService,
    {
