@@ -1,0 +1,52 @@
+<div class="panel-body" *ngIf="workOrderList?.length>0" >
+  <div class="row">
+    <div class="col-md-12">
+      <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
+        <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
+        <p-column field="alarmType" header="报警类型"></p-column>
+        <p-column field="alarmLevel" header="报警等级"></p-column>
+        <p-column field="companyCode" header="业户编码">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.companyCode || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="ownerName" header="业户名称">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.ownerName || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="operateManager" header="经营负责人">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.operateManager || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="phone" header="电话">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.phone || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="frameNo" header="车架号">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.frameNo || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="userID" header="从业人员身份证号">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.userID || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="dateCreated" header="创建时间"></p-column>
+        <p-column field="checkTime" header="检查时间"></p-column>
+        <p-column field="rectificationTime" header="整改时间"></p-column>
+        <p-column field="note" header="备注">
+          <ng-template let-workOrder="rowData" pTemplate="body">
+            <span>{{workOrder.note || '无'}}</span>
+          </ng-template>
+        </p-column>
+        <p-column field="status" header="工单状态"></p-column>
+      </p-dataTable>
+      <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="workOrderList?.length>0"></p-paginator>
+    </div>
+  </div>
+</div>
+

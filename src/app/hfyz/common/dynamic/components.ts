@@ -20,6 +20,8 @@ import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {HiddenDangerComponent} from '../../hidden-danger/hidden-danger.component';
+import {WorkOrderComponent} from '../../work-order/work-order.component';
+
 
 export const components = {
   role: RoleComponent,
@@ -47,5 +49,6 @@ export const components = {
   mapSign: MapSignComponent,
   configure: ConfigureComponent,
   hiddenDanger: HiddenDangerComponent,
+  workOrder: WorkOrderComponent,
   ownerIdentity: OwnerIdentityComponent
 };
