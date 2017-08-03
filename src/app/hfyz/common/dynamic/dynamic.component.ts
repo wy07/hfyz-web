@@ -19,21 +19,25 @@ import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
+import { HiddenDangerComponent } from '../../hidden-danger/hidden-danger.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
   ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
-import {components} from './components';
-import {MapService} from '../../map/shared/map.service';
+import { components } from './components';
+import { MapService } from '../../map/shared/map.service';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
+
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, ConfigureComponent, WorkOrderComponent, OwnerIdentityComponent],
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenDangerComponent, OwnerIdentityComponent,
+                    WorkOrderComponent],
+
 
   template: `
     <ng-template #container></ng-template>
