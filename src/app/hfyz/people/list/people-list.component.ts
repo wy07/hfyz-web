@@ -26,7 +26,7 @@ export class PeopleListComponent implements OnInit {
   technology: any; // 维修技术人员
   waiter: any; // 站场服务人员
 
-  constructor(private peopleService: PeopleService) {
+  constructor(private _peopleService: PeopleService) {
     this.max = 10;
     this.page = 0;
     this.total = 0;
@@ -53,7 +53,7 @@ export class PeopleListComponent implements OnInit {
    * @param offset 分页offset值
    */
   loadData(offset = 0) {
-    this.peopleService.search(this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
+    this._peopleService.search(this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
       res => {
         this.peopleList = res.resultList;
         this.total = res.total;
@@ -85,7 +85,7 @@ export class PeopleListComponent implements OnInit {
    */
   moreInfo(people) {
     this.displayDialog = true;
-    this.peopleService.moreInfo(people.IDCardNo).subscribe(
+    this._peopleService.moreInfo(people.IDCardNo).subscribe(
       res => {
         this.checkMember = res.checkMember;
         this.coach = res.coach;

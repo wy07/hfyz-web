@@ -1,4 +1,4 @@
-<div class="panel panel-default" *ngIf="!addFlag">
+<div class="panel panel-default" *ngIf="(pageFlag=='LIST')">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-3">
@@ -10,26 +10,36 @@
       <div class="col-md-6">
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn btn-primary">检索</button>
-        <button type="button" class="btn btn-primary" (click)="switchPage()">新增</button>
+        <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+        <button type="button" class="btn btn-primary" (click)="add()">新增</button>
         <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
       </div>
     </div>
   </div>
   <div class="panel-body">
-
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="whiteLists">
+      <p-column field="vehicleNo" header="车牌号"></p-column>
+      <p-column field="" header="操作">
+        <ng-template let-data="rowData" pTemplate="body">
+          <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
+          <button type="button" class="btn btn-primary btn-xs" (click)="update(data.id)">修改</button>
+          <button type="button" class="btn btn-primary btn-xs" (click)="delete(data.id,data.vehicleNo)">删除</button>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
   </div>
 </div>
-<div class="panel panel-default" *ngIf="addFlag">
+<div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
   <div class="panel-heading">
-    <h4>新增白名单信息</h4>
+    <h4>新增黑名单信息</h4>
   </div>
   <div class="panel-body no-padding">
     <div class="form-horizontal col-md-6">
       <div class="form-group">
         <label class="col-xs-4  text-right">车辆号牌：</label>
         <div class="col-xs-6 ">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" [(ngModel)]="whiteList.vehicleNo">
         </div>
       </div>
     </div>
@@ -40,7 +50,66 @@
   <div class="panel-footer">
     <div class="row">
       <div class="col-md-6 col-md-offset-5">
-        <button type="button" class="btn btn-primary" (click)="submit()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="submitAdd()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
+          [responsive]="true">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-sm-10 text-left">
+          <h5>
+            白名单详情信息
+          </h5>
+        </div>
+        <div class="col-sm-2">
+          <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body no-padding" style=" overflow-y:auto;  height:400px;">
+      <table class="table table-striped">
+        <tr>
+          <td><label>车牌号：</label></td>
+          <td>{{detail.vehicleNo}}</td>
+          <td><label>车辆颜色：</label></td>
+          <td>{{detail.carColor}}</td>
+        </tr>
+        <tr>
+          <td><label>车牌颜色：</label></td>
+          <td>{{detail.carPlateColor}}</td>
+          <td><label>车辆类型：</label></td>
+          <td>{{detail.carType}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+<div class="panel panel-default" *ngIf="(pageFlag=='UPDATE')">
+  <div class="panel-heading">
+    <h4>修改白名单信息</h4>
+  </div>
+  <div class="panel-body no-padding">
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <div class="col-xs-6 ">
+          <input class="form-control" disabled [(ngModel)]="whiteList.vehicleNo">
+        </div>
+      </div>
+    </div>
+    <div class="form-horizontal col-md-6">
+
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <button type="button" class="btn btn-primary" (click)="submitUpdate(whiteList.id)">确定</button>
         <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
       </div>
     </div>
