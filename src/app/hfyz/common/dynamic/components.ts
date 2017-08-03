@@ -21,7 +21,8 @@ import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.compon
 import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-danger/hidden-rectification-order.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
-
+import {BlackListComponent} from '../../roster/black-list/black-list.component';
+import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 
 export const components = {
   role: RoleComponent,
@@ -50,5 +51,7 @@ export const components = {
   configure: ConfigureComponent,
   hiddenDanger: HiddenRectificationOrderComponent,
   workOrder: WorkOrderComponent,
-  ownerIdentity: OwnerIdentityComponent
+  ownerIdentity: OwnerIdentityComponent,
+  blackList: BlackListComponent,
+  whiteList: WhiteListComponent
 };
