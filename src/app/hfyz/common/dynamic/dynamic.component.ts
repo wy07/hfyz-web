@@ -19,6 +19,7 @@ import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
+import {HiddenRectificationOrderComponent} from '../../hidden-danger/hidden-rectification-order.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -26,6 +27,7 @@ import {
 } from '@angular/core';
 import { components } from './components';
 import { MapService } from '../../map/shared/map.service';
+import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 @Component({
@@ -34,7 +36,8 @@ import {WhiteListComponent} from '../../roster/white-list/white-list.component';
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, OwnerIdentityComponent, ConfigureComponent, BlackListComponent, WhiteListComponent],
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
