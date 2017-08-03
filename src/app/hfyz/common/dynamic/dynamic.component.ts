@@ -26,13 +26,15 @@ import {
 } from '@angular/core';
 import { components } from './components';
 import { MapService } from '../../map/shared/map.service';
+import {BlackListComponent} from '../../roster/black-list/black-list.component';
+import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, OwnerIdentityComponent, ConfigureComponent],
+                    WarningComponent, MapSignComponent, OwnerIdentityComponent, ConfigureComponent, BlackListComponent, WhiteListComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
