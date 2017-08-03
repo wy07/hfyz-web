@@ -7,7 +7,7 @@ export class HiddenDangerService {
   }
 
   list(max, offset, company, sd, ed) {
-    return this.restangular.all('hidden-dangers').customGET('list',
+    return this.restangular.all('hidden-dangers').customGET('find-list-and-total',
       {max: max, offset: offset, company: company, startDate: sd, endDate: ed });
   }
 

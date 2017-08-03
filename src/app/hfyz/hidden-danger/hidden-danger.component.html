@@ -42,7 +42,7 @@
           <p-column field="status" header="状态"></p-column>
           <p-column field="" header="操作" [style]="{'width':'24%'}">
             <ng-template let-hiddenDanger="rowData" pTemplate="body">
-              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)" disabled="disabled"></button>
+              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)"></button>
               <button pButton type="button" label="删除" (click)="onDelete(hiddenDanger)"></button>
               <button pButton type="button" label="详情" (click)="preEdit(hiddenDanger.id)"></button>
             </ng-template>
