@@ -105,9 +105,9 @@ export class SideBarComponent implements OnInit {
 	}
 	hideContent(event) {
 		console.log('hideContent')
-		const tabmenuContents = this.elRef.nativeElement.querySelector('.layout-tabmenu-contents')
+		const tabmenuContents = this.elRef.nativeElement.querySelector('.layout-tabmenu-contents');
 		this.renderer.setElementAttribute(tabmenuContents, 'class', 'layout-tabmenu-contents');
-		const mainContent = this.elRef.nativeElement.parentElement.querySelector('.u-content')
+		const mainContent = this.elRef.nativeElement.parentElement.querySelector('.u-content');
 		this.renderer.setElementAttribute(mainContent, 'class', 'u-content   u-content-sidebar');
 	}
 
