@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { AuthService } from './../security/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     , private _adminService: AdminService
     , private _activatedRoute: ActivatedRoute
     , public _configService: ConfigService
+    , private _loadingService: TdLoadingService
     , private eventBuservice: EventBuservice) {
     this.loading = false;
     this.error = '';
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
 
   login(event) {
     console.log('login======');
+    this._loadingService.register();
     const body = this.loginForm.value;
     console.log(`username:${this.loginForm.value.username}`)
     console.log(`password:${this.loginForm.value.password}`)
@@ -79,6 +82,7 @@ export class LoginComponent implements OnInit {
           this._configService.setRoleRights(data.user.roleRights)
           const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
           console.log(redirect)
+          this._loadingService.resolve();
           this._router.navigate([redirect]);
         });
       },
