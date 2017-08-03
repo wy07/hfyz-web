@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {RegularService} from './../common/shared/regular.service';
 import {ToastsManager} from 'ng2-toastr';
-import {HiddenDangerService} from './shared/hidden-danger.service';
+import {HiddenRectificationOrderService} from './shared/hidden-rectification-order.service';
 import DateTimeFormat = Intl.DateTimeFormat;
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
 @Component({
-  selector: 'app-hidden-danger',
-  templateUrl: './hidden-danger.component.html',
-  styleUrls: ['./hidden-danger.component.css']
+  selector: 'app-hidden-rectification-order',
+  templateUrl: './hidden-rectification-order.component.html',
+  styleUrls: ['./hidden-rectification-order.component.css']
 })
-export class HiddenDangerComponent implements OnInit {
-  hiddenDangerList: any;
-  hiddenDanger: any;
+export class HiddenRectificationOrderComponent implements OnInit {
+  hiddenRectificationOrderList: any;
+  hiddenRectificationOrder: any;
   edit: boolean;
-  hiddenDangerTitle: string;
+  hiddenRectificationOrderTitle: string;
   isAdd: boolean;
   max: number;
   total: number;
@@ -28,15 +28,16 @@ export class HiddenDangerComponent implements OnInit {
   maxDate: any;
   isDetails: boolean;
   displayDialog: boolean;
+  disabled: boolean;
   constructor(
      private _toastr: ToastsManager
-    , private _hiddenDangerService: HiddenDangerService
+    , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
     ) {
     this.edit = false;
-    this.hiddenDanger = {};
+    this.hiddenRectificationOrder = {};
     this.clear();
     this.max = 10;
     this.company = '';
@@ -44,8 +45,8 @@ export class HiddenDangerComponent implements OnInit {
     this.endDate = '';
     this.isDetails = false;
     this.maxDate = new Date();
-    this.reply = null;
     this.displayDialog = false;
+    this.disabled = false;
   }
 
   ngOnInit() {
@@ -65,10 +66,10 @@ export class HiddenDangerComponent implements OnInit {
       ed = this._datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
     this._loadingService.register();
-    this._hiddenDangerService.list(this.max, offset, this.company, sd, ed).subscribe(
+    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed).subscribe(
       res => {
         this._loadingService.resolve();
-        this.hiddenDangerList = res.hiddenDangerList;
+        this.hiddenRectificationOrderList = res.hiddenRectificationOrderList;
         this.total = res.total;
       }
     );
@@ -86,17 +87,17 @@ export class HiddenDangerComponent implements OnInit {
     this.dealine = null;
     this.reply = null;
     this.clear();
-    this.hiddenDangerTitle = '新增隐患整改单';
+    this.hiddenRectificationOrderTitle = '新增隐患整改单';
     this.isAdd = true;
     this.edit = true;
   }
 
   onSave() {
     if (this.validation()) {
-      this.hiddenDanger.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
-      this.hiddenDanger.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
+      this.hiddenRectificationOrder.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
+      this.hiddenRectificationOrder.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
       this._loadingService.register();
-      this._hiddenDangerService.save(this.hiddenDanger).subscribe(
+      this._hiddenRectificationOrderService.save(this.hiddenRectificationOrder).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('保存成功');
@@ -110,7 +111,7 @@ export class HiddenDangerComponent implements OnInit {
 
   onEdit(hiddenDanger) {
     this.clear();
-    this.hiddenDangerTitle = '编辑隐患整改单';
+    this.hiddenRectificationOrderTitle = '编辑隐患整改单';
     this.isAdd = false;
     this.edit = true;
     this.preEdit(hiddenDanger.id);
@@ -119,22 +120,18 @@ export class HiddenDangerComponent implements OnInit {
   preEdit(id) {
     if (this.edit === false) {
       this.isDetails = true;
-      this.hiddenDangerTitle = '隐患整改单详情';
+      this.hiddenRectificationOrderTitle = '隐患整改单详情';
     }
     this._loadingService.register();
-    this._hiddenDangerService.edit(id).subscribe(
+    this._hiddenRectificationOrderService.edit(id).subscribe(
       res => {
         this._loadingService.resolve();
         if (res.result === 'success') {
-          this.hiddenDanger = res.hiddenDanger;
-          this.inspection = new Date(this.hiddenDanger.inspectionDate);
-          this.dealine = new Date(this.hiddenDanger.dealineDate);
-          delete this.hiddenDanger['inspectionDate'];
-          delete this.hiddenDanger['dealineDate'];
-          if (this.hiddenDanger.replyDate !== null) {
-            this.reply = new Date(this.hiddenDanger.replyDate)
-            delete this.hiddenDanger['replyDate'];
-          }
+          this.hiddenRectificationOrder = res.hiddenRectificationOrder;
+          this.inspection = new Date(this.hiddenRectificationOrder.inspectionDate);
+          this.dealine = new Date(this.hiddenRectificationOrder.dealineDate);
+          delete this.hiddenRectificationOrder['inspectionDate'];
+          delete this.hiddenRectificationOrder['dealineDate'];
         } else {
           this._toastr.error('获取数据失败');
         }
@@ -144,11 +141,12 @@ export class HiddenDangerComponent implements OnInit {
 
   update() {
     if (this.validation()) {
-      this.hiddenDanger.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
-      this.hiddenDanger.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
-      this.hiddenDanger.reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
+      this.hiddenRectificationOrder.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
+      this.hiddenRectificationOrder.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
+      this.hiddenRectificationOrder.reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
+      delete this.hiddenRectificationOrder['status'];
       this._loadingService.register();
-      this._hiddenDangerService.update(this.hiddenDanger.id, this.hiddenDanger).subscribe(
+      this._hiddenRectificationOrderService.update(this.hiddenRectificationOrder.id, this.hiddenRectificationOrder).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('保存成功');
@@ -160,10 +158,10 @@ export class HiddenDangerComponent implements OnInit {
     this.displayDialog = false;
   }
 
-  onDelete(hiddenDanger) {
-    if (confirm('确认移除编号为："' + hiddenDanger.billNo + '"的隐患？')) {
+  onDelete(hiddenRectificationOrder) {
+    if (confirm('确认移除编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
       this._loadingService.register();
-      this._hiddenDangerService.delete(hiddenDanger.id).subscribe(
+      this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
         res => {
           this._loadingService.resolve();
           this.initData();
@@ -172,7 +170,6 @@ export class HiddenDangerComponent implements OnInit {
       );
     }
   }
-
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
@@ -188,11 +185,11 @@ export class HiddenDangerComponent implements OnInit {
     return true;
   }
   validation() {
-    if (this._regularService.isBlank(this.hiddenDanger.enterpirse)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.enterpirse)) {
       this._toastr.error('业户名称不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.examiner)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.examiner)) {
       this._toastr.error('检查人不能为空');
       return false;
     }
@@ -204,19 +201,19 @@ export class HiddenDangerComponent implements OnInit {
       this._toastr.error('整改期限不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.insPosition)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.insPosition)) {
       this._toastr.error('检查地点不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.insDesc)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.insDesc)) {
       this._toastr.error('检查内容不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.insQuestion)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.insQuestion)) {
       this._toastr.error('存在问题不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.proPosal)) {
+    if (this._regularService.isBlank(this.hiddenRectificationOrder.proPosal)) {
       this._toastr.error('整改意见不能为空');
       return false;
     }
@@ -232,7 +229,7 @@ export class HiddenDangerComponent implements OnInit {
   }
 
   clear() {
-    this.hiddenDanger = {};
+    this.hiddenRectificationOrder = {};
   }
 
   cancel() {

@@ -33,7 +33,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <p-dataTable [value]="hiddenDangerList" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
           <p-column field="billNo" header="单据编号"></p-column>
           <p-column field="enterpirse" header="业户名称"></p-column>
           <p-column field="examiner" header="检查人"></p-column>
@@ -41,10 +41,10 @@
           <p-column field="dealineDate" header="整改期限"></p-column>
           <p-column field="status" header="状态"></p-column>
           <p-column field="" header="操作" [style]="{'width':'24%'}">
-            <ng-template let-hiddenDanger="rowData" pTemplate="body">
-              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)"></button>
-              <button pButton type="button" label="删除" (click)="onDelete(hiddenDanger)"></button>
-              <button pButton type="button" label="详情" (click)="preEdit(hiddenDanger.id)"></button>
+            <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
+              <button pButton type="button" label="编辑" (click)="onEdit(hiddenRectificationOrder)" [disabled]="disabled"></button>
+              <button pButton type="button" label="删除" (click)="onDelete(hiddenRectificationOrder)" [disabled]="disabled"></button>
+              <button pButton type="button" label="详情" (click)="preEdit(hiddenRectificationOrder.id)"></button>
             </ng-template>
           </p-column>
         </p-dataTable>
@@ -58,7 +58,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="form-group"  >
-        <h4><span>{{hiddenDangerTitle}}</span></h4>
+        <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
       </div>
     </div>
 
@@ -69,13 +69,13 @@
             <label for="enterpirse" class="col-xs-2 col-sm-2 dialog-label" right>业户名称：<span class="notNull">*</span></label>
             <div class="col-xs-2 col-sm-4">
               <input type="text" class="form-control" id="enterpirse" name="enterpirse"
-                     style="width:175px;" [(ngModel)]="hiddenDanger.enterpirse">
+                     style="width:175px;" [(ngModel)]="hiddenRectificationOrder.enterpirse">
             </div>
           </div>
           <div class="col-xs-6 col-sm-6">
             <label for="area" class="col-xs-3 col-sm-2 dialog-label" right>区域：</label>
             <div class="col-xs-3 col-sm-4">
-              <input type="text" class="form-control" id="area" name="area" [(ngModel)]="hiddenDanger.area">
+              <input type="text" class="form-control" id="area" name="area" [(ngModel)]="hiddenRectificationOrder.area">
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
           <div class="col-xs-6 col-sm-6">
             <label for="examiner" class="col-xs-2 col-sm-2 dialog-label" right>检查人：<span class="notNull">*</span></label>
             <div class="col-xs-4 col-sm-4">
-              <input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenDanger.examiner">
+              <input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenRectificationOrder.examiner">
             </div>
           </div>
         </div>
@@ -104,18 +104,13 @@
                           [(ngModel)]="dealine">></p-calendar>
             </div>
           </div>
-          <!--<div class="col-xs-6 col-sm-6">-->
-            <!--<label for="status" class="col-xs-2 col-sm-2 dialog-label"right>状态：<span class="notNull">*</span></label>-->
-            <!--<div class="col-xs-6 col-sm-4">-->
-              <!--<input type="text" class="form-control" id="status" name="status" [(ngModel)]="hiddenDanger.status">-->
-            <!--</div>-->
-          <!--</div>-->
+
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
             <label for="insPosition" class="col-xs-1 col-sm-1 dialog-label" right>检查地点：<span class="notNull">*</span></label>
             <div class="col-xs-6 col-sm-6">
-        <textarea class="form-control" id="insPosition" name="insPosition" [(ngModel)]="hiddenDanger.insPosition"
+        <textarea class="form-control" id="insPosition" name="insPosition" [(ngModel)]="hiddenRectificationOrder.insPosition"
                   style="resize:none;width:660px;height:80px;"  maxlength="1500"></textarea>
             </div>
           </div>
@@ -124,7 +119,7 @@
           <div class="col-xs-12 col-sm-12">
             <label for="insDesc" class="col-xs-1 col-sm-1 dialog-label" right>检查内容：<span class="notNull">*</span></label>
             <div class="col-xs-6 col-sm-6">
-        <textarea class="form-control" id="insDesc" name="insDesc" [(ngModel)]="hiddenDanger.insDesc"
+        <textarea class="form-control" id="insDesc" name="insDesc" [(ngModel)]="hiddenRectificationOrder.insDesc"
                   style="resize:none;width:660px;height:80px;"  maxlength="1500"></textarea>
             </div>
           </div>
@@ -133,7 +128,7 @@
           <div class="col-xs-12 col-sm-12">
             <label for="insQuestion" class="col-xs-1 col-sm-1 dialog-label" right>存在问题：<span class="notNull">*</span></label>
             <div class="col-xs-6 col-sm-6">
-        <textarea class="form-control" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenDanger.insQuestion"
+        <textarea class="form-control" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenRectificationOrder.insQuestion"
                   style="resize:none;width:660px;height:80px;"  maxlength="1500"></textarea>
             </div>
           </div>
@@ -142,25 +137,7 @@
           <div class="col-xs-12 col-sm-12">
             <label for="proPosal" class="col-xs-1 col-sm-1 dialog-label" right>整改意见：<span class="notNull">*</span></label>
             <div class="col-xs-6 col-sm-6">
-        <textarea class="form-control" id="proPosal" name="proPosal" [(ngModel)]="hiddenDanger.proPosal"
-                  style="resize:none;width:660px;height:80px;"  maxlength="1500"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" *ngIf="!isAdd">
-          <div class="col-xs-12 col-sm-12">
-            <label for="replyDate" class="col-xs-1 col-sm-1 dialog-label" right>反馈日期：</label>
-            <div class="col-xs-6 col-sm-6">
-              <p-calendar name="replyDate" id="replyDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
-                          [(ngModel)]="reply">></p-calendar>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" *ngIf="!isAdd">
-          <div class="col-xs-12 col-sm-12">
-            <label for="replyDesc" class="col-xs-1 col-sm-1 dialog-label" right>企业反馈：</label>
-            <div class="col-xs-6 col-sm-6">
-        <textarea class="form-control" id="replyDesc" name="replyDesc" [(ngModel)]="hiddenDanger.replyDesc"
+        <textarea class="form-control" id="proPosal" name="proPosal" [(ngModel)]="hiddenRectificationOrder.proPosal"
                   style="resize:none;width:660px;height:80px;"  maxlength="1500"></textarea>
             </div>
           </div>
@@ -186,7 +163,7 @@
 <div *ngIf="isDetails">
   <div class="panel panel-default" >
     <div class="panel-heading">
-      <h4><span>{{hiddenDangerTitle}}</span></h4>
+      <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
     </div>
     <div class="panel-body">
       <form class="form-horizontal">
@@ -194,13 +171,13 @@
           <div class="col-xs-6 col-sm-6">
             <label class="col-xs-2 col-sm-2" right>业户名称:</label>
             <div class="col-xs-2 col-sm-4">
-              <span>{{hiddenDanger.enterpirse}}</span>
+              <span>{{hiddenRectificationOrder.enterpirse}}</span>
             </div>
           </div>
           <div class="col-xs-6 col-sm-6">
             <label class="col-xs-2 col-sm-2 dialog-label" right>区域：</label>
             <div class="col-xs-2 col-sm-4">
-              <span>{{hiddenDanger.area || '无'}}</span>
+              <span>{{hiddenRectificationOrder.area || '无'}}</span>
             </div>
           </div>
         </div>
@@ -214,7 +191,7 @@
           <div class="col-xs-6 col-sm-6">
             <label class="col-xs-2 col-sm-2 dialog-label" right>检查人：</label>
             <div class="col-xs-2 col-sm-4">
-              <span>{{hiddenDanger.examiner}}</span>
+              <span>{{hiddenRectificationOrder.examiner}}</span>
             </div>
           </div>
         </div>
@@ -228,7 +205,7 @@
           <div class="col-xs-6 col-sm-6">
             <label class="col-xs-2 col-sm-2 "right>状态：</label>
             <div class="col-xs-2 col-sm-4">
-              <span>{{hiddenDanger.status}}</span>
+              <span>{{hiddenRectificationOrder.status}}</span>
             </div>
           </div>
         </div>
@@ -236,7 +213,7 @@
           <div class="col-xs-12 col-sm-12">
             <label class="col-xs-1 col-sm-1" right>检查地点：</label>
             <div class="col-xs-8 col-sm-8">
-              <span>{{hiddenDanger.insPosition}}</span>
+              <span>{{hiddenRectificationOrder.insPosition}}</span>
             </div>
           </div>
         </div>
@@ -244,7 +221,7 @@
           <div class="col-xs-12 col-sm-12">
             <label class="col-xs-1 col-sm-1" right>检查内容：</label>
             <div class="col-xs-8 col-sm-8">
-              <span>{{hiddenDanger.insDesc}}</span>
+              <span>{{hiddenRectificationOrder.insDesc}}</span>
             </div>
           </div>
         </div>
@@ -252,7 +229,7 @@
           <div class="col-xs-12 col-sm-12">
             <label  class="col-xs-1 col-sm-1" right>存在问题：</label>
             <div class="col-xs-8 col-sm-8">
-              <span>{{hiddenDanger.insQuestion}}</span>
+              <span>{{hiddenRectificationOrder.insQuestion}}</span>
             </div>
           </div>
         </div>
@@ -260,7 +237,7 @@
           <div class="col-xs-12 col-sm-12">
             <label class="col-xs-1 col-sm-1" right>整改意见：</label>
             <div class="col-xs-8 col-sm-8">
-              <span>{{hiddenDanger.proPosal}}</span>
+              <span>{{hiddenRectificationOrder.proPosal}}</span>
             </div>
           </div>
         </div>
@@ -268,7 +245,7 @@
           <div class="col-xs-12 col-sm-12">
             <label class="col-xs-1 col-sm-1" right>企业反馈：</label>
             <div class="col-xs-8 col-sm-8">
-              <span>{{hiddenDanger.replyDesc || '无'}}</span>
+              <span>{{hiddenRectificationOrder.replyDesc || '无'}}</span>
             </div>
           </div>
         </div>

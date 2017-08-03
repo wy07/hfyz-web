@@ -10,12 +10,12 @@ import {CommonModule, DatePipe} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HiddenDangerComponent} from './hidden-danger.component';
-import {HiddenDangerService} from './shared/hidden-danger.service';
+import {HiddenRectificationOrderService} from './shared/hidden-rectification-order.service';
+import {HiddenRectificationOrderComponent} from './hidden-rectification-order.component';
 
 @NgModule({
   declarations: [
-    HiddenDangerComponent
+    HiddenRectificationOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +33,7 @@ import {HiddenDangerService} from './shared/hidden-danger.service';
   exports: [],
   providers: [
     DatePipe,
-    HiddenDangerService
+    HiddenRectificationOrderService
   ]
 })
-export class HiddenDangerModule {};
+export class HiddenRectificationOrderModule {};

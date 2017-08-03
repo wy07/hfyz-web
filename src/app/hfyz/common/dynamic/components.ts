@@ -19,7 +19,7 @@ import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
-import {HiddenDangerComponent} from '../../hidden-danger/hidden-danger.component';
+import {HiddenRectificationOrderComponent} from '../../hidden-danger/hidden-rectification-order.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 
 
@@ -48,7 +48,7 @@ export const components = {
   warning: WarningComponent,
   mapSign: MapSignComponent,
   configure: ConfigureComponent,
-  hiddenDanger: HiddenDangerComponent,
+  hiddenDanger: HiddenRectificationOrderComponent,
   workOrder: WorkOrderComponent,
   ownerIdentity: OwnerIdentityComponent
 };

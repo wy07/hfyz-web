@@ -19,7 +19,7 @@ import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
-import { HiddenDangerComponent } from '../../hidden-danger/hidden-danger.component';
+import {HiddenRectificationOrderComponent} from '../../hidden-danger/hidden-rectification-order.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -35,7 +35,7 @@ import {WorkOrderComponent} from '../../work-order/work-order.component';
   entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenDangerComponent, OwnerIdentityComponent,
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
                     WorkOrderComponent],
 
 
