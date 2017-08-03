@@ -220,15 +220,10 @@ export class HiddenDangerComponent implements OnInit {
       this._toastr.error('整改意见不能为空');
       return false;
     }
-    if (this._regularService.isBlank(this.hiddenDanger.status)) {
-      this._toastr.error('状态不能为空');
-      return false;
-    }
     if (this.inspection.getTime() === this.dealine.getTime()) {
       this._toastr.info('选择的日期不能相同！');
       return false;
     }
-
     if (this.dealine < this.inspection) {
       this._toastr.info('请选择正确的日期！');
       return false;

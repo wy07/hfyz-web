@@ -42,7 +42,7 @@
           <p-column field="status" header="状态"></p-column>
           <p-column field="" header="操作" [style]="{'width':'24%'}">
             <ng-template let-hiddenDanger="rowData" pTemplate="body">
-              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)"></button>
+              <button pButton type="button" label="编辑" (click)="onEdit(hiddenDanger)" disabled="disabled"></button>
               <button pButton type="button" label="删除" (click)="onDelete(hiddenDanger)"></button>
               <button pButton type="button" label="详情" (click)="preEdit(hiddenDanger.id)"></button>
             </ng-template>
@@ -104,14 +104,13 @@
                           [(ngModel)]="dealine">></p-calendar>
             </div>
           </div>
-          <div class="col-xs-6 col-sm-6">
-            <label for="status" class="col-xs-2 col-sm-2 dialog-label"right>状态：<span class="notNull">*</span></label>
-            <div class="col-xs-6 col-sm-4">
-              <input type="text" class="form-control" id="status" name="status" [(ngModel)]="hiddenDanger.status">
-            </div>
-          </div>
+          <!--<div class="col-xs-6 col-sm-6">-->
+            <!--<label for="status" class="col-xs-2 col-sm-2 dialog-label"right>状态：<span class="notNull">*</span></label>-->
+            <!--<div class="col-xs-6 col-sm-4">-->
+              <!--<input type="text" class="form-control" id="status" name="status" [(ngModel)]="hiddenDanger.status">-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
-
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
             <label for="insPosition" class="col-xs-1 col-sm-1 dialog-label" right>检查地点：<span class="notNull">*</span></label>
@@ -207,13 +206,13 @@
         </div>
         <div class="form-group">
           <div class="col-xs-6 col-sm-6">
-            <label for="inspectionDate" class="col-xs-2 col-sm-2 dialog-label" right>检查日期：</label>
+            <label class="col-xs-2 col-sm-2 dialog-label" right>检查日期：</label>
             <div class="col-xs-2 col-sm-4">
               <span>{{inspection | date: "yyyy-MM-dd HH:mm"}}</span>
             </div>
           </div>
           <div class="col-xs-6 col-sm-6">
-            <label for="examiner" class="col-xs-2 col-sm-2 dialog-label" right>检查人：</label>
+            <label class="col-xs-2 col-sm-2 dialog-label" right>检查人：</label>
             <div class="col-xs-2 col-sm-4">
               <span>{{hiddenDanger.examiner}}</span>
             </div>
@@ -221,13 +220,13 @@
         </div>
         <div class="form-group">
           <div class="col-xs-6 col-sm-6">
-            <label for="dealineDate" class="col-xs-2 col-sm-2 dialog-label" right>整改期限：</label>
+            <label class="col-xs-2 col-sm-2 dialog-label" right>整改期限：</label>
             <div class="col-xs-2 col-sm-4">
               <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
             </div>
           </div>
           <div class="col-xs-6 col-sm-6">
-            <label for="status" class="col-xs-2 col-sm-2 "right>状态：</label>
+            <label class="col-xs-2 col-sm-2 "right>状态：</label>
             <div class="col-xs-2 col-sm-4">
               <span>{{hiddenDanger.status}}</span>
             </div>
@@ -235,7 +234,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="insPosition" class="col-xs-1 col-sm-1" right>检查地点：</label>
+            <label class="col-xs-1 col-sm-1" right>检查地点：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{hiddenDanger.insPosition}}</span>
             </div>
@@ -243,7 +242,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="insDesc" class="col-xs-1 col-sm-1" right>检查内容：</label>
+            <label class="col-xs-1 col-sm-1" right>检查内容：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{hiddenDanger.insDesc}}</span>
             </div>
@@ -251,7 +250,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="insQuestion" class="col-xs-1 col-sm-1" right>存在问题：</label>
+            <label  class="col-xs-1 col-sm-1" right>存在问题：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{hiddenDanger.insQuestion}}</span>
             </div>
@@ -259,7 +258,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="proPosal" class="col-xs-1 col-sm-1" right>整改意见：</label>
+            <label class="col-xs-1 col-sm-1" right>整改意见：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{hiddenDanger.proPosal}}</span>
             </div>
@@ -267,7 +266,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="replyDesc" class="col-xs-1 col-sm-1" right>企业反馈：</label>
+            <label class="col-xs-1 col-sm-1" right>企业反馈：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{hiddenDanger.replyDesc || '无'}}</span>
             </div>
@@ -275,7 +274,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-12 col-sm-12">
-            <label for="replyDate" class="col-xs-1 col-sm-1" right>反馈日期：</label>
+            <label class="col-xs-1 col-sm-1" right>反馈日期：</label>
             <div class="col-xs-8 col-sm-8">
               <span>{{!reply ? '无': reply | date: "yyyy-MM-dd HH:mm"}}</span>
             </div>
