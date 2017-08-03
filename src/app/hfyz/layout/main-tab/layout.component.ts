@@ -1,4 +1,4 @@
-import {DynamicComponent} from './../../common/dynamic/dynamic.component';
+import { DynamicComponent } from './../../common/dynamic/dynamic.component';
 import {
   Component,
   OnInit,
@@ -10,8 +10,8 @@ import {
   Renderer,
   ElementRef
 } from '@angular/core';
-import {TabViewModule, TabView, TabPanel} from 'primeng/primeng';
-import {MapService} from '../../map/shared/map.service';
+import { TabViewModule, TabView, TabPanel } from 'primeng/primeng';
+import { MapService } from '../../map/shared/map.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,7 +54,7 @@ export class LayoutComponent implements OnInit {
   initMap: boolean;
 
 
-  constructor(private mapService: MapService) {
+  constructor(private mapService: MapService, private elementRef: ElementRef, private renderer: Renderer) {
     this.initMap = false;
   };
 
@@ -129,13 +129,18 @@ export class LayoutComponent implements OnInit {
         this.tabs[this.tabs.length - 1] = mapTab;
         this.selectTab(mapTab.code);
       } else if (mapTab.code === currentTab.code) {
+        console.log("----in mapTab.code === currentTab.code")
         if (mapTab.disabled) {
+          console.log("----in disabled==1==" + JSON.stringify(mapTab));
+          console.log("----in disabled==2==" + JSON.stringify(mapTabIndex));
           mapTab.disabled = false;
           this.tabs.splice(mapTabIndex, 1);
           mapTab.index = this.tabs.length;
+          console.log('=====mapTab.index====' + mapTab.index);
           this.tabs.push(mapTab);
           this.selectTab(mapTab.code);
         } else {
+          console.log("----in !disabled")
           this.selectTab(mapTab.code);
         }
       } else { // 如果有地图，component已加载，交换位置
@@ -175,7 +180,7 @@ export class LayoutComponent implements OnInit {
 
   private getInputs(inputs, code) {
     if (!inputs) {
-      return {code: code}
+      return { code: code }
     }
     if (!inputs.hasOwnProperty('code')) {
       inputs.code = code;
@@ -233,9 +238,11 @@ export class LayoutComponent implements OnInit {
       this.tabs[i].selected = false;
       this.tabs[i].index = i;
     }
-
     const index = this.tabs.findIndex(x => x.code === code);
+    console.log(`tab select index:${index}`);
+    console.log(JSON.stringify(this.tabs));
     this.tabs[index].selected = true;
+    this.tabroot.activeIndex = index;
   }
 
   getComponentName(tab) {
@@ -258,12 +265,9 @@ export class LayoutComponent implements OnInit {
       return;
     }
     const currentTab = this.tabs[event.index];
-
-
     if (currentTab === undefined || !currentTab.hasMap) {
       return;
     }
-
     const mapTab = this.tabs.find(x => x.hasMap === true && x.initMap === true);
     const mapTabIndex = this.tabs.findIndex(x => x.hasMap === true && x.initMap === true);
     this.mapService.change.emit(currentTab.inputs);
