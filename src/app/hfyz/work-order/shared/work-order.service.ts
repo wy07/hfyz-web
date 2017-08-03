@@ -7,6 +7,6 @@ export class WorkOrderService {
   }
 
   list(max, offset) {
-    return this.restangular.all('work-orders').customGET('find-list-and-total', {max: max, offset: offset});
+    return this.restangular.all('work-orders').customGET('list', {max: max, offset: offset});
   }
 }
