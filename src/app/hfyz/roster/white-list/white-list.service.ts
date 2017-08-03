@@ -20,11 +20,11 @@ export class WhiteListService {
   }
 
   more(id) {
-    return this.restangular.one('white-lists', id).customGET('more', {})
+    return this.restangular.one('white-lists', id).customGET('show', {})
   }
 
   get(id) {
-    return this.restangular.one('white-lists', id).customGET('get', {})
+    return this.restangular.one('white-lists', id).customGET('edit', {})
   }
 
   update(id, whiteList) {

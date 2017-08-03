@@ -82,7 +82,7 @@ export class WhiteListComponent implements OnInit {
     this._whiteListService.more(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.detail = res
+          this.detail = res.instance
         } else {
           this.toastr.error(res.errors)
         }
@@ -103,7 +103,7 @@ export class WhiteListComponent implements OnInit {
             this.toastr.success('删除成功！')
             this.search()
           } else {
-            this.toastr.success('删除失败！')
+            this.toastr.error('删除失败！')
           }
         }
       )
@@ -118,7 +118,7 @@ export class WhiteListComponent implements OnInit {
     this._whiteListService.get(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.whiteList = res
+          this.whiteList = res.instance
           this.pageFlag = 'UPDATE'
         } else {
           this.toastr.error(res.errors)
@@ -148,6 +148,7 @@ export class WhiteListComponent implements OnInit {
       )
     }
   }
+
   /**
    * 新增
    */
@@ -174,6 +175,7 @@ export class WhiteListComponent implements OnInit {
       )
     }
   }
+
   /**
    * 分页插件p-paginator方法
    * @param event
