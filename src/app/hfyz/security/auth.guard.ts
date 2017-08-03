@@ -16,7 +16,9 @@ export class AuthGuard implements CanActivate {
 
     const url: string = state.url;
     if (this._authService.getCurrentUser('roleRights') === undefined) {
-      this._router.navigate(['/login'])
+      console.log("======is undefined")
+      return true;
+      // this._router.navigate(['/login'])
     } else {
       if (this._authService.getCurrentUser('username') === 'me') {
         return this.checkLogin(url);

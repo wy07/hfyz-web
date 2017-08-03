@@ -3,7 +3,7 @@
         <ul class="layout-tabmenu-nav">
           <ng-template ngFor let-menu [ngForOf]="sidebarMenu" >
             <li [ngClass]="(menu.code!==undefined && menu.code==activeMenu)?'active-item':''" >
-                 <div [hasPermission]="menu.code" id ="{{menu.code}}">
+                 <div [hasPermission]="menu.permission_code" id ="{{menu.code}}">
                     <a   class="tabmenuitem-link"  href="#" (click)="menu.code.indexOf('root')==-1?addTab(menu):showContent($event,menu)">
                         <i class="fa {{menu.icon}}"></i>
                     </a>
@@ -28,7 +28,7 @@
                         <div class="nano-content menu-scroll-content" tabindex="0" style="margin-right: -15px;">
                         <ul  class="navigation-menu" >
                             <ng-template ngFor let-childmenu [ngForOf]="menuChildren" >
-                            <div [hasPermission]="childmenu.code">
+                            <div [hasPermission]="childmenu.permission_code">
                                 <li  *ngIf="childmenu.name!='divider' ; else elseBlock">
                                     <a (click)="addTab(childmenu)"  href="#" >
                                         <i class="fa fa-fw {{childmenu.icon}}"></i>

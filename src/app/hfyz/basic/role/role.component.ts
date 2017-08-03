@@ -26,7 +26,7 @@ export class RoleComponent implements OnInit {
   menuList: TreeNode[];
   orgList: SelectItem[];
   currentUserId: number
-  currentRoleArray = []
+  // currentRoleArray = []
   currentRoleString: string
   constructor(private _renderer: Renderer
     , private _router: Router
@@ -39,7 +39,7 @@ export class RoleComponent implements OnInit {
   ) {
     this.displayDialog = false;
     this.displayAssign = false;
-    this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';')
+    // this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';')
     this.currentRoleString = this._authService.getCurrentUser('roleId')
     this.currentUserId = this._authService.getCurrentUser('id')
     // this.layoutComponent = this._inj.get(LayoutComponent);

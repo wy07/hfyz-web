@@ -67,20 +67,26 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('token', res.token);
 
         this.eventBuservice.notify.emit({ type: 'inspect', companyCode: res.companyCode });
+        const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
+        console.log(`redirect:${redirect}`);
+        if(res.rights){
+          this._configService.setRoleRights(res.rights.split(';'));
+        }
+
+        console.log(res.rights);
+        this._router.navigate([redirect]);
 
 
-        this._adminService.getUserByName(res.sub).subscribe(data => {
-          console.log('--------in getUserByName ')
-          console.log(`data:${JSON.stringify(data)}`)
-
-          sessionStorage.removeItem('myprofile');
-          sessionStorage.setItem('myprofile', JSON.stringify(data.user))
-          console.log(data.user.roleRights);
-          this._configService.setRoleRights(data.user.roleRights)
-          const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
-          console.log(redirect)
-          this._router.navigate([redirect]);
-        });
+        // this._adminService.getUserByName(res.sub).subscribe(data => {
+        //   console.log('--------in getUserByName ')
+        //   console.log(`data:${JSON.stringify(data)}`)
+        //
+        //   sessionStorage.removeItem('myprofile');
+        //   sessionStorage.setItem('myprofile', JSON.stringify(data.user))
+        //   console.log(data.user.roleRights);
+        //   this._configService.setRoleRights(data.user.roleRights)
+        //   console.log(redirect)
+        // });
       },
       error => {
         this.loading = false;
