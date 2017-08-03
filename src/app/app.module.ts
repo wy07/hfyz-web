@@ -35,8 +35,10 @@ import {CarModule} from './hfyz/car/car.module';
 import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import {PeopleModule} from './hfyz/people/people.module';
 import {WarningModule} from './hfyz/warning/warning.module';
+import {WorkOrderModule} from './hfyz/work-order/work-order.module';
 import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
 import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
+import {HiddenRectificationOrderModule} from './hfyz/hidden-danger/hidden-rectification-order.module';
 import {RosterModule} from './hfyz/roster/roster.module';
 import { CovalentLoadingModule } from '@covalent/core';
 
@@ -77,10 +79,12 @@ export function ConfigLoader(configService: ConfigService) {
     CarModule,
     PeopleModule,
     WarningModule,
+    WorkOrderModule,
     OwnerIdentityModule,
     DialogModule,
     ButtonModule,
     MessagesModule,
+    HiddenRectificationOrderModule,
     RosterModule,
     CovalentLoadingModule
   ],
