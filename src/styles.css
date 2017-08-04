@@ -74,3 +74,16 @@ body .car-info .ui-panel-content{
 	stroke: #3192e1
 }
 
+.map-left {
+    position: fixed;
+    left: 5% !important;
+    bottom: 0;
+    overflow: scroll;
+    height: 200px;
+    width: 100%;
+}
+
+ body .map-footer .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable .ui-datatable-tfoot > tr > td {
+    padding: 0;
+}
+
