@@ -199,6 +199,7 @@ export class MapComponent implements OnInit, OnDestroy {
             clearTimeout(this.timer);
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
+                this.mapService.getHistoryData(this.realTimeMapFrameNo)
                 this.realTimeDataTOP10 = [];
                 if (this.realTimeMapKey !== inputs.key) {
                     this.realTimeMapKey = inputs.key;

@@ -157,24 +157,26 @@ export class MapService {
   getHistoryData(plateNo) {
       const points = [];
       const num = 9;
-      const date = new Date().getTime;
-      this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
-      for (let i = 0; i < num; i++){
-          const point = {
-             dateStr:'',
-             plateColor:i,
-             plateNo: plateNo,
-             posEncrypt:'',
-             geoPoint: '',
-             gpsSpeed: '',
-             totalMileage: '',
-             recSpeed: '',
-             direction: '',
-             altitude: '',
-             vehicleState: '',
-             alarmState: '',
-          }
-      }
+      const dateTime = new Date().getTime();
+        const date = this.datePipe.transform(new Date(dateTime), 'yyyy-MM-dd HH:mm:ss');
+
+    //   for (let i = 0; i < num; i++){
+    //       const date = this.datePipe.transform(new Date(dateTime), 'yyyy-MM-dd HH:mm:ss');
+    //       const point = {
+    //          dateStr:'',
+    //          plateColor:i,
+    //          plateNo: plateNo,
+    //          posEncrypt:'',
+    //          geoPoint: '',
+    //          gpsSpeed: '',
+    //          totalMileage: '',
+    //          recSpeed: '',
+    //          direction: '',
+    //          altitude: '',
+    //          vehicleState: '',
+    //          alarmState: '',
+    //       }
+    //   }
 
     // return points
   }

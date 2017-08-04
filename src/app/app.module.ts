@@ -35,75 +35,80 @@ import { CarModule } from './hfyz/car/car.module';
 import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
 import { PeopleModule } from './hfyz/people/people.module';
 import { WarningModule } from './hfyz/warning/warning.module';
+import { WorkOrderModule } from './hfyz/work-order/work-order.module';
 import { OwnerIdentityModule } from './hfyz/owner-identity/owner-identity.module';
 import { PlatFormService } from './hfyz/basic/platForm/shared/plat-form.service';
+import { HiddenRectificationOrderModule } from './hfyz/hidden-rectification-order/hidden-rectification-order.module';
+import { RosterModule } from './hfyz/roster/roster.module';
 import { CovalentLoadingModule, TdLoadingService } from '@covalent/core';
 
-
 export function ConfigLoader(configService: ConfigService) {
-  // Note: this factory need to return a function (that return a promise)
-  return () => configService.load();
+    // Note: this factory need to return a function (that return a promise)
+    return () => configService.load();
 }
 @NgModule({
-  declarations: [
-    AppComponent
-    , LayoutComponent
-    , FooterComponent
-    , TopBarComponent
-    , SideBarComponent
-    , NoRightComponent
-    , DynamicComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    RestangularModule,
-    BrowserAnimationsModule,
-    TabViewModule,
-    ToastModule.forRoot(),
-    RestangularModule.forRoot([Router, Http, ToastsManager, Injector], RestangularConfigFactory),
-    LogManageModule,
-    CommonModule,
-    HomeModule,
-    BasicModule,
-    LoginModule,
-    InfoManageModule,
-    MapModule,
-    BlockUIModule,
-    PlatformManageModule,
-    CarModule,
-    PeopleModule,
-    WarningModule,
-    OwnerIdentityModule,
-    DialogModule,
-    ButtonModule,
-    MessagesModule,
-    CovalentLoadingModule
-  ],
-  /*providers: [ConfigService,
-   {
-   provide: APP_INITIALIZER,
-   useFactory: ConfigLoader,
-   deps: [ConfigService],
-   multi:true
-   }],*/
-  providers: [ConfigService
-    , {
-      provide: APP_INITIALIZER,
-      useFactory: ConfigLoader,
-      deps: [ConfigService],
-      multi: true
-    }
-    , AuthGuard
-    , AuthService
-    , AdminService
-    , NgRadio
-    , ChangePwdService
-    , PlatFormService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+        , LayoutComponent
+        , FooterComponent
+        , TopBarComponent
+        , SideBarComponent
+        , NoRightComponent
+        , DynamicComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        RestangularModule,
+        BrowserAnimationsModule,
+        TabViewModule,
+        ToastModule.forRoot(),
+        RestangularModule.forRoot([Router, Http, ToastsManager, Injector], RestangularConfigFactory),
+        LogManageModule,
+        CommonModule,
+        HomeModule,
+        BasicModule,
+        LoginModule,
+        InfoManageModule,
+        MapModule,
+        BlockUIModule,
+        PlatformManageModule,
+        CarModule,
+        PeopleModule,
+        WarningModule,
+        WorkOrderModule,
+        OwnerIdentityModule,
+        DialogModule,
+        ButtonModule,
+        MessagesModule,
+        HiddenRectificationOrderModule,
+        RosterModule,
+        CovalentLoadingModule
+    ],
+    /*providers: [ConfigService,
+     {
+     provide: APP_INITIALIZER,
+     useFactory: ConfigLoader,
+     deps: [ConfigService],
+     multi:true
+     }],*/
+    providers: [ConfigService
+        , {
+            provide: APP_INITIALIZER,
+            useFactory: ConfigLoader,
+            deps: [ConfigService],
+            multi: true
+        }
+        , AuthGuard
+        , AuthService
+        , AdminService
+        , NgRadio
+        , ChangePwdService
+        , PlatFormService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 

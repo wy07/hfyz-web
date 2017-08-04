@@ -37,7 +37,7 @@
       <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
       <p-column field="" header="操作" [style]="{'width':'10%'}">
         <ng-template let-a="rowData" pTemplate="body">
-          <button type="button" class="btn btn-info" (click)="moreInfo(a)">查看详情</button>
+          <button type="button" class="btn btn-primary btn-xs" (click)="moreInfo(a)">查看详情</button>
         </ng-template>
       </p-column>
     </p-dataTable>
