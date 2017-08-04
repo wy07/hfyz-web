@@ -108,7 +108,7 @@ export class BlackListComponent implements OnInit {
     this._blackListService.more(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.detail = res
+          this.detail = res.instance
         } else {
           this.toastr.error(res.errors)
         }
@@ -144,9 +144,9 @@ export class BlackListComponent implements OnInit {
     this._blackListService.get(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.blackList = res
-          this.blackList.controlBegin = new Date(res.controlBegin)
-          this.blackList.controlEnd = new Date(res.controlEnd)
+          this.blackList = res.instance
+          this.blackList.controlBegin = new Date(res.instance.controlBegin)
+          this.blackList.controlEnd = new Date(res.instance.controlEnd)
           this.pageFlag = 'UPDATE'
         } else {
           this.toastr.error(res.errors)
