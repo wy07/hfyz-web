@@ -7,7 +7,7 @@ export class HiddenRectificationOrderService {
   }
 
   list(max, offset, company, sd, ed) {
-    return this.restangular.all('hidden-rectification-orders').customGET('find-list-and-total',
+    return this.restangular.all('hidden-rectification-orders').customGET('list',
       {max: max, offset: offset, company: company, startDate: sd, endDate: ed });
   }
 
