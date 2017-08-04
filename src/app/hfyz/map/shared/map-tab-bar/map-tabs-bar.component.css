@@ -1,0 +1,30 @@
+.map-footer {
+    position: fixed;
+    left: 19%;
+    bottom: 0;
+    overflow: scroll;
+    height: 200px;
+    width: 100%;
+}
+
+.map-footer .table-row {
+    width: 82%;
+}
+
+.map-left .table-row {
+    width: 95%;
+}
+
+.map-footer .panel-heading {
+    padding: 0 15px;
+}
+
+.text-center {
+    text-align: center;
+    margin-right: 20%;
+    margin-top: 5%;
+}
+
+.text-center span {
+    font-size: 18px;
+}
