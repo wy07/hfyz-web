@@ -1,11 +1,21 @@
-import { AuthService } from './../../security/auth.service';
-import { RegularService } from './../../common/shared/regular.service';
-import { Component, OnInit, Injector, Renderer, ElementRef, ViewChild, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TreeNode } from 'primeng/components/common/api';
-import { RoleService } from './role.service';
-import { DataGridModule, SelectItem, ListboxModule } from 'primeng/primeng';
+import {AuthService} from './../../security/auth.service';
+import {RegularService} from './../../common/shared/regular.service';
+import {
+  Component,
+  OnInit,
+  Injector,
+  Renderer,
+  ElementRef,
+  ViewChild,
+  ChangeDetectorRef,
+  ApplicationRef,
+  NgZone
+} from '@angular/core';
+import {ToastsManager} from 'ng2-toastr';
+import {Router, ActivatedRoute} from '@angular/router';
+import {TreeNode} from 'primeng/components/common/api';
+import {RoleService} from './role.service';
+import {DataGridModule, SelectItem, ListboxModule} from 'primeng/primeng';
 @Component({
   selector: 'role',
   templateUrl: 'role.component.html',
@@ -14,20 +24,23 @@ import { DataGridModule, SelectItem, ListboxModule } from 'primeng/primeng';
 
 export class RoleComponent implements OnInit {
 
+  action: string;
+
   roleList: any;
   type: number;
   // layoutComponent
   displayDialog: boolean;
   displayAssign: boolean;
-  formTitle: string
+  formTitle: string;
   role: any;
   isAdd: boolean;
-  selectedPermission
+  selectedPermission;
   menuList: TreeNode[];
   orgList: SelectItem[];
-  currentUserId: number
+  currentUserId: number;
   // currentRoleArray = []
-  currentRoleString: string
+  currentRoleString: string;
+
   constructor(private _renderer: Renderer
     , private _router: Router
     , private _activatedRoute: ActivatedRoute
@@ -35,17 +48,18 @@ export class RoleComponent implements OnInit {
     , private _roleService: RoleService
     , private _inj: Injector
     , private _regularService: RegularService
-    , private _authService: AuthService
-  ) {
+    , private _authService: AuthService) {
+
+    this.action = 'list';
+
     this.displayDialog = false;
     this.displayAssign = false;
     // this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';')
     this.currentRoleString = this._authService.getCurrentUser('roleId')
     this.currentUserId = this._authService.getCurrentUser('id')
     // this.layoutComponent = this._inj.get(LayoutComponent);
-    this.role = { id: '' };
+    this.role = {id: ''};
     this.initData();
-    console.log('!!!!')
   }
 
   ngOnInit() {
@@ -60,12 +74,14 @@ export class RoleComponent implements OnInit {
       }
     );
   }
+
   onEdit(role) {
-    this.displayDialog = true
-    this.isAdd = false
+    this.action = 'update';
+    this.isAdd = false;
     this.formTitle = '编辑角色——' + role.name
     this.preEdit(role.id)
   }
+
   preEdit(id) {
     this._roleService.edit(id, this.currentRoleString).subscribe(
       res => {
@@ -79,16 +95,18 @@ export class RoleComponent implements OnInit {
     );
 
   }
+
   onCreate() {
     this._roleService.orgListForSelect(this.currentRoleString).subscribe(
       res => {
-        this.orgList = res.orgList
-        this.formTitle = '新增角色'
-        this.isAdd = true
-        this.displayDialog = true
-        this.role = { id: '', operator: this.currentUserId };
+        this.orgList = res.orgList;
+        this.formTitle = '新增角色';
+        this.isAdd = true;
+        this.action = 'update';
+        this.role = {id: '', operator: this.currentUserId};
       })
   }
+
   save() {
     if (this.validate()) {
       this._roleService.save(this.role).subscribe(
@@ -97,10 +115,10 @@ export class RoleComponent implements OnInit {
           this.initData()
         }
       );
-      this.displayDialog = false
-
+      this.action = 'list';
     }
   }
+
   update() {
     if (this.validate()) {
       this._roleService.update(this.role.id, this.role).subscribe(
@@ -109,10 +127,11 @@ export class RoleComponent implements OnInit {
           this.initData()
         }
       );
-      this.displayDialog = false
+      this.action = 'update';
     }
 
   }
+
   onDelete(role) {
     if (confirm('确认移除角色——' + role.name + '？')) {
       this._roleService.delete(role.id).subscribe(
@@ -123,6 +142,7 @@ export class RoleComponent implements OnInit {
       );
     }
   }
+
   onAssign(role) {
     this._roleService.getPermission(this.currentRoleString).subscribe(
       res => {
@@ -133,7 +153,10 @@ export class RoleComponent implements OnInit {
       }
     );
   }
-  showCreateDialog() { }
+
+  showCreateDialog() {
+  }
+
   savePermission() {
     if (this.selectedPermission.length === []) {
       this._toastr.error('请为角色分配权限！');

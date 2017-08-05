@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { DataTableModule, DialogModule, ListboxModule, ButtonModule, DataGridModule, TreeModule } from 'primeng/primeng';
+import { DataTableModule, DialogModule, ListboxModule, ButtonModule, DataGridModule, TreeModule, DropdownModule } from 'primeng/primeng';
 
 @NgModule({
     declarations: [
@@ -25,6 +25,7 @@ import { DataTableModule, DialogModule, ListboxModule, ButtonModule, DataGridMod
         ButtonModule,
         DataGridModule,
         TreeModule,
+        DropdownModule
     ],
     exports: [
     ],

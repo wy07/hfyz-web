@@ -69,11 +69,17 @@ export class LoginComponent implements OnInit {
         this.eventBuservice.notify.emit({ type: 'inspect', companyCode: res.companyCode });
         const redirect = this._authService.redirectUrl ? this._authService.redirectUrl : '/';
         console.log(`redirect:${redirect}`);
+        console.log(res.rights);
+        console.log(res.rights.split(';'));
         if(res.rights){
+          console.log("=======in if")
+          sessionStorage.setItem('rights', res.rights)
+          console.log(sessionStorage.getItem('rights'));
           this._configService.setRoleRights(res.rights.split(';'));
+        }else{
+          sessionStorage.setItem('rights', '')
         }
 
-        console.log(res.rights);
         this._router.navigate([redirect]);
 
 

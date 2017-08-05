@@ -28,7 +28,6 @@ export class UserComponent implements OnInit {
   roleList: SelectItem[];
   orgList: SelectItem[];
   currentUserId: number
-  currentRoleArray = []
   currentRoleString: string
   constructor(private _renderer: Renderer
     , private _router: Router
@@ -42,8 +41,6 @@ export class UserComponent implements OnInit {
     this.displayDialog = false;
     // this.layoutComponent = this.inj.get(LayoutComponent);
     this.currentUserId = this._authService.getCurrentUser('id');
-    this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';');
-    console.log(this.currentRoleArray)
     this.currentRoleString = this._authService.getCurrentUser('roleId');
     this.user = { id: '', operator: this.currentUserId };
     this.initData();

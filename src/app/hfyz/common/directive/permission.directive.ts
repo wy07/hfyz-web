@@ -7,19 +7,18 @@ import {isUndefined} from "util";
 // Directive class
 export class PermissionDirective implements OnInit {
   @Input() hasPermission: string;
-  rights: any;
+  // rights: any;
 
   constructor(private _el: ElementRef
     , private _renderer: Renderer
     , private _configService: ConfigService) {
-    this.rights = this._configService.getConfiguration().ROLE_RIGHTS;
+
+
+    // this.rights=;
+    // this.rights = this._configService.getConfiguration().ROLE_RIGHTS;
   }
 
   ngOnInit() {
-    let result = false
-    console.log("============PermissionDirective")
-    console.log(this.rights)
-    console.log(this.hasPermission)
     if (!this.hasPermission) {
       return true
     }
@@ -30,19 +29,15 @@ export class PermissionDirective implements OnInit {
 
     const targetRight = this.hasPermission.split(';');
 
-    console.log('---1')
-
-    if(isUndefined(this.rights)){
+    if(isUndefined(sessionStorage.getItem('rights'))){
+      // this.rights=[];
       return true;//应该return false 纯为调试方便 重载后 登录获取的权限木有了！！！
     }
-
+    let rights:any=sessionStorage.getItem('rights').split(';');
     // this.rights = this.rights ? this.rights : [];
     let bSet = new Set(targetRight)
-    console.log(Array.from(new Set(this.rights.filter(v => bSet.has(v)))))
-    console.log(Array.from(new Set(this.rights.filter(v => bSet.has(v)))))
-    console.log('---2')
 
-    if (this.arrayIntersection(this.rights, targetRight).length > 0) {
+    if (this.arrayIntersection(rights, targetRight).length > 0) {
       return true
     }
 
