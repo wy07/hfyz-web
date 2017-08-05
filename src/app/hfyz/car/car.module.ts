@@ -1,3 +1,5 @@
+import { MapComponent } from './../map/map/map.component';
+import { MapModule } from './../map/map.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +24,8 @@ import { CarService } from './shared/car.service';
     ChartModule,
     DropdownModule,
     SplitButtonModule,
-    PaginatorModule
+    PaginatorModule,
+    MapModule
   ],
   exports: [
   ],

@@ -100,15 +100,20 @@ export class SideBarComponent implements OnInit {
 			this.renderer.setElementAttribute(tabmenuContents, 'class', ' layout-tabmenu-contents');
 			this.renderer.setElementAttribute(mainContent, 'class', 'u-content  u-content-sidebar');
 		}
-		this.menuChildren = menu.children;
-
+        this.menuChildren = menu.children;
+        const mapFoot = document.getElementById('mapFooter');
+        if(mapFoot !== null){
+            document.getElementById('mapFooter').setAttribute('class','map-footer');
+        }
 	}
 	hideContent(event) {
-		console.log('hideContent')
-		const tabmenuContents = this.elRef.nativeElement.querySelector('.layout-tabmenu-contents')
+        console.log('hideContent')
+        this.radio.cast('realTime:open2','33333');
+        const tabmenuContents = this.elRef.nativeElement.querySelector('.layout-tabmenu-contents');
 		this.renderer.setElementAttribute(tabmenuContents, 'class', 'layout-tabmenu-contents');
-		const mainContent = this.elRef.nativeElement.parentElement.querySelector('.u-content')
-		this.renderer.setElementAttribute(mainContent, 'class', 'u-content   u-content-sidebar');
+		const mainContent = this.elRef.nativeElement.parentElement.querySelector('.u-content');
+        this.renderer.setElementAttribute(mainContent, 'class', 'u-content   u-content-sidebar');
+        document.getElementById('mapFooter').setAttribute('class','map-left');
 	}
 
 }

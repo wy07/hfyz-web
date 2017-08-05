@@ -25,7 +25,7 @@ import { ChangePwdComponent } from './changePwd/change-pwd.component';
         DialogModule,
         ListboxModule,
         ButtonModule,
-        RoleModule,
+        RoleModule
     ],
     exports: [
     ],
