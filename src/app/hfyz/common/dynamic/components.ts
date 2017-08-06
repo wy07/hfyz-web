@@ -19,7 +19,7 @@ import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
-import {HiddenRectificationOrderComponent} from '../../hidden-danger/hidden-rectification-order.component';
+import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/hidden-rectification-order.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
