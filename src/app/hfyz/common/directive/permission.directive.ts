@@ -10,16 +10,17 @@ export class PermissionDirective implements OnInit {
 
     ngOnInit() {
         if (!this.hasPermission) {
-            return true
+            return true;
         }
-        if (isUndefined(sessionStorage.getItem('rights'))) {
-            return false;
+
+        let rights: any=[];
+        if (!isUndefined(sessionStorage.getItem('rights'))) {
+            rights=sessionStorage.getItem('rights').split(';');
         }
-        const rights: any = sessionStorage.getItem('rights').split(';');
         const targetRight = this.hasPermission.split(';');
         const intersection = rights.filter(v => targetRight.indexOf(v) > -1);
         if (intersection.length > 0) {
-            return true
+            return true;
         }
 
         this._renderer.setElementStyle(this._el.nativeElement, 'display', 'none');
