@@ -22,11 +22,11 @@ export class BlackListService {
   }
 
   more(id) {
-    return this.restangular.one('black-lists', id).customGET('more', {})
+    return this.restangular.one('black-lists', id).customGET('show', {})
   }
 
   get(id) {
-    return this.restangular.one('black-lists', id).customGET('get', {})
+    return this.restangular.one('black-lists', id).customGET('edit', {})
   }
 
   update(id, blackList) {

@@ -1,0 +1,97 @@
+<div class="row" *ngIf="action=='list'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">权限列表</div>
+            <div class="panel-body">
+                <div class="top-buttons">
+                    <button pButton type="button" label="新增"
+                            (click)="onCreate()"></button>
+                </div>
+
+                <p-dataTable [value]="permList" [emptyMessage]="'暂无数据'">
+                    <p-column field="name" header="名称"></p-column>
+                    <p-column field="code" header="编码"></p-column>
+                    <p-column field="category" header="权限分组"></p-column>
+                    <p-column field="configAttribute" header="配置属性"></p-column>
+                    <p-column field="httpMethod" header="HTTP方法"></p-column>
+                    <p-column field="url" header="URL"></p-column>
+                    <p-column field="" header="操作">
+                        <ng-template let-perm="rowData" pTemplate="body">
+                            <button pButton type="button" label="编辑"
+                                    (click)="onEdit(perm)"></button>
+                            <button  pButton type="button" label="删除"
+                                    (click)="onDelete(perm)"></button>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+                <p-paginator rows="{{max}}" totalRecords="{{totalPerms}}" (onPageChange)="paginate($event)"
+                             *ngIf="totalPerms>0"></p-paginator>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="action=='update'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{formTitle}}</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">名称<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="perm.name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="httpMethod" class="col-sm-3 control-label">HTTP方法</label>
+                        <div class="col-sm-6">
+                            <select [(ngModel)]="perm.httpMethod" class="form-control" id="httpMethod">
+                                <option *ngFor="let item of ['','GET','POST','PUT','DELETE']" [ngValue]="item" >{{item}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="code" class="col-sm-3 control-label">编码<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="code" name="code" [(ngModel)]="perm.code">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category" class="col-sm-3 control-label">权限分组<span class="required">*</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="category" name="category" [(ngModel)]="perm.category">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="url" class="col-sm-3 control-label">URL<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="url" name="url"
+                                   [(ngModel)]="perm.url">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group"  *ngIf="perm.configAttribute">
+                        <label class="col-sm-3 control-label">配置属性</label>
+                        <div class="col-sm-6">
+                            <p class="form-control-static">{{perm.configAttribute}}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button pButton type="button" label="保存" (click)="isAdd?save():update()"></button>
+                            <button pButton type="button" label="返回" (click)="action='list'"
+                                    class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

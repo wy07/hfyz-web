@@ -1,38 +1,48 @@
-import { Injectable } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
+import {Injectable} from '@angular/core';
+import {Restangular} from 'ngx-restangular';
 
 @Injectable()
 export class RoleService {
-  constructor(public restangular: Restangular) {
-  }
+    constructor(public restangular: Restangular) {
+    }
 
-  list(operatorId) {
-    return this.restangular.all('roles').customGET('list', { operatorId: operatorId });
-  }
-  delete(id) {
-    return this.restangular.one('roles', id).customDELETE('delete', {});
-  }
-  edit(id, roles) {
-    return this.restangular.one('roles', id).customGET('edit', { roles: roles });
-  }
+    list(max, offset) {
+        return this.restangular.all('roles').customGET('',{max: max, offset: offset});
+    }
 
-  save(formData) {
-    return this.restangular.all('roles').customPOST(formData, 'save');
-  }
-  update(id, formData) {
-    return this.restangular.one('roles', id).customPOST(formData, 'update');
-  }
-  getPermission(roles) {
-    return this.restangular.all('permission-groups').customGET('list', { roles: roles });
-  }
+    delete(id) {
+        return this.restangular.one('roles', id).customDELETE('', {});
+    }
 
-  savePermission(id, permissions) {
-    return this.restangular.one('roles', id).all('permission-groups').post({ permissions: permissions });
-  }
-  listForSelect(roles, operatorId) {
-    return this.restangular.all('roles').customGET('list-for-select', { roles: roles, operatorId: operatorId });
-  }
-  orgListForSelect(roles) {
-    return this.restangular.all('organizations').customGET('list-for-select', { roles: roles });
-  }
+    edit(id, roles) {
+        return this.restangular.one('roles', id).customGET('edit', {roles: roles});
+    }
+
+    save(formData) {
+        return this.restangular.all('roles').post(formData);
+    }
+
+    update(id, formData) {
+        return this.restangular.one('roles', id).customPOST(formData);
+    }
+
+    preAssignPerm(id){
+        return this.restangular.one('roles', id).customGET('pre-assign-perm');
+    }
+
+    getPermission(roles) {
+        return this.restangular.all('permission-groups').customGET('list', {roles: roles});
+    }
+
+    savePermission(id, permissions) {
+        return this.restangular.one('roles', id).all('assign-perm').post({perms: permissions});
+    }
+
+    listForSelect(roles, operatorId) {
+        return this.restangular.all('roles').customGET('list-for-select', {roles: roles, operatorId: operatorId});
+    }
+
+    orgListForSelect(roles) {
+        return this.restangular.all('organizations').customGET('list-for-select', {roles: roles});
+    }
 }

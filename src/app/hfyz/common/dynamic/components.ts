@@ -25,9 +25,10 @@ import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-
+import {PermissionComponent} from '../../basic/permission/permission.component';
 export const components = {
   role: RoleComponent,
+  permission: PermissionComponent,
   user: UserComponent,
   menu: MenuComponent,
   systemcode: SystemCodeComponent,

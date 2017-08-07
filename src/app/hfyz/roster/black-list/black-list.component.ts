@@ -26,6 +26,7 @@ export class BlackListComponent implements OnInit {
   blackList: any; // 新增和保存时的黑名单信息
   detail: any; // 详情
 
+  status: any[]; // 布控状态下拉选
 
   constructor(private _blackListService: BlackListService,
               private _loadingService: TdLoadingService,
@@ -46,6 +47,8 @@ export class BlackListComponent implements OnInit {
     this.blackLists = [];
     this.blackList = {};
     this.detail = {};
+
+    this.status = [{label: '未布控', value: 0}, {label: '布控中', value: 1}, {label: '解除布控', value: 2}]
   }
 
   ngOnInit() {
@@ -108,7 +111,7 @@ export class BlackListComponent implements OnInit {
     this._blackListService.more(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.detail = res
+          this.detail = res.instance
         } else {
           this.toastr.error(res.errors)
         }
@@ -144,9 +147,9 @@ export class BlackListComponent implements OnInit {
     this._blackListService.get(id).subscribe(
       res => {
         if (res.result === 'success') {
-          this.blackList = res
-          this.blackList.controlBegin = new Date(res.controlBegin)
-          this.blackList.controlEnd = new Date(res.controlEnd)
+          this.blackList = res.instance
+          this.blackList.controlBegin = new Date(res.instance.controlBegin)
+          this.blackList.controlEnd = new Date(res.instance.controlEnd)
           this.pageFlag = 'UPDATE'
         } else {
           this.toastr.error(res.errors)
@@ -161,8 +164,6 @@ export class BlackListComponent implements OnInit {
    */
   submitUpdate(id) {
     if (this.validate()) {
-      this.blackList.controlBegin = this.datePipe.transform(this.blackList.controlBegin, 'yyyy-MM-dd HH:mm:ss')
-      this.blackList.controlEnd = this.datePipe.transform(this.blackList.controlEnd, 'yyyy-MM-dd HH:mm:ss')
       this._loadingService.register()
       this._blackListService.update(id, this.blackList).subscribe(
         res => {
@@ -187,6 +188,7 @@ export class BlackListComponent implements OnInit {
     this.blackList.vehicleNo = ''
     this.blackList.controlBegin = ''
     this.blackList.controlEnd = ''
+    this.blackList.status = 0
   }
 
   /**
@@ -239,6 +241,40 @@ export class BlackListComponent implements OnInit {
     if (this._regularService.isBlank(this.blackList.controlEnd)) {
       flag = false
       this.toastr.error('结束时间不能空！')
+    }
+    if (this._regularService.isBlank(this.blackList.controlBehavior)) {
+      flag = false
+      this.toastr.error('布控行为不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.blackType)) {
+      flag = false
+      this.toastr.error('黑名单不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.controlOrg)) {
+      flag = false
+      this.toastr.error('布控单位不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.controlRange)) {
+      flag = false
+      this.toastr.error('布控范围不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.executor)) {
+      flag = false
+      this.toastr.error('布控人不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.scheme)) {
+      flag = false
+      this.toastr.error('布控方案不能为空')
+    }
+    if (this._regularService.isBlank(this.blackList.status)) {
+      flag = false
+      this.toastr.error('布控状态不能为空')
+    }
+    if (this.blackList.controlBegin && this.blackList.controlEnd) {
+      if (this.blackList.controlBegin >= this.blackList.controlEnd) {
+        flag = false
+        this.toastr.error('开始时间必须小于结束时间')
+      }
     }
     return flag
   }
