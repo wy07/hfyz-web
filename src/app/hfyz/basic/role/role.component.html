@@ -14,7 +14,7 @@
                     <p-column field="org" header="所属部门"></p-column>
                     <p-column field="" header="操作">
                         <ng-template let-role="rowData" pTemplate="body">
-                            <div *ngIf="role.name!='平台管理员'">
+                            <div *ngIf="role.authority!='ROLE_ROOT'">
                                 <button [hasPermission]="'organization_manage'" pButton type="button" label="分配权限"
                                         (click)="onAssign(role.id)"></button>
                                 <button [hasPermission]="'organization_manage'" pButton type="button" label="编辑"
