@@ -1,19 +1,22 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
+      <div class="col-md-2">
+        <p-dropdown [options]="types" [(ngModel)]="selectedType" [style]="{'width':'100%'}" [scrollHeight]="300"></p-dropdown>
+      </div>
       <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">姓名：</span>
           <input type="text" class="form-control" [(ngModel)]="peopleName" placeholder="请输入姓名..."/>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">联系电话：</span>
           <input type="text" class="form-control" [(ngModel)]="phoneNo" placeholder="请输入联系电话..."/>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">身份证号码：</span>
           <input type="text" class="form-control" [(ngModel)]="IDCardNo" placeholder="请输入身份证号码..."/>
@@ -26,7 +29,7 @@
   </div>
 
   <div class="panel-body">
-    <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList" >
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">
       <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
       <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
       <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
@@ -45,7 +48,8 @@
   </div>
 </div>
 
-<p-dialog [showHeader]="false" [(visible)]="displayDialog" *ngIf="displayDialog" modal="modal" width="900" [responsive]="true">
+<p-dialog [showHeader]="false" [(visible)]="displayDialog" *ngIf="displayDialog" modal="modal" width="900"
+          [responsive]="true">
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="row">

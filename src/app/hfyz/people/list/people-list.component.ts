@@ -26,6 +26,9 @@ export class PeopleListComponent implements OnInit {
   technology: any; // 维修技术人员
   waiter: any; // 站场服务人员
 
+  types: any[]; // 人员分类
+  selectedType: string; // 选中的种类
+
   constructor(private _peopleService: PeopleService) {
     this.max = 10;
     this.page = 0;
@@ -34,6 +37,15 @@ export class PeopleListComponent implements OnInit {
     this.peopleName = '';
     this.phoneNo = '';
     this.IDCardNo = '';
+    this.types = [
+      {label: '-- 人员类型 --', value: ''},
+      {label: '考核员', value: 'people_worker_checkmember'},
+      {label: '教练员', value: 'people_worker_coach '},
+      {label: '驾驶员', value: 'people_worker_driver '},
+      {label: '押运装卸管理员', value: 'people_worker_manager'},
+      {label: '维修人员', value: 'people_worker_technology'},
+      {label: '站场服务人员', value: 'people_worker_waiter'}];
+    this.selectedType = '';
     this.loadData();
 
     this.displayDialog = false;
@@ -53,7 +65,7 @@ export class PeopleListComponent implements OnInit {
    * @param offset 分页offset值
    */
   loadData(offset = 0) {
-    this._peopleService.search(this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
+    this._peopleService.search(this.selectedType, this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
       res => {
         this.peopleList = res.resultList;
         this.total = res.total;
