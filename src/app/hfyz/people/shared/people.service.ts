@@ -7,8 +7,9 @@ export class PeopleService {
   constructor(public restangular: Restangular) {
   }
 
-  search(name, phoneNo, IDCardNo, max, offset) {
+  search(type, name, phoneNo, IDCardNo, max, offset) {
     return this.restangular.all('people-basic-infos').customGET('list', {
+      type: type,
       name: name,
       phoneNo: phoneNo,
       IDCardNo: IDCardNo,

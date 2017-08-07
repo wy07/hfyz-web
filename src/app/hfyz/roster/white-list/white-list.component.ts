@@ -24,6 +24,8 @@ export class WhiteListComponent implements OnInit {
   whiteList: any; // 新增和保存时的黑名单信息
   detail: any; // 详情
 
+  status: any[]; // 布控状态下拉选
+
   constructor(private _whiteListService: WhiteListService,
               private _loadingService: TdLoadingService,
               private _regularService: RegularService,
@@ -41,6 +43,7 @@ export class WhiteListComponent implements OnInit {
     this.whiteLists = [];
     this.whiteList = {};
     this.detail = {};
+    this.status = [{label: '未布控', value: 0}, {label: '布控中', value: 1}, {label: '解除布控', value: 2}]
 
   }
 
@@ -119,6 +122,7 @@ export class WhiteListComponent implements OnInit {
       res => {
         if (res.result === 'success') {
           this.whiteList = res.instance
+          this.whiteList.controlBegin = new Date(res.instance.controlBegin)
           this.pageFlag = 'UPDATE'
         } else {
           this.toastr.error(res.errors)
@@ -155,6 +159,7 @@ export class WhiteListComponent implements OnInit {
   add() {
     this.pageFlag = 'ADD'
     this.whiteList.vehicleNo = ''
+    this.whiteList.status=0
   }
 
   /**
@@ -217,6 +222,10 @@ export class WhiteListComponent implements OnInit {
     if (this._regularService.isBlank(this.whiteList.vehicleNo)) {
       flag = false
       this.toastr.error('车牌号不能为空！')
+    }
+    if(this._regularService.isBlank(this.whiteList.controlBegin)){
+      flag=false
+      this.toastr.error('布控时间不能为空！')
     }
     return flag
   }
