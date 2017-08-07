@@ -24,13 +24,12 @@ export class LoginComponent implements OnInit {
 
     constructor(public _authService: AuthService
         , public _router: Router
-        , public _http: Http
         , public _fb: FormBuilder
-        , private _adminService: AdminService
         , private _activatedRoute: ActivatedRoute
         , public _configService: ConfigService
         , private _loadingService: TdLoadingService
         , private eventBuservice: EventBuservice) {
+
         this.loading = false;
         this.error = '';
         this.appbrand = environment.appbrand;
@@ -42,6 +41,7 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.compose([Validators.required, Validators.maxLength(11)])]
             , password: ['', Validators.compose([Validators.required, Validators.maxLength(20)])]
         });
+
     }
 
     ngOnInit() {
@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit {
                 console.log(res.rights);
                 console.log(res.rights.split(';'));
                 if (res.rights) {
-                    console.log("=======in if")
                     sessionStorage.setItem('rights', res.rights)
                     console.log(sessionStorage.getItem('rights'));
                     this._configService.setRoleRights(res.rights.split(';'));

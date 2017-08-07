@@ -22,16 +22,16 @@
       <ul class="nav navbar-nav navbar-right u-navigation-ul" >
           <li class><a>你好，{{currentUser}}!</a></li>
           <li *ngFor="let menu of topbarMenu" class="{{menu.style}}">
-              <a href="#"  (click)="toRouter(menu.code)" >{{menu.name}}
+              <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null" >{{menu.name}}
                 <b *ngIf="menu.children!==undefined" class="caret"></b>
               </a>
-              
+
               <ul class="hoverdown-menu" *ngIf="menu.children!==undefined">
-                  <ng-template ngFor let-childmenu [ngForOf]="menu.children" > 
+                  <ng-template ngFor let-childmenu [ngForOf]="menu.children" >
                       <li *ngIf="childmenu.name!='divider' ; else elseBlock">
                         <a href="#"  (click)="toRouter(childmenu.code)">{{childmenu.name}}</a>
-                        
-                      </li> 
+
+                      </li>
                       <ng-template #elseBlock>
                         <li class="hoverdown-divider"></li>
                     </ng-template>
@@ -40,7 +40,7 @@
         </li>
         <li style="margin-right:10px"></li>
       </ul>
-      
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
