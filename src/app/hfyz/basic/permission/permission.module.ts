@@ -1,5 +1,3 @@
-import {RoleComponent} from './role.component';
-import {RoleService} from './role.service';
 import {CommonModule} from './../../common/common.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpModule} from '@angular/http';
@@ -8,18 +6,17 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {
     DataTableModule,
-    DialogModule,
-    ListboxModule,
     ButtonModule,
-    DataGridModule,
     TreeModule,
     DropdownModule,
     PaginatorModule
 } from 'primeng/primeng';
+import {PermissionService} from "./permission.service";
+import {PermissionComponent} from "./permission.component";
 
 @NgModule({
     declarations: [
-        RoleComponent
+        PermissionComponent
     ],
     imports: [
         BrowserModule,
@@ -29,19 +26,16 @@ import {
         BrowserAnimationsModule,
         CommonModule,
         DataTableModule,
-        DialogModule,
-        ListboxModule,
         ButtonModule,
-        DataGridModule,
         TreeModule,
         DropdownModule,
         PaginatorModule
     ],
     exports: [],
     providers: [
-        RoleService
+        PermissionService
     ]
 })
-export class RoleModule {
+export class PermissionModule {
 }
 ;

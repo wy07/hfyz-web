@@ -19,7 +19,13 @@ import {ListboxModule} from 'primeng/primeng';
 
 export class UserComponent implements OnInit {
 
+    action: string;
+
+    max: number;
+    currentPage: number;
+    totalUsers: number;
     userList: any[];
+
     type: number;
     layoutComponent
     displayDialog: boolean;
@@ -41,6 +47,14 @@ export class UserComponent implements OnInit {
         , private _roleService: RoleService
         , private _loadingService: TdLoadingService
         , private _authService: AuthService) {
+
+        this.action = 'list';
+        this.max = 10;
+        this.currentPage = 0;
+        this.totalUsers = 0;
+        this.user = {};
+
+
         this.displayDialog = false;
         // this.layoutComponent = this.inj.get(LayoutComponent);
         this.currentUserId = this._authService.getCurrentUser('id');
@@ -53,64 +67,66 @@ export class UserComponent implements OnInit {
     }
 
 
-    initData() {
+    initData(offset = 0) {
         this._loadingService.register();
-        this._userService.list(this.currentUserId).subscribe(
+        this._userService.list(this.max, offset).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.userList = res.userList;
+                this.totalUsers=res.totalUsers;
             }
         );
     }
 
     onEdit(user) {
+        this.action = 'update';
+        this.isAdd = false;
+        this.formTitle = '编辑用户——' + user.name;
+
         this._userService.edit(user.id).subscribe(
             res => {
-                if (res.result === 'success') {
-                    this.user = res.user;
-                    this.roleList = res.roleList
-                    console.log(this.user.roles)
-                    this.displayDialog = true
-                    this.isAdd = false
-                    this.formTitle = '编辑用户——' + user.name
-                } else {
-                    this._toastr.error('获取数据失败');
-                }
+                console.log(JSON.stringify(res))
+                this.user = res.user;
+                this.roleList = res.roleList;
+                this.orgList = res.orgList;
             }
         );
     }
 
     onCreate() {
-        this.user.roles = null
+        this.user.roles = null;
         this._roleService.listForSelect(this.currentRoleString, this.currentUserId).subscribe(
             res => {
                 this.roleList = res.roleList;
-                this.orgList = res.orgList
-                this.formTitle = '新增用户'
-                this.isAdd = true
-                this.displayDialog = true
-                this.user = {id: '', operator: this.currentUserId};
+                this.orgList = res.orgList;
+                this.formTitle = '新增用户';
+                this.isAdd = true;
+                this.action = 'update';
+                this.user = {};
             }
         );
     }
 
     save() {
         if (this.validate()) {
+            this.user.org = {id: this.user.orgId};
             this._userService.save(this.user).subscribe(
                 res => {
+                    this.action = 'list';
                     this._toastr.success('保存成功');
-                    this.initData()
+                    this.initData();
                 }
             );
-            this.displayDialog = false
 
         }
     }
 
     update() {
         if (this.validate()) {
+            console.log(this.user.roles)
             this._userService.update(this.user.id, this.user).subscribe(
                 res => {
+                    this.action = 'list';
                     this._toastr.success('修改成功');
                     this.initData()
                 }
@@ -142,15 +158,17 @@ export class UserComponent implements OnInit {
         }
     }
 
+    paginate(event) {
+        if (this.currentPage !== event.page) {
+            this.currentPage = event.page;
+            this.initData(this.max * event.page);
+        }
+    }
+
     validate() {
         let result = true
         if (this._regularService.isBlank(this.user.name)) {
             this._toastr.error('名称不能为空');
-            result = false;
-        }
-
-        if (this._regularService.isBlank(this.user.password)) {
-            this._toastr.error('密码不能为空');
             result = false;
         }
         if (this._regularService.isBlank(this.user.roles)) {
