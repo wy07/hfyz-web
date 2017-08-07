@@ -5,10 +5,10 @@
     margin-top:60px;
 }
 .u-content-sidebar{
-    margin-left:70px;
+    margin-left:100px;
 }
 .u-content-active{
-    margin-left:270px;
+    margin-left:300px;
 }
 .u-footer-active{
      margin-left:40px;
@@ -162,7 +162,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
 .layout-sidebar {
   position: fixed;
   top: 60px;
-  width: 60px;
+  width: 100px;
   background-color: #dee0e3;
   height: 100%;
   -webkit-box-shadow: 3px 0px 10px 0 rgba(0, 0, 0, 0.2);
@@ -175,7 +175,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
   transition: width 0.3s; }
 .layout-sidebar .layout-tabmenu {
     height: 100%;
-    width: 60px;
+    width: 100px;
     position: relative; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-nav {
       margin: 0;
@@ -184,13 +184,13 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
       z-index: 100; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li {
         list-style-type: none;
-        text-align: center;
+        text-align: left;
         box-sizing: border-box;
         position: relative; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li a {
           display: block;
-          padding: 8px 0;
-          height: 40px;
+          padding: 15px 5px;
+          height: 50px;
           width: 100%;
           box-sizing: border-box;
           border-bottom: 1px solid #c7c7c7; }
@@ -200,7 +200,8 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
             -webkit-transition: color 0.3s;
             transition: color 0.3s;
             color: #999999;
-            font-size: 24px; }
+            font-size: 18px;
+}
 .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li a:hover + .layout-tabmenu-tooltip {
             display: block; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-nav li a:hover i {
@@ -209,7 +210,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
           display: none;
           padding: 0 5px;
           position: absolute;
-          left: 60px;
+          left: 100px;
           top: 10px;
           z-index: 101;
           line-height: 1; }
@@ -244,7 +245,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
       width: 200px;
       position: absolute;
       top: 0;
-      left: 60px;
+      left: 100px;
       display: none;
       background-color: #ebebee;
       height: 100%;
@@ -287,7 +288,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
               overflow-y: scroll;
               position: relative; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .nano > .nano-content > *:last-child {
-              padding-bottom: 120px; }
+              padding-bottom: 100px; }
 .layout-sidebar .layout-tabmenu .layout-tabmenu-contents .layout-tabmenu-content .layout-submenu-content .nano > .nano-pane > .nano-slider {
             background-color: #aaa;
             opacity: 0.4; }
@@ -391,7 +392,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
 -menu-active .layout-tabmenu .layout-tabmenu-nav > li.active-item > a:hover + .layout-tabmenu-tooltip {
   display: none; }
 .layout-main {
-  margin-left: 60px;
+  margin-left: 100px;
   padding: 70px 6px 0px 6px;
   -moz-transition: margin-left 0.3s;
   -o-transition: margin-left 0.3s;
@@ -420,4 +421,13 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
     margin-left: 8px;
     display: block;
     color: #2d353c; }*/
+
+.layout-sidebar a{
+    text-decoration: none;
+}
+
+.layout-tabmenu-title{
+    color: #545b61;
+    padding-left:5px;
+}
 
