@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {RegularService} from './../common/shared/regular.service';
 import {ToastsManager} from 'ng2-toastr';
-import {HiddenRectificationOrderService} from './shared/hidden-rectification-order.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
+import {RegularService} from '../../common/shared/regular.service';
+import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
 @Component({
   selector: 'app-hidden-rectification-order',
   templateUrl: './hidden-rectification-order.component.html',
@@ -21,7 +21,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
   currentPage: number;
   inspection: Date;
   dealine: Date;
-  reply: Date;
   company: string;
   startDate: any;
   endDate: any;
@@ -29,6 +28,14 @@ export class HiddenRectificationOrderComponent implements OnInit {
   isDetails: boolean;
   displayDialog: boolean;
   disabled: boolean;
+  enterpirse: any;
+  filteredEnterpirses: any[];
+  placeholder: any;
+  status: any;
+  reviewAndApprovalList: any[];
+  totalOfReviewAndApproval: any;
+  statusList: any[];
+  listStatus: any;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -47,6 +54,10 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.maxDate = new Date();
     this.displayDialog = false;
     this.disabled = false;
+    this.status = '';
+    this.statusList = [{ label: '全部', value: '' }, { label: '起草', value: '0' },
+      { label: '待审核', value: '1' }, { label: '待反馈', value: '2' }, { label: '已拒绝', value: '3' },
+      { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
   }
 
   ngOnInit() {
@@ -66,7 +77,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
       ed = this._datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed).subscribe(
+    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed, status, this.listStatus).subscribe(
       res => {
         this._loadingService.resolve();
         this.hiddenRectificationOrderList = res.hiddenRectificationOrderList;
@@ -83,9 +94,9 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
 
   onCreat() {
+    this.placeholder = null;
     this.inspection = null;
     this.dealine = null;
-    this.reply = null;
     this.clear();
     this.hiddenRectificationOrderTitle = '新增隐患整改单';
     this.isAdd = true;
@@ -116,7 +127,20 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.edit = true;
     this.preEdit(hiddenDanger.id);
   }
-
+  resultPaginate(event) {
+    if (this.currentPage !== event.page) {
+      this.currentPage = event.page;
+      this.getReviewAndApprovalList(this.max * event.page);
+    }
+  }
+  getReviewAndApprovalList(id) {
+    this._hiddenRectificationOrderService.reviewAndApprovalList(id).subscribe(
+      res => {
+        this.reviewAndApprovalList = res.reviewAndApprovalList;
+        this.totalOfReviewAndApproval = res.totalOfReviewAndApproval;
+      }
+    );
+  }
   preEdit(id) {
     if (this.edit === false) {
       this.isDetails = true;
@@ -128,6 +152,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
         this._loadingService.resolve();
         if (res.result === 'success') {
           this.hiddenRectificationOrder = res.hiddenRectificationOrder;
+          this.placeholder = res.hiddenRectificationOrder.enterpirse;
           this.inspection = new Date(this.hiddenRectificationOrder.inspectionDate);
           this.dealine = new Date(this.hiddenRectificationOrder.dealineDate);
           delete this.hiddenRectificationOrder['inspectionDate'];
@@ -137,13 +162,27 @@ export class HiddenRectificationOrderComponent implements OnInit {
         }
       }
     );
+    this.getReviewAndApprovalList(id);
   }
+  filteredEnterpirse(event) {
+    const query = event.query.trim();
+    if (this._regularService.isBlank(query)) {
+      return false;
+    }
 
+    this._hiddenRectificationOrderService.companyList(query).subscribe(
+      res => {
+        this.filteredEnterpirses = res.companyList;
+        for (const item of this.filteredEnterpirses) {
+          item.info = `${item.ownerName}`;
+        }
+      }
+    );
+  }
   update() {
     if (this.validation()) {
       this.hiddenRectificationOrder.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
       this.hiddenRectificationOrder.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
-      this.hiddenRectificationOrder.reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
       delete this.hiddenRectificationOrder['status'];
       this._loadingService.register();
       this._hiddenRectificationOrderService.update(this.hiddenRectificationOrder.id, this.hiddenRectificationOrder).subscribe(
@@ -170,13 +209,25 @@ export class HiddenRectificationOrderComponent implements OnInit {
       );
     }
   }
+  commit(hiddenRectificationOrder) {
+    if (confirm('确认提交编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
+      this._loadingService.register();
+      this._hiddenRectificationOrderService.setStatus(hiddenRectificationOrder.id, 1).subscribe(
+        res => {
+          this._loadingService.resolve();
+          this.disabled = true;
+          this.initData();
+          this._toastr.info('提交成功');
+        }
+      );
+    }
+  }
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
         this._toastr.info('选择的日期不能相同！');
         return false;
       }
-
       if (this.endDate < this.startDate) {
         this._toastr.info('请选择正确的日期！');
         return false;
@@ -186,35 +237,35 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
   validation() {
     if (this._regularService.isBlank(this.hiddenRectificationOrder.enterpirse)) {
-      this._toastr.error('业户名称不能为空');
+      this._toastr.info('业户名称不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.examiner)) {
-      this._toastr.error('检查人不能为空');
+      this._toastr.info('检查人不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.inspection)) {
-      this._toastr.error('检查日期不能为空');
+      this._toastr.info('检查日期不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.dealine)) {
-      this._toastr.error('整改期限不能为空');
+      this._toastr.info('整改期限不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insPosition)) {
-      this._toastr.error('检查地点不能为空');
+      this._toastr.info('检查地点不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insDesc)) {
-      this._toastr.error('检查内容不能为空');
+      this._toastr.info('检查内容不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insQuestion)) {
-      this._toastr.error('存在问题不能为空');
+      this._toastr.info('存在问题不能为空');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.proPosal)) {
-      this._toastr.error('整改意见不能为空');
+      this._toastr.info('整改意见不能为空');
       return false;
     }
     if (this.inspection.getTime() === this.dealine.getTime()) {
@@ -236,6 +287,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.company = '';
     this.startDate = null;
     this.endDate = null;
+    this.listStatus = '';
     this.initData();
   }
 
