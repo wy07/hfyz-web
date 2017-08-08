@@ -92,6 +92,7 @@ export class EnterpriseFeedbackComponent implements OnInit {
   }
 
   onEdit(hiddenDanger) {
+    this.reply = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '反馈隐患整改单';
     this.isAdd = false;

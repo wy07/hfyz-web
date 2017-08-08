@@ -110,6 +110,7 @@ export class OrderExamineComponent implements OnInit {
   }
 
   onEdit(hiddenDanger) {
+    this.approveTime = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '审核隐患整改单';
     this.edit = true;
