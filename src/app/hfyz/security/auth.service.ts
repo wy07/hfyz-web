@@ -93,5 +93,8 @@ export class AuthService {
     this.token = null;
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('myprofile');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('rights')
+
   }
 }

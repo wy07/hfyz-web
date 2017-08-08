@@ -48,16 +48,16 @@ export class CarListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadDate();
+        this.loadData();
     }
 
     search() {
         if (this.validate()) {
-            this.loadDate();
+            this.loadData();
         }
     }
 
-    loadDate(offset = 0) {
+    loadData(offset = 0) {
         // if(this.regularService.isBlank(this.businessType)){
         //   this.toastr.error('请选择行业类别');
         //   return false;
@@ -77,7 +77,7 @@ export class CarListComponent implements OnInit {
     paginate(event) {
         if (this.currentPage !== event.page) {
             this.currentPage = event.page;
-            this.loadDate(this.max * event.page);
+            this.loadData(this.max * event.page);
         }
     }
 

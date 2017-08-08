@@ -1,4 +1,4 @@
-import { DynamicComponent } from './../../common/dynamic/dynamic.component';
+import {DynamicComponent} from '../../common/dynamic/dynamic.component';
 import {
     Component,
     OnInit,
@@ -6,12 +6,10 @@ import {
     ViewChild,
     ViewChildren,
     ChangeDetectionStrategy,
-    QueryList,
-    Renderer,
-    ElementRef
+    QueryList
 } from '@angular/core';
-import { TabViewModule, TabView, TabPanel } from 'primeng/primeng';
-import { MapService } from '../../map/shared/map.service';
+import {TabView} from 'primeng/primeng';
+import {MapService} from '../../map/shared/map.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,30 +19,7 @@ import { MapService } from '../../map/shared/map.service';
 })
 
 export class LayoutComponent implements OnInit {
-    public defaultTab = {
-        header: '首页',
-        selected: true,
-        closable: false,
-        disabled: false,
-        icon: 'fa-home',
-        index: 0,
-        code: 'home',
-        inputs: {},
-        hasMap: false,
-        initMap: false
-    };
-    public tabs = [{
-        header: '首页',
-        selected: true,
-        closable: false,
-        disabled: false,
-        icon: 'fa-home',
-        index: 0,
-        code: 'home',
-        inputs: {},
-        hasMap: false,
-        initMap: false
-    }];
+    tabs: any[];
 
     @Input() panelTitle: string;
     @Input() activeMenu: string;
@@ -54,8 +29,20 @@ export class LayoutComponent implements OnInit {
     initMap: boolean;
 
 
-    constructor(private mapService: MapService, private elementRef: ElementRef, private renderer: Renderer) {
+    constructor(private mapService: MapService) {
         this.initMap = false;
+        this.tabs=[{
+            header: '首页',
+            selected: true,
+            closable: false,
+            disabled: false,
+            icon: 'fa-home',
+            index: 0,
+            code: 'home',
+            inputs: {},
+            hasMap: false,
+            initMap: false
+        }];
     };
 
     ngOnInit() {
@@ -187,7 +174,7 @@ export class LayoutComponent implements OnInit {
 
     private getInputs(inputs, code) {
         if (!inputs) {
-            return { code: code }
+            return {code: code}
         }
         if (!inputs.hasOwnProperty('code')) {
             inputs.code = code;
@@ -262,8 +249,16 @@ export class LayoutComponent implements OnInit {
 
 
     closeAll() {
-        this.tabs = [];
-        this.tabs.push(this.defaultTab);
+        for(let i=this.tabs.length-1;i>0;i--){
+            if(this.tabs[i].code=='home'){
+                continue;
+            }
+            if(this.tabs[i].initMap===true){
+                this.tabs[i].disabled=true;
+                continue
+            }
+            this.tabs.splice(i, 1);
+        }
         this.selectTab('home');
     }
 
