@@ -34,7 +34,6 @@ export class OrderExamineComponent implements OnInit {
   statusId: any;
   reviewAndApproval: any;
   reviewAndApprovalList: any[];
-  totalOfReviewAndApproval: any;
   statusList: any[];
   listStatus: any;
   constructor(
@@ -121,7 +120,6 @@ export class OrderExamineComponent implements OnInit {
     this._hiddenRectificationOrderService.reviewAndApprovalList(id).subscribe(
       res => {
         this.reviewAndApprovalList = res.reviewAndApprovalList;
-        this.totalOfReviewAndApproval = res.totalOfReviewAndApproval;
       }
     );
   }

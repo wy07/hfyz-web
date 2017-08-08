@@ -34,7 +34,6 @@ export class EnterpriseFeedbackComponent implements OnInit {
   status: any;
   statusList: any[];
   listStatus: any;
-  // replyDate: Date;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -101,7 +100,6 @@ export class EnterpriseFeedbackComponent implements OnInit {
   }
 
   preEdit(id) {
-    // this.replyDate = null;
     if (this.edit === false) {
       this.isDetails = true;
       this.hiddenRectificationOrderTitle = '隐患整改单详情';
@@ -115,9 +113,6 @@ export class EnterpriseFeedbackComponent implements OnInit {
           this.placeholder = res.hiddenRectificationOrder.enterpirse;
           this.inspection = new Date(this.hiddenRectificationOrder.inspectionDate);
           this.dealine = new Date(this.hiddenRectificationOrder.dealineDate);
-          // if (this.hiddenRectificationOrder.replyDate) {
-          //   this.replyDate =  new Date(this.hiddenRectificationOrder.replyDate);
-          // }
           delete this.hiddenRectificationOrder['inspectionDate'];
           delete this.hiddenRectificationOrder['dealineDate'];
         } else {

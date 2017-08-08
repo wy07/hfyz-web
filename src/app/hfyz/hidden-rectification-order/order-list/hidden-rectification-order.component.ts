@@ -127,17 +127,10 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.edit = true;
     this.preEdit(hiddenDanger.id);
   }
-  resultPaginate(event) {
-    if (this.currentPage !== event.page) {
-      this.currentPage = event.page;
-      this.getReviewAndApprovalList(this.max * event.page);
-    }
-  }
   getReviewAndApprovalList(id) {
     this._hiddenRectificationOrderService.reviewAndApprovalList(id).subscribe(
       res => {
         this.reviewAndApprovalList = res.reviewAndApprovalList;
-        this.totalOfReviewAndApproval = res.totalOfReviewAndApproval;
       }
     );
   }
