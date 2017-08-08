@@ -64,8 +64,8 @@
                     <div class="col-sm-6">
                         <label for="enterpirse" class="col-sm-2 dialog-label" right>业户名称：<span class="notNull">*</span></label>
                         <div class="col-sm-6">
-                            <p-autoComplete id="enterpirse" name="enterpirse" [(ngModel)]="hiddenRectificationOrder.enterpirse" [suggestions]="filteredEnterpirses"
-                                            placeholder="{{placeholder}}" field="info" (completeMethod)="filteredEnterpirse($event)"  [size]="30" [minLength]="1" [delay]="500">
+                            <p-autoComplete id="enterpirse" name="enterpirse" [(ngModel)]="selectedCompany" [suggestions]="filteredEnterpirses"
+                                (onSelect)="onSelect($event)" placeholder="{{placeholder}}" field="info" (completeMethod)="filteredEnterpirse($event)"  [size]="30" [minLength]="1" [delay]="500">
                                 <ng-template let-enterpirse pTemplate="item">
                                     {{enterpirse.ownerName}}
                                 </ng-template>

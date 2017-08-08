@@ -28,14 +28,14 @@ export class HiddenRectificationOrderComponent implements OnInit {
   isDetails: boolean;
   displayDialog: boolean;
   disabled: boolean;
-  enterpirse: any;
+  enterpirse: string;
   filteredEnterpirses: any[];
-  placeholder: any;
   status: any;
   reviewAndApprovalList: any[];
-  totalOfReviewAndApproval: any;
   statusList: any[];
   listStatus: any;
+  selectedCompany: any;
+  ownerName: string;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -45,6 +45,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     ) {
     this.edit = false;
     this.hiddenRectificationOrder = {};
+    this.selectedCompany = {};
     this.clear();
     this.max = 10;
     this.company = '';
@@ -94,7 +95,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
 
   onCreat() {
-    this.placeholder = null;
     this.inspection = null;
     this.dealine = null;
     this.clear();
@@ -145,7 +145,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
         this._loadingService.resolve();
         if (res.result === 'success') {
           this.hiddenRectificationOrder = res.hiddenRectificationOrder;
-          this.placeholder = res.hiddenRectificationOrder.enterpirse;
+          this.selectedCompany.info = res.hiddenRectificationOrder.enterpirse;
           this.inspection = new Date(this.hiddenRectificationOrder.inspectionDate);
           this.dealine = new Date(this.hiddenRectificationOrder.dealineDate);
           delete this.hiddenRectificationOrder['inspectionDate'];
@@ -171,6 +171,10 @@ export class HiddenRectificationOrderComponent implements OnInit {
         }
       }
     );
+  }
+  onSelect(event) {
+      this.hiddenRectificationOrder.companyCode = event.companyCode;
+      this.ownerName = event.ownerName;
   }
   update() {
     if (this.validation()) {
@@ -205,7 +209,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   commit(hiddenRectificationOrder) {
     if (confirm('确认提交编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
       this._loadingService.register();
-      this._hiddenRectificationOrderService.setStatus(hiddenRectificationOrder.id, 1).subscribe(
+      this._hiddenRectificationOrderService.commit(hiddenRectificationOrder.id).subscribe(
         res => {
           this._loadingService.resolve();
           this.disabled = true;
@@ -229,9 +233,9 @@ export class HiddenRectificationOrderComponent implements OnInit {
     return true;
   }
   validation() {
-    if (this._regularService.isBlank(this.hiddenRectificationOrder.enterpirse)) {
-      this._toastr.info('业户名称不能为空');
-      return false;
+    if (this.selectedCompany.ownerName !== this.ownerName) {
+    this._toastr.info('请选择正确的企业名称');
+    return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.examiner)) {
       this._toastr.info('检查人不能为空');
@@ -274,6 +278,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
 
   clear() {
     this.hiddenRectificationOrder = {};
+    this.selectedCompany = {};
   }
 
   cancel() {

@@ -127,7 +127,7 @@ export class EnterpriseFeedbackComponent implements OnInit {
     const reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
     this._loadingService.register();
     this._hiddenRectificationOrderService.feedback(this.hiddenRectificationOrder.id, reply,
-                                    this.hiddenRectificationOrder.replyDesc, 4).subscribe(
+                                    this.hiddenRectificationOrder.replyDesc).subscribe(
       res => {
         this._loadingService.resolve();
         this._toastr.success('反馈成功');

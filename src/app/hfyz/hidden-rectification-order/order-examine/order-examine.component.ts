@@ -31,7 +31,7 @@ export class OrderExamineComponent implements OnInit {
   placeholder: any;
   approveDesc: any;
   approveTime: Date;
-  statusId: any;
+  tempStatus: any;
   reviewAndApproval: any;
   reviewAndApprovalList: any[];
   statusList: any[];
@@ -97,7 +97,7 @@ export class OrderExamineComponent implements OnInit {
       const time = this._datePipe.transform(this.approveTime, 'yyyy-MM-dd HH:mm');
       this._loadingService.register();
       this._hiddenRectificationOrderService.saveApproval(this.hiddenRectificationOrder.id, time,
-      this.approveDesc, this.statusId).subscribe(
+      this.approveDesc, this.tempStatus).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('提交成功');
@@ -149,7 +149,7 @@ export class OrderExamineComponent implements OnInit {
   }
   onSure() {
     this._loadingService.register();
-    this._hiddenRectificationOrderService.onSure(this.hiddenRectificationOrder.id, this.statusId).subscribe(
+    this._hiddenRectificationOrderService.onSure(this.hiddenRectificationOrder.id, this.tempStatus).subscribe(
       res => {
         this._loadingService.resolve();
         this._toastr.success('确认成功');
@@ -176,8 +176,8 @@ export class OrderExamineComponent implements OnInit {
       this._toastr.info('请填写审核意见！');
       return false;
     }
-    if (this._regularService.isBlank(this.statusId)) {
-      this._toastr.info('请选择审核结果！');
+    if (this._regularService.isBlank(this.tempStatus)) {
+      this._toastr.info('请选择结果！');
       return false;
     }
     return true;
@@ -186,7 +186,7 @@ export class OrderExamineComponent implements OnInit {
   clear() {
     this.hiddenRectificationOrder = {};
     this.approveDesc = '';
-    this.statusId = '';
+    this.tempStatus = '';
     this.approveTime = new Date();
   }
 

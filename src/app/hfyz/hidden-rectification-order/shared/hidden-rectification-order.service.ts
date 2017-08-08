@@ -31,24 +31,24 @@ export class HiddenRectificationOrderService {
     return this.restangular.all('hidden-rectification-orders').customGET('company-list', {enterpirse: enterpirse});
   }
 
-  setStatus(id, statusId) {
-    return this.restangular.one('hidden-rectification-orders', id).customPOST({statusId: statusId}, 'set-condition');
+  commit(id) {
+    return this.restangular.one('hidden-rectification-orders', id).customGET('submit-order');
   }
 
-  saveApproval(billId, time, approveDesc, statusId) {
+  saveApproval(billId, time, approveDesc, tempStatus) {
     return this.restangular.all('review-and-approvals').customPOST(
-      {billId: billId , time: time , approveDesc: approveDesc, statusId: statusId}
+      {billId: billId , time: time , approveDesc: approveDesc, tempStatus: tempStatus}
        , 'save');
   }
 
-  feedback(id, reply, replyDesc, statusId) {
+  feedback(id, reply, replyDesc) {
     return this.restangular.one('hidden-rectification-orders', id).customPOST(
-      {reply: reply , replyDesc: replyDesc, statusId: statusId}
+      {reply: reply , replyDesc: replyDesc}
       , 'enterprise-feedback');
   }
 
-  onSure(id, statusId) {
-    return this.restangular.one('review-and-approvals', id).customPOST({statusId: statusId}
+  onSure(id, tempStatus) {
+    return this.restangular.one('review-and-approvals', id).customPOST({tempStatus: tempStatus}
       , 'give-result');
   }
 

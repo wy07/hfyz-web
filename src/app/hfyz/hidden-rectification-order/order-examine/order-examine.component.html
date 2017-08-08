@@ -134,15 +134,15 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1" right>审核结果：</label>
-                        <p-radioButton name="status" value="2" label="同意" [(ngModel)]="statusId"></p-radioButton>
-                        <p-radioButton name="status" value="3" label="拒绝" [(ngModel)]="statusId"></p-radioButton>
+                        <p-radioButton name="status" value="true" label="同意" [(ngModel)]="tempStatus"></p-radioButton>
+                        <p-radioButton name="status" value="false" label="拒绝" [(ngModel)]="tempStatus"></p-radioButton>
                     </div>
                 </div>
                 <div *ngIf="hiddenRectificationOrder.status == '待确认'">
                     <div class="form-group">
                         <label class="col-sm-1" right>确认结果：</label>
-                        <p-radioButton name="status" value="5" label="合格" [(ngModel)]="statusId"></p-radioButton>
-                        <p-radioButton name="status" value="6" label="不合格" [(ngModel)]="statusId"></p-radioButton>
+                        <p-radioButton name="status" value="true" label="合格" [(ngModel)]="tempStatus"></p-radioButton>
+                        <p-radioButton name="status" value="false" label="不合格" [(ngModel)]="tempStatus"></p-radioButton>
                     </div>
                 </div>
                 <div class="form-group">
