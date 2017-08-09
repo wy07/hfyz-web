@@ -1,10 +1,10 @@
-import {OrganizationComponent} from './../../basic/organization/organization.component';
-import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
-import {MenuComponent} from './../../basic/menu/menu.component';
-import {RoleComponent} from './../../basic/role/role.component';
-import {UserComponent} from './../../basic/user/user.component';
-import {LogManageComponent} from './../../log-manage/log-manage.component';
-import {HomeComponent} from './../../home/home.component';
+import {OrganizationComponent} from '../../basic/organization/organization.component';
+import {SystemCodeComponent} from '../../basic/systemCode/system-code.component';
+import {MenuComponent} from '../../basic/menu/menu.component';
+import {RoleComponent} from '../../basic/role/role.component';
+import {UserComponent} from '../../basic/user/user.component';
+import {LogManageComponent} from '../../log-manage/log-manage.component';
+import {HomeComponent} from '../../home/home.component';
 import {InfoPublishComponent} from '../../info-manage/info-publish/info-publish.component';
 import {InfoCheckComponent} from '../../info-manage/info-check/info-check.component';
 import {InfoListComponent} from '../../info-manage/info-list/info-list.component';
@@ -19,13 +19,14 @@ import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
-import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/hidden-rectification-order.component';
-import {WorkOrderComponent} from '../../work-order/list/work-order.component';
+import {PendingWorkOrderComponent} from "../../work-order/pending/pending-work-order.component";
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PermissionComponent} from "../../basic/permission/permission.component";
-import {PendingWorkOrderComponent} from "../../work-order/pending/pending-work-order.component";
-
+import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
+import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
+import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import {PermissionComponent} from '../../basic/permission/permission.component';
+import {WorkOrderComponent} from "../../work-order/list/work-order.component";
 export const components = {
     role: RoleComponent,
     permission: PermissionComponent,
@@ -54,8 +55,10 @@ export const components = {
     configure: ConfigureComponent,
     hiddenDanger: HiddenRectificationOrderComponent,
     workOrder: WorkOrderComponent,
-    pendingWorkOrder:PendingWorkOrderComponent,
+    pendingWorkOrder: PendingWorkOrderComponent,
     ownerIdentity: OwnerIdentityComponent,
     blackList: BlackListComponent,
-    whiteList: WhiteListComponent
+    whiteList: WhiteListComponent,
+    orderExamine: OrderExamineComponent,
+    enterpriseFeedback: EnterpriseFeedbackComponent
 };

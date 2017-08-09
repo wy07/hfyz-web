@@ -1,0 +1,13 @@
+.notNull {
+  color: red;
+}
+
+.right {
+  text-align: right;
+}
+
+.fix {
+  resize:none;
+  width:660px;
+  height:80px;
+}
