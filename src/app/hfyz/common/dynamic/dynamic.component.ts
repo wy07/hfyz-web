@@ -1,3 +1,4 @@
+import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import { MapSignComponent } from './../../basic/mapSign/map-sign.component';
 import { WarningComponent } from './../../warning/warning.component';
 import { PeopleListComponent } from './../../people/list/people-list.component';
@@ -37,7 +38,7 @@ import {WhiteListComponent} from '../../roster/white-list/white-list.component';
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-                    WorkOrderComponent, BlackListComponent, WhiteListComponent],
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, WaybillRouteComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

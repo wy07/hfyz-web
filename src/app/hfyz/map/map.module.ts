@@ -3,7 +3,7 @@ import { MapTabsBarComponent } from './shared/map-tab-bar/map-tabs-bar.component
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from './../common/common.module';
 import { NgModule } from '@angular/core';
-import { PanelModule, ButtonModule, DataTableModule } from 'primeng/primeng';
+import { PanelModule, ButtonModule, DataTableModule, CalendarModule } from 'primeng/primeng';
 import { NullMapComponent } from './nullMap/null-map.component';
 import { MapService } from './shared/map.service';
 import { FormsModule } from '@angular/forms';
@@ -23,10 +23,10 @@ import { TabsModule } from 'ngx-bootstrap';
     CommonModule,
     FormsModule,
     DataTableModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    CalendarModule
   ],
   exports: [
-    //   MapComponent
   ],
   providers: [
     MapService,

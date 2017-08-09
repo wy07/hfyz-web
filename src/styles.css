@@ -83,7 +83,11 @@ body .car-info .ui-panel-content{
     width: 100%;
 }
 
- body .map-footer .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable .ui-datatable-tfoot > tr > td {
+.warnning {
+    color: red
+}
+
+body .map-footer .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable .ui-datatable-tfoot > tr > td {
     padding: 0;
 }
 

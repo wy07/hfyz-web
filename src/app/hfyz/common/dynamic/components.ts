@@ -1,3 +1,4 @@
+import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -53,5 +54,6 @@ export const components = {
   workOrder: WorkOrderComponent,
   ownerIdentity: OwnerIdentityComponent,
   blackList: BlackListComponent,
-  whiteList: WhiteListComponent
+  whiteList: WhiteListComponent,
+  waybillRoute: WaybillRouteComponent
 };
