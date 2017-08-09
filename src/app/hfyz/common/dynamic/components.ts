@@ -1,3 +1,4 @@
+import { PermissionComponent } from './../../basic/permission/permission.component';
 import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
@@ -23,42 +24,44 @@ import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
+import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-import {PermissionComponent} from '../../basic/permission/permission.component';
+
 export const components = {
-  role: RoleComponent,
-  permission: PermissionComponent,
-  user: UserComponent,
-  menu: MenuComponent,
-  systemcode: SystemCodeComponent,
-  unit: SystemCodeComponent,
-  home: HomeComponent,
-  organization: OrganizationComponent,
-  infoPublish: InfoPublishComponent,
-  infoCheck: InfoCheckComponent,
-  infoList: InfoListComponent,
-  operationLog: LogManageComponent,
-  platformManage: PlatformManageComponent,
-  realTimeMap: MapComponent,
-  realTimeMonitorMap: MapComponent,
-  historyMap: MapComponent,
-  otherMap: MapComponent,
-  nullMap: NullMapComponent,
-  carList: CarListComponent,
-  changepwd: ChangePwdComponent,
-  ownerCheckRecord: PlatFormComponent,
-  peopleList: PeopleListComponent,
-  warning: WarningComponent,
-  mapSign: MapSignComponent,
-  configure: ConfigureComponent,
-  hiddenDanger: HiddenRectificationOrderComponent,
-  workOrder: WorkOrderComponent,
-  ownerIdentity: OwnerIdentityComponent,
-  blackList: BlackListComponent,
-  whiteList: WhiteListComponent,
-  orderExamine: OrderExamineComponent,
-  enterpriseFeedback: EnterpriseFeedbackComponent,
-  waybillRoute: WaybillRouteComponent
+    role: RoleComponent,
+    permission: PermissionComponent,
+    user: UserComponent,
+    menu: MenuComponent,
+    systemcode: SystemCodeComponent,
+    unit: SystemCodeComponent,
+    home: HomeComponent,
+    organization: OrganizationComponent,
+    infoPublish: InfoPublishComponent,
+    infoCheck: InfoCheckComponent,
+    infoList: InfoListComponent,
+    operationLog: LogManageComponent,
+    platformManage: PlatformManageComponent,
+    realTimeMap: MapComponent,
+    realTimeMonitorMap: MapComponent,
+    historyMap: MapComponent,
+    otherMap: MapComponent,
+    nullMap: NullMapComponent,
+    carList: CarListComponent,
+    changepwd: ChangePwdComponent,
+    ownerCheckRecord: PlatFormComponent,
+    peopleList: PeopleListComponent,
+    warning: WarningComponent,
+    mapSign: MapSignComponent,
+    configure: ConfigureComponent,
+    hiddenDanger: HiddenRectificationOrderComponent,
+    workOrder: WorkOrderComponent,
+    ownerIdentity: OwnerIdentityComponent,
+    blackList: BlackListComponent,
+    whiteList: WhiteListComponent,
+    freightWaybill: FreightWaybillComponent,
+    orderExamine: OrderExamineComponent,
+    enterpriseFeedback: EnterpriseFeedbackComponent,
+    waybillRoute: WaybillRouteComponent
 };
