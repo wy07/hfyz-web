@@ -47,7 +47,6 @@ export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
     return () => configService.load();
 }
-
 @NgModule({
     declarations: [
         AppComponent

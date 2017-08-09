@@ -5,17 +5,24 @@ import {
   DialogModule,
   ButtonModule,
   PaginatorModule, CalendarModule,
+  AutoCompleteModule,
+  RadioButtonModule,
+  DropdownModule
 } from 'primeng/primeng';
 import {CommonModule, DatePipe} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HiddenRectificationOrderComponent} from './order-list/hidden-rectification-order.component';
 import {HiddenRectificationOrderService} from './shared/hidden-rectification-order.service';
-import {HiddenRectificationOrderComponent} from './hidden-rectification-order.component';
+import {EnterpriseFeedbackComponent} from './enterprise-feedback/enterprise-feedback.component';
+import {OrderExamineComponent} from './order-examine/order-examine.component';
 
 @NgModule({
   declarations: [
-    HiddenRectificationOrderComponent
+    HiddenRectificationOrderComponent,
+    EnterpriseFeedbackComponent,
+    OrderExamineComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +35,10 @@ import {HiddenRectificationOrderComponent} from './hidden-rectification-order.co
     DialogModule,
     ButtonModule,
     PaginatorModule,
-    CalendarModule
+    CalendarModule,
+    AutoCompleteModule,
+    RadioButtonModule,
+    DropdownModule
   ],
   exports: [],
   providers: [
