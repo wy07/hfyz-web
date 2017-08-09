@@ -24,6 +24,7 @@ import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 import {PermissionComponent} from "../../basic/permission/permission.component";
+import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 
 export const components = {
     role: RoleComponent,
@@ -55,5 +56,6 @@ export const components = {
     workOrder: WorkOrderComponent,
     ownerIdentity: OwnerIdentityComponent,
     blackList: BlackListComponent,
-    whiteList: WhiteListComponent
+    whiteList: WhiteListComponent,
+    freightWaybill: FreightWaybillComponent
 };

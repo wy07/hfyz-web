@@ -30,7 +30,8 @@ import { MapService } from '../../map/shared/map.service';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PermissionComponent} from "../../basic/permission/permission.component";
+import {PermissionComponent} from '../../basic/permission/permission.component';
+import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -38,7 +39,7 @@ import {PermissionComponent} from "../../basic/permission/permission.component";
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-                    WorkOrderComponent, BlackListComponent, WhiteListComponent,PermissionComponent],
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
