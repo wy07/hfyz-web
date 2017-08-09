@@ -1,3 +1,5 @@
+import { PermissionComponent } from './../../basic/permission/permission.component';
+import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -22,7 +24,6 @@ import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PermissionComponent} from "../../basic/permission/permission.component";
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
@@ -61,5 +62,6 @@ export const components = {
     whiteList: WhiteListComponent,
     freightWaybill: FreightWaybillComponent,
     orderExamine: OrderExamineComponent,
-    enterpriseFeedback: EnterpriseFeedbackComponent
+    enterpriseFeedback: EnterpriseFeedbackComponent,
+    waybillRoute: WaybillRouteComponent
 };

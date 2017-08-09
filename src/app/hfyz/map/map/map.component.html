@@ -15,15 +15,21 @@
         </div>
     </div>
     <div *ngIf="mapCode=='historyMap'">
-        <div class="col-sm-7">
+        <div class="col-sm-4">
             <div class="form-horizontal">
                 <div class="form-group">
                     <label for="realTimeMapFrameNo" class="col-sm-3 control-label">车牌号</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-9">
                         <input type="text" class="form-control" [(ngModel)]="historyMapFrameNo" id="historyMapFrameNo" placeholder="">
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-sm-3">
+            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd' [locale]="zh"></p-calendar><span style="margin-left:50px">至</span>
+        </div>
+        <div class="col-sm-3">
+            <p-calendar [(ngModel)]="endDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd' [locale]="zh"></p-calendar>
         </div>
         <div class="col-sm-2">
             <button type="button" class="btn btn-default" (click)="getHistoryMap()">查询</button>
@@ -49,6 +55,7 @@
 </div>
 
 <map-tabs-bar *ngIf="mapCode=='realTimeMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='historyMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
 <map-tabs-bar *ngIf="mapCode=='realTimeMonitorMap'" [historyDataTOP10]='realTimeMonitorTOP10'></map-tabs-bar>
 
 

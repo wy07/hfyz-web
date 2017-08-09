@@ -5,10 +5,10 @@ import {EventBuservice} from './shared/eventbus.service';
 
 @NgModule({
     declarations: [
-        PermissionDirective
+        PermissionDirective,
     ],
     exports: [
-        PermissionDirective
+        PermissionDirective,
     ],
     providers: [
         RegularService,
