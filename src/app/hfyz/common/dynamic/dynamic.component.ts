@@ -20,7 +20,6 @@ import { UserComponent } from './../../basic/user/user.component';
 import { RoleComponent } from './../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import { ConfigureComponent } from './../../basic/configure/configure.component';
-import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/hidden-rectification-order.component';
 import {
   Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
   ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -31,6 +30,10 @@ import { MapService } from '../../map/shared/map.service';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
+import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
+import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
+import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import {PermissionComponent} from '../../basic/permission/permission.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -38,7 +41,8 @@ import {WhiteListComponent} from '../../roster/white-list/white-list.component';
                     InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-                    WorkOrderComponent, BlackListComponent, WhiteListComponent, WaybillRouteComponent],
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
+                    PermissionComponent, WaybillRouteComponent],
   template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

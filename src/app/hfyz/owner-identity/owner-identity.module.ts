@@ -4,10 +4,10 @@
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {
-  DataTableModule,
-  ButtonModule,
-  PaginatorModule,
-  DialogModule,
+    DataTableModule,
+    ButtonModule,
+    PaginatorModule,
+    DialogModule, CalendarModule,
 } from 'primeng/primeng';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
@@ -17,25 +17,26 @@ import {OwnerIdentityComponent} from './owner-identity.component';
 import {OwnerIdentityService} from './shared/owner-identity.service';
 
 @NgModule({
-  declarations: [
-    OwnerIdentityComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    DataTableModule,
-    ButtonModule,
-    PaginatorModule,
-    DialogModule
-  ],
-  exports: [],
-  providers: [
-    OwnerIdentityService
-  ]
+    declarations: [
+        OwnerIdentityComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        CommonModule,
+        DataTableModule,
+        ButtonModule,
+        PaginatorModule,
+        DialogModule,
+        CalendarModule
+    ],
+    exports: [],
+    providers: [
+        OwnerIdentityService
+    ]
 })
 export class OwnerIdentityModule {
 }

@@ -1,29 +1,28 @@
-import { Directive, ElementRef, Renderer, Input, OnInit } from '@angular/core';
-import { ConfigService } from './../../config/config.service';
+import {Directive, ElementRef, Renderer, Input, OnInit} from '@angular/core';
+import {isUndefined} from "util";
 
-// Directive decorator
-@Directive({ selector: '[hasPermission]' })
-// Directive class
+@Directive({selector: '[hasPermission]'})
 export class PermissionDirective implements OnInit {
     @Input() hasPermission: string;
-    rights: string;
     constructor(private _el: ElementRef
-        , private _renderer: Renderer
-        , private _configService: ConfigService) {
-        this.rights = this._configService.getConfiguration().ROLE_RIGHTS;
+        , private _renderer: Renderer) {
     }
+
     ngOnInit() {
-        let result = false
-        if (this.rights === '*:*') {
-            result = true
-        } else {
-            const targetRight = this.hasPermission.split(':')
-            if (this.rights.indexOf(this.hasPermission) > -1) {
-                result = true
-            }
+        if (!this.hasPermission) {
+            return true;
         }
-        if (!result) {
-            this._renderer.setElementStyle(this._el.nativeElement, 'display', 'none');
+
+        let rights: any=[];
+        if (!isUndefined(sessionStorage.getItem('rights'))) {
+            rights=sessionStorage.getItem('rights').split(';');
         }
+        const targetRight = this.hasPermission.split(';');
+        const intersection = rights.filter(v => targetRight.indexOf(v) > -1);
+        if (intersection.length > 0) {
+            return true;
+        }
+
+        this._renderer.setElementStyle(this._el.nativeElement, 'display', 'none');
     }
-};
+}

@@ -33,14 +33,15 @@ import { TabViewModule, BlockUIModule } from 'primeng/primeng';
 import { PlatformManageModule } from './hfyz/platform-manage/platform-manage.module';
 import { CarModule } from './hfyz/car/car.module';
 import { DialogModule, ButtonModule, MessagesModule } from 'primeng/primeng';
-import { PeopleModule } from './hfyz/people/people.module';
-import { WarningModule } from './hfyz/warning/warning.module';
-import { WorkOrderModule } from './hfyz/work-order/work-order.module';
-import { OwnerIdentityModule } from './hfyz/owner-identity/owner-identity.module';
-import { PlatFormService } from './hfyz/basic/platForm/shared/plat-form.service';
-import { HiddenRectificationOrderModule } from './hfyz/hidden-rectification-order/hidden-rectification-order.module';
-import { RosterModule } from './hfyz/roster/roster.module';
+import {PeopleModule} from './hfyz/people/people.module';
+import {WarningModule} from './hfyz/warning/warning.module';
+import {WorkOrderModule} from './hfyz/work-order/work-order.module';
+import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
+import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
+import {RosterModule} from './hfyz/roster/roster.module';
+import {HiddenRectificationOrderModule} from './hfyz/hidden-rectification-order/hidden-rectification-order.module';
 import { CovalentLoadingModule, TdLoadingService } from '@covalent/core';
+
 
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)

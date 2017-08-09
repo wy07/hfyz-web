@@ -1,65 +1,96 @@
-<div class="ui-g">
-  <div class="ui-g-12 text-left">
-    <button [hasPermission]="'user:create'"  pButton type="button" label="新增" (click)="onCreate()" ></button>
-  </div>
-  <div class="ui-g-12">
-    <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
-      <p-column field="name" header="姓名"></p-column>
-      <p-column field="username" header="账号"></p-column>
-      <p-column field="roles" header="所属角色"></p-column>
-      <p-column field="" header="操作">
-        <ng-template let-user="rowData" pTemplate="body">
-          <div *ngIf="user.username!='admin'">
-          <button [hasPermission]="'user:edit'" pButton type="button" label="编辑" (click)="onEdit(user)"></button>
-          <button [hasPermission]="'user:delete'"  pButton type="button" label="删除" (click)="onDelete(user)"></button>
-          <button [hasPermission]="'user:resetPassword'"  pButton type="button" label="重置密码" (click)="onResetPassword(user)"></button>
-          </div>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
-  </div>
+<div class="row" *ngIf="action=='list'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">权限列表</div>
+            <div class="panel-body">
+                <div class="top-buttons">
+                    <button pButton type="button" label="新增"
+                            (click)="onCreate()"></button>
+                </div>
+
+                <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
+                    <p-column field="name" header="姓名"></p-column>
+                    <p-column field="username" header="账号"></p-column>
+                    <p-column field="dateCreated" header="创建时间"></p-column>
+                    <p-column field="org" header="组织"></p-column>
+                    <p-column field="roles" header="角色"></p-column>
+                    <p-column field="" header="操作">
+                        <ng-template let-user="rowData" pTemplate="body">
+                            <div *ngIf="user.username!='admin'">
+                                <button pButton type="button" label="编辑" (click)="onEdit(user)"></button>
+                                <button pButton type="button" label="删除" (click)="onDelete(user)"></button>
+                                <button  pButton type="button" label="重置密码" (click)="onResetPassword(user)"></button>
+                            </div>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+                <p-paginator rows="{{max}}" totalRecords="{{totalUsers}}" (onPageChange)="paginate($event)"
+                             *ngIf="totalUsers>0"></p-paginator>
+            </div>
+        </div>
+    </div>
 </div>
 
-<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="700"  responsive="true">
-  <div class="form-horizontal" style="height:300px;">
-    <div class="form-group">
-      <label for="name" class="col-sm-2 control-label">名称<span class="required">*</span></label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name">
-      </div>
-      <label for="username" class="col-sm-2 control-label">账号<span class="required">*</span></label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username">
-      </div>
-    </div>
+<div class="row" *ngIf="action=='update'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{formTitle}}</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div *ngIf="isAdd" class="alert alert-danger">提示：新增人员默认密码为: '666666'</div>
 
-    <div class="form-group">
-      <label for="roles" class="col-sm-2 control-label">角色<span class="required">*</span></label>
-      <div class="col-sm-3">
-        <p-listbox [options]="roleList" [(ngModel)]="user.roles" multiple="multiple"  checkbox="checkbox" filter="filter" [style]="{'width':'190px','max-height':'150px'}"></p-listbox>
-      </div>
-      <label for="roles" class="col-sm-2 control-label">部门</label>
-      <div class="col-sm-3">
-        <p-listbox [options]="orgList" [(ngModel)]="user.org"   filter="filter" [style]="{'width':'150px','max-height':'150px'}"></p-listbox>
-      </div>
-    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">名称<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="user.name">
+                        </div>
+                    </div>
 
-    <div class="form-group">
-      <label for="companyCode" class="col-sm-2 control-label">业户组织机构代码</label>
-      <div class="col-sm-3">
-        <input type="text" class="form-control" id="companyCode" name="companyCode" [(ngModel)]="user.companyCode">
-      </div>
-      <div class="col-sm-6">
-        <p class="form-control-static">若为业户用户，请指定【业户组织机构代码】</p>
-      </div>
+                    <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">账号<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">角色<span class="required">*</span></label>
+                        <div class="col-sm-6">
+                            <p-listbox [options]="roleList" [(ngModel)]="user.roles" multiple="multiple"  checkbox="checkbox" filter="filter" [style]="{'width':'190px','max-height':'150px'}"></p-listbox>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="httpMethod" class="col-sm-3 control-label">部门</label>
+                        <div class="col-sm-4">
+                            <select [(ngModel)]="user.orgId" class="form-control" id="httpMethod">
+                                <option *ngFor="let item of orgList" [ngValue]="item.value" >{{item.label}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="companyCode" class="col-sm-3 control-label">业户组织机构代码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="companyCode" name="companyCode"
+                                   [(ngModel)]="user.companyCode">
+                            <p class="form-control-static">若为业户用户，请指定【业户组织机构代码】</p>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button pButton type="button" label="保存" (click)="isAdd?save():update()"></button>
+                            <button pButton type="button" label="返回" (click)="action='list'"
+                                    class="ui-button-secondary"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-    <div *ngIf="isAdd" class="alert alert-danger">提示：新增人员默认密码为: '666666'</div>
-  <p-footer>
-    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-      <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?save():update()"></button>
-      <button pButton type="button" icon="fa-close" label="返回" (click)="displayDialog=false"
-              class="ui-button-secondary"></button>
-    </div>
-  </p-footer>
-</p-dialog>
+</div>
+

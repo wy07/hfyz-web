@@ -20,13 +20,16 @@ import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
-import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/hidden-rectification-order.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-
+import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
+import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
+import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import {PermissionComponent} from '../../basic/permission/permission.component';
 export const components = {
   role: RoleComponent,
+  permission: PermissionComponent,
   user: UserComponent,
   menu: MenuComponent,
   systemcode: SystemCodeComponent,
@@ -55,5 +58,7 @@ export const components = {
   ownerIdentity: OwnerIdentityComponent,
   blackList: BlackListComponent,
   whiteList: WhiteListComponent,
+  orderExamine: OrderExamineComponent,
+  enterpriseFeedback: EnterpriseFeedbackComponent,
   waybillRoute: WaybillRouteComponent
 };
