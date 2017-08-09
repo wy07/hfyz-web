@@ -146,6 +146,8 @@ export class HiddenRectificationOrderComponent implements OnInit {
         if (res.result === 'success') {
           this.hiddenRectificationOrder = res.hiddenRectificationOrder;
           this.selectedCompany.info = res.hiddenRectificationOrder.enterpirse;
+          this.ownerName = res.hiddenRectificationOrder.enterpirse;
+          this.hiddenRectificationOrder.companyCode = res.hiddenRectificationOrder.companyCode;
           this.inspection = new Date(this.hiddenRectificationOrder.inspectionDate);
           this.dealine = new Date(this.hiddenRectificationOrder.dealineDate);
           delete this.hiddenRectificationOrder['inspectionDate'];
@@ -233,7 +235,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     return true;
   }
   validation() {
-    if (this.selectedCompany.ownerName !== this.ownerName) {
+    if (this.selectedCompany.info !== this.ownerName) {
     this._toastr.info('请选择正确的企业名称');
     return false;
     }
