@@ -20,10 +20,11 @@ import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/hidden-rectification-order.component';
-import {WorkOrderComponent} from '../../work-order/work-order.component';
+import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 import {PermissionComponent} from "../../basic/permission/permission.component";
+import {PendingWorkOrderComponent} from "../../work-order/pending/pending-work-order.component";
 
 export const components = {
     role: RoleComponent,
@@ -53,6 +54,7 @@ export const components = {
     configure: ConfigureComponent,
     hiddenDanger: HiddenRectificationOrderComponent,
     workOrder: WorkOrderComponent,
+    pendingWorkOrder:PendingWorkOrderComponent,
     ownerIdentity: OwnerIdentityComponent,
     blackList: BlackListComponent,
     whiteList: WhiteListComponent

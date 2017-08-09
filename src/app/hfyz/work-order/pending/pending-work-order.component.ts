@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkOrderService} from './shared/work-order.service';
+import {WorkOrderService} from '../shared/work-order.service';
 
 @Component({
   selector: 'work-order',
-  templateUrl: 'work-order.component.html',
-  styleUrls: ['work-order.component.css']
+  templateUrl: 'work-order.component.html'
 })
 
-export class WorkOrderComponent implements OnInit {
+export class PendingWorkOrderComponent implements OnInit {
   workOrderList: any;
   currentPage: number;
   max: any;

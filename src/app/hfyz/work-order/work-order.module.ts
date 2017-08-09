@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DataTableModule, PaginatorModule } from 'primeng/primeng';
 import { DatePipe } from '@angular/common';
-import { WorkOrderComponent } from './work-order.component';
+import { WorkOrderComponent } from './list/work-order.component';
 import { CommonModule } from '../common/common.module';
 import { WorkOrderService } from './shared/work-order.service';
 
