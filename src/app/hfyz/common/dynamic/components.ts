@@ -1,3 +1,5 @@
+import { PermissionComponent } from './../../basic/permission/permission.component';
+import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -22,10 +24,10 @@ import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {WorkOrderComponent} from '../../work-order/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
+import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-import {PermissionComponent} from '../../basic/permission/permission.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 export const components = {
   role: RoleComponent,
@@ -60,5 +62,7 @@ export const components = {
   whiteList: WhiteListComponent,
   orderExamine: OrderExamineComponent,
   enterpriseFeedback: EnterpriseFeedbackComponent,
-  checkStatistic: CheckStatisticComponent
+  checkStatistic: CheckStatisticComponent,
+  freightWaybill: FreightWaybillComponent,
+  waybillRoute: WaybillRouteComponent
 };
