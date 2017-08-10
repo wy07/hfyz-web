@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkOrderService} from './shared/work-order.service';
+import {WorkOrderService} from '../shared/work-order.service';
 
 @Component({
   selector: 'work-order',
