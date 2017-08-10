@@ -10,4 +10,6 @@ export class StatisticService {
     return this.restangular.all('check-statistics').customGET('list',
       {max: max, offset: offset, company: company, startDate: startDate, endDate: endDate});
   }
+  passengerList(max, offset, company) {
+  }
 }

@@ -36,6 +36,7 @@ import {HiddenRectificationOrderComponent} from '../../hidden-rectification-orde
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/passenger-statistic/passenger-statistic.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -44,7 +45,7 @@ import {CheckStatisticComponent} from '../../statistic/check-statistic/check-sta
                     MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
-                    PermissionComponent, CheckStatisticComponent],
+                    PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent],
 
   template: `
     <ng-template #container></ng-template>

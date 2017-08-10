@@ -29,6 +29,7 @@ import {HiddenRectificationOrderComponent} from '../../hidden-rectification-orde
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/passenger-statistic/passenger-statistic.component';
 export const components = {
   role: RoleComponent,
   permission: PermissionComponent,
@@ -64,5 +65,6 @@ export const components = {
   enterpriseFeedback: EnterpriseFeedbackComponent,
   checkStatistic: CheckStatisticComponent,
   freightWaybill: FreightWaybillComponent,
-  waybillRoute: WaybillRouteComponent
+  waybillRoute: WaybillRouteComponent,
+  passengerStatistic: PassengerStatisticComponent
 };

@@ -13,9 +13,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CheckStatisticComponent} from './check-statistic/check-statistic.component';
 import {StatisticService} from './shared/statistic.service';
 import { DatepickerModule } from 'ngx-bootstrap';
+import {PassengerStatisticComponent} from './passenger-statistic/passenger-statistic.component';
 @NgModule({
   declarations: [
-      CheckStatisticComponent
+      CheckStatisticComponent,
+      PassengerStatisticComponent
   ],
   imports: [
     BrowserModule,
