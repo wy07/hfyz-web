@@ -1,3 +1,4 @@
+import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {MapSignComponent} from './../../basic/mapSign/map-sign.component';
 import {WarningComponent} from './../../warning/warning.component';
 import {PeopleListComponent} from './../../people/list/people-list.component';
@@ -34,25 +35,26 @@ import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-way
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 @Component({
-    selector: 'dynamic-container',
-    // entryComponents: Object.keys(components).map(key => components[key]),
-    entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
-        InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-        WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-        WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent],
-    template: `
-        <ng-template #container></ng-template>
-        <div *ngIf='!loaded' class='loader'></div>
-    `,
-    styles: [`
-        .loader {
-            position: relative;
-            min-height: 100px;
-        }
+  selector: 'dynamic-container',
+  // entryComponents: Object.keys(components).map(key => components[key]),
+  entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
+                    InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
+                    MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
+                    PermissionComponent, CheckStatisticComponent],
+
+  template: `
+    <ng-template #container></ng-template>
+    <div *ngIf='!loaded' class='loader'></div>
+  `,
+  styles: [`
+    .loader {
+      position: relative;
+      min-height: 100px;
+    }
 
         .loader:after {
             content: '内容加载中，请耐心等待...';

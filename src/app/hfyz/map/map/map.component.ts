@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
+import { zh } from './../../common/shared/zh';
 import { NgRadio } from 'ng-radio';
 import { EventBuservice } from './../../common/shared/eventbus.service';
-import { Component, OnInit, OnDestroy, ElementRef, Renderer} from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { GnssData } from '../../common/shared/gnss-data';
 import { MapService } from '../shared/map.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -32,10 +34,14 @@ export class MapComponent implements OnInit, OnDestroy {
     historyMapFrameNo: string;
     realTimeDataTOP10 = [];
     realTimeMonitorTOP10 = [];
+    startDate: any;
+    endDate: any;
+    zh = zh;
 
     constructor(private toastr: ToastsManager
         , private regularService: RegularService
         , private eventBuservice: EventBuservice
+        , private datePipe: DatePipe
         , private radio: NgRadio
         , private mapService: MapService) {
         this.lng = 117.126826;
@@ -51,6 +57,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.realTimeMonitorFrameNo = '';
         this.directions = [10, 46, 80, 100, 138, 160, 250, 320, 360];
         this.directionIndex = 0;
+        this.startDate = new Date();
         this.points = [{
             'dateStr': '2017-06-30 07:36:11',
             'plateColor': 2,
@@ -199,13 +206,15 @@ export class MapComponent implements OnInit, OnDestroy {
             clearTimeout(this.timer);
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
-                this.mapService.getHistoryData(this.realTimeMapFrameNo)
                 this.realTimeDataTOP10 = [];
                 if (this.realTimeMapKey !== inputs.key) {
                     this.realTimeMapKey = inputs.key;
                     this.realTimeMapFrameNo = inputs.frameNo;
                 }
             } else if (inputs.code === 'historyMap') {
+                this.realTimeDataTOP10 = [];
+                this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
+                this.endDate = new Date();
                 if (this.historyMapKey !== inputs.key) {
                     this.historyMapKey = inputs.key;
                     this.historyMapFrameNo = inputs.frameNo;
@@ -258,23 +267,49 @@ export class MapComponent implements OnInit, OnDestroy {
         clearTimeout(this.timer);
     }
 
+    getDataTOP10() {
+        this.realTimeDataTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
+        if (this.realTimeDataTOP10.length > 0) {
+            const data = {
+                'msg': {
+                    'dateStr': this.realTimeDataTOP10[0].dateStr,
+                    'plateColor': this.realTimeDataTOP10[0].plateColor,
+                    'plateNo': this.realTimeMapFrameNo,
+                    'posEncrypt': this.realTimeDataTOP10[0].posEncrypt,
+                    'geoPoint': this.realTimeDataTOP10[0].geoPoint,
+                    'gpsSpeed': this.realTimeDataTOP10[0].gpsSpeed,
+                    'totalMileage': this.realTimeDataTOP10[0].totalMileage,
+                    'recSpeed': this.realTimeDataTOP10[0].recSpeed,
+                    'direction': this.realTimeDataTOP10[0].direction,
+                    'altitude': this.realTimeDataTOP10[0].altitude,
+                    'vehicleState': this.realTimeDataTOP10[0].vehicleState,
+                    'alarmState': this.realTimeDataTOP10[0].alarmState
+                }
+            };
+            this.getRealTimeGnssDataByEventBus(data, 'histroyData')
+        }
+    }
+
     registerHandler() {
         const $this = this;
         this.eventBuservice.carRealTimeRegisterHandler(this.realTimeMapFrameNo, res => {
-            $this.getRealTimeGnssDataByEventBus(res);
+            $this.getRealTimeGnssDataByEventBus(res, 'realTimeData');
         })
     }
 
     registerRealTimeMonitorHandler() {
         const $this = this;
         this.eventBuservice.carRealTimeRegisterHandler(this.realTimeMonitorFrameNo, res => {
-            $this.getRealTimeMonitorGnssData(res);
+            $this.getRealTimeMonitorGnssData(res, 'realTimeData');
         })
     }
 
     getRealTimeMap() {
         this.eventBuservice.closeEventBus();
         if (this.realTimeMapFrameNo) {
+            this.realTimeDataTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
+            console.log('=====realTimeDataTOP10=====' + JSON.stringify(this.realTimeDataTOP10));
+            this.getDataTOP10();
             this.registerHandler();
         } else {
             this.toastr.error('请输入车牌号');
@@ -291,11 +326,32 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
     getHistoryMap() {
-        if (this.historyMapFrameNo) {
+        if (this.validationHistoryMap()) {
+            this.realTimeDataTOP10 = this.mapService.getHistoryData(this.historyMapFrameNo);
             this.showPath();
-        } else {
-            this.toastr.error('请输入车牌号');
         }
+    }
+
+    validationHistoryMap() {
+        const startDate = new Date(this.startDate).getTime();
+        const endDate = new Date(this.endDate).getTime();
+        if (!this.historyMapFrameNo) {
+            this.toastr.error('请输入车牌号');
+            return false;
+        }
+        if (!this.startDate) {
+            this.toastr.error('请选择开始时间');
+            return false;
+        }
+        if (!this.endDate) {
+            this.toastr.error('请选择结束时间');
+            return false;
+        }
+        if (endDate < startDate) {
+            this.toastr.error('查询结束时间不能小于开始时间.');
+            return false;
+        }
+        return true
     }
 
 
@@ -306,7 +362,7 @@ export class MapComponent implements OnInit, OnDestroy {
         }
     }
 
-    getRealTimeGnssDataByEventBus(data) {
+    getRealTimeGnssDataByEventBus(data, type) {
         this.realTimeGnssData = {
             'dateStr': data.msg.dateStr,
             'plateColor': data.msg.plateColor,
@@ -322,13 +378,15 @@ export class MapComponent implements OnInit, OnDestroy {
             'alarmState': data.msg.alarmState
         };
         console.log('=====this.realTimeGnssData======' + JSON.stringify(this.realTimeGnssData));
-        this.processingDataList(this.realTimeDataTOP10, this.realTimeGnssData)
+        if (type !== 'histroyData') {
+            this.processingDataList(this.realTimeDataTOP10, this.realTimeGnssData)
+        }
         mapObject.realTimePoint(this.realTimeGnssData.geoPoint,
             GnssData.getRealTimeInfo(this.realTimeGnssData),
             this.realTimeGnssData.direction);
     }
 
-    getRealTimeMonitorGnssData(data) {
+    getRealTimeMonitorGnssData(data, type) {
         this.realTimeMonitorGnssData = {
             'dateStr': data.msg.dateStr,
             'plateColor': data.msg.plateColor,
@@ -343,8 +401,10 @@ export class MapComponent implements OnInit, OnDestroy {
             'vehicleState': data.msg.vehicleState,
             'alarmState': data.msg.alarmState
         };
-        console.log('=====this.realTimeMonitorGnssData======' + JSON.stringify(this.realTimeMonitorGnssData));
-        this.processingDataList(this.realTimeMonitorTOP10, this.realTimeMonitorGnssData)
+        if (type !== 'histroyData') {
+            console.log('=====this.realTimeMonitorGnssData======' + JSON.stringify(this.realTimeMonitorGnssData));
+            this.processingDataList(this.realTimeMonitorTOP10, this.realTimeMonitorGnssData)
+        }
         mapObject.realTimePoint(this.realTimeMonitorGnssData.geoPoint,
             GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),
             this.realTimeMonitorGnssData.direction);
@@ -352,9 +412,9 @@ export class MapComponent implements OnInit, OnDestroy {
 
     processingDataList(list: any[], data) {
         if (list.length > 9) {
-            list.splice(0,1);
+            list.splice(0, 1);
             list.push(data);
-        }else {
+        } else {
             list.push(data);
         }
     }

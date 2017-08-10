@@ -3,6 +3,7 @@ import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { EventBuservice } from './hfyz/common/shared/eventbus.service';
 import { PlatFormService } from './hfyz/basic/platForm/shared/plat-form.service';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        moment.locale('zh-cn');
         this.inspectRegisterHandler();
     }
 
