@@ -37,6 +37,8 @@ import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/ente
 import {PermissionComponent} from '../../basic/permission/permission.component';
 import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+
 
 @Component({
     selector: 'dynamic-container',
@@ -47,7 +49,7 @@ import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-way
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
         PermissionComponent, PendingWorkOrderComponent, FeedbackWorkOrderComponent, FreightWaybillComponent,
-        WaybillRouteComponent],
+        WaybillRouteComponent, CheckStatisticComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
@@ -57,7 +59,6 @@ import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-way
             position: relative;
             min-height: 100px;
         }
-
         .loader:after {
             content: '内容加载中，请耐心等待...';
             position: absolute;

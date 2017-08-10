@@ -30,6 +30,7 @@ import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/ente
 import {PermissionComponent} from '../../basic/permission/permission.component';
 import {WorkOrderComponent} from "../../work-order/list/work-order.component";
 import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 
 export const components = {
     role: RoleComponent,
@@ -67,5 +68,6 @@ export const components = {
     freightWaybill: FreightWaybillComponent,
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
-    waybillRoute: WaybillRouteComponent
+    waybillRoute: WaybillRouteComponent,
+    checkStatistic: CheckStatisticComponent
 };
