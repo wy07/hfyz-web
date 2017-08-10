@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">公司：</span>
+                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body ">
+        <div class="row">
+            <p-dataTable [value]="passLineBusinessInfos" [emptyMessage]="'暂无数据'">
+                <p-column field="ownerName" header="公司"></p-column>
+                <p-column field="licenseCharacter" header="经营许可证字"></p-column>
+                <p-column field="licenseNo" header="经营许可证号"></p-column>
+                <p-column field="busType" header="班车类别"></p-column>
+                <p-column field="startStationName" header="起点站"></p-column>
+                <p-column field="endStationName" header="终点站"></p-column>
+                <p-column field="stopStation" header="途经站点"></p-column>
+                <p-column field="mainPoint" header="途经主要站点"></p-column>
+                <p-column field="dayTimes" header="日发班次"></p-column>
+                <p-column field="businessWay" header="经营方式"></p-column>
+                <p-column field="decideTime" header="许可日期"></p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+    </div>
+</div>
+
+

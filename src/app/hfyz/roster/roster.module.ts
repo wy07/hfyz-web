@@ -1,6 +1,3 @@
-import { WaybillRouteService } from './waybill-route/sheard/waybill-route.service';
-import { WuCitySelectModule } from 'ngx-select-city';
-import { WaybillRouteComponent } from './waybill-route/waybill-route.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlackListComponent } from './black-list/black-list.component';
@@ -19,17 +16,14 @@ import { WhiteListService } from './white-list/white-list.service';
         PaginatorModule,
         DialogModule,
         DropdownModule,
-        WuCitySelectModule
     ],
     declarations: [
         BlackListComponent,
         WhiteListComponent,
-        WaybillRouteComponent
     ],
     providers: [
         BlackListService,
         WhiteListService,
-        WaybillRouteService
     ]
 })
 export class RosterModule {
