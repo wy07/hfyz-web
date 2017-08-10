@@ -41,6 +41,7 @@ import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
 import {RosterModule} from './hfyz/roster/roster.module';
 import {HiddenRectificationOrderModule} from './hfyz/hidden-rectification-order/hidden-rectification-order.module';
 import { CovalentLoadingModule, TdLoadingService } from '@covalent/core';
+import { StatisticModule } from './hfyz/statistic/statistic.module';
 
 
 export function ConfigLoader(configService: ConfigService) {
@@ -87,7 +88,8 @@ export function ConfigLoader(configService: ConfigService) {
         MessagesModule,
         HiddenRectificationOrderModule,
         RosterModule,
-        CovalentLoadingModule
+        CovalentLoadingModule,
+        StatisticModule
     ],
     /*providers: [ConfigService,
      {

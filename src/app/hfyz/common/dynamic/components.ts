@@ -26,6 +26,7 @@ import {HiddenRectificationOrderComponent} from '../../hidden-rectification-orde
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
 import {PermissionComponent} from '../../basic/permission/permission.component';
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 export const components = {
   role: RoleComponent,
   permission: PermissionComponent,
@@ -58,5 +59,6 @@ export const components = {
   blackList: BlackListComponent,
   whiteList: WhiteListComponent,
   orderExamine: OrderExamineComponent,
-  enterpriseFeedback: EnterpriseFeedbackComponent
+  enterpriseFeedback: EnterpriseFeedbackComponent,
+  checkStatistic: CheckStatisticComponent
 };
