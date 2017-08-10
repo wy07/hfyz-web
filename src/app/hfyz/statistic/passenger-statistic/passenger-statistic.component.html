@@ -8,16 +8,16 @@
                 </div>
             </div>
         </div>
-        <br>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
-                <p-dataTable [value]="checkStatisticList" [emptyMessage]="'暂无数据'">
+                <p-dataTable [value]="passengerStatisticList" [emptyMessage]="'暂无数据'">
                     <p-column field="ownerName" header="业户名称"></p-column>
-                    <p-column field="responsed" header="已应答"></p-column>
-                    <p-column field="noResponse" header="未应答"></p-column>
-                    <p-column field="responseRate" header="应答率"></p-column>
+                    <p-column field="online" header="=在线班线车辆"></p-column>
+                    <p-column field="noResponse" header="上线班线车辆"></p-column>
+                    <p-column field="crossCar" header="跨域班线车辆"></p-column>
+                    <p-column field="warning" header="报警情况"></p-column>
                     <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
                 </p-dataTable>
             </div>

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
 import {StatisticService} from '../shared/statistic.service';
 @Component({
   selector: 'app-check-statistic',
@@ -9,8 +8,7 @@ import {StatisticService} from '../shared/statistic.service';
   styleUrls: ['./passenger-statistic.component.css']
 })
 export class PassengerStatisticComponent implements OnInit {
-  checkStatisticList: any;
-  edit: boolean;
+  passengerStatisticList: any;
   max: number;
   total: number;
   currentPage: number;
@@ -18,7 +16,6 @@ export class PassengerStatisticComponent implements OnInit {
     constructor(
      private _toastr: ToastsManager
     , private _statisticService: StatisticService
-    , private _regularService: RegularService
     , private _loadingService: TdLoadingService
     ) {
     this.max = 10;
@@ -37,7 +34,7 @@ export class PassengerStatisticComponent implements OnInit {
     this._statisticService.passengerList(this.max, offset, this.company).subscribe(
       res => {
         this._loadingService.resolve();
-        this.checkStatisticList = res.checkStatisticList;
+        this.passengerStatisticList = res.passengerStatisticList;
         this.total = res.total;
       }
     );
