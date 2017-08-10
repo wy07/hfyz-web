@@ -11,5 +11,7 @@ export class StatisticService {
       {max: max, offset: offset, company: company, startDate: startDate, endDate: endDate});
   }
   passengerList(max, offset, company) {
+    return this.restangular.all('passenger-statistics').customGET('list',
+      {max: max, offset: offset, company: company});
   }
 }

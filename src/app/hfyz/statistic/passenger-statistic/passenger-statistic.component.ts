@@ -34,13 +34,13 @@ export class PassengerStatisticComponent implements OnInit {
       return false;
     }
     this._loadingService.register();
-    // this._statisticService.passengerList(this.max, offset, this.company).subscribe(
-    //   res => {
-    //     this._loadingService.resolve();
-    //     this.checkStatisticList = res.checkStatisticList;
-    //     this.total = res.total;
-    //   }
-    // );
+    this._statisticService.passengerList(this.max, offset, this.company).subscribe(
+      res => {
+        this._loadingService.resolve();
+        this.checkStatisticList = res.checkStatisticList;
+        this.total = res.total;
+      }
+    );
   }
   paginate(event) {
     if (this.currentPage !== event.page) {
