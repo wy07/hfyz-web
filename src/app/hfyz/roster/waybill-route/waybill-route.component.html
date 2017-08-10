@@ -1,0 +1,163 @@
+<div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3 pull-right">
+                <button type="button" class="btn btn-primary pull-right" (click)='create()'>新增</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
+            <p-column field="routerName" header="线路名称"></p-column>
+            <p-column field="provenance" header="始发地名称"></p-column>
+            <p-column field="destination" header="目的地名称"></p-column>
+            <p-column field="viaLand" header="途经地名称"></p-column>
+            <p-column field="" header="操作">
+                <ng-template let-data="rowData" pTemplate="body">
+                     <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
+                    <button type="button" class="btn btn-primary btn-xs" (click)="edit(data.id)">修改</button>
+                    <button type="button" class="btn btn-primary btn-xs" (click)="delete(data.id)">删除</button>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
+    <div class="panel-heading">
+        <h4>新增路线</h4>
+    </div>
+    <div class="panel-body no-padding">
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <input class="form-control" [(ngModel)]="freightRouter.routerName" placeholder="输入线路名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4  text-right">始发地名称：</label>
+                <div class="col-xs-6 ">
+                    <app-wu-city-select [selected]="freightRouter.provenance" (result)="selectCity($event, 'provenance')"></app-wu-city-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-right">目的地名称：</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <app-wu-city-select [selected]="freightRouter.destination" (result)="selectCity($event, 'destination')"></app-wu-city-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-padding-top  text-right">途经地名称：</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <textarea rows="5" cols="50" placeholder="输入途经地名称" style="resize:none" [(ngModel)]="freightRouter.viaLand"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-right"></label>
+                <div class="col-xs-8 cole-sm-8 warnning">
+                    <span>
+                        * 途经地以英文","分开
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="save()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="(pageFlag=='EDIT')">
+    <div class="panel-heading">
+        <h4>修改路线</h4>
+    </div>
+    <div class="panel-body no-padding">
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <input class="form-control" [(ngModel)]="freightRouter.routerName" placeholder="输入线路名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4  text-right">始发地名称：</label>
+                <div class="col-xs-6 ">
+                    <app-wu-city-select [selected]="freightRouter.provenance" (result)="selectCity($event, 'provenance')"></app-wu-city-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-right">目的地名称：</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <app-wu-city-select [selected]="freightRouter.destination" (result)="selectCity($event, 'destination')"></app-wu-city-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-padding-top  text-right">途经地名称：</label>
+                <div class="col-xs-6 cole-sm-6 ">
+                    <textarea rows="5" cols="50" placeholder="输入途经地名称" style="resize:none" [(ngModel)]="freightRouter.viaLand"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 text-right"></label>
+                <div class="col-xs-8 cole-sm-8 warnning">
+                    <span>
+                        * 途经地以英文","分开
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="update()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
+          [responsive]="true">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-sm-10 text-left">
+          <h5>
+            运单路线详情信息
+          </h5>
+        </div>
+        <div class="col-sm-2">
+          <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body no-padding" style=" overflow-y:auto;">
+      <table class="table table-striped">
+        <tr>
+          <td><label>线路名称：</label></td>
+          <td>{{freightRouter.routerName}}</td>
+        </tr>
+        <tr>
+          <td><label>始发地名称：</label></td>
+          <td>{{freightRouter.provenance}}</td>
+        </tr>
+        <tr>
+          <td><label>目的地名称：</label></td>
+          <td>{{freightRouter.destination}}</td>
+        </tr>
+        <tr>
+          <td><label>途经地名称：</label></td>
+          <td>{{freightRouter.viaLand}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-dialog>
