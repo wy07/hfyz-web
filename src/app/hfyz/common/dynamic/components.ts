@@ -1,5 +1,6 @@
+import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
+import { FreightRouteComponent } from './../../waybill/freight-route/freight-route.component';
 import { PermissionComponent } from './../../basic/permission/permission.component';
-import { WaybillRouteComponent } from './../../roster/waybill-route/waybill-route.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -63,5 +64,6 @@ export const components = {
     freightWaybill: FreightWaybillComponent,
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
-    waybillRoute: WaybillRouteComponent
+    waybillRoute: FreightRouteComponent,
+    passLineBusinessInfo: PassLineBusinessBasicComponent
 };
