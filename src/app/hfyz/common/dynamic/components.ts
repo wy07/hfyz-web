@@ -22,13 +22,16 @@ import {WarningComponent} from '../../warning/warning.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
 import {ConfigureComponent} from '../../basic/configure/configure.component';
-import {WorkOrderComponent} from '../../work-order/work-order.component';
+import {PendingWorkOrderComponent} from '../../work-order/pending/pending-work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import {WorkOrderComponent} from '../../work-order/list/work-order.component';
+import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 
 export const components = {
     role: RoleComponent,
@@ -58,6 +61,8 @@ export const components = {
     configure: ConfigureComponent,
     hiddenDanger: HiddenRectificationOrderComponent,
     workOrder: WorkOrderComponent,
+    pendingWorkOrder: PendingWorkOrderComponent,
+    feedbackWorkOrder: FeedbackWorkOrderComponent,
     ownerIdentity: OwnerIdentityComponent,
     blackList: BlackListComponent,
     whiteList: WhiteListComponent,
@@ -65,5 +70,6 @@ export const components = {
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
     waybillRoute: FreightRouteComponent,
-    passLineBusinessInfo: PassLineBusinessBasicComponent
+    passLineBusinessInfo: PassLineBusinessBasicComponent,
+    checkStatistic: CheckStatisticComponent
 };

@@ -97,3 +97,57 @@ body .map-footer .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable
     padding: 0;
 }
 
+body .ui-datatable .ui-datatable-data > tr > td {
+    word-wrap: break-word;
+}
+
+/*top导航栏*/
+.container-fluid {
+    background: url("assets/images/top-navbar.png");
+    background-size: 100% auto;
+}
+
+.u-footer {
+    background: url("assets/images/bottom-nav.png") !important;
+    background-size: 100% auto !important;
+}
+
+/*走势图*/
+body .ui-panel .ui-panel-titlebar {
+    background: url("assets/images/index-trends-1.png");
+    background-size: cover;
+}
+
+/*表头*/
+body .ui-datatable .ui-datatable-thead > tr > th, body .ui-datatable .ui-datatable-tfoot > tr > td {
+    background-color: #5598B7;
+    color: #FFFFFF;
+}
+
+/*奇数行*/
+body .ui-datatable .ui-datatable-data tr.ui-datatable-even {
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+/*偶数行*/
+body .ui-widget-content > tr {
+    text-align: center;
+    background-color: #D0E7F2;
+}
+
+/*标签页title*/
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
+    background: #5598B7;
+    border-color: #5598B7;
+}
+
+/*pbutton*/
+.ui-button {
+    background-color: #006FA7 !important;
+}
+
+.btn {
+    background-color: #006FA7 !important;
+    color: #FFFFFF !important;
+}

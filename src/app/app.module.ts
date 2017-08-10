@@ -39,8 +39,9 @@ import {WorkOrderModule} from './hfyz/work-order/work-order.module';
 import {OwnerIdentityModule} from './hfyz/owner-identity/owner-identity.module';
 import {PlatFormService} from './hfyz/basic/platForm/shared/plat-form.service';
 import {HiddenRectificationOrderModule} from './hfyz/hidden-rectification-order/hidden-rectification-order.module';
+import { CovalentLoadingModule, TdLoadingService } from '@covalent/core';
+import { StatisticModule } from './hfyz/statistic/statistic.module';
 import {RosterModule} from './hfyz/roster/roster.module';
-import {CovalentLoadingModule, TdLoadingService} from '@covalent/core';
 import {WaybillModule} from './hfyz/waybill/waybill.module';
 
 export function ConfigLoader(configService: ConfigService) {
@@ -88,6 +89,7 @@ export function ConfigLoader(configService: ConfigService) {
         HiddenRectificationOrderModule,
         RosterModule,
         CovalentLoadingModule,
+        StatisticModule,
         WaybillModule
     ],
     /*providers: [ConfigService,

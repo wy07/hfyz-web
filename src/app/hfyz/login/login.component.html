@@ -1,19 +1,29 @@
 <!--<p-blockUI [blocked]="loading"></p-blockUI>-->
 <div class="login-body">
-  <div class="login-panel">
-    <h2>{{appbrand}}</h2>
-    <form role="form" [formGroup]="loginForm" (ngSubmit)="login($event)">
-      <div *ngIf="error">{{error}}</div>
-      <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['username'].valid}">
-        <label for="username">用户名</label>
-        <input type="text" formControlName="username" class="ui-inputtext" placeholder="用户名">
-      </div>
-      <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['password'].valid}">
-        <label for="password">密码</label>
-        <input type="password" formControlName="password" class="ui-inputtext " placeholder="密码">
-      </div>
-      <button pButton type="submit" icon="fa-user" iconPos="left" label="登录" style="width:120px;margin-left:50px" [disabled]="!loginForm.valid"></button>
-      <button pButton type="button" icon="fa-times" iconPos="left" label="取消" class="ui-button-secondary" style="width:120px" (click)="onConcel()"></button>
-    </form>
-  </div>
+    <img src="../../../assets/images/login-title.png" class="login-title">
+    <div class="login-form">
+        <form [formGroup]="loginForm" (ngSubmit)="login($event)">
+            <input formControlName="username" [ngClass]="{'has-error':!loginForm.controls['username'].valid}" placeholder="用户名" class="login-username">
+            <input formControlName="password" type="password" [ngClass]="{'has-error':!loginForm.controls['password'].valid}" placeholder="密码" class="login-password">
+            <button  type="submit" class="login-submit" [disabled]="!loginForm.valid">登录</button>
+            <div *ngIf="error" class="login-error">{{error}}</div>
+        </form>
+    </div>
+   <!-- <div class="login-panel">
+        <form role="form" [formGroup]="loginForm" (ngSubmit)="login($event)">
+            <div *ngIf="error">{{error}}</div>
+            <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['username'].valid}">
+                <label for="username">用户名</label>
+                <input type="text" formControlName="username" class="ui-inputtext" placeholder="用户名">
+            </div>
+            <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['password'].valid}">
+                <label for="password">密码</label>
+                <input type="password" formControlName="password" class="ui-inputtext " placeholder="密码">
+            </div>
+            <button pButton type="submit" icon="fa-user" iconPos="left" label="登录" style="width:120px;margin-left:50px"
+                    [disabled]="!loginForm.valid"></button>
+            <button pButton type="button" icon="fa-times" iconPos="left" label="取消" class="ui-button-secondary"
+                    style="width:120px" (click)="onConcel()"></button>
+        </form>
+    </div>-->
 </div>

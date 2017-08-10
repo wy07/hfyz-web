@@ -1,26 +1,26 @@
 import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import { FreightRouteComponent } from './../../waybill/freight-route/freight-route.component';
-import {MapSignComponent} from './../../basic/mapSign/map-sign.component';
-import {WarningComponent} from './../../warning/warning.component';
-import {PeopleListComponent} from './../../people/list/people-list.component';
-import {PlatFormComponent} from './../../basic/platForm/plat-form.component';
-import {ChangePwdComponent} from './../../basic/user/changePwd/change-pwd.component';
-import {CarListComponent} from './../../car/list/car-list.component';
-import {NullMapComponent} from './../../map/nullMap/null-map.component';
-import {MapComponent} from './../../map/map/map.component';
-import {PlatformManageComponent} from './../../platform-manage/platform-manage.component';
-import {LogManageComponent} from './../../log-manage/log-manage.component';
-import {InfoListComponent} from './../../info-manage/info-list/info-list.component';
-import {InfoCheckComponent} from './../../info-manage/info-check/info-check.component';
-import {InfoPublishComponent} from './../../info-manage/info-publish/info-publish.component';
-import {OrganizationComponent} from './../../basic/organization/organization.component';
-import {HomeComponent} from './../../home/home.component';
-import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
-import {MenuComponent} from './../../basic/menu/menu.component';
-import {UserComponent} from './../../basic/user/user.component';
-import {RoleComponent} from './../../basic/role/role.component';
+import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
+import {WarningComponent} from '../../warning/warning.component';
+import {PeopleListComponent} from '../../people/list/people-list.component';
+import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
+import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.component';
+import {CarListComponent} from '../../car/list/car-list.component';
+import {NullMapComponent} from '../../map/nullMap/null-map.component';
+import {MapComponent} from '../../map/map/map.component';
+import {PlatformManageComponent} from '../../platform-manage/platform-manage.component';
+import {LogManageComponent} from '../../log-manage/log-manage.component';
+import {InfoListComponent} from '../../info-manage/info-list/info-list.component';
+import {InfoCheckComponent} from '../../info-manage/info-check/info-check.component';
+import {InfoPublishComponent} from '../../info-manage/info-publish/info-publish.component';
+import {OrganizationComponent} from '../../basic/organization/organization.component';
+import {HomeComponent} from '../../home/home.component';
+import {SystemCodeComponent} from '../../basic/systemCode/system-code.component';
+import {MenuComponent} from '../../basic/menu/menu.component';
+import {UserComponent} from '../../basic/user/user.component';
+import {RoleComponent} from '../../basic/role/role.component';
 import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
-import {ConfigureComponent} from './../../basic/configure/configure.component';
+import {ConfigureComponent} from '../../basic/configure/configure.component';
 import {
     Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
     ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
@@ -28,14 +28,18 @@ import {
 } from '@angular/core';
 import {components} from './components';
 import {MapService} from '../../map/shared/map.service';
-import {WorkOrderComponent} from '../../work-order/work-order.component';
+import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PermissionComponent} from '../../basic/permission/permission.component';
-import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
+import {PendingWorkOrderComponent} from '../../work-order/pending/pending-work-order.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import {PermissionComponent} from '../../basic/permission/permission.component';
+import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
+import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+
 
 @Component({
     selector: 'dynamic-container',
@@ -45,17 +49,16 @@ import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/ente
         MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent, FreightRouteComponent, PassLineBusinessBasicComponent],
+        OrderExamineComponent, EnterpriseFeedbackComponent, FreightRouteComponent, PassLineBusinessBasicComponent, CheckStatisticComponent],
     template: `
-        <ng-template #container></ng-template>
-        <div *ngIf='!loaded' class='loader'></div>
-    `,
+    <ng-template #container></ng-template>
+    <div *ngIf='!loaded' class='loader'></div>
+  `,
     styles: [`
-        .loader {
+    .loader {
             position: relative;
             min-height: 100px;
         }
-
         .loader:after {
             content: '内容加载中，请耐心等待...';
             position: absolute;
@@ -166,7 +169,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     }
 
     ngOnDestroy() {
-        console.log(`======${this.componentName}=====ngOnDestroy=============`);
+        console.log(` === ===${this.componentName} === == ngOnDestroy === === === === = `);
         if (this.compRef) {
             this.compRef.destroy();
         }
