@@ -27,6 +27,7 @@ import {OrderExamineComponent} from '../../hidden-rectification-order/order-exam
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
 import {PermissionComponent} from '../../basic/permission/permission.component';
 import {WorkOrderComponent} from "../../work-order/list/work-order.component";
+import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
 export const components = {
     role: RoleComponent,
     permission: PermissionComponent,
@@ -56,6 +57,7 @@ export const components = {
     hiddenDanger: HiddenRectificationOrderComponent,
     workOrder: WorkOrderComponent,
     pendingWorkOrder: PendingWorkOrderComponent,
+    feedbackWorkOrder:FeedbackWorkOrderComponent,
     ownerIdentity: OwnerIdentityComponent,
     blackList: BlackListComponent,
     whiteList: WhiteListComponent,

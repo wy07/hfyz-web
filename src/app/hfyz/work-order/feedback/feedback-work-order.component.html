@@ -29,21 +29,18 @@
                     <p-column field="" header="操作">
                         <ng-template let-node="rowData" pTemplate="body">
                             <button type="button" class="btn btn-info"
-                                    (click)="onExamine(node.id)" *ngIf="node.status.value=='DSH'">审批
-                            </button>
-                            <button type="button" class="btn btn-info"
-                                    (click)="onJudge(node.id)" *ngIf="node.status.value=='DYP'">研判
+                                    (click)="onFeedback(node.id)">反馈
                             </button>
                         </ng-template>
                     </p-column>
                 </p-dataTable>
                 <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"
-                             *ngIf="total>0"></p-paginator>
+                             *ngIf="totalRoles>0"></p-paginator>
             </div>
         </div>
     </div>
 </div>
-<div class="row" *ngIf="action==='examine'||action==='judge'">
+<div class="row" *ngIf="action==='feedback'">
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">审批工单</div>
@@ -138,63 +135,19 @@
 
                 </div>
 
-                <div class="col-sm-12">
-                    <h4>操作记录</h4>
-                    <table class="table table-bordered" *ngIf="workOrderRecords.length > 0">
-                        <thead>
-                        <tr>
-                            <th>操作人</th>
-                            <th>动作</th>
-                            <th>创建时间</th>
-                            <th>状态</th>
-                            <th>备注</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let item of workOrderRecords">
-                            <td>{{item.user}}</td>
-                            <td>{{item.operate}}</td>
-                            <td>{{item.dateCreated}}</td>
-                            <td>{{item.workOrderStatus}}</td>
-                            <td>{{item.note}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-center" *ngIf="workOrderRecords.length === 0">
-                        <span>暂无数据</span>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 form-horizontal"  *ngIf="action==='examine'">
-                    <h4>审批</h4>
+                <div class="col-sm-12 form-horizontal">
+                    <h4>反馈</h4>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">审批意见</label>
+                        <label class="col-sm-1 control-label">反馈</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="6" maxlength="600"
-                                      [(ngModel)]="examineNote"></textarea>
+                                      [(ngModel)]="note"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-9">
-                            <button type="button" class="btn btn-default" (click)="submitExamine(true)">通过</button>
-                            <button type="button" class="btn btn-default" (click)="submitExamine(false)">拒绝</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 form-horizontal"  *ngIf="action==='judge'">
-                    <h4>研判</h4>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">研判意见</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="6" maxlength="600"
-                                      [(ngModel)]="judgeNote"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-9">
-                            <button type="button" class="btn btn-default" (click)="submitJudge(true)">通过</button>
-                            <button type="button" class="btn btn-default" (click)="submitJudge(false)">拒绝</button>
+                            <button type="button" class="btn btn-default" (click)="submitFeedback(true)">提交</button>
+                            <button type="button" class="btn btn-default" (click)="action='list'">取消</button>
                         </div>
                     </div>
                 </div>
