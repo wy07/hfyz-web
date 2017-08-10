@@ -54,7 +54,7 @@ export class CheckStatisticComponent implements OnInit {
       return false;
     }
     this._loadingService.register();
-    this._statisticService.list(this.max, offset, this.company, this.startDate, this.endDate).subscribe(
+    this._statisticService.checkList(this.max, offset, this.company, this.startDate, this.endDate).subscribe(
       res => {
         this._loadingService.resolve();
         this.checkStatisticList = res.checkStatisticList;
