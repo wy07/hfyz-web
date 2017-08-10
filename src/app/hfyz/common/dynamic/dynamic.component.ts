@@ -35,25 +35,26 @@ import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-way
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-
+import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 @Component({
-    selector: 'dynamic-container',
-    // entryComponents: Object.keys(components).map(key => components[key]),
-    entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
-        InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-        WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-        WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent, WaybillRouteComponent],
-    template: `
-        <ng-template #container></ng-template>
-        <div *ngIf='!loaded' class='loader'></div>
-    `,
-    styles: [`
-        .loader {
-            position: relative;
-            min-height: 100px;
-        }
+  selector: 'dynamic-container',
+  // entryComponents: Object.keys(components).map(key => components[key]),
+  entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
+                    InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
+                    MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
+                    PermissionComponent, CheckStatisticComponent],
+
+  template: `
+    <ng-template #container></ng-template>
+    <div *ngIf='!loaded' class='loader'></div>
+  `,
+  styles: [`
+    .loader {
+      position: relative;
+      min-height: 100px;
+    }
 
         .loader:after {
             content: '内容加载中，请耐心等待...';
