@@ -30,7 +30,8 @@ export class TopBarComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.currentUser = this._authService.getCurrentUser('name')
+
+        this.currentUser = sessionStorage.getItem('username');//this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
 
