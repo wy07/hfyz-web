@@ -1,5 +1,5 @@
 import { FreightRouter } from './sheard/freightRouter.model';
-import { WaybillRouteService } from './sheard/waybill-route.service';
+import { FreightRouteService } from './sheard/freight-route.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { TdLoadingService } from '@covalent/core';
@@ -7,11 +7,11 @@ import { DatePipe } from '@angular/common';
 import { RegularService } from '../../common/shared/regular.service';
 
 @Component({
-    selector: 'waybill-route',
-    templateUrl: './waybill-route.component.html',
-    styleUrls: ['./waybill-route.component.css']
+    selector: 'freight-route',
+    templateUrl: './freight-route.component.html',
+    styleUrls: ['./freight-route.component.css']
 })
-export class WaybillRouteComponent implements OnInit {
+export class FreightRouteComponent implements OnInit {
     max: number;   // 表格行数
     page: number;   // 当前页数
     total: number;  // 总数
@@ -25,7 +25,7 @@ export class WaybillRouteComponent implements OnInit {
 
     constructor(private _loadingService: TdLoadingService,
         private _regularService: RegularService,
-        private _waybillRouteService: WaybillRouteService,
+        private _freightRouteService: FreightRouteService,
         private datePipe: DatePipe,
         private toastr: ToastsManager) {
         this.waybillRouteLists = [];
@@ -55,7 +55,7 @@ export class WaybillRouteComponent implements OnInit {
      */
     loadData(offset = 0) {
         this._loadingService.register()
-        this._waybillRouteService.getFreightRouterList(this.max, offset).subscribe(
+        this._freightRouteService.getFreightRouterList(this.max, offset).subscribe(
             res => {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
@@ -87,7 +87,7 @@ export class WaybillRouteComponent implements OnInit {
     save() {
         console.log('====this.freightRouter====' + JSON.stringify(this.freightRouter))
         this._loadingService.register();
-        this._waybillRouteService.save(this.freightRouter).subscribe(res => {
+        this._freightRouteService.save(this.freightRouter).subscribe(res => {
             this._loadingService.resolve();
             if (res.result === 'success') {
                 this.switchPage();
@@ -97,7 +97,7 @@ export class WaybillRouteComponent implements OnInit {
 
     delete(id) {
         this._loadingService.register();
-        this._waybillRouteService.delete(id).subscribe(res => {
+        this._freightRouteService.delete(id).subscribe(res => {
             this._loadingService.resolve();
             if (res.result === 'success') {
                 this.switchPage();
@@ -107,7 +107,7 @@ export class WaybillRouteComponent implements OnInit {
 
     edit(id) {
         this._loadingService.register();
-        this._waybillRouteService.edit(id).subscribe(res => {
+        this._freightRouteService.edit(id).subscribe(res => {
             console.log('===edit===' + JSON.stringify(res));
             this._loadingService.resolve();
             this.freightRouter = res.freightRouter;
@@ -117,7 +117,7 @@ export class WaybillRouteComponent implements OnInit {
 
     update() {
         this._loadingService.register();
-        this._waybillRouteService.update(this.freightRouter).subscribe(res => {
+        this._freightRouteService.update(this.freightRouter).subscribe(res => {
             this._loadingService.resolve();
             if (res.result === 'success') {
                 this.switchPage();
@@ -157,7 +157,7 @@ export class WaybillRouteComponent implements OnInit {
 
     showDetail(id) {
         this._loadingService.register();
-        this._waybillRouteService.edit(id).subscribe(res => {
+        this._freightRouteService.edit(id).subscribe(res => {
             console.log('===edit===' + JSON.stringify(res));
             this._loadingService.resolve();
             this.freightRouter = res.freightRouter;

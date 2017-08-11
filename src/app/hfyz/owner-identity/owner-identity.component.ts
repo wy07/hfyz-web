@@ -2,6 +2,7 @@ import {Component, OnInit, Renderer} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {OwnerIdentityService} from './shared/owner-identity.service'
 import {DatePipe} from '@angular/common';
+import {TdLoadingService} from "@covalent/core";
 
 @Component({
     selector: 'app-owner-identity',
@@ -24,7 +25,8 @@ export class OwnerIdentityComponent implements OnInit {
     constructor(private renderer: Renderer
         , private toastr: ToastsManager
         , private datePipe: DatePipe
-        , private ownerIdentityService: OwnerIdentityService) {
+        , private ownerIdentityService: OwnerIdentityService
+        , private _loadingService: TdLoadingService) {
         this.displayDialog = false;
         this.owner = {};
         this.clearForm();
@@ -38,10 +40,12 @@ export class OwnerIdentityComponent implements OnInit {
 
     initData(offset = 0) {
         if (this.validate()) {
-            const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
-            const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
+            const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
+            const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
+            this._loadingService.register();
             this.ownerIdentityService.list(begin, end, this.max, offset, this.ownerName, this.companyCode).subscribe(
                 res => {
+                    this._loadingService.resolve();
                     this.ownerList = res.ownerList.ownerList;
                     this.total = res.ownerList.total;
                 }

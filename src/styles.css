@@ -82,11 +82,11 @@ body .car-info .ui-panel-content {
 
 .map-left {
     position: fixed;
-    left: 5% !important;
+    /* left: 5% !important; */
     bottom: 0;
     overflow: scroll;
     height: 200px;
-    width: 100%;
+    width: calc(100% - 130px);
 }
 
 .warnning {
@@ -145,6 +145,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 /*pbutton*/
 .ui-button {
     background-color: #006FA7 !important;
+    color: #FFFFFF !important;
 }
 
 .btn {

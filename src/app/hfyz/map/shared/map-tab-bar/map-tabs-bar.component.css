@@ -1,18 +1,21 @@
 .map-footer {
     position: fixed;
-    left: 19%;
+    /* left: 19%; */
     bottom: 0;
     overflow: scroll;
     height: 200px;
-    width: 100%;
+    /* width: 79%; */
+    width: calc(100% - 330px);
 }
 
 .map-footer .table-row {
-    width: 82%;
+    /* width: 82%; */
+    width: calc(100% + 15px);
 }
 
 .map-left .table-row {
-    width: 95%;
+    /* width: 95%; */
+    width: calc(100% + 15px);
 }
 
 .map-footer .panel-heading {

@@ -41,8 +41,8 @@
                 <p-column field="amount" header="数量"></p-column>
                 <p-column field="loadedType" header="装/卸"></p-column>
                 <p-column field="departTime" header="出发时间"></p-column>
-                <p-column field="departArea" header="出发地"></p-column>
-                <p-column field="arriveArea" header="目的地"></p-column>
+                <p-column field="startCity" header="出发地"></p-column>
+                <p-column field="endCity" header="目的地"></p-column>
             </p-dataTable>
             <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>

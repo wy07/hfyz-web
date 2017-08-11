@@ -1,4 +1,5 @@
-import {WaybillRouteComponent} from '../../roster/waybill-route/waybill-route.component';
+import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
+import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
@@ -30,17 +31,18 @@ import {MapService} from '../../map/shared/map.service';
 import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {BlackListComponent} from '../../roster/black-list/black-list.component';
 import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PendingWorkOrderComponent} from "../../work-order/pending/pending-work-order.component";
+import {PendingWorkOrderComponent} from '../../work-order/pending/pending-work-order.component';
 import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
 import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
 import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
 import {PermissionComponent} from '../../basic/permission/permission.component';
-import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
+import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
 import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
+import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -50,8 +52,8 @@ import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-sta
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
                     PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
-                    FeedbackWorkOrderComponent, FreightWaybillComponent, WaybillRouteComponent, CheckStatisticComponent,
-                    ShowDetailComponent, TravelStatisticComponent],
+                    FeedbackWorkOrderComponent, FreightWaybillComponent, ShowDetailComponent, TravelStatisticComponent,
+                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {
-  DataTableModule,
-  ButtonModule,
-  PaginatorModule, CalendarModule,
-  RadioButtonModule, InputTextModule
+    DataTableModule,
+    ButtonModule,
+    PaginatorModule, CalendarModule,
+    RadioButtonModule, InputTextModule
 } from 'primeng/primeng';
 import {CommonModule, DatePipe} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
@@ -18,13 +18,16 @@ import {MapModule} from '../map/map.module';
 import {ShowDetailComponent} from './car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from './car-statistic/travel-statistic/travel-statistic.component';
 import {DangerousStatisticComponent} from './car-statistic/dangerous-statistic/dangerous-statistic.component';
+import {CompanyReportComponent} from './company-report/company-report.component';
+import {CompanyReportService} from './company-report/company-report.service';
 @NgModule({
   declarations: [
       CheckStatisticComponent,
       PassengerStatisticComponent,
       ShowDetailComponent,
       TravelStatisticComponent,
-      DangerousStatisticComponent
+      DangerousStatisticComponent,
+      CompanyReportComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import {DangerousStatisticComponent} from './car-statistic/dangerous-statistic/d
   exports: [],
   providers: [
     DatePipe,
-    StatisticService
-  ]
+    StatisticService,
+    CompanyReportService
+]
 })
-export class StatisticModule {};
+export class StatisticModule {
+};
