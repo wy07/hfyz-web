@@ -33,6 +33,7 @@ import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/ente
 import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 
 export const components = {
     role: RoleComponent,
@@ -70,8 +71,10 @@ export const components = {
     freightWaybill: FreightWaybillComponent,
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
+    checkStatistic: CheckStatisticComponent,
     waybillRoute: FreightRouteComponent,
     passLineBusinessInfo: PassLineBusinessBasicComponent,
     passLinePhysicalInfo: PassLinePhysicalBasicComponent,
-    checkStatistic: CheckStatisticComponent
+    companyReport: CompanyReportComponent
+
 };
