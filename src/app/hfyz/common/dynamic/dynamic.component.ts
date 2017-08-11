@@ -1,5 +1,6 @@
 import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
+import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
@@ -49,7 +50,8 @@ import {CheckStatisticComponent} from '../../statistic/check-statistic/check-sta
         MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent, FreightRouteComponent, PassLineBusinessBasicComponent, CheckStatisticComponent,
+        OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
+        FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
         PendingWorkOrderComponent, FeedbackWorkOrderComponent],
     template: `
     <ng-template #container></ng-template>
