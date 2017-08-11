@@ -147,18 +147,18 @@ export class InfoPublishComponent implements OnInit {
     }
 
     onSearch(offset = 0) {
-        if (this.validateDate() || (this.textTitle != null)) {
-            const dateBegin = this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm');
-            const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm');
-            console.log(dateBegin)
-            this.infoPublishService.search(this.textTitle, dateBegin, dateEnd, this.max, offset).subscribe(
-                res => {
-                    // this.publishList = res.publishList;
-                    this.publishList = res.publishList.publishList;
-                    this.total = res.publishList.total;
-                }
-            );
-        }
+        const dateBegin = this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm');
+        const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm');
+        console.log(dateBegin)
+        this._loadingService.register();
+        this.infoPublishService.search(this.textTitle, dateBegin?dateBegin:'', dateEnd?dateBegin:'', this.max, offset).subscribe(
+            res => {
+                // this.publishList = res.publishList;
+                this._loadingService.resolve();
+                this.publishList = res.publishList.publishList;
+                this.total = res.publishList.total;
+            }
+        );
     }
 
     onEdit(infoaudit) {
@@ -185,12 +185,12 @@ export class InfoPublishComponent implements OnInit {
             this.infoaudit.publisher = {id: this.currentUserId};
             this.infoPublishService.save(this.infoaudit).subscribe(
                 res => {
+                    this.actionStr = 'list';
+                    this.displayDialog = false;
                     this._toastr.success('保存成功');
                     this.initData();
                 }
             );
-            this.actionStr = 'list';
-            this.displayDialog = false;
         }
     }
 
@@ -219,7 +219,7 @@ export class InfoPublishComponent implements OnInit {
         this.infoPublishService.delete(infoaudit.id).subscribe(
             res => {
                 this.initData()
-                this._toastr.info(`成功移除信息——`);
+                this._toastr.info(`成功移除信息`);
             }
         );
     }
