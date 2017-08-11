@@ -13,9 +13,9 @@ var mapObject = (function() {
       maplet = new Maplet(elm);
       maplet.addControl(new MStandardControl());
       maplet.centerAndZoom(new MPoint(116.35566, 39.93218), 12);
-      maplet.resize(document.getElementById(elm).clientWidth - 10, document.documentElement.clientHeight - 400);//初始化地图宽和高
+      maplet.resize(document.getElementById(elm).clientWidth - 20, document.documentElement.clientHeight - 400);//初始化地图宽和高
       window.onresize = function () {//自适应地图宽和高
-        maplet.resize(document.getElementById(elm).clientWidth - 10, document.documentElement.clientHeight - 400);
+        maplet.resize(document.getElementById(elm).clientWidth - 20, document.documentElement.clientHeight - 400);
       };
     },
     reload:function () {
