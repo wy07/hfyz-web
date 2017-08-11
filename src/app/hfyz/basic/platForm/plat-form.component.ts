@@ -1,11 +1,11 @@
-import { RegularService } from './../../common/shared/regular.service';
+import { RegularService } from '../../common/shared/regular.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
 import { PlatFormService } from './shared/plat-form.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { DatePipe } from '@angular/common';
 import { EventBuservice } from '../../common/shared/eventbus.service';
+import {TdLoadingService} from "@covalent/core";
 
 @Component({
   selector: 'plat-form',
@@ -26,13 +26,12 @@ export class PlatFormComponent implements OnInit {
   inspectDisplay: boolean;
   inspectQ: any;
 
-  constructor(private _router: Router
-    , private _activatedRoute: ActivatedRoute
-    , private _toastr: ToastsManager
+  constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
     , private _platFormService: PlatFormService
     , private datePipe: DatePipe
-    , private eventBuservice: EventBuservice) {
+    , private eventBuservice: EventBuservice
+      , private _loadingService: TdLoadingService) {
     this.company = '';
     this.startDate = '';
     this.endDate = '';
@@ -75,8 +74,10 @@ export class PlatFormComponent implements OnInit {
     if (!this._regularService.isBlank(this.endDate)) {
       ed = this.datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
+    this._loadingService.register();
     this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
       res => {
+          this._loadingService.resolve();
         this.checkRecordList = res.checkResult.checkRecordList;
         this.total = res.checkResult.total;
       }
@@ -125,7 +126,7 @@ export class PlatFormComponent implements OnInit {
       , answer: this.inspectQ.answer
       , companyCode: this.inspectQ.companyCode
       , operator: 1
-    }
+    };
     this.eventBuservice.inspectSend(address, data, res => {
       if (res.result === 'success') {
         $this._toastr.info('生成查岗成功');

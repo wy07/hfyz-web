@@ -30,7 +30,6 @@ export class InfoListComponent implements OnInit {
   user: any;
   currentUser: string;
   currentUserId: number
-  currentRoleArray = []
   currentRoleString: string
 
   constructor(private _renderer: Renderer
@@ -83,17 +82,15 @@ export class InfoListComponent implements OnInit {
 
     this.currentUser = this._authService.getCurrentUser('name')
     this.currentUserId = this._authService.getCurrentUser('id');
-    this.currentRoleArray = this._authService.getCurrentUser('roleId').split(';');
-    console.log(this.currentRoleArray)
     this.currentRoleString = this._authService.getCurrentUser('roleId');
     this.user = { id: '', operator: this.currentUserId };
     this.infoaudit = {};
     this.actionStr = 'list';
     this.max = 10;
-    this.initData();
   }
 
   ngOnInit() {
+      this.initData();
   }
 
   /*initData() {
