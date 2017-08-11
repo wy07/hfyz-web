@@ -13,11 +13,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CheckStatisticComponent} from './check-statistic/check-statistic.component';
 import {StatisticService} from './shared/statistic.service';
 import { DatepickerModule } from 'ngx-bootstrap';
-import {PassengerStatisticComponent} from './passenger-statistic/passenger-statistic.component';
+import {PassengerStatisticComponent} from './car-statistic/passenger-statistic/passenger-statistic.component';
+import {MapModule} from '../map/map.module';
+import {ShowDetailComponent} from './car-statistic/show-detail/show-detail.component';
+import {TravelStatisticComponent} from './car-statistic/travel-statistic/travel-statistic.component';
+import {DangerousStatisticComponent} from './car-statistic/dangerous-statistic/dangerous-statistic.component';
 @NgModule({
   declarations: [
       CheckStatisticComponent,
-      PassengerStatisticComponent
+      PassengerStatisticComponent,
+      ShowDetailComponent,
+      TravelStatisticComponent,
+      DangerousStatisticComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,8 @@ import {PassengerStatisticComponent} from './passenger-statistic/passenger-stati
     CalendarModule,
     RadioButtonModule,
     InputTextModule,
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    MapModule
   ],
   exports: [],
   providers: [

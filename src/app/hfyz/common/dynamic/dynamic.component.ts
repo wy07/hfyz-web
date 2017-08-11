@@ -38,7 +38,9 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {PassengerStatisticComponent} from '../../statistic/passenger-statistic/passenger-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
+import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
+import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -48,7 +50,8 @@ import {PassengerStatisticComponent} from '../../statistic/passenger-statistic/p
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
                     PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
-                    FeedbackWorkOrderComponent, FreightWaybillComponent, WaybillRouteComponent, CheckStatisticComponent],
+                    FeedbackWorkOrderComponent, FreightWaybillComponent, WaybillRouteComponent, CheckStatisticComponent,
+                    ShowDetailComponent, TravelStatisticComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

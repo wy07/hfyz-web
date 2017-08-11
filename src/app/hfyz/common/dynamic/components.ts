@@ -31,7 +31,10 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {WorkOrderComponent} from "../../work-order/list/work-order.component";
 import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {PassengerStatisticComponent} from '../../statistic/passenger-statistic/passenger-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
+import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
+import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
+
 export const components = {
   role: RoleComponent,
   permission: PermissionComponent,
@@ -70,5 +73,7 @@ export const components = {
   waybillRoute: WaybillRouteComponent,
   passengerStatistic: PassengerStatisticComponent,
   pendingWorkOrder: PendingWorkOrderComponent,
-  feedbackWorkOrder: FeedbackWorkOrderComponent
+  feedbackWorkOrder: FeedbackWorkOrderComponent,
+  showDetail: ShowDetailComponent,
+  travelStatistic: TravelStatisticComponent
 };
