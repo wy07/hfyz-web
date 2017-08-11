@@ -31,6 +31,7 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {WorkOrderComponent} from "../../work-order/list/work-order.component";
 import {FeedbackWorkOrderComponent} from "../../work-order/feedback/feedback-work-order.component";
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 
 export const components = {
     role: RoleComponent,
@@ -69,5 +70,6 @@ export const components = {
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
     waybillRoute: WaybillRouteComponent,
-    checkStatistic: CheckStatisticComponent
+    checkStatistic: CheckStatisticComponent,
+    companyReport: CompanyReportComponent
 };
