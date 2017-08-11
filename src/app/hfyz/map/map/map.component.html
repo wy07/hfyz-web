@@ -54,9 +54,9 @@
     <div id="map" class='mapSize'></div>
 </div>
 
-<map-tabs-bar *ngIf="mapCode=='realTimeMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
-<map-tabs-bar *ngIf="mapCode=='historyMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
-<map-tabs-bar *ngIf="mapCode=='realTimeMonitorMap'" [historyDataTOP10]='realTimeMonitorTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='realTimeMap'" [type]="'realTimeMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='historyMap'" [type]="'historyMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='realTimeMonitorMap'" [type]="'realTimeMonitorMap'" [historyDataTOP10]='realTimeMonitorTOP10'></map-tabs-bar>
 
 
 

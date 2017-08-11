@@ -1,8 +1,8 @@
 <div class="map-footer" id="mapFooter">
     <tabset>
-        <tab heading="实时数据">
+        <tab heading="{{type === 'historyMap'?'历史数据':'实时数据'}}">
             <div class="table-row">
-                <div class="col-md-12" style='padding-left:0;margin-bottom:20px'>
+                <div class="col-md-12 col-lg-12" style='padding-left:0;margin-bottom:20px'>
                     <table class="table table-bordered" *ngIf="historyDataTOP10.length > 0">
                         <thead>
                             <tr>
