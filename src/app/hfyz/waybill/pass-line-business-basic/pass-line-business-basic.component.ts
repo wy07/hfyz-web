@@ -1,10 +1,10 @@
-import { PassLineBusinessBasicService } from './sheard/pass-line-business-basic.service';
-import { PassLineBusinessBasicInfo } from './sheard/pass-line-business-basic-info.model';
-import { Component, OnInit } from '@angular/core';
-import { ToastsManager } from 'ng2-toastr';
-import { TdLoadingService } from '@covalent/core';
-import { DatePipe } from '@angular/common';
-import { RegularService } from '../../common/shared/regular.service';
+import {PassLineBusinessBasicService} from './sheard/pass-line-business-basic.service';
+import {PassLineBusinessBasicInfo} from './sheard/pass-line-business-basic-info.model';
+import {Component, OnInit} from '@angular/core';
+import {ToastsManager} from 'ng2-toastr';
+import {TdLoadingService} from '@covalent/core';
+import {DatePipe} from '@angular/common';
+import {RegularService} from '../../common/shared/regular.service';
 
 @Component({
     selector: 'pass-line-business-basic',
@@ -22,10 +22,10 @@ export class PassLineBusinessBasicComponent implements OnInit {
     ownerName: string;
 
     constructor(private _loadingService: TdLoadingService,
-        private _regularService: RegularService,
-        private datePipe: DatePipe,
-        private _passLineBusinessBasicService: PassLineBusinessBasicService,
-        private toastr: ToastsManager) {
+                private _regularService: RegularService,
+                private datePipe: DatePipe,
+                private _passLineBusinessBasicService: PassLineBusinessBasicService,
+                private toastr: ToastsManager) {
         this.max = 10;
         this.page = 0;
         this.total = 0;
@@ -38,10 +38,32 @@ export class PassLineBusinessBasicComponent implements OnInit {
 
     initData() {
         this.passLineBusinessBasicInfo = {
-            id: '', lineCode: '', ownerName: '', companyCode: '', licenseCharacter: '', licenseNo: '', busType: '', startStationName: '',
-            endStationName: '', stopStation: '', mainPoint: '', dayTimes: '', businessWay: '', licenseDecideBookNo: '', decideTime: '',
-            beginTime: '', endTime: '', licenseType: '', businessSituation: '', changeLicenseTimes: '', generalinfoChangeTimes: '',
-            businessinfoChangeTimes: '', inputTotalCar: '', inputTotalSeat: '', totalLinePlate: '', decideOrc: ''
+            id: '',
+            lineCode: '',
+            ownerName: '',
+            companyCode: '',
+            licenseCharacter: '',
+            licenseNo: '',
+            busType: '',
+            startStationName: '',
+            endStationName: '',
+            stopStation: '',
+            mainPoint: '',
+            dayTimes: '',
+            businessWay: '',
+            licenseDecideBookNo: '',
+            decideTime: '',
+            beginTime: '',
+            endTime: '',
+            licenseType: '',
+            businessSituation: '',
+            changeLicenseTimes: '',
+            generalinfoChangeTimes: '',
+            businessinfoChangeTimes: '',
+            inputTotalCar: '',
+            inputTotalSeat: '',
+            totalLinePlate: '',
+            decideOrc: ''
         }
     }
 
@@ -82,11 +104,9 @@ export class PassLineBusinessBasicComponent implements OnInit {
     // /**
     //  * 搜索
     //  */
-    // search() {
-    //     if (this.validate()) {
-    //         this.loadData()
-    //     }
-    // }
+    search() {
+        this.loadData();
+    }
 
     /**
      * 重置
