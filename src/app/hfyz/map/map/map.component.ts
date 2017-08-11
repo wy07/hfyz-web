@@ -405,7 +405,7 @@ export class MapComponent implements OnInit, OnDestroy {
             console.log('=====this.realTimeMonitorGnssData======' + JSON.stringify(this.realTimeMonitorGnssData));
             this.processingDataList(this.realTimeMonitorTOP10, this.realTimeMonitorGnssData)
         }
-        mapObject.realTimePoint(this.realTimeMonitorGnssData.geoPoint,
+        mapObject.realTimeMonitorPoint(this.realTimeMonitorGnssData.geoPoint,
             GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),
             this.realTimeMonitorGnssData.direction);
     }
