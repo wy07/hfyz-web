@@ -1,8 +1,8 @@
-import { Component, OnInit, Renderer, Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
-import { RegularService } from '../common/shared/regular.service';
 import { WarningService } from './shared/warning.service';
 import { LayoutComponent } from '../layout/main-tab/layout.component';
+import {TdLoadingService} from "@covalent/core";
 
 @Component({
   selector: 'app-warning',
@@ -21,10 +21,10 @@ export class WarningComponent implements OnInit {
   currentPage: number;
   layoutComponent: any;
 
-  constructor(private renderer: Renderer
-    , private toastr: ToastsManager
+  constructor(private toastr: ToastsManager
     , private warningService: WarningService
-    , private inj: Injector) {
+    , private inj: Injector
+      , private _loadingService: TdLoadingService) {
     this.displayDialog = false;
     this.warning = {};
     this.max = 10;
@@ -36,8 +36,10 @@ export class WarningComponent implements OnInit {
   }
 
   initData(offset = 0) {
+      this._loadingService.register();
     this.warningService.list(this.max, offset, this.frameNo, this.carLicenseNo).subscribe(
       res => {
+          this._loadingService.resolve();
         this.warningList = res.warningList.warningList;
         this.total = res.warningList.total;
       });

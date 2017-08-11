@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PeopleService} from '../shared/people.service';
+import {TdLoadingService} from "@covalent/core";
 
 
 @Component({
@@ -29,7 +30,8 @@ export class PeopleListComponent implements OnInit {
     types: any[]; // 人员分类
     selectedType: string; // 选中的种类
 
-    constructor(private _peopleService: PeopleService) {
+    constructor(private _peopleService: PeopleService
+        , private _loadingService: TdLoadingService) {
         this.max = 10;
         this.page = 0;
         this.total = 0;
@@ -46,7 +48,6 @@ export class PeopleListComponent implements OnInit {
             {label: '维修人员', value: '维修人员'},
             {label: '站场服务人员', value: '站场服务人员'}];
         this.selectedType = '';
-        this.loadData();
 
         this.displayDialog = false;
         this.checkMember = {};
@@ -58,6 +59,7 @@ export class PeopleListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadData();
     }
 
     /**
@@ -65,8 +67,10 @@ export class PeopleListComponent implements OnInit {
      * @param offset 分页offset值
      */
     loadData(offset = 0) {
+        this._loadingService.register();
         this._peopleService.search(this.selectedType, this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
             res => {
+                this._loadingService.resolve();
                 this.peopleList = res.resultList;
                 this.total = res.total;
             }

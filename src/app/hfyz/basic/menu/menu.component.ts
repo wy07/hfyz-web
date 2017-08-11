@@ -1,9 +1,9 @@
 import { MenuService } from './shared/menu.service';
-import { Component, OnInit, Injector, Renderer, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/components/common/api';
 import { RegularService } from '../../common/shared/regular.service';
+import {TdLoadingService} from "@covalent/core";
 @Component({
     selector: 'menu',
     templateUrl: 'menu.component.html',
@@ -26,14 +26,10 @@ export class MenuComponent implements OnInit {
     parent: any;
 
 
-    constructor(private renderer: Renderer
-        , private router: Router
-        , private activatedRoute: ActivatedRoute
-        , private toastr: ToastsManager
+    constructor(private toastr: ToastsManager
         , private menuService: MenuService
         , private regularService: RegularService
-        , private inj: Injector) {
-        // this.layoutComponent = this.inj.get(LayoutComponent);
+        , private _loadingService: TdLoadingService) {
         this.displayDialog = false;
 
         this.menuPositions = [];
@@ -48,8 +44,10 @@ export class MenuComponent implements OnInit {
 
 
     loadRoot() {
+        this._loadingService.register();
         this.menuService.list(null).subscribe(
             res => {
+                this._loadingService.resolve();
                 this.menuTree = res.menuList;
                 this.type = res.type;
             }
@@ -58,8 +56,10 @@ export class MenuComponent implements OnInit {
 
     loadNode(event) {
         if (event.node && !event.node.children) {
+            this._loadingService.register();
             this.menuService.list(event.node.data.id).subscribe(
                 res => {
+                    this._loadingService.resolve();
                     event.node.children = res.menuList;
                 }
             );
@@ -83,7 +83,6 @@ export class MenuComponent implements OnInit {
                     this.menu = res.menu;
                     if (res.parent) {
                         this.parent = res.parent;
-                        // this.parent.info = `${res.parent.name}==${res.parent.code}`;
                     }
                 } else {
                     this.toastr.error('获取数据失败');
