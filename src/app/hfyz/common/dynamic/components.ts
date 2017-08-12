@@ -1,6 +1,7 @@
-import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
-import { FreightRouteComponent } from './../../waybill/freight-route/freight-route.component';
-import { PermissionComponent } from './../../basic/permission/permission.component';
+import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
+import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
+import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
+import {PermissionComponent} from './../../basic/permission/permission.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -33,6 +34,7 @@ import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
+import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 
 export const components = {
     role: RoleComponent,
@@ -70,8 +72,10 @@ export const components = {
     freightWaybill: FreightWaybillComponent,
     orderExamine: OrderExamineComponent,
     enterpriseFeedback: EnterpriseFeedbackComponent,
+    checkStatistic: CheckStatisticComponent,
     waybillRoute: FreightRouteComponent,
     passLineBusinessInfo: PassLineBusinessBasicComponent,
-    checkStatistic: CheckStatisticComponent,
-    workOrderStatistic:WorkOrderStatisticComponent
+    workOrderStatistic: WorkOrderStatisticComponent,
+    passLinePhysicalInfo: PassLinePhysicalBasicComponent,
+    companyReport: CompanyReportComponent
 };

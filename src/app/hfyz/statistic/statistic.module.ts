@@ -14,11 +14,14 @@ import {CheckStatisticComponent} from './check-statistic/check-statistic.compone
 import {StatisticService} from './shared/statistic.service';
 import {DatepickerModule} from 'ngx-bootstrap';
 import {WorkOrderStatisticComponent} from "./work-order-statistic/work-order-statistic.component";
+import {CompanyReportComponent} from './company-report/company-report.component';
+import {CompanyReportService} from './company-report/company-report.service';
 
 @NgModule({
     declarations: [
         CheckStatisticComponent,
-        WorkOrderStatisticComponent
+        WorkOrderStatisticComponent,
+        CompanyReportComponent
     ],
     imports: [
         BrowserModule,
@@ -38,9 +41,9 @@ import {WorkOrderStatisticComponent} from "./work-order-statistic/work-order-sta
     exports: [],
     providers: [
         DatePipe,
-        StatisticService
+        StatisticService,
+        CompanyReportService
     ]
 })
 export class StatisticModule {
-}
-;
+};

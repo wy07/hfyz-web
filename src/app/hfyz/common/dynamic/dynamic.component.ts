@@ -1,5 +1,6 @@
 import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
+import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
@@ -40,6 +41,7 @@ import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-wor
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
+import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 
 
 @Component({
@@ -50,8 +52,9 @@ import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/
         MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent, FreightRouteComponent, PassLineBusinessBasicComponent, CheckStatisticComponent,
-        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent],
+        OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
+        FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
+        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
