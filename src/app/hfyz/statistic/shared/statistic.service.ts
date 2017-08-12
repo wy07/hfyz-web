@@ -3,11 +3,20 @@ import {Restangular} from 'ngx-restangular';
 
 @Injectable()
 export class StatisticService {
-  constructor(public restangular: Restangular) {
-  }
+    constructor(public restangular: Restangular) {
+    }
 
-  checkList(max, offset, company, startDate, endDate) {
-    return this.restangular.all('check-statistics').customGET('list',
-      {max: max, offset: offset, company: company, startDate: startDate, endDate: endDate});
-  }
+    checkList(max, offset, company, startDate, endDate) {
+        return this.restangular.all('check-statistics').customGET('list',
+            {max: max, offset: offset, company: company, startDate: startDate, endDate: endDate});
+    }
+
+    carNumStatistic() {
+        return this.restangular.all('cars').customGET('car-num-statistic');
+    }
+
+    carHistoryStatistic(year) {
+        return this.restangular.all('cars').customGET('history-statistic', {year: year});
+    }
+
 }

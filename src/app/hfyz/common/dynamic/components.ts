@@ -35,6 +35,7 @@ import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-wor
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/car-basic-statistics.component";
 
 export const components = {
     role: RoleComponent,
@@ -77,5 +78,6 @@ export const components = {
     passLineBusinessInfo: PassLineBusinessBasicComponent,
     workOrderStatistic: WorkOrderStatisticComponent,
     passLinePhysicalInfo: PassLinePhysicalBasicComponent,
-    companyReport: CompanyReportComponent
+    companyReport: CompanyReportComponent,
+    carBasicStatistics: CarBasicStatisticsComponent
 };

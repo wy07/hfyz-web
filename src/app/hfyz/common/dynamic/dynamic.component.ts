@@ -42,6 +42,7 @@ import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-way
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/car-basic-statistics.component";
 
 
 @Component({
@@ -54,7 +55,8 @@ import {CompanyReportComponent} from '../../statistic/company-report/company-rep
         WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
         OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
         FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
-        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent],
+        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent,
+        CarBasicStatisticsComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

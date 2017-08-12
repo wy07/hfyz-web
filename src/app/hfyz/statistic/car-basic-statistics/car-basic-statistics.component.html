@@ -1,0 +1,59 @@
+<div class="row div-1">
+    <div class="col-sm-12">
+        <div class="car-basic-statistics-title">
+            当前车辆总体情况
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-3 text-right title-2">车辆总数</div>
+                <div class="col-sm-7">
+                    <progressbar [max]="carNum" [value]="carNum"  type="success">
+                        <b>{{carNum}} 辆</b>
+                    </progressbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right  title-2">入网车辆数</div>
+                <div class="col-sm-7">
+                    <progressbar [max]="carNum" [value]="enterCarNum"  type="warning">
+                        <b>{{enterCarNum}} 辆</b>
+                    </progressbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 text-right  title-2">在线车辆数</div>
+                <div class="col-sm-7">
+                    <progressbar [max]="carNum" [value]="onlineCarNum"  type="danger">
+                        <b>{{onlineCarNum}} 辆</b>
+                    </progressbar>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 car-rate-div">
+            <div class="col-sm-6">
+                <div echarts [options]="enterCarRate" [dataset]="enterCarRateDataset"  class="rate-chart"></div>
+            </div>
+            <div class="col-sm-6">
+                <div echarts [options]="onlineCarRate" [dataset]="onlineCarRateDataset"  class="rate-chart"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row div-2">
+    <div class="col-sm-12">
+        <div class="car-basic-statistics-title">
+            统计分析
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">统计年份：</span>
+            <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto" (change)="getCarHistoryStatistic()" >
+                <option *ngFor="let item of years" [ngValue]="item" >{{item}}</option>
+            </select>
+        </div>
+        <div class="col-sm-12">
+            <div echarts [options]="historyOption" [dataset]="historyDataset"  class="history-chart"></div>
+        </div>
+    </div>
+
+</div>
