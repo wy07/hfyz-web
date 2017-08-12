@@ -13,12 +13,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CheckStatisticComponent} from './check-statistic/check-statistic.component';
 import {StatisticService} from './shared/statistic.service';
 import {DatepickerModule} from 'ngx-bootstrap';
+import {WorkOrderStatisticComponent} from "./work-order-statistic/work-order-statistic.component";
 import {CompanyReportComponent} from './company-report/company-report.component';
 import {CompanyReportService} from './company-report/company-report.service';
 
 @NgModule({
     declarations: [
         CheckStatisticComponent,
+        WorkOrderStatisticComponent,
         CompanyReportComponent
     ],
     imports: [

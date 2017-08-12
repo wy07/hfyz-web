@@ -40,6 +40,7 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
+import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 
 
@@ -53,7 +54,7 @@ import {CompanyReportComponent} from '../../statistic/company-report/company-rep
         WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
         OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
         FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
-        PendingWorkOrderComponent, FeedbackWorkOrderComponent, CompanyReportComponent],
+        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
