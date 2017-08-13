@@ -1,89 +1,210 @@
-<div class="ui-g-12 ui-md-4" >
-  <div class="panel panel-default  overview">
-    <div class="panel-body" >
-         <div class="overview-content">
-          <a (click)="toOtherPage('/device/all','deviceAdmin')"><span class="overview-title">新增车辆</span></a>
-          <!--span class="overview-badge">+%60</span -->
-          <span class="overview-detail">230  台/月</span>
-      </div>
-            
-      <div class="overview-footer">
-          <img src="assets/images/sales.svg" style="width: 100%">
-       </div>
-      
-    </div>
-  </div>
-</div>
-<div class="ui-g-12 ui-md-4" >
-  <div class="panel panel-default overview"  >
-    
-    <div class="panel-body" >
-      <div class="overview-content">
-          <a  (click)="toOtherPage('/alarm/all','alarm')"><span class="overview-title">投诉总数</span></a>
-          <!--span class="overview-badge">-%60</span -->
-          <span class="overview-detail">230 起/月</span>
-      </div>
-            
-      <div class="overview-footer">
-          <img src="assets/images/views.svg" style="width: 100%">
-       </div>
-    </div>
-  </div>
-</div>
-<div class="ui-g-12 ui-md-4" >
-  <div class="panel panel-default  overview" >
-    <div class="panel-body" >
-      <div class="overview-content">
-          <a (click)="toOtherPage('/monitor/all','monitor')"><span class="overview-title">执法总数</span></a>
-          <!--span class="overview-badge">+%12</span-->
-          <span class="overview-detail">230 件/月</span>
-      </div>
-            
-      <div class="overview-footer">
-          <img src="assets/images/progress.svg" style="width: 100%">
-       </div>
-    </div>
-  </div>
-</div>
-<!--div class="ui-g-12 ui-lg-5">
-    <p-panel >
-        <p-header>待办任务</p-header>
-
-    </p-panel>
-</div>
-<div class="ui-g-12 ui-lg-7">
-    <p-panel >
-        <p-header>日程安排</p-header>
-
-    </p-panel>
-</div -->
-<div class="ui-g-12 ui-lg-8">
-  <p-panel [style]="{'height':'400px'}" >
-    <p-header >
-        <div class="ui-helper-clearfix">
-            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">**走势图</span>
-            
-            <div class="pull-right" >
-                <a href="#" class="resize" >＋</a>
+<div *ngIf="selectedTab==='tab1'">
+    <div class="row div-1">
+        <div class="col-sm-12">
+            <div class="car-basic-statistics-title">
+                当前车辆总体情况
             </div>
-        </div> 
-    </p-header>
-    <p-chart type="line" [data]="data"  ></p-chart>
-   
-</p-panel>
-  
-</div>
-<div class="ui-g-12 ui-lg-4">
-    <p-panel  [style]="{'height':'400px'}">
-    <p-header >
-        <div class="ui-helper-clearfix">
-            <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">**走势图</span>
-            
-            <div class="pull-right" >
-                <a href="#" class="resize" >＋</a>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3 text-right title-2">车辆总数</div>
+                    <div class="col-sm-7">
+                        <progressbar [max]="carNum" [value]="carNum" type="success">
+                            <b>{{carNum}} 辆</b>
+                        </progressbar>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 text-right  title-2">入网车辆数</div>
+                    <div class="col-sm-7">
+                        <progressbar [max]="carNum" [value]="enterCarNum" type="warning">
+                            <b>{{enterCarNum}} 辆</b>
+                        </progressbar>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 text-right  title-2">在线车辆数</div>
+                    <div class="col-sm-7">
+                        <progressbar [max]="carNum" [value]="onlineCarNum" type="danger">
+                            <b>{{onlineCarNum}} 辆</b>
+                        </progressbar>
+                    </div>
+                </div>
             </div>
-        </div> 
-    </p-header>
-     <p-chart type="doughnut" [data]="datapie"  ></p-chart>
-    </p-panel>
+            <div class="col-sm-6 car-rate-div">
+                <div class="col-sm-6">
+                    <div echarts theme="macarons" [options]="enterCarRateOption" class="rate-chart"></div>
+                </div>
+                <div class="col-sm-6">
+                    <div echarts theme="macarons" [options]="onlineCarRateOption" class="rate-chart"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row div-2">
+        <div class="col-sm-12">
+            <div class="car-basic-statistics-title">
+                统计分析
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">统计年份：</span>
+                <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto"
+                        (change)="getCarHistoryStatistic()">
+                    <option *ngFor="let item of years" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <div echarts theme="macarons" [options]="historyOption" [dataset]="historyDataset" class="history-chart"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="selectedTab==='tab2'">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <h3>数据比率：</h3>
+                <div class="col-sm-4">
+                    <ul class="list-unstyled">
+                        <li *ngFor="let item of carGaugeChartRates" (click)="onSelectCarRateGaugeChart(item.code)"
+                            role="button" [ngClass]="item.code==currentCarGaugeChartRate?'bg-info':''">{{item.name}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div echarts theme="macarons" [options]="carGaugeChartRateOption" class="car-pie-chart-rate"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <h3>两客一危情况：</h3>
+                <div class="col-sm-4">
+                    <div *ngFor="let item of carPieChartRates">
+
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="carPieChartRadio" [(ngModel)]="currentCarPieChartRate"
+                                       [value]="item.code" (click)="onChangeCarPieChartRadio(item.code)">
+                                {{item.name}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div echarts theme="macarons" [options]="carPieChartRateOption" class="car-pie-chart-rate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>区域情况：</h3>
+            <div echarts theme="macarons" [options]="regionBarBrushOption" style="height: 530px"></div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <h3>当月时间处理情况：</h3>
+                <div class="col-sm-12">
+                    <div echarts theme="macarons" [options]="workOrderBarChartOption" class="car-pie-chart-rate"></div>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <h3>事件分类趋势：</h3>
+                <div class="col-sm-12">
+                    <div echarts theme="macarons" [options]="warningLineChartOption"  class="car-pie-chart-rate"></div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>车辆在线总览：</h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3 text-right title-2">两客一危</div>
+                        <div class="col-sm-7">
+                            <progressbar [max]="carNum" [value]="carNum" type="success">
+                                <b>{{carNum}} 辆</b>
+                            </progressbar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3 text-right title-2">班线客运</div>
+                        <div class="col-sm-7">
+                            <progressbar [max]="carNum" [value]="carNum" type="success">
+                                <b>{{carNum}} 辆</b>
+                            </progressbar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3 text-right title-2">危险品</div>
+                        <div class="col-sm-7">
+                            <progressbar [max]="carNum" [value]="carNum" type="success">
+                                <b>{{carNum}} 辆</b>
+                            </progressbar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-3 text-right title-2">旅游包车</div>
+                        <div class="col-sm-7">
+                            <progressbar [max]="carNum" [value]="carNum" type="success">
+                                <b>{{carNum}} 辆</b>
+                            </progressbar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3>车辆违规行为总览：</h3>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">超速驾驶报警总数：</div>
+                        <div class="col-sm-6 alarmNum">
+                            {{carNum}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">车辆便宜报警总数：</div>
+                        <div class="col-sm-6 alarmNum">
+                            {{carNum}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">疲劳驾驶报警总数：</div>
+                        <div class="col-sm-6 alarmNum">
+                            {{carNum}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6 text-right">凌晨2~5点未停驶：</div>
+                        <div class="col-sm-6 alarmNum">
+                            {{carNum}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
