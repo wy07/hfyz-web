@@ -38,7 +38,6 @@ export class WhiteListComponent implements OnInit {
         this.total = 0;
 
         this.vehicleNo = '';
-        this.loadData();
 
         this.whiteLists = [];
         this.whiteList = {};
@@ -48,6 +47,7 @@ export class WhiteListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadData();
     }
 
     /**

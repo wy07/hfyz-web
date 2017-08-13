@@ -43,6 +43,7 @@ import {CheckStatisticComponent} from '../../statistic/check-statistic/check-sta
 import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/car-basic-statistics.component";
+import {CompanyRegulationComponent} from "../../owner-identity/company-regulation/company-regulation.component";
 
 
 @Component({
@@ -56,7 +57,7 @@ import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/
         OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
         FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
         PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent,
-        CarBasicStatisticsComponent],
+        CarBasicStatisticsComponent, CompanyRegulationComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
