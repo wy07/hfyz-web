@@ -53,23 +53,23 @@ export class DangerousStatisticComponent implements OnInit {
     return true;
   }
   showOnline(travel) {
-    const menu = { name: '在线旅游包车信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
-                                                                                     , type: 'travel', status: 'online'}};
+    const menu = { name: '在线危险品车辆信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
+                                                                                     , type: 'dangerous', status: 'online'}};
     this.layoutComponent.addTab(menu);
   }
   showOnlineing(travel) {
-    const menu = { name: '上线旅游包车信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
-                                                                                    , type: 'travel', status: 'onlineing'}};
+    const menu = { name: '上线危险品车辆信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
+                                                                                    , type: 'dangerous', status: 'onlineing'}};
     this.layoutComponent.addTab(menu);
   }
   showCrossCar(travel) {
-    const menu = { name: '跨域旅游包车信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
-                                                                                     , type: 'travel', status: 'crossCar'}};
+    const menu = { name: '跨域危险品车辆信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
+                                                                                     , type: 'dangerous', status: 'crossCar'}};
     this.layoutComponent.addTab(menu);
   }
   showWarning(travel) {
-    const menu = { name: '报警旅游包车信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
-                                                                                     , type: 'travel', status: 'waring'}};
+    const menu = { name: '报警危险品车辆信息', icon: 'fa-car', code: 'showDetail', inputs: { ownerName: travel.ownerName
+                                                                                     , type: 'dangerous', status: 'waring'}};
     this.layoutComponent.addTab(menu);
   }
   cancel() {

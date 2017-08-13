@@ -36,6 +36,7 @@ import {PassengerStatisticComponent} from '../../statistic/car-statistic/passeng
 import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
 export const components = {
   role: RoleComponent,
   permission: PermissionComponent,
@@ -78,5 +79,6 @@ export const components = {
   travelStatistic: TravelStatisticComponent,
   waybillRoute: FreightRouteComponent,
   passLineBusinessInfo: PassLineBusinessBasicComponent,
-  companyReport: CompanyReportComponent
+  companyReport: CompanyReportComponent,
+  dangerousStatistic: DangerousStatisticComponent
 };

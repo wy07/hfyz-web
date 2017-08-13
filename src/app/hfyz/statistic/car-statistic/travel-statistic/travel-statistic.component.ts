@@ -38,6 +38,7 @@ export class TravelStatisticComponent implements OnInit {
     this._statisticService.travelList(this.max, offset, this.company).subscribe(
       res => {
         this._loadingService.resolve();
+        console.log('rest.ravelStatisticList====' + res.travelStatisticList);
         this.travelStatisticList = res.travelStatisticList;
         this.total = res.total;
       }

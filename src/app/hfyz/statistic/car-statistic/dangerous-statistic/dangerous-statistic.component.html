@@ -21,21 +21,23 @@
             <div class="col-md-12">
                 <p-dataTable [value]="dangerousStatisticList" [emptyMessage]="'暂无数据'">
                     <p-column field="ownerName" header="业户名称"></p-column>
-                    <p-column field="online" header="在线旅游包车">
+                    <p-column field="online" header="在线危险品车辆">
                         <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showOnline(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
                         </ng-template>
                     </p-column>
-                    <p-column field="onlineing" header="上线旅游包车">
+                    <p-column field="onlineing" header="上线危险品车辆">
                         <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showOnlineing(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
                         </ng-template>
                     </p-column>
-                    <p-column field="crossCar" header="跨域旅游包车">
+                    <p-column field="crossCar" header="跨域危险品车辆">
                         <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showCrossCar(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
                         </ng-template>
                     </p-column>
+                    <!--<p-column field="dangerousGoods" header="运输危险品货物"></p-column>-->
+                    <!--<p-column field="haulway" header="危险品运输路线"></p-column>-->
                     <p-column field="warning" header="报警情况">
                         <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showWarning(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>

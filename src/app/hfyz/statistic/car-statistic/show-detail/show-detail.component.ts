@@ -10,7 +10,7 @@ import {MapService} from '../../../map/shared/map.service';
   styleUrls: ['./show-detail.component.css']
 })
 export class ShowDetailComponent implements OnInit {
-  onlineList: any;
+  detailList: any;
   max: number;
   total: number;
   currentPage: number;
@@ -50,7 +50,7 @@ export class ShowDetailComponent implements OnInit {
     this._statisticService.detailList(this.max, offset, this.licenseNo, this.ownerName, this.type, this.status).subscribe(
       res => {
         this._loadingService.resolve();
-        this.onlineList = res.onlineList;
+        this.detailList = res.detailList;
         this.total = res.total;
       }
     );

@@ -19,7 +19,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
-                <p-dataTable [value]="onlineList" [emptyMessage]="'暂无数据'">
+                <p-dataTable [value]="detailList" [emptyMessage]="'暂无数据'">
                     <p-column field="licenseNo" header="车牌号">
                         <ng-template let-col let-passenger="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showRealTimeMap(passenger)" href="javascript:;">{{passenger[col.field]}}</a>

@@ -43,6 +43,7 @@ import {PassengerStatisticComponent} from '../../statistic/car-statistic/passeng
 import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -53,7 +54,7 @@ import {CompanyReportComponent} from '../../statistic/company-report/company-rep
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
                     PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
                     FeedbackWorkOrderComponent, FreightWaybillComponent, ShowDetailComponent, TravelStatisticComponent,
-                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent],
+                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
