@@ -1,6 +1,7 @@
-import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
-import { FreightRouteComponent } from './../../waybill/freight-route/freight-route.component';
-import { PermissionComponent } from './../../basic/permission/permission.component';
+import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
+import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
+import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
+import {PermissionComponent} from './../../basic/permission/permission.component';
 import {OrganizationComponent} from './../../basic/organization/organization.component';
 import {SystemCodeComponent} from './../../basic/systemCode/system-code.component';
 import {MenuComponent} from './../../basic/menu/menu.component';
@@ -37,6 +38,9 @@ import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/sho
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
+import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
+import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
+
 export const components = {
   role: RoleComponent,
   permission: PermissionComponent,
@@ -80,5 +84,8 @@ export const components = {
   waybillRoute: FreightRouteComponent,
   passLineBusinessInfo: PassLineBusinessBasicComponent,
   companyReport: CompanyReportComponent,
-  dangerousStatistic: DangerousStatisticComponent
+  dangerousStatistic: DangerousStatisticComponent,
+  workOrderStatistic: WorkOrderStatisticComponent,
+  passLinePhysicalInfo: PassLinePhysicalBasicComponent,
+  carBasicStatistics: CarBasicStatisticsComponent
 };

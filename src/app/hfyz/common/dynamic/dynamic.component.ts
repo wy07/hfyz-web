@@ -1,5 +1,6 @@
 import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
+import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
 import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
 import {WarningComponent} from '../../warning/warning.component';
 import {PeopleListComponent} from '../../people/list/people-list.component';
@@ -44,6 +45,9 @@ import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/sho
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
+import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
+import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
+
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -54,7 +58,9 @@ import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangero
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
                     PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
                     FeedbackWorkOrderComponent, FreightWaybillComponent, ShowDetailComponent, TravelStatisticComponent,
-                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent],
+                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
+                    PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent],
+
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

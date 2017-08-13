@@ -43,4 +43,8 @@ export class WorkOrderService {
         return this.restangular.one('work-orders', id).customPOST(params, 'feedback');
     }
 
+    statistic(params){
+        return this.restangular.all('work-orders').customGET('statistic', params);
+    }
+
 }

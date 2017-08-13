@@ -1,5 +1,8 @@
 import { PassLineBusinessBasicService } from './pass-line-business-basic/sheard/pass-line-business-basic.service';
 import { PassLineBusinessBasicComponent } from './pass-line-business-basic/pass-line-business-basic.component';
+import { PassLinePhysicalBasicService } from './pass-line-physical-basic/sheard/pass-line-physical-basic.service';
+import { PassLinePhysicalBasicComponent } from './pass-line-physical-basic/pass-line-physical-basic.component';
+
 import { FreightRouteService } from './freight-route/sheard/freight-route.service';
 import { FreightRouteComponent } from './freight-route/freight-route.component';
 import {NgModule} from '@angular/core';
@@ -23,12 +26,14 @@ import { WuCitySelectModule } from 'ngx-select-city';
     declarations: [
         FreightWaybillComponent,
         FreightRouteComponent,
-        PassLineBusinessBasicComponent
+        PassLineBusinessBasicComponent,
+        PassLinePhysicalBasicComponent
     ],
     providers: [
         FreightWaybillService,
         FreightRouteService,
-        PassLineBusinessBasicService
+        PassLineBusinessBasicService,
+        PassLinePhysicalBasicService
     ]
 })
 export class WaybillModule {
