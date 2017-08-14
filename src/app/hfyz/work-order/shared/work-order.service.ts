@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class WorkOrderService {
@@ -7,15 +7,15 @@ export class WorkOrderService {
     }
 
     list(max, offset) {
-        return this.restangular.all('work-orders').customGET('list', {max: max, offset: offset});
+        return this.restangular.all('work-orders').customGET('list', { max: max, offset: offset });
     }
 
     pendinglist(max, offset) {
-        return this.restangular.all('work-orders').customGET('pending-work-order-list', {max: max, offset: offset});
+        return this.restangular.all('work-orders').customGET('pending-work-order-list', { max: max, offset: offset });
     }
 
     feedbackList(max, offset) {
-        return this.restangular.all('work-orders').customGET('feedback-work-order-list', {max: max, offset: offset});
+        return this.restangular.all('work-orders').customGET('feedback-work-order-list', { max: max, offset: offset });
 
     }
 
@@ -43,7 +43,7 @@ export class WorkOrderService {
         return this.restangular.one('work-orders', id).customPOST(params, 'feedback');
     }
 
-    statistic(params){
+    statistic(params) {
         return this.restangular.all('work-orders').customGET('statistic', params);
     }
 

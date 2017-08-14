@@ -35,34 +35,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         this.pageFlag = 'LIST';
         this.detailFlag = false;
         this.passLinePhysicalInfos = [];
-        this.initData();
-    }
-
-    initData() {
-        this.passLinePhysicalBasicInfo = {
-            id: '',
-            lineCode: '',
-            lineName: '',
-            modifyTime: '',
-            businessArea: '',
-            lineType: '',
-            startPlace: '',
-            endPlace: '',
-            mainPoint: '',
-            startAdminDivsionCode: '',
-            startAdminDivsionName: '',
-            endAdminDivsionCode: '',
-            endAdminDivsionName: '',
-            lineMileAge: '',
-            highwayMileAge: '',
-            percentage: '',
-            highwayEntry: '',
-            highwayExit: '',
-            highway: '',
-            villageLine: '',
-            travelLine: '',
-            busLine: '',
-        }
     }
 
     ngOnInit() {
