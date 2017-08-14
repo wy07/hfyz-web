@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <span class="input-group-addon">业户名称：</span>
+                    <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..."/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-3">
+                <button pButton label="检索" type="button"(click)="initData()"></button>
+                <button pButton label="取消" type="button" (click)="cancel()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p-dataTable [value]="dangerousStatisticList" [emptyMessage]="'暂无数据'">
+                    <p-column field="ownerName" header="业户名称"></p-column>
+                    <p-column field="online" header="在线危险品车辆">
+                        <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
+                            <a (click)="showOnline(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="onlineing" header="上线危险品车辆">
+                        <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
+                            <a (click)="showOnlineing(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="crossCar" header="跨域危险品车辆">
+                        <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
+                            <a (click)="showCrossCar(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="dangerousGoods" header="运输危险品货物"></p-column>
+                    <p-column field="haulway" header="危险品运输路线"></p-column>
+                    <p-column field="warning" header="报警情况">
+                        <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
+                            <a (click)="showWarning(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
+                        </ng-template>
+                    </p-column>
+                    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+                </p-dataTable>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
