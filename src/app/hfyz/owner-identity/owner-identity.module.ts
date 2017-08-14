@@ -15,10 +15,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {OwnerIdentityComponent} from './owner-identity.component';
 import {OwnerIdentityService} from './shared/owner-identity.service';
+import {CompanyRegulationComponent} from './company-regulation/company-regulation.component';
+import {CompanyRegulationService} from './company-regulation/company-regulation.service';
 
 @NgModule({
     declarations: [
-        OwnerIdentityComponent
+        OwnerIdentityComponent,
+        CompanyRegulationComponent
     ],
     imports: [
         BrowserModule,
@@ -35,7 +38,8 @@ import {OwnerIdentityService} from './shared/owner-identity.service';
     ],
     exports: [],
     providers: [
-        OwnerIdentityService
+        OwnerIdentityService,
+        CompanyRegulationService
     ]
 })
 export class OwnerIdentityModule {

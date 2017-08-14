@@ -1,3 +1,5 @@
+import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
+import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
 import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
 import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
@@ -39,6 +41,7 @@ import {CompanyReportComponent} from '../../statistic/company-report/company-rep
 import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
 import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
+import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
 
 export const components = {
   role: RoleComponent,
@@ -85,5 +88,8 @@ export const components = {
   dangerousStatistic: DangerousStatisticComponent,
   workOrderStatistic: WorkOrderStatisticComponent,
   passLinePhysicalInfo: PassLinePhysicalBasicComponent,
-  carBasicStatistics: CarBasicStatisticsComponent
+  carBasicStatistics: CarBasicStatisticsComponent,
+  alarmInfoStatistics: AlarmInfoStatisticComponent,
+  ownerIdentityStatistics: OwnerIdentityStatisticComponent,
+  companyRegulation: CompanyRegulationComponent
 };

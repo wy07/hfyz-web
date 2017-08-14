@@ -1,5 +1,7 @@
-import {NgModule} from '@angular/core';
-import {HttpModule} from '@angular/http';
+import { OwnerIdentityStatisticComponent } from './owner-identity-statistic/owner-identity-statistic.component';
+import { AlarmInfoStatisticComponent } from './alarm-info-statistic/alarm-info-statistic.component';
+import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import {
     DataTableModule,
     ButtonModule,
@@ -33,7 +35,9 @@ import { AngularEchartsModule } from 'ngx-echarts';
       DangerousStatisticComponent,
       CompanyReportComponent,
       WorkOrderStatisticComponent,
-      CarBasicStatisticsComponent
+      CarBasicStatisticsComponent,
+      AlarmInfoStatisticComponent,
+      OwnerIdentityStatisticComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-addon">企业名称：</span>
+                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入企业名称..."/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon">有效期至：</span>
+                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateBegin"></p-calendar>
+                    -
+                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateEnd"></p-calendar>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList">
+            <p-column field="ownerName" header="企业名称" ></p-column>
+            <p-column field="regulationName" header="制度名称" ></p-column>
+            <p-column field="fileName" header="文件名"></p-column>
+            <p-column field="fileType" header="文件类型" ></p-column>
+            <p-column field="fileSize" header="文件大小（KB）" ></p-column>
+            <p-column field="dateCreated" header="创建时间" ></p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+</div>
