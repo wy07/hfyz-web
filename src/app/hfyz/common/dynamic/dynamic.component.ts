@@ -41,7 +41,6 @@ import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-wor
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
-import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
@@ -57,7 +56,7 @@ import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/
                     WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
                     WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
                     PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
-                    FeedbackWorkOrderComponent, FreightWaybillComponent, ShowDetailComponent, TravelStatisticComponent,
+                    FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
                     FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
                     PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent],
 

@@ -1,5 +1,4 @@
 import {Component, Injector, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
 import {TdLoadingService} from '@covalent/core';
 import {StatisticService} from '../../shared/statistic.service';
 import {LayoutComponent} from '../../../layout/main-tab/layout.component';
@@ -15,9 +14,7 @@ export class PassengerStatisticComponent implements OnInit {
   currentPage: number;
   company: string;
   layoutComponent: any;
-    constructor(
-     private _toastr: ToastsManager
-    , private _statisticService: StatisticService
+    constructor(private _statisticService: StatisticService
     , private _loadingService: TdLoadingService
     , private inj: Injector
     ) {
@@ -31,9 +28,6 @@ export class PassengerStatisticComponent implements OnInit {
   }
 
   initData(offset = 0) {
-    if (!this.validation_search()) {
-      return false;
-    }
     this._loadingService.register();
     this._statisticService.passengerList(this.max, offset, this.company).subscribe(
       res => {
@@ -49,26 +43,23 @@ export class PassengerStatisticComponent implements OnInit {
       this.initData(this.max * event.page);
     }
   }
-  validation_search() {
-    return true;
-  }
   showOnline(passenger) {
-    const menu = { name: '在线班线车辆信息', icon: 'fa-bus', code: 'showDetail', inputs: { ownerName: passenger.ownerName
+    const menu = { name: '车辆信息', icon: 'fa-bus', code: 'carList', inputs: { ownerName: passenger.ownerName
                                                                                      , type: 'passenger', status: 'online'}};
     this.layoutComponent.addTab(menu);
   }
   showOnlineing(passenger) {
-    const menu = { name: '上线班车车辆信息', icon: 'fa-bus', code: 'showDetail', inputs: { ownerName: passenger.ownerName
+    const menu = { name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: { ownerName: passenger.ownerName
                                                                                     , type: 'passenger', status: 'onlineing'}};
     this.layoutComponent.addTab(menu);
   }
   showCrossCar(passenger) {
-    const menu = { name: '跨域班线车辆信息', icon: 'fa-bus', code: 'showDetail', inputs: { ownerName: passenger.ownerName
+    const menu = { name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: { ownerName: passenger.ownerName
                                                                                      , type: 'passenger', status: 'crossCar'}};
     this.layoutComponent.addTab(menu);
   }
   showWarning(passenger) {
-    const menu = { name: '报警车辆信息', icon: 'fa-bus', code: 'showDetail', inputs: { ownerName: passenger.ownerName
+    const menu = { name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: { ownerName: passenger.ownerName
                                                                                      , type: 'passenger', status: 'waring'}};
     this.layoutComponent.addTab(menu);
   }

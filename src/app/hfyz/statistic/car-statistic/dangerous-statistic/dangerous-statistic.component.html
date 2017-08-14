@@ -13,7 +13,6 @@
                 <button pButton label="检索" type="button"(click)="initData()"></button>
                 <button pButton label="取消" type="button" (click)="cancel()"></button>
             </div>
-
         </div>
     </div>
     <div class="panel-body">
@@ -36,8 +35,8 @@
                             <a (click)="showCrossCar(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>
                         </ng-template>
                     </p-column>
-                    <!--<p-column field="dangerousGoods" header="运输危险品货物"></p-column>-->
-                    <!--<p-column field="haulway" header="危险品运输路线"></p-column>-->
+                    <p-column field="dangerousGoods" header="运输危险品货物"></p-column>
+                    <p-column field="haulway" header="危险品运输路线"></p-column>
                     <p-column field="warning" header="报警情况">
                         <ng-template let-col let-dangerous="rowData" let-ri="rowIndex" pTemplate="body">
                             <a (click)="showWarning(dangerous)" href="javascript:;">{{dangerous[col.field]}}</a>

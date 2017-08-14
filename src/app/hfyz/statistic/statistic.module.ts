@@ -18,7 +18,6 @@ import {StatisticService} from './shared/statistic.service';
 import {DatepickerModule, ProgressbarModule} from 'ngx-bootstrap';
 import {PassengerStatisticComponent} from './car-statistic/passenger-statistic/passenger-statistic.component';
 import {MapModule} from '../map/map.module';
-import {ShowDetailComponent} from './car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from './car-statistic/travel-statistic/travel-statistic.component';
 import {DangerousStatisticComponent} from './car-statistic/dangerous-statistic/dangerous-statistic.component';
 import {CompanyReportComponent} from './company-report/company-report.component';
@@ -30,7 +29,6 @@ import { AngularEchartsModule } from 'ngx-echarts';
   declarations: [
       CheckStatisticComponent,
       PassengerStatisticComponent,
-      ShowDetailComponent,
       TravelStatisticComponent,
       DangerousStatisticComponent,
       CompanyReportComponent,

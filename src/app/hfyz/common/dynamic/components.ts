@@ -34,7 +34,6 @@ import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
 import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
-import {ShowDetailComponent} from '../../statistic/car-statistic/show-detail/show-detail.component';
 import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
@@ -79,7 +78,6 @@ export const components = {
   passengerStatistic: PassengerStatisticComponent,
   pendingWorkOrder: PendingWorkOrderComponent,
   feedbackWorkOrder: FeedbackWorkOrderComponent,
-  showDetail: ShowDetailComponent,
   travelStatistic: TravelStatisticComponent,
   waybillRoute: FreightRouteComponent,
   passLineBusinessInfo: PassLineBusinessBasicComponent,
