@@ -159,3 +159,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 .progress-bar{
     padding-top: 7px;
 }
+
+.showDetails .form-group {
+    margin-bottom: 0 !important;
+}
