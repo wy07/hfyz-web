@@ -39,6 +39,7 @@ import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
+import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 
 export const components = {
     role: RoleComponent,
@@ -85,5 +86,6 @@ export const components = {
     carBasicStatistics: CarBasicStatisticsComponent,
     alarmInfoStatistics: AlarmInfoStatisticComponent,
     ownerIdentityStatistics: OwnerIdentityStatisticComponent,
-    companyRegulation: CompanyRegulationComponent
+    companyRegulation: CompanyRegulationComponent,
+    platformStatisticComponent:PlatformStatisticComponent
 };
