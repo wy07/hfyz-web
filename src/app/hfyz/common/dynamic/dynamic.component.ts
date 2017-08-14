@@ -49,6 +49,10 @@ import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangero
 import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
+import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+
+
+
 @Component({
   selector: 'dynamic-container',
   // entryComponents: Object.keys(components).map(key => components[key]),
@@ -61,7 +65,8 @@ import {CompanyRegulationComponent} from '../../owner-identity/company-regulatio
                     FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
                     FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
                     PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
-                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent],
+                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent,PlatformStatisticComponent],
+
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
