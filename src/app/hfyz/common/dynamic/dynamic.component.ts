@@ -1,3 +1,5 @@
+import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
+import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
 import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
 import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
 import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
@@ -40,9 +42,9 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {WorkOrderStatisticComponent} from "../../statistic/work-order-statistic/work-order-statistic.component";
+import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
-import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/car-basic-statistics.component";
+import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 
 
 @Component({
@@ -56,7 +58,7 @@ import {CarBasicStatisticsComponent} from "../../statistic/car-basic-statistics/
         OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
         FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
         PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent,
-        CarBasicStatisticsComponent],
+        CarBasicStatisticsComponent, AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent],
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>

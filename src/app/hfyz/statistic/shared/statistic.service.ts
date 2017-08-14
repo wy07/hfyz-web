@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class StatisticService {
@@ -8,7 +8,7 @@ export class StatisticService {
 
     checkList(max, offset, company, startDate, endDate) {
         return this.restangular.all('check-statistics').customGET('list',
-            {max: max, offset: offset, company: company, startDate: startDate, endDate: endDate});
+            { max: max, offset: offset, company: company, startDate: startDate, endDate: endDate });
     }
 
     carNumStatistic() {
@@ -19,4 +19,12 @@ export class StatisticService {
         return this.restangular.all('cars').customGET('history-statistic', {year: year});
     }
 
+    alarmInfoStatistic(params) {
+        return this.restangular.all('alarm-info-statistics').customGET('list', params);
+    }
+
+    // /owner-identitys/appraise-statistic
+    getAppraiseStatistic(ownerName) {
+        return this.restangular.all('owner-identitys').customGET('appraise-statistic', {ownerName: ownerName});
+    }
 }
