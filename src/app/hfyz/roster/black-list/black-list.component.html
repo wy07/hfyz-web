@@ -19,29 +19,35 @@
       </div>
       <div class="col-md-3">
         <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-        <button type="button" class="btn btn-primary" (click)="add()">新增</button>
         <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
       </div>
     </div>
   </div>
-  <div class="panel-body">
-    <p-dataTable [emptyMessage]="'暂无数据'" [value]="blackLists">
-      <p-column field="vehicleNo" header="车牌号"></p-column>
-      <p-column field="controlOrg" header="布控单位"></p-column>
-      <p-column field="executor" header="布控人"></p-column>
-      <p-column field="controlBegin" header="布控开始时间"></p-column>
-      <p-column field="controlEnd" header="布控结束时间"></p-column>
-      <p-column field="status" header="布控状态"></p-column>
-      <p-column field="" header="操作">
-        <ng-template let-data="rowData" pTemplate="body">
-          <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
-          <button type="button" class="btn btn-primary btn-xs" (click)="update(data.id)">修改</button>
-          <button type="button" class="btn btn-primary btn-xs" (click)="delete(data.id,data.vehicleNo)">删除</button>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-  </div>
+    <div class="panel-body">
+        <div class="top-buttons">
+            <button pButton type="button" label="新增"
+                    (click)="add()"></button>
+        </div>
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="blackLists">
+            <p-column field="vehicleNo" header="车牌号"></p-column>
+            <p-column field="controlOrg" header="布控单位"></p-column>
+            <p-column field="executor" header="布控人"></p-column>
+            <p-column field="controlBegin" header="布控开始时间"></p-column>
+            <p-column field="controlEnd" header="布控结束时间"></p-column>
+            <p-column field="status" header="布控状态"></p-column>
+            <p-column field="" header="操作" [style]="{'width':'120px'}">
+                <ng-template let-data="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance"
+                         (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                         (click)="update(data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance"
+                         (click)="delete(data.id,data.vehicleNo)" tooltip="删除" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
 </div>
 <div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
   <div class="panel-heading">

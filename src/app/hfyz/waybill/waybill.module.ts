@@ -12,6 +12,7 @@ import {CalendarModule, DataTableModule, DialogModule, DropdownModule, Paginator
 import {FormsModule} from '@angular/forms';
 import {FreightWaybillService} from './freight-waybill/freight-waybill.service';
 import { WuCitySelectModule } from 'ngx-select-city';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { WuCitySelectModule } from 'ngx-select-city';
         PaginatorModule,
         FormsModule,
         WuCitySelectModule,
-        DialogModule
+        DialogModule,
+        TooltipModule
     ],
     declarations: [
         FreightWaybillComponent,
