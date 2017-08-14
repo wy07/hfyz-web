@@ -1,6 +1,17 @@
 .mapSize {
     width: 97% !important;
     height: calc(100% - 200px);
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 
+
+.aaa{
+    width: 100%;
+    min-height: .01%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    /*overflow-x: hidden;*/
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    height: 300px;
+}
