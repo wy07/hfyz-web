@@ -42,24 +42,31 @@ import {PermissionComponent} from '../../basic/permission/permission.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
+import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
+import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
+import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+
 
 
 @Component({
-    selector: 'dynamic-container',
-    // entryComponents: Object.keys(components).map(key => components[key]),
-    entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
-        InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-        WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-        WorkOrderComponent, BlackListComponent, WhiteListComponent, PermissionComponent, FreightWaybillComponent,
-        OrderExamineComponent, EnterpriseFeedbackComponent, CheckStatisticComponent,
-        FreightRouteComponent, PassLineBusinessBasicComponent, PassLinePhysicalBasicComponent,
-        PendingWorkOrderComponent, FeedbackWorkOrderComponent, WorkOrderStatisticComponent, CompanyReportComponent,
-        CarBasicStatisticsComponent, AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent],
+  selector: 'dynamic-container',
+  // entryComponents: Object.keys(components).map(key => components[key]),
+  entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
+                    InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
+                    MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
+                    WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
+                    PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
+                    FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
+                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
+                    PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
+                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent,PlatformStatisticComponent],
+
     template: `
     <ng-template #container></ng-template>
     <div *ngIf='!loaded' class='loader'></div>
