@@ -9,11 +9,13 @@ import {AutoCompleteModule, ChartModule, PanelModule} from 'primeng/primeng';
 import {ProgressbarModule} from 'ngx-bootstrap';
 import {AngularEchartsModule} from 'ngx-echarts';
 import {HomeService} from "./home.service";
+import {AutoHeightDirective} from "../common/directive/autoHeight.directive";
+import {CommonModule} from "../common/common.module";
 
 
 @NgModule({
     declarations: [
-        HomeComponent
+        HomeComponent,
     ],
     imports: [
         BrowserModule,
@@ -24,6 +26,7 @@ import {HomeService} from "./home.service";
         PanelModule,
         ChartModule,
         AngularEchartsModule,
+        CommonModule,
         ProgressbarModule.forRoot()
     ],
     exports: [],
