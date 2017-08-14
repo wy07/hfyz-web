@@ -16,7 +16,7 @@ export class PassLineBusinessBasicComponent implements OnInit {
     page: number;   // 当前页数
     total: number;  // 总数
     detailFlag: boolean; // 详情对话框flag
-    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 EDIT 修改页
+    pageFlag: string; // 页面切换  LIST 列表页 CREATE 新增页 EDIT 修改页 SHOW 详情页
     passLineBusinessBasicInfo: PassLineBusinessBasicInfo;
     passLineBusinessInfos: Array<PassLineBusinessBasicInfo>;
     ownerName: string;
@@ -113,5 +113,18 @@ export class PassLineBusinessBasicComponent implements OnInit {
      */
     reset() {
         this.ownerName = '';
+    }
+
+    show(id) {
+        this._loadingService.register();
+        this._passLineBusinessBasicService.show(id).subscribe(res => {
+            this._loadingService.resolve();
+            this.passLineBusinessBasicInfo = res.passLineBusinessBasicInfo;
+            this.pageFlag = 'SHOW';
+        })
+    }
+
+    goBack() {
+        this.pageFlag = 'LIST';
     }
 }

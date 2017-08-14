@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="pageFlag">
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-2">
@@ -49,322 +49,320 @@
   </div>
 </div>
 
-<p-dialog [showHeader]="false" [(visible)]="displayDialog" *ngIf="displayDialog" modal="modal" width="900"
-          [responsive]="true">
-  <div class="panel panel-default">
+<div class="panel panel-default" *ngIf="!pageFlag">
     <div class="panel-heading">
-      <div class="row">
-        <div class="col-sm-10 text-left">
-          <h4>
-            人员详情信息
-          </h4>
+        <div class="row">
+            <div class="col-sm-10 text-left">
+                <h4>
+                    {{pageTitle}}
+                </h4>
+            </div>
+            <div class="col-sm-2">
+                <button pButton type="button"  label="返回" (click)="closeDialog()"></button>
+            </div>
         </div>
-        <div class="col-sm-2">
-          <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
-        </div>
-      </div>
     </div>
     <div class="panel-body no-padding" style=" overflow-y:auto;  height:400px;">
-      <p-tabView>
-        <p-tabPanel header="考核员" leftIcon="fa-check-square-o" *ngIf="checkMember!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>从业资格类别：</label></td>
-                  <td>{{checkMember.workLicenseType}}</td>
-                  <td><label>从业资格证号：</label></td>
-                  <td>{{checkMember.workLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业资格证初领时间：</label></td>
-                  <td>{{checkMember.workLicenseGetTime}}</td>
-                  <td><label>从业资格证发放时间：</label></td>
-                  <td>{{checkMember.workLicenseGrantTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>证件有效期至：</label></td>
-                  <td>{{checkMember.endTime}}</td>
-                  <td><label>发证机关：</label></td>
-                  <td>{{checkMember.licenseGrantOrg}}</td>
-                </tr>
-                <tr>
-                  <td><label>证照状态：</label></td>
-                  <td>{{checkMember.licenseSituation}}</td>
-                  <td><label>补换证次数：</label></td>
-                  <td>{{checkMember.licenseChangeTimes}}</td>
-                </tr>
-                <tr>
-                  <td><label>培训次数：</label></td>
-                  <td>{{checkMember.trainTimes}}</td>
-                  <td><label>考核类别：</label></td>
-                  <td>{{checkMember.checkType}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="教练员" leftIcon="fa-user-plus" *ngIf="coach!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>从业资格类别：</label></td>
-                  <td>{{coach.workLicenseType}}</td>
-                  <td><label>从业资格证号：</label></td>
-                  <td>{{coach.workLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业资格证初领时间：</label></td>
-                  <td>{{coach.workLicenseGetTime}}</td>
-                  <td><label>从业资格证发放时间：</label></td>
-                  <td>{{coach.workLicenseGrantTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>证件有效期至：</label></td>
-                  <td>{{coach.endTime}}</td>
-                  <td><label>驾驶证号：</label></td>
-                  <td>{{coach.driveLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>准驾车型：</label></td>
-                  <td>{{coach.driveCarType}}</td>
-                  <td><label>驾驶证初领时间：</label></td>
-                  <td>{{coach.driveLicenseGetTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>发证机关：</label></td>
-                  <td>{{coach.licenseGrantOrga}}</td>
-                  <td><label>证照状态：</label></td>
-                  <td>{{coach.licenseSituation}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业状态：</label></td>
-                  <td>{{coach.workSituation}}</td>
-                  <td><label>业户名称：</label></td>
-                  <td>{{coach.ownerName}}</td>
-                </tr>
-                <tr>
-                  <td><label>经营许可证字：</label></td>
-                  <td>{{coach.businessPermitCharacter}}</td>
-                  <td><label>经营许可证号：</label></td>
-                  <td>{{coach.businessPermitNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>补换证次数：</label></td>
-                  <td>{{coach.changeTimes}}</td>
-                  <td><label>培训次数：</label></td>
-                  <td>{{coach.trainTimes}}</td>
-                </tr>
-                <tr>
-                  <td><label>稽查处理状态：</label></td>
-                  <td>{{coach.inspectDealSituation}}</td>
-                  <td><label>准教类别：</label></td>
-                  <td>{{coach.teachType}}</td>
-                </tr>
-                <tr>
-                  <td><label>准教车型：</label></td>
-                  <td>{{coach.teachCarType}}</td>
-                  <td><label>驾驶证证照状态：</label></td>
-                  <td>{{coach.driveLicenseSituation}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="营运驾驶员" leftIcon="fa-cab" *ngIf="driver!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>从业资格类别：</label></td>
-                  <td>{{driver.workLicenseType}}</td>
-                  <td><label>从业资格证号：</label></td>
-                  <td>{{driver.workLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业资格证初领时间：</label></td>
-                  <td>{{driver.workLicenseGetTime}}</td>
-                  <td><label>从业资格证发放时间：</label></td>
-                  <td>{{driver.workLicenseGrantTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>证件有效期至：</label></td>
-                  <td>{{driver.endTime}}</td>
-                  <td><label>驾驶证号：</label></td>
-                  <td>{{driver.driveLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>准驾车型：</label></td>
-                  <td>{{driver.driveCarType}}</td>
-                  <td><label>驾驶证初领时间：</label></td>
-                  <td>{{driver.driveLicenseGetTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>发证机关：</label></td>
-                  <td>{{driver.licenseGrantOrg}}</td>
-                  <td><label>证照状态：</label></td>
-                  <td>{{driver.licenseSituation}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业状态：</label></td>
-                  <td>{{driver.workSituation}}</td>
-                  <td><label>业户名称：</label></td>
-                  <td>{{driver.ownerName}}</td>
-                </tr>
-                <tr>
-                  <td><label>经营许可证字：</label></td>
-                  <td>{{driver.businessPermitCharacter}}</td>
-                  <td><label>经营许可证号：</label></td>
-                  <td>{{driver.businessPermitNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>补换证次数：</label></td>
-                  <td>{{driver.changeTimes}}</td>
-                  <td><label>培训次数：</label></td>
-                  <td>{{driver.trainTimes}}</td>
-                </tr>
-                <tr>
-                  <td><label>稽查处理状态：</label></td>
-                  <td>{{driver.inspectDealSituation}}</td>
-                  <td><label>交通事故记录次数：</label></td>
-                  <td>{{driver.trafficAccidentRecordNo}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="押运装卸管理员" leftIcon="fa-truck" *ngIf="manager!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>从业资格类别：</label></td>
-                  <td>{{manager.workLicenseType}}</td>
-                  <td><label>从业资格证号：</label></td>
-                  <td>{{manager.workLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业资格证初领时间：</label></td>
-                  <td>{{manager.workLicenseGetTime}}</td>
-                  <td><label>从业资格证发放时间：</label></td>
-                  <td>{{manager.workLicenseGrantTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>证件有效期至：</label></td>
-                  <td>{{manager.endTime}}</td>
-                  <td><label>发证机关：</label></td>
-                  <td>{{manager.licenseGrantOrg}}</td>
-                </tr>
-                <tr>
-                  <td><label>证照状态：</label></td>
-                  <td>{{manager.licenseSituation}}</td>
-                  <td><label>从业状态：</label></td>
-                  <td>{{manager.workSituation}}</td>
-                </tr>
-                <tr>
-                  <td><label>业户名称：</label></td>
-                  <td>{{manager.ownerName}}</td>
-                  <td><label>经营许可证字：</label></td>
-                  <td>{{manager.businessPermitCharacter}}</td>
-                </tr>
-                <tr>
-                  <td><label>经营许可证号：</label></td>
-                  <td>{{manager.businessPermitNo}}</td>
-                  <td><label>补换证次数：</label></td>
-                  <td>{{manager.changeTimes}}</td>
-                </tr>
-                <tr>
-                  <td><label>培训次数：</label></td>
-                  <td>{{manager.trainTimes}}</td>
-                  <td><label>稽查处理状态：</label></td>
-                  <td>{{manager.inspectDealSituation}}</td>
-                </tr>
-                <tr>
-                  <td><label>交通事故记录次数：</label></td>
-                  <td>{{manager.trafficAccidentRecordNo}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="维修技术人员" leftIcon="fa-wrench" *ngIf="technology!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>从业资格类别：</label></td>
-                  <td>{{technology.workLicenseType}}</td>
-                  <td><label>从业资格证号：</label></td>
-                  <td>{{technology.workLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>从业资格证初领时间：</label></td>
-                  <td>{{technology.workLicenseGetTime}}</td>
-                  <td><label>从业资格证发放时间：</label></td>
-                  <td>{{technology.workLicenseGrantTime}}</td>
-                </tr>
-                <tr>
-                  <td><label>证件有效期至：</label></td>
-                  <td>{{technology.endTime}}</td>
-                  <td><label>发证机关：</label></td>
-                  <td>{{technology.licenseGrantOrganization}}</td>
-                </tr>
-                <tr>
-                  <td><label>证照状态：</label></td>
-                  <td>{{technology.licenseSituation}}</td>
-                  <td><label>业户名称：</label></td>
-                  <td>{{technology.ownerName}}</td>
-                </tr>
-                <tr>
-                  <td><label>经营许可证字：</label></td>
-                  <td>{{technology.businessPermitCharacter}}</td>
-                  <td><label>经营许可证号：</label></td>
-                  <td>{{technology.businessPermitNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>补换证次数：</label></td>
-                  <td>{{technology.changeTimes}}</td>
-                  <td><label>培训次数：</label></td>
-                  <td>{{technology.trainTimes}}</td>
-                </tr>
-                <tr>
-                  <td><label>稽查处理状态：</label></td>
-                  <td>{{technology.inspectDealSituation}}</td>
-                  <td><label>是否技术负责人：</label></td>
-                  <td>{{technology.technologyDirector}}</td>
-                </tr>
-                <tr>
-                  <td><label>专业技术等级：</label></td>
-                  <td>{{technology.technologyLevel}}</td>
-                  <td><label>专业技术证书发放时间：</label></td>
-                  <td>{{technology.technologyLicenseGrantTime}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-        <p-tabPanel header="站场服务人员" leftIcon="fa-street-view" *ngIf="waiter!=null">
-          <div class="row">
-            <div class="col-sm-12">
-              <table class="table table-striped">
-                <tr>
-                  <td><label>岗位名称：</label></td>
-                  <td>{{waiter.jobName}}</td>
-                  <td><label>岗位证编号：</label></td>
-                  <td>{{waiter.jobLicenseNo}}</td>
-                </tr>
-                <tr>
-                  <td><label>发证日期：</label></td>
-                  <td>{{waiter.grantTime}}</td>
-                  <td><label>上岗日期：</label></td>
-                  <td>{{waiter.beginWorkTime}}</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </p-tabPanel>
-      </p-tabView>
+        <p-tabView>
+            <p-tabPanel header="考核员" leftIcon="fa-check-square-o" *ngIf="checkMember!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>从业资格类别：</label></td>
+                                <td>{{checkMember.workLicenseType}}</td>
+                                <td><label>从业资格证号：</label></td>
+                                <td>{{checkMember.workLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业资格证初领时间：</label></td>
+                                <td>{{checkMember.workLicenseGetTime}}</td>
+                                <td><label>从业资格证发放时间：</label></td>
+                                <td>{{checkMember.workLicenseGrantTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证件有效期至：</label></td>
+                                <td>{{checkMember.endTime}}</td>
+                                <td><label>发证机关：</label></td>
+                                <td>{{checkMember.licenseGrantOrg}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证照状态：</label></td>
+                                <td>{{checkMember.licenseSituation}}</td>
+                                <td><label>补换证次数：</label></td>
+                                <td>{{checkMember.licenseChangeTimes}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>培训次数：</label></td>
+                                <td>{{checkMember.trainTimes}}</td>
+                                <td><label>考核类别：</label></td>
+                                <td>{{checkMember.checkType}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="教练员" leftIcon="fa-user-plus" *ngIf="coach!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>从业资格类别：</label></td>
+                                <td>{{coach.workLicenseType}}</td>
+                                <td><label>从业资格证号：</label></td>
+                                <td>{{coach.workLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业资格证初领时间：</label></td>
+                                <td>{{coach.workLicenseGetTime}}</td>
+                                <td><label>从业资格证发放时间：</label></td>
+                                <td>{{coach.workLicenseGrantTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证件有效期至：</label></td>
+                                <td>{{coach.endTime}}</td>
+                                <td><label>驾驶证号：</label></td>
+                                <td>{{coach.driveLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>准驾车型：</label></td>
+                                <td>{{coach.driveCarType}}</td>
+                                <td><label>驾驶证初领时间：</label></td>
+                                <td>{{coach.driveLicenseGetTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>发证机关：</label></td>
+                                <td>{{coach.licenseGrantOrga}}</td>
+                                <td><label>证照状态：</label></td>
+                                <td>{{coach.licenseSituation}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业状态：</label></td>
+                                <td>{{coach.workSituation}}</td>
+                                <td><label>业户名称：</label></td>
+                                <td>{{coach.ownerName}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>经营许可证字：</label></td>
+                                <td>{{coach.businessPermitCharacter}}</td>
+                                <td><label>经营许可证号：</label></td>
+                                <td>{{coach.businessPermitNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>补换证次数：</label></td>
+                                <td>{{coach.changeTimes}}</td>
+                                <td><label>培训次数：</label></td>
+                                <td>{{coach.trainTimes}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>稽查处理状态：</label></td>
+                                <td>{{coach.inspectDealSituation}}</td>
+                                <td><label>准教类别：</label></td>
+                                <td>{{coach.teachType}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>准教车型：</label></td>
+                                <td>{{coach.teachCarType}}</td>
+                                <td><label>驾驶证证照状态：</label></td>
+                                <td>{{coach.driveLicenseSituation}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="营运驾驶员" leftIcon="fa-cab" *ngIf="driver!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>从业资格类别：</label></td>
+                                <td>{{driver.workLicenseType}}</td>
+                                <td><label>从业资格证号：</label></td>
+                                <td>{{driver.workLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业资格证初领时间：</label></td>
+                                <td>{{driver.workLicenseGetTime}}</td>
+                                <td><label>从业资格证发放时间：</label></td>
+                                <td>{{driver.workLicenseGrantTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证件有效期至：</label></td>
+                                <td>{{driver.endTime}}</td>
+                                <td><label>驾驶证号：</label></td>
+                                <td>{{driver.driveLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>准驾车型：</label></td>
+                                <td>{{driver.driveCarType}}</td>
+                                <td><label>驾驶证初领时间：</label></td>
+                                <td>{{driver.driveLicenseGetTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>发证机关：</label></td>
+                                <td>{{driver.licenseGrantOrg}}</td>
+                                <td><label>证照状态：</label></td>
+                                <td>{{driver.licenseSituation}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业状态：</label></td>
+                                <td>{{driver.workSituation}}</td>
+                                <td><label>业户名称：</label></td>
+                                <td>{{driver.ownerName}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>经营许可证字：</label></td>
+                                <td>{{driver.businessPermitCharacter}}</td>
+                                <td><label>经营许可证号：</label></td>
+                                <td>{{driver.businessPermitNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>补换证次数：</label></td>
+                                <td>{{driver.changeTimes}}</td>
+                                <td><label>培训次数：</label></td>
+                                <td>{{driver.trainTimes}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>稽查处理状态：</label></td>
+                                <td>{{driver.inspectDealSituation}}</td>
+                                <td><label>交通事故记录次数：</label></td>
+                                <td>{{driver.trafficAccidentRecordNo}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="押运装卸管理员" leftIcon="fa-truck" *ngIf="manager!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>从业资格类别：</label></td>
+                                <td>{{manager.workLicenseType}}</td>
+                                <td><label>从业资格证号：</label></td>
+                                <td>{{manager.workLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业资格证初领时间：</label></td>
+                                <td>{{manager.workLicenseGetTime}}</td>
+                                <td><label>从业资格证发放时间：</label></td>
+                                <td>{{manager.workLicenseGrantTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证件有效期至：</label></td>
+                                <td>{{manager.endTime}}</td>
+                                <td><label>发证机关：</label></td>
+                                <td>{{manager.licenseGrantOrg}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证照状态：</label></td>
+                                <td>{{manager.licenseSituation}}</td>
+                                <td><label>从业状态：</label></td>
+                                <td>{{manager.workSituation}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>业户名称：</label></td>
+                                <td>{{manager.ownerName}}</td>
+                                <td><label>经营许可证字：</label></td>
+                                <td>{{manager.businessPermitCharacter}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>经营许可证号：</label></td>
+                                <td>{{manager.businessPermitNo}}</td>
+                                <td><label>补换证次数：</label></td>
+                                <td>{{manager.changeTimes}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>培训次数：</label></td>
+                                <td>{{manager.trainTimes}}</td>
+                                <td><label>稽查处理状态：</label></td>
+                                <td>{{manager.inspectDealSituation}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>交通事故记录次数：</label></td>
+                                <td>{{manager.trafficAccidentRecordNo}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="维修技术人员" leftIcon="fa-wrench" *ngIf="technology!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>从业资格类别：</label></td>
+                                <td>{{technology.workLicenseType}}</td>
+                                <td><label>从业资格证号：</label></td>
+                                <td>{{technology.workLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>从业资格证初领时间：</label></td>
+                                <td>{{technology.workLicenseGetTime}}</td>
+                                <td><label>从业资格证发放时间：</label></td>
+                                <td>{{technology.workLicenseGrantTime}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证件有效期至：</label></td>
+                                <td>{{technology.endTime}}</td>
+                                <td><label>发证机关：</label></td>
+                                <td>{{technology.licenseGrantOrganization}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>证照状态：</label></td>
+                                <td>{{technology.licenseSituation}}</td>
+                                <td><label>业户名称：</label></td>
+                                <td>{{technology.ownerName}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>经营许可证字：</label></td>
+                                <td>{{technology.businessPermitCharacter}}</td>
+                                <td><label>经营许可证号：</label></td>
+                                <td>{{technology.businessPermitNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>补换证次数：</label></td>
+                                <td>{{technology.changeTimes}}</td>
+                                <td><label>培训次数：</label></td>
+                                <td>{{technology.trainTimes}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>稽查处理状态：</label></td>
+                                <td>{{technology.inspectDealSituation}}</td>
+                                <td><label>是否技术负责人：</label></td>
+                                <td>{{technology.technologyDirector}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>专业技术等级：</label></td>
+                                <td>{{technology.technologyLevel}}</td>
+                                <td><label>专业技术证书发放时间：</label></td>
+                                <td>{{technology.technologyLicenseGrantTime}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="站场服务人员" leftIcon="fa-street-view" *ngIf="waiter!=null">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <tr>
+                                <td><label>岗位名称：</label></td>
+                                <td>{{waiter.jobName}}</td>
+                                <td><label>岗位证编号：</label></td>
+                                <td>{{waiter.jobLicenseNo}}</td>
+                            </tr>
+                            <tr>
+                                <td><label>发证日期：</label></td>
+                                <td>{{waiter.grantTime}}</td>
+                                <td><label>上岗日期：</label></td>
+                                <td>{{waiter.beginWorkTime}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
     </div>
-  </div>
-</p-dialog>
+</div>
+

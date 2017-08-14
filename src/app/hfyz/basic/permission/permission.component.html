@@ -38,14 +38,14 @@
             <div class="panel-body">
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label">名称<span class="required">*</span></label>
+                        <label for="name" class="col-sm-3 control-label"><span class="required">*</span>名称：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="name" name="name" [(ngModel)]="perm.name">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="httpMethod" class="col-sm-3 control-label">HTTP方法</label>
+                        <label for="httpMethod" class="col-sm-3 control-label">HTTP方法：</label>
                         <div class="col-sm-6">
                             <select [(ngModel)]="perm.httpMethod" class="form-control" id="httpMethod">
                                 <option *ngFor="let item of ['','GET','POST','PUT','DELETE']" [ngValue]="item" >{{item}}</option>
@@ -54,21 +54,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="code" class="col-sm-3 control-label">编码<span class="required">*</span></label>
+                        <label for="code" class="col-sm-3 control-label"><span class="required">*</span>编码：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="code" name="code" [(ngModel)]="perm.code">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="category" class="col-sm-3 control-label">权限分组<span class="required">*</span></label>
+                        <label for="category" class="col-sm-3 control-label"><span class="required">*</span>权限分组：</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="category" name="category" [(ngModel)]="perm.category">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="url" class="col-sm-3 control-label">URL<span class="required">*</span></label>
+                        <label for="url" class="col-sm-3 control-label"><span class="required">*</span>URL：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="url" name="url"
                                    [(ngModel)]="perm.url">
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class="col-sm-offset-5 col-sm-10">
                             <button pButton type="button" label="保存" (click)="isAdd?save():update()"></button>
                             <button pButton type="button" label="返回" (click)="action='list'"></button>
                         </div>

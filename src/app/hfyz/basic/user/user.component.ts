@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
     onEdit(user) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑用户——' + user.name;
+        this.formTitle = '编辑';
 
         this._userService.edit(user.id).subscribe(
             res => {
@@ -99,7 +99,7 @@ export class UserComponent implements OnInit {
             res => {
                 this.roleList = res.roleList;
                 this.orgList = res.orgList;
-                this.formTitle = '新增用户';
+                this.formTitle = '新增';
                 this.isAdd = true;
                 this.action = 'update';
                 this.user = {};

@@ -1,3 +1,4 @@
+import { FreightWaybillService } from './freight-waybill/sheard/freight-waybill.service';
 import { PassLineBusinessBasicService } from './pass-line-business-basic/sheard/pass-line-business-basic.service';
 import { PassLineBusinessBasicComponent } from './pass-line-business-basic/pass-line-business-basic.component';
 import { PassLinePhysicalBasicService } from './pass-line-physical-basic/sheard/pass-line-physical-basic.service';
@@ -10,7 +11,6 @@ import {CommonModule} from '@angular/common';
 import {FreightWaybillComponent} from './freight-waybill/freight-waybill.component';
 import {CalendarModule, DataTableModule, DialogModule, DropdownModule, PaginatorModule} from 'primeng/primeng';
 import {FormsModule} from '@angular/forms';
-import {FreightWaybillService} from './freight-waybill/freight-waybill.service';
 import { WuCitySelectModule } from 'ngx-select-city';
 import { TooltipModule } from 'ngx-bootstrap';
 

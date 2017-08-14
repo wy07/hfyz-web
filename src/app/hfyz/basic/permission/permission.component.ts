@@ -9,7 +9,8 @@ import {PermissionService} from "./permission.service";
 
 @Component({
     selector: 'permission',
-    templateUrl: 'permission.component.html'
+    templateUrl: 'permission.component.html',
+    styleUrls: ['../../layout/layout.component.css']
 })
 
 export class PermissionComponent implements OnInit {
@@ -56,7 +57,7 @@ export class PermissionComponent implements OnInit {
     onEdit(perm) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑权限——' + perm.name;
+        this.formTitle = '编辑';
         this.preEdit(perm.id)
     }
 
@@ -71,7 +72,7 @@ export class PermissionComponent implements OnInit {
 
 
     onCreate() {
-        this.formTitle = '新增权限';
+        this.formTitle = '新增';
         this.isAdd = true;
         this.perm = {};
         this.action = 'update';
