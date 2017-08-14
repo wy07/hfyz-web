@@ -70,18 +70,17 @@
     </div>
   </div>
 </div>
-<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
-          [responsive]="true">
-  <div class="panel panel-default">
+
+  <div class="panel panel-default" *ngIf="(pageFlag=='DETAIL')">
     <div class="panel-heading">
       <div class="row">
         <div class="col-sm-10 text-left">
           <h5>
-            白名单详情信息
+            详情
           </h5>
         </div>
         <div class="col-sm-2">
-          <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
+          <button pButton type="button" label="返回" (click)="switchPage()"></button>
         </div>
       </div>
     </div>
@@ -108,7 +107,7 @@
       </table>
     </div>
   </div>
-</p-dialog>
+
 <div class="panel panel-default" *ngIf="(pageFlag=='UPDATE')">
   <div class="panel-heading">
     <h4>修改白名单信息</h4>

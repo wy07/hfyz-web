@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="!displayDialog">
     <div class="panel-heading">
         <div class="row">
             <div class=" col-md-4">
@@ -73,95 +73,101 @@
 </div>
 
 
-<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true"
-          disabled="disabled">
-    <div class="form-horizontal w-dialog">
-        <div class="form-group ">
-            <label class="col-xs-4 col-sm-4 dialog-label">业户名称：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.ownerName}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">业户简称：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.shortName}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">组织机构代码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.companyCode}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">企业单位代码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.ownerCode}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">上级企业名称：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.parentCompanyName}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">母公司：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.parentOwner}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">业户地址：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.ownerAddress}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">邮政编码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.postCode}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">行政区划名称：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.administrativeDivisionName}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">行政区划代码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.administrativeDivisionCode}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">经济类型：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.economicType}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">法人代表：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.legalRepresentative}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">法人代表身份证号：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.idCardNo}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">法人代表照片：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.picture}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">经营负责人：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.operateManager}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">电话：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.phone}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">传真号码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.fax}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">手机号码：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.telephone}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">电子邮箱：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.email}}</p>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4 col-sm-4 dialog-label">网址：</label>
-            <p class="col-xs-6 col-sm-6">{{owner.website}}</p>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-10 text-left">
+                <h5>详情</h5>
+            </div>
+            <div class="col-sm-2">
+                <button pButton type="button" label="返回" (click)="cancle()"></button>
+            </div>
         </div>
     </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()"></button>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group ">
+                <label class="col-xs-4 col-sm-4 dialog-label">业户名称：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.ownerName}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">业户简称：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.shortName}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">组织机构代码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.companyCode}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">企业单位代码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.ownerCode}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">上级企业名称：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.parentCompanyName}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">母公司：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.parentOwner}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">业户地址：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.ownerAddress}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">邮政编码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.postCode}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">行政区划名称：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.administrativeDivisionName}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">行政区划代码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.administrativeDivisionCode}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">经济类型：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.economicType}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">法人代表：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.legalRepresentative}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">法人代表身份证号：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.idCardNo}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">法人代表照片：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.picture}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">经营负责人：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.operateManager}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">电话：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.phone}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">传真号码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.fax}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">手机号码：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.telephone}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">电子邮箱：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.email}}</p>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 col-sm-4 dialog-label">网址：</label>
+                <p class="col-xs-6 col-sm-6">{{owner.website}}</p>
+            </div>
         </div>
-    </p-footer>
-</p-dialog>
+    </div>
+</div>
 
 
