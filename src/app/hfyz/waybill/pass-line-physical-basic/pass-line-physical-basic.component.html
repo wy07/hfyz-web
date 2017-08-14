@@ -29,9 +29,21 @@
                 <p-column field="startPlace" header="始发地"></p-column>
                 <p-column field="endPlace" header="目的地"></p-column>
                 <p-column field="mainPoint" header="途径主要地点"></p-column>
-                <p-column field="villageLine" header="是否农村客运"></p-column>
-                <p-column field="travelLine" header="是否旅游线路"></p-column>
-                <p-column field="busLine" header="是否公交线路"></p-column>
+                <p-column field="villageLine" header="是否农村客运">
+                    <ng-template let-passLineData="rowData" pTemplate="body">
+                        <span>{{passLineData.villageLine ? '是':'否'}}</span>
+                    </ng-template>
+                </p-column>
+                <p-column field="travelLine" header="是否旅游线路">
+                    <ng-template let-passLineData="rowData" pTemplate="body">
+                        <span>{{passLineData.travelLine ? '是':'否'}}</span>
+                    </ng-template>
+                </p-column>
+                <p-column field="busLine" header="是否公交线路">
+                    <ng-template let-passLineData="rowData" pTemplate="body">
+                        <span>{{passLineData.busLine ? '是':'否'}}</span>
+                    </ng-template>
+                </p-column>
             </p-dataTable>
             <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>

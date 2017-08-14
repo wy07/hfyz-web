@@ -38,6 +38,7 @@ import {CheckStatisticComponent} from '../../statistic/check-statistic/check-sta
 import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
+import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
 
 export const components = {
     role: RoleComponent,
@@ -83,5 +84,6 @@ export const components = {
     companyReport: CompanyReportComponent,
     carBasicStatistics: CarBasicStatisticsComponent,
     alarmInfoStatistics: AlarmInfoStatisticComponent,
-    ownerIdentityStatistics: OwnerIdentityStatisticComponent
+    ownerIdentityStatistics: OwnerIdentityStatisticComponent,
+    companyRegulation: CompanyRegulationComponent
 };
