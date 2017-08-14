@@ -195,9 +195,7 @@ export class HomeComponent implements OnInit {
                         , res.statistic.overspeedRate
                         , res.statistic.fatigueRate
                         , res.statistic.realTimeOnlineRate);
-                } else if (this.regularService.isBlank(this.org)) {
-                    this.selectedTab = '';
-                } else {
+                }else{
                     this.selectedTab = 'tab2'
                 }
             }
