@@ -1,35 +1,39 @@
 <div class="myMap row main-content">
-    <div *ngIf="mapCode=='realTimeMap'">
-        <div class="col-sm-7">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label for="realTimeMapFrameNo" class="col-sm-3 control-label">车牌号</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" [(ngModel)]="realTimeMapFrameNo" id="realTimeMapFrameNo" placeholder="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <button type="button" class="btn btn-default" (click)="getRealTimeMap()">查询</button>
-        </div>
-    </div>
+    <!--<div *ngIf="mapCode=='realTimeMap'&&realTimeTab!='combine'">-->
+    <!--<div class="col-sm-7">-->
+    <!--<div class="form-horizontal">-->
+    <!--<div class="form-group">-->
+    <!--<label for="realTimeMapFrameNo" class="col-sm-3 control-label">车牌号</label>-->
+    <!--<div class="col-sm-5">-->
+    <!--<input type="text" class="form-control" [(ngModel)]="realTimeMapFrameNo" id="realTimeMapFrameNo" placeholder="">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-sm-2">-->
+    <!--<button type="button" class="btn btn-default" (click)="getRealTimeMap()">查询</button>-->
+    <!--</div>-->
+    <!--</div>-->
     <div *ngIf="mapCode=='historyMap'">
         <div class="col-sm-4">
             <div class="form-horizontal">
                 <div class="form-group">
                     <label for="realTimeMapFrameNo" class="col-sm-3 control-label">车牌号</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" [(ngModel)]="historyMapFrameNo" id="historyMapFrameNo" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="historyMapFrameNo" id="historyMapFrameNo"
+                               placeholder="">
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd' [locale]="zh"></p-calendar><span style="margin-left:50px">至</span>
+            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd'
+                        [locale]="zh"></p-calendar>
+            <span style="margin-left:50px">至</span>
         </div>
         <div class="col-sm-3">
-            <p-calendar [(ngModel)]="endDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd' [locale]="zh"></p-calendar>
+            <p-calendar [(ngModel)]="endDate" [showIcon]="true" [showTime]="true" dateFormat='yy-mm-dd'
+                        [locale]="zh"></p-calendar>
         </div>
         <div class="col-sm-2">
             <button type="button" class="btn btn-default" (click)="getHistoryMap()">查询</button>
@@ -41,7 +45,8 @@
                 <div class="form-group">
                     <label for="realTimeMonitorFrameNo" class="col-sm-3 control-label">车牌号</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" [(ngModel)]="realTimeMonitorFrameNo" id="realTimeMonitorFrameNo" placeholder="">
+                        <input type="text" class="form-control" [(ngModel)]="realTimeMonitorFrameNo"
+                               id="realTimeMonitorFrameNo" placeholder="">
                     </div>
                 </div>
             </div>
@@ -51,67 +56,119 @@
         </div>
     </div>
 
-    <div id="map" class='mapSize'></div>
+
+    <div class="col-sm-3 " *ngIf="mapCode==='realTimeMap'">
+        <accordion [closeOthers]="true">
+            <accordion-group heading="组合查询">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p-dropdown [options]="companys" [(ngModel)]="company" [style]="{'width':'90%'}" filter="filter" (onChange)="companySelectChange($event)">
+                            <ng-template let-c pTemplate="item">
+                                {{c.label}}
+                            </ng-template>
+                        </p-dropdown>
+
+                        <!--<p-listbox [options]="cars" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'90%'}"></p-listbox>-->
+
+                        <div class="aaa">
+                            <div class="checkbox" *ngFor="let item of cars">
+                                <label>
+                                    <input type="checkbox" value="{{item.value}}" (click)="carSelectChange($event,item)">
+                                    {{item.label}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <ul class="list-unstyled">
+                            <li *ngFor="let item of selectCars">
+                                {{item.label}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <button type="button" (click)="onCombineQuery()">查询</button>
+            </accordion-group>
+            <accordion-group heading="车牌查询">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="realTimeMapFrameNo"
+                                   id="realTimeMapFrameNo" placeholder="请输入要查询的车牌号"/>
+                            <span class=" input-group-addon " role="button" (click)="getRealTimeMap()">查询</span>
+                        </div>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div [ngClass]="mapCode==='realTimeMap'&&realTimeTab==='combine'?'col-sm-9':'col-sm-12'">
+        <div id="map" class='mapSize'></div>
+    </div>
+
+
 </div>
 
-<map-tabs-bar *ngIf="mapCode=='realTimeMap'" [type]="'realTimeMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='realTimeMap'" [type]="'realTimeMap'"
+              [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
 <map-tabs-bar *ngIf="mapCode=='historyMap'" [type]="'historyMap'" [historyDataTOP10]='realTimeDataTOP10'></map-tabs-bar>
-<map-tabs-bar *ngIf="mapCode=='realTimeMonitorMap'" [type]="'realTimeMonitorMap'" [historyDataTOP10]='realTimeMonitorTOP10'></map-tabs-bar>
+<map-tabs-bar *ngIf="mapCode=='realTimeMonitorMap'" [type]="'realTimeMonitorMap'"
+              [historyDataTOP10]='realTimeMonitorTOP10'></map-tabs-bar>
 
 
-
-    <!-- <div class="test">
-    <p-dataTable [value]="points" [emptyMessage]="'暂无数据'">
-        <p-column field="plateNo" header="车牌号码"></p-column>
-        <p-column field="plateColor" header="车辆颜色"></p-column>
-        <p-column field="geoPoint" header="经纬度"></p-column>
-        <p-column field="gpsSpeed" header="速度"></p-column>
-        <p-column field="recSpeed" header="行驶记录速度"></p-column>
-        <p-column field="totalMileage" header="总里程数"></p-column>
-        <p-column field="direction" header="方向"></p-column>
-        <p-column field="altitude" header="海拔高度"></p-column>
-        <p-column field="vehicleState" header="车辆状态"></p-column>
-        <p-column field="alarmState" header="报警状态"></p-column>
-        <p-column field="dateStr" header="更新时间"></p-column>
-    </p-dataTable>
+<!-- <div class="test">
+<p-dataTable [value]="points" [emptyMessage]="'暂无数据'">
+    <p-column field="plateNo" header="车牌号码"></p-column>
+    <p-column field="plateColor" header="车辆颜色"></p-column>
+    <p-column field="geoPoint" header="经纬度"></p-column>
+    <p-column field="gpsSpeed" header="速度"></p-column>
+    <p-column field="recSpeed" header="行驶记录速度"></p-column>
+    <p-column field="totalMileage" header="总里程数"></p-column>
+    <p-column field="direction" header="方向"></p-column>
+    <p-column field="altitude" header="海拔高度"></p-column>
+    <p-column field="vehicleState" header="车辆状态"></p-column>
+    <p-column field="alarmState" header="报警状态"></p-column>
+    <p-column field="dateStr" header="更新时间"></p-column>
+</p-dataTable>
 </div> -->
 
 
-
-    <!-- <div *ngIf="mapCode=='realTimeMap'">
-  <p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
-    <div class="row">
-      <div class="col-sm-3">车牌号码：{{realTimeGnssData?.plateNo}}</div>
-      <div class="col-sm-3">车辆颜色：{{realTimeGnssData?.plateColor}}</div>
-      <div class="col-sm-3">车辆颜色：{{realTimeGnssData?.plateColor}}</div>
-      <div class="col-sm-3">经纬度：{{realTimeGnssData?.geoPoint}}</div>
-      <div class="col-sm-3">速度：{{realTimeGnssData?.gpsSpeed}}km/s</div>
-      <div class="col-sm-3">行驶记录速度：{{realTimeGnssData?.recSpeed}}km/s</div>
-      <div class="col-sm-3">总里程数：{{realTimeGnssData?.totalMileage}}</div>
-      <div class="col-sm-3">方向：{{realTimeGnssData?.direction}}</div>
-      <div class="col-sm-3">海拔高度：{{realTimeGnssData?.altitude}}</div>
-      <div class="col-sm-3">车辆状态：{{realTimeGnssData?.vehicleState}}</div>
-      <div class="col-sm-3">报警状态：{{realTimeGnssData?.alarmState}}</div>
-      <div class="col-sm-3">更新时间：{{realTimeGnssData?.dateStr}}</div>
-    </div>
-  </p-panel>
+<!-- <div *ngIf="mapCode=='realTimeMap'">
+<p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
+<div class="row">
+  <div class="col-sm-3">车牌号码：{{realTimeGnssData?.plateNo}}</div>
+  <div class="col-sm-3">车辆颜色：{{realTimeGnssData?.plateColor}}</div>
+  <div class="col-sm-3">车辆颜色：{{realTimeGnssData?.plateColor}}</div>
+  <div class="col-sm-3">经纬度：{{realTimeGnssData?.geoPoint}}</div>
+  <div class="col-sm-3">速度：{{realTimeGnssData?.gpsSpeed}}km/s</div>
+  <div class="col-sm-3">行驶记录速度：{{realTimeGnssData?.recSpeed}}km/s</div>
+  <div class="col-sm-3">总里程数：{{realTimeGnssData?.totalMileage}}</div>
+  <div class="col-sm-3">方向：{{realTimeGnssData?.direction}}</div>
+  <div class="col-sm-3">海拔高度：{{realTimeGnssData?.altitude}}</div>
+  <div class="col-sm-3">车辆状态：{{realTimeGnssData?.vehicleState}}</div>
+  <div class="col-sm-3">报警状态：{{realTimeGnssData?.alarmState}}</div>
+  <div class="col-sm-3">更新时间：{{realTimeGnssData?.dateStr}}</div>
+</div>
+</p-panel>
 </div>
 
 <div *ngIf="mapCode=='realTimeMonitorMap'">
-  <p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
-    <div class="row">
-      <div class="col-sm-3">车牌号码：{{realTimeMonitorGnssData?.plateNo}}</div>
-      <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
-      <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
-      <div class="col-sm-3">经纬度：{{realTimeMonitorGnssData?.geoPoint}}</div>
-      <div class="col-sm-3">速度：{{realTimeMonitorGnssData?.gpsSpeed}}km/s</div>
-      <div class="col-sm-3">行驶记录速度：{{realTimeMonitorGnssData?.recSpeed}}km/s</div>
-      <div class="col-sm-3">总里程数：{{realTimeMonitorGnssData?.totalMileage}}</div>
-      <div class="col-sm-3">方向：{{realTimeMonitorGnssData?.direction}}</div>
-      <div class="col-sm-3">海拔高度：{{realTimeMonitorGnssData?.altitude}}</div>
-      <div class="col-sm-3">车辆状态：{{realTimeMonitorGnssData?.vehicleState}}</div>
-      <div class="col-sm-3">报警状态：{{realTimeMonitorGnssData?.alarmState}}</div>
-      <div class="col-sm-3">更新时间：{{realTimeMonitorGnssData?.dateStr}}</div>
-    </div>
-  </p-panel>
+<p-panel header="车辆信息" [toggleable]="true" [style]="{'margin-bottom':'20px'}" styleClass="car-info" >
+<div class="row">
+  <div class="col-sm-3">车牌号码：{{realTimeMonitorGnssData?.plateNo}}</div>
+  <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
+  <div class="col-sm-3">车辆颜色：{{realTimeMonitorGnssData?.plateColor}}</div>
+  <div class="col-sm-3">经纬度：{{realTimeMonitorGnssData?.geoPoint}}</div>
+  <div class="col-sm-3">速度：{{realTimeMonitorGnssData?.gpsSpeed}}km/s</div>
+  <div class="col-sm-3">行驶记录速度：{{realTimeMonitorGnssData?.recSpeed}}km/s</div>
+  <div class="col-sm-3">总里程数：{{realTimeMonitorGnssData?.totalMileage}}</div>
+  <div class="col-sm-3">方向：{{realTimeMonitorGnssData?.direction}}</div>
+  <div class="col-sm-3">海拔高度：{{realTimeMonitorGnssData?.altitude}}</div>
+  <div class="col-sm-3">车辆状态：{{realTimeMonitorGnssData?.vehicleState}}</div>
+  <div class="col-sm-3">报警状态：{{realTimeMonitorGnssData?.alarmState}}</div>
+  <div class="col-sm-3">更新时间：{{realTimeMonitorGnssData?.dateStr}}</div>
+</div>
+</p-panel>
 </div> -->
