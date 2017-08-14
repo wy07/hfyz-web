@@ -71,7 +71,7 @@ export class RoleComponent implements OnInit {
     onEdit(role) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑角色——' + role.name;
+        this.formTitle = '编辑' + role.name;
         this.preEdit(role.id)
     }
 
@@ -93,7 +93,7 @@ export class RoleComponent implements OnInit {
         this._roleService.orgListForSelect(this.currentRoleString).subscribe(
             res => {
                 this.orgList = res.orgList;
-                this.formTitle = '新增角色';
+                this.formTitle = '新增';
                 this.isAdd = true;
                 this.action = 'update';
                 this.role = {id: '', operator: this.currentUserId};

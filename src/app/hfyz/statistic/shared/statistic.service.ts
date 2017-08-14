@@ -18,7 +18,18 @@ export class StatisticService {
     carHistoryStatistic(year) {
         return this.restangular.all('cars').customGET('history-statistic', {year: year});
     }
-
+    passengerList(max, offset, company) {
+        return this.restangular.all('car-statistics').customGET('passenger-list',
+            {max: max, offset: offset, company: company});
+    }
+    travelList(max, offset, company) {
+        return this.restangular.all('car-statistics').customGET('travel-list',
+            {max: max, offset: offset, company: company});
+    }
+    dangerousList(max, offset, company) {
+        return this.restangular.all('car-statistics').customGET('dangerous-list',
+            {max: max, offset: offset, company: company});
+    }
     alarmInfoStatistic(params) {
         return this.restangular.all('alarm-info-statistics').customGET('list', params);
     }

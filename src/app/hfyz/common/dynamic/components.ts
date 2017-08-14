@@ -35,8 +35,11 @@ import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/ente
 import {WorkOrderComponent} from '../../work-order/list/work-order.component';
 import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
 import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
+import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
+import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
 import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
+import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
+import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
 import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
@@ -87,5 +90,8 @@ export const components = {
     alarmInfoStatistics: AlarmInfoStatisticComponent,
     ownerIdentityStatistics: OwnerIdentityStatisticComponent,
     companyRegulation: CompanyRegulationComponent,
-    platformStatisticComponent:PlatformStatisticComponent
+    platformStatisticComponent:PlatformStatisticComponent,
+    travelStatistic: TravelStatisticComponent,
+    dangerousStatistic: DangerousStatisticComponent,
+
 };
