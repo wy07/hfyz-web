@@ -66,8 +66,6 @@ export class LayoutComponent implements OnInit {
             this.initMap = false;
             if (mapMenus.find(x => x === menu.code) === undefined) {
                 this.activeTab(menu);
-                const menuInputs = this.getInputs(menu.inputs, menu.code);
-                this.mapService.change.emit(menuInputs);
                 resolve('success')
             } else {
                 const menuInputs = this.getInputs(menu.inputs, menu.code);
