@@ -17,8 +17,7 @@ export class WhiteListComponent implements OnInit {
 
     vehicleNo: string; // 车辆号牌
 
-    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 UPDATE 修改页
-    detailFlag: boolean; // 详情对话框flag
+    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 UPDATE 修改页 DETAIL 详情页
 
     whiteLists: any[]; // 表格数据
     whiteList: any; // 新增和保存时的黑名单信息
@@ -32,7 +31,6 @@ export class WhiteListComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastr: ToastsManager) {
         this.pageFlag = 'LIST';
-        this.detailFlag = false;
         this.max = 10;
         this.page = 0;
         this.total = 0;
@@ -81,7 +79,7 @@ export class WhiteListComponent implements OnInit {
      * @param id
      */
     showDetail(id) {
-        this.detailFlag = true;
+        this.pageFlag = 'DETAIL';
         this._whiteListService.more(id).subscribe(
             res => {
                 if (res.result === 'success') {
@@ -198,13 +196,6 @@ export class WhiteListComponent implements OnInit {
     switchPage() {
         this.pageFlag = 'LIST'
         this.whiteList = {}
-    }
-
-    /**
-     * 关闭详情页对话框
-     */
-    closeDialog() {
-        this.detailFlag = false
     }
 
     /**
