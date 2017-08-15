@@ -130,6 +130,17 @@ var mapObject = (function () {
             $icon.css('-moz-transform', 'rotate(' + direction + 'deg)');
             $icon.css('-o-transform', 'rotate(' + direction + 'deg)');
             $icon.css('-webkit-transform', 'rotate(' + direction + 'deg)');
+        },
+
+        showCombinePoint:function (carNo) {
+            console.log("------in showCombinePoint")
+            console.log(carNo)
+            console.log(combineQueryPoints[carNo])
+
+            if (combineQueryPoints[carNo]){
+                maplet.centerAndZoom(combineQueryPoints[carNo].pt,12);
+                combineQueryPoints[carNo].openInfoWindow();
+            }
         }
     }
 

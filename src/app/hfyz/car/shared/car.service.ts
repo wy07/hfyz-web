@@ -19,4 +19,8 @@ export class CarService {
             offset: offset
         });
     }
+
+    getCompanyCars(companyCode){
+        return this.restangular.one('companys',companyCode).customGET('cars')
+    }
 }

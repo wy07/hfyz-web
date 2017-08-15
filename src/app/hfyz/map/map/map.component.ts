@@ -8,6 +8,8 @@ import {MapService} from '../shared/map.service';
 import {ToastsManager} from 'ng2-toastr';
 import {RegularService} from '../../common/shared/regular.service';
 import {SelectItem} from "primeng/components/common/selectitem";
+import {OwnerIdentityService} from "../../owner-identity/shared/owner-identity.service";
+import {CarService} from "../../car/shared/car.service";
 declare var mapObject: any;
 @Component({
     selector: 'app-map',
@@ -41,19 +43,22 @@ export class MapComponent implements OnInit, OnDestroy {
 
     companys: SelectItem[];
     company: string;
+    carsGroupByCompany: any;
 
     cars: SelectItem[];
     selectCars: any[];
 
 
-    realTimeTab: string;
+    currentRealTimeAccordion: string;
 
     constructor(private toastr: ToastsManager
         , private regularService: RegularService
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
         , private radio: NgRadio
-        , private mapService: MapService) {
+        , private mapService: MapService
+        , private _ownerService: OwnerIdentityService
+        , private _carService: CarService) {
         this.lng = 117.126826;
         this.lat = 31.852467;
         this.realTimeGnssData = null;
@@ -70,7 +75,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.startDate = new Date();
 
 
-        this.realTimeTab = 'combine';
+        this.onRealTimeAccordion('singleCar');
 
         this.points = [{
             'dateStr': '2017-06-30 07:36:11',
@@ -221,10 +226,18 @@ export class MapComponent implements OnInit, OnDestroy {
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
                 this.realTimeDataTOP10 = [];
-                if (this.realTimeMapKey !== inputs.key) {
-                    this.realTimeMapKey = inputs.key;
-                    this.realTimeMapFrameNo = inputs.frameNo;
+                if(inputs.currentRealTimeAccordion=='singleCar'){
+                    this.onRealTimeAccordion('singleCar');
+                    this.clearCompanysAndCars();
+                    if (this.realTimeMapKey !== inputs.key) {
+                        this.realTimeMapKey = inputs.key;
+                        this.realTimeMapFrameNo = inputs.frameNo;
+                    }
+                }else{
+                    this.onRealTimeAccordion('multipleCar');
                 }
+
+
             } else if (inputs.code === 'historyMap') {
                 this.realTimeDataTOP10 = [];
                 this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
@@ -252,9 +265,10 @@ export class MapComponent implements OnInit, OnDestroy {
         })
 
         this.companys = [];
-        for (let i = 0; i < 1000; i++) {
-            this.companys.push({label: `企业${i}`, value: `C00000000${i}`});
-        }
+        this.carsGroupByCompany = {};
+        // for (let i = 0; i < 1000; i++) {
+        //     this.companys.push({label: `企业${i}`, value: `C00000000${i}`});
+        // }
 
         this.cars = [];
         this.selectCars = [];
@@ -472,18 +486,58 @@ export class MapComponent implements OnInit, OnDestroy {
 
     }
 
+    onRealTimeAccordion(currentAccordion) {
+        this.currentRealTimeAccordion = currentAccordion;
+
+        if (currentAccordion === 'multipleCar') {
+            if (this.companys.length == 0) {
+                this.getCompanys();
+            }
+        }
+    }
+
+    getCompanys() {
+        this.companys = [];
+        this.carsGroupByCompany = {};
+        this._ownerService.all().subscribe(
+            res => {
+                for (const item of res.companys) {
+                    this.companys.push({label: item.name, value: item.code});
+                }
+            }
+        )
+    }
+
     companySelectChange(event) {
-        console.log("----------")
-        console.log(event.value)
         this.cars = [];
         if (this.regularService.isBlank(event.value)) {
             this.cars = [];
             return
         }
 
-        for (let i = 0; i < 1000; i++) {
-            this.cars.push({label: `${event.value}~~皖A-000${i}`, value: `皖A-000${i}`});
+        if(this.carsGroupByCompany.hasOwnProperty(event.value)){
+
+            for (const item of this.carsGroupByCompany[event.value]) {
+                this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+            }
+        }else {
+            this.getCompanyCars(event.value)
         }
+
+    }
+
+    getCompanyCars(companyCode){
+        this._carService.getCompanyCars(companyCode).subscribe(
+            res=>{
+                for (const item of res.cars) {
+                    this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+                }
+            }
+        )
+    }
+
+    carSelected(licenseNo){
+        return this.selectCars.findIndex(x => x.value === licenseNo)>-1;
     }
 
     carSelectChange(event, item) {
@@ -497,8 +551,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
         if (carIndex < 0) {
             this.selectCars.push(item);
-
-
             this.lng += 0.001;
             this.lat += 0.001;
             mapObject.resetCenter(this.lng, this.lat)
@@ -506,9 +558,27 @@ export class MapComponent implements OnInit, OnDestroy {
                 item.value,
                 `${this.lng},${this.lat}==${item.value}`,
                 23);
-
-
         }
+    }
+
+    removeCar(licenseNo){
+        let carIndex = this.selectCars.findIndex(x => x.value === licenseNo);
+        if (carIndex > -1) {
+            mapObject.removecombineQueryPoint(licenseNo);
+            this.selectCars.splice(carIndex, 1);
+        }
+    }
+
+    showCar(licenseNo){
+        mapObject.showCombinePoint(licenseNo);
+    }
+
+    clearCompanysAndCars(){
+        this.companys=[];
+        this.company='';
+        this.carsGroupByCompany={};
+        this.cars=[];
+        this.selectCars=[];
     }
 
 }
