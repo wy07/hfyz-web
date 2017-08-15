@@ -1,15 +1,15 @@
 <div class="panel panel-default" *ngIf="(pageFlag=='LIST')">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">车牌号：</span>
-                    <input type="text" class="form-control" [(ngModel)]="vehicleNo"/>
+                    <span class="search-span input-group-addon">车牌号：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="vehicleNo"/>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-7">
                 <div class="input-group">
-                    <span class="input-group-addon">布控开始时间：</span>
+                    <span class="search-span input-group-addon">布控开始时间：</span>
                     <div>
                         <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd"
                                     name="dateBegin"></p-calendar>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-2">
                 <button type="button" class="btn btn-primary" (click)="search()">检索</button>
                 <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
             </div>
@@ -142,7 +142,7 @@
                 </h5>
             </div>
             <div class="col-sm-2">
-                <button pButton type="button" label="返回" (click)="switchPage()"></button>
+                <button pButton type="button" class="pull-right" label="返回" (click)="switchPage()"></button>
             </div>
         </div>
     </div>

@@ -1,27 +1,37 @@
-<div class="panel panel-default"  *ngIf="isDetails==false && edit==false">
+<div class="panel panel-default" *ngIf="isDetails==false && edit==false">
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">业户名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..."/>
+                    <span class="search-span input-group-addon">业户名称：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="company" name="company"
+                           placeholder="请输入业户名称..."/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="input-group">
-                    <span class="input-group-addon">上报时间：</span>
+                    <span class="search-span input-group-addon">上报时间：</span>
                     <div>
-                        <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
+                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
                         -
-                        <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
+                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
                     </div>
-                    <span class="input-group-addon">状态：</span>
-                    <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <button pButton label="检索" type="button"(click)="initData()"></button>
-                <button pButton label="取消" type="button" (click)="cancel()"></button>
+            <div class="col-sm-3" style="margin-left: -25px">
+                <div class="input-group">
+                    <span class="search-span input-group-addon">状态：</span>
+                    <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态"
+                                [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-9">
+                <button pButton label="检索" class="search-button" type="button" (click)="initData()"></button>
+                <button pButton label="重置" class="search-button" type="button" (click)="cancel()"></button>
             </div>
         </div>
     </div>
@@ -45,7 +55,8 @@
                         </ng-template>
                     </p-column>
                 </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+                <p-paginator rows="{{max}}" totalRecords="{{total}}"
+                             (onPageChange)="paginate($event)"></p-paginator>
             </div>
         </div>
     </div>
@@ -84,7 +95,7 @@
                     <div class="col-sm-4">
                         <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
                     </div>
-                    <label class="col-sm-1"right>状态：</label>
+                    <label class="col-sm-1" right>状态：</label>
                     <div class="col-sm-4">
                         <span>{{hiddenRectificationOrder.status}}</span>
                     </div>
@@ -102,7 +113,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-1" right>存在问题：</label>
+                    <label class="col-sm-1" right>存在问题：</label>
                     <div class="col-sm-8">
                         <span>{{hiddenRectificationOrder.insQuestion}}</span>
                     </div>
@@ -120,13 +131,15 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-1" right>反馈内容：</label>
-                    <textarea class="form-control fix" id="hiddenRectificationOrder.replyDesc" name="hiddenRectificationOrder.replyDesc" [(ngModel)]="hiddenRectificationOrder.replyDesc"
+                    <textarea class="form-control fix" id="hiddenRectificationOrder.replyDesc"
+                              name="hiddenRectificationOrder.replyDesc"
+                              [(ngModel)]="hiddenRectificationOrder.replyDesc"
                               maxlength="1500"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="col-md-2">
-                        <button  pButton type="button" label="反馈" (click)="onSaveNew()" ></button>
-                        <button  pButton type="button" label="返回" (click)="return()" ></button>
+                        <button pButton type="button" label="反馈" (click)="onSaveNew()"></button>
+                        <button pButton type="button" label="返回" (click)="return()"></button>
                     </div>
                 </div>
             </form>
@@ -142,7 +155,7 @@
 </p-dialog>
 
 <div *ngIf="isDetails">
-    <div class="panel panel-default" >
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
         </div>
@@ -173,7 +186,7 @@
                     <div class="col-sm-4">
                         <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
                     </div>
-                    <label class="col-sm-1"right>状态：</label>
+                    <label class="col-sm-1" right>状态：</label>
                     <div class="col-sm-4">
                         <span>{{hiddenRectificationOrder.status}}</span>
                     </div>
@@ -191,7 +204,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-1" right>存在问题：</label>
+                    <label class="col-sm-1" right>存在问题：</label>
                     <div class="col-sm-8">
                         <span>{{hiddenRectificationOrder.insQuestion}}</span>
                     </div>
