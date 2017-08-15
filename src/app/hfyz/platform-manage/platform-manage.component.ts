@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {PlatformManageService} from './shared/platform-manage.service';
-import {RegularService} from './../common/shared/regular.service';
-import {ToastsManager} from 'ng2-toastr';
-import {TdLoadingService} from "@covalent/core";
+import { Component, OnInit } from '@angular/core';
+import { PlatformManageService } from './shared/platform-manage.service';
+import { RegularService } from './../common/shared/regular.service';
+import { ToastsManager } from 'ng2-toastr';
+import { TdLoadingService } from "@covalent/core";
 
 @Component({
     selector: 'app-platform-manage',
@@ -15,9 +15,8 @@ export class PlatformManageComponent implements OnInit {
 
     name: string;
     code: string;
+    action: string;
 
-    displayDialog: boolean;
-    isDetails: boolean;
     formTitle: string;
     isAdd: boolean;
     max: number;
@@ -28,11 +27,10 @@ export class PlatformManageComponent implements OnInit {
         , private platformService: PlatformManageService
         , private regularService: RegularService
         , private _loadingService: TdLoadingService) {
-        this.displayDialog = false;
-        this.isDetails = false;
         this.platform = {};
         this.clearForm();
         this.max = 10;
+        this.action = 'list';
     }
 
     ngOnInit() {
@@ -70,7 +68,7 @@ export class PlatformManageComponent implements OnInit {
         this.clearForm();
         this.formTitle = '平台新增';
         this.isAdd = true;
-        this.displayDialog = true;
+        this.action = 'update';
     }
 
     onSave() {
@@ -79,7 +77,7 @@ export class PlatformManageComponent implements OnInit {
                 res => {
                     this.toastr.success('保存成功');
                     this.initData();
-                    this.displayDialog = false;
+                    this.action = 'list';
                 }
             );
         }
@@ -90,14 +88,16 @@ export class PlatformManageComponent implements OnInit {
         this.clearForm();
         this.formTitle = `平台编辑`;
         this.isAdd = false;
-        this.displayDialog = true;
+        this.action = 'update';
         this.preEdit(platform.id);
     }
 
+    onShow(id) {
+        this.action = 'show';
+        this.preEdit(id);
+    }
+
     preEdit(id) {
-        if (this.displayDialog === false) {
-            this.isDetails = true;
-        }
         this.platformService.edit(id).subscribe(
             res => {
                 if (res.result === 'success') {
@@ -115,14 +115,14 @@ export class PlatformManageComponent implements OnInit {
                 res => {
                     this.toastr.success('保存成功');
                     this.initData();
-                    this.displayDialog = false;
+                    this.action = 'list';
                 }
             );
         }
     }
 
     cancle() {
-        this.displayDialog = false;
+        this.action = 'list';
     }
 
     validate() {
@@ -173,10 +173,10 @@ export class PlatformManageComponent implements OnInit {
 
     // 返回
     return() {
-        this.isDetails = false;
+        this.action = 'list';
     }
 
-// 清除dialog数据
+    // 清除dialog数据
     clearForm() {
         this.platform = {};
     }

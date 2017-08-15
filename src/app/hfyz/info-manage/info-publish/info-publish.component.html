@@ -40,7 +40,7 @@
                     <p-column field="dateCreated" header="起草时间"></p-column>
                     <p-column field="username" header="用户"></p-column>
                     <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'85px'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-2>
                         <ng-template pTemplate="body" let-infoItem="rowData">
                             <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
                                  (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>

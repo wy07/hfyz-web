@@ -22,6 +22,10 @@ body .ui-panel .ui-panel-titlebar {
     height: 52px;
 }
 
+.required{
+    color:red;
+}
+
 .toast-top-right {
     top: 120px;
 }
@@ -180,4 +184,82 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 
 .showDetails .form-group {
     margin-bottom: 0 !important;
+}
+
+.tooltip-inner{
+    z-index: 9999;
+}
+
+.operation-buttons-3{
+    width: 150px;
+}
+.operation-buttons-2{
+    width: 120px;
+}
+.operation-buttons-1{
+    width: 80px;
+}
+.operation-buttons-4{
+    width: 180px;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li, body .ui-tabview.ui-tabview-left .ui-tabview-nav li, body .ui-tabview.ui-tabview-right .ui-tabview-nav li{
+    border: 1px solid #cccccc;
+}
+
+.querys{
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+
+.querys .form-group label{
+    font-weight: normal;
+}
+
+.querys .form-horizontal .form-group{
+    margin: 0 0 5px 0;
+}
+
+.calendar-group .cgl{
+    width: 49%;
+    float: left;
+}
+
+.calendar-group .cgm{
+    width:2%;
+    float: left;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.calendar-group .cgr{
+    width: 49%;float: left
+}
+
+
+.calendar-span{
+    width: 100%;
+}
+
+.calendar{
+    width: calc(100% - 30px);
+}
+
+.calendar-span button {
+    width: 30px;
+}
+
+.ui-datatable-emptymessage{
+    padding: 150px !important;
+}
+
+.panel-show .back-btn{
+    float: right;
+    top: -5px;
+    position: relative;
+    padding: 3px 12px;
+}
+
+.p-dropdown-form-control{
+    width: 100% !important;
 }
