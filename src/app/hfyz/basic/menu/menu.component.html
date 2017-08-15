@@ -1,7 +1,8 @@
 <div class="ui-g" style="margin-left:-40px; margin-top: -14px">
-  <div  class="ui-g-12 text-left">
-      <button [hasPermission]="'menu:create'"  pButton type="button" label="新增" (click)="onCreate()"></button>
-  </div>
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" [hasPermission]="'menu:create'"
+                (click)="onCreate()"></button>
+    </div>
   <div class="ui-g-12">
     <p-treeTable [value]="menuTree" (onNodeExpand)="loadNode($event)">
       <p-column field="name" header="名称"></p-column>
@@ -10,10 +11,12 @@
       <p-column field="icon" header="图标"></p-column>
       <p-column field="position" header="位置"></p-column>
       <p-column field="display" header="显示"></p-column>
-      <p-column field="" header="操作">
+      <p-column field="" header="操作" [style]="{'width':'85px'}">
         <ng-template let-node="rowData" pTemplate="body">
-            <button  [hasPermission]="'menu:edit'" pButton type="button" label="编辑" (click)="onEdit(node.data.id)"></button>
-            <button [hasPermission]="'menu:delete'"  pButton type="button" label="删除" (click)="onDelete(node)"></button>
+            <div [hasPermission]="'menu:edit'" role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                 (click)="onEdit(node.data.id)" tooltip="编辑" placement="bottom"></div>
+            <div [hasPermission]="'menu:delete'" role="button" class="fa fa-times fa-font-size div-distance"
+                 (click)="onDelete(node)" tooltip="删除" placement="bottom"></div>﻿​
         </ng-template>
       </p-column>
     </p-treeTable>

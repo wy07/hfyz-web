@@ -37,11 +37,14 @@
             <p-column field="carPlateColor" header="车牌颜色"></p-column>
             <p-column field="carColor" header="车身颜色"></p-column>
             <p-column field="endTime" header="资格有效期至"></p-column>
-            <p-column field="" header="操作">
+            <p-column field="" header="操作" [style]="{'width':'120px'}">
                 <ng-template let-item="rowData" pTemplate="body">
-                    <button type="button" class="btn btn-default" (click)="showRealTimeMap(item)">实时状态</button>
-                    <button type="button" class="btn btn-default" (click)="showRealTimeMonitorMap(item)">实时监控</button>
-                    <button type="button" class="btn btn-default" (click)="showHistoryMapp(item)">历史轨迹</button>
+                    <div role="button" class="fa fa-refresh fa-font-size div-distance"
+                         (click)="showRealTimeMap(item)" tooltip="实时状态" placement="bottom"></div>
+                    <div role="button" class="fa fa-eercast fa-font-size div-distance"
+                         (click)="showRealTimeMonitorMap(item)" tooltip="实时监控" placement="bottom"></div>
+                    <div role="button" class="fa fa-history fa-font-size div-distance"
+                         (click)="showHistoryMapp(item)" tooltip="历史轨迹" placement="bottom"></div>
                 </ng-template>
             </p-column>
         </p-dataTable>

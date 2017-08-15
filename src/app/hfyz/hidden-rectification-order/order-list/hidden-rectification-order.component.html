@@ -22,13 +22,17 @@
             <div class="col-sm-3">
                 <button pButton label="检索" type="button"(click)="initData()"></button>
                 <button pButton label="取消" type="button" (click)="cancel()"></button>
-                <button pButton label="新增" type="button" (click)="onCreat()"></button>
+                <!--<button pButton label="新增" type="button" (click)="onCreat()"></button>-->
             </div>
         </div>
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
+                <div class="top-buttons">
+                    <button pButton type="button" label="新增"
+                            (click)="onCreate()"></button>
+                </div>
                 <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
                     <p-column field="billNo" header="单据编号"></p-column>
                     <p-column field="enterpirse" header="业户名称"></p-column>
@@ -36,12 +40,19 @@
                     <p-column field="inspectionDate" header="检查日期"></p-column>
                     <p-column field="dealineDate" header="整改期限"></p-column>
                     <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'24%'}">
+                    <p-column field="" header="操作" [style]="{'width':'160px','text-align':'left'}">
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
-                            <button pButton type="button" label="编辑" (click)="onEdit(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
-                            <button pButton type="button" label="删除" (click)="onDelete(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草'"></button>
-                            <button pButton type="button" label="详情" (click)="preEdit(hiddenRectificationOrder.id)"></button>
-                            <button pButton type="button" label="提交" (click)="commit(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
+                            <div role="button" class="fa fa-list fa-font-size div-distance"
+                                 (click)="preEdit(hiddenRectificationOrder.id)"  tooltip="详情" placement="bottom"></div>
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 (click)="onEdit(hiddenRectificationOrder)" tooltip="编辑" placement="bottom"
+                                 *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 (click)="onDelete(hiddenRectificationOrder)" tooltip="删除" placement="bottom"
+                                 *ngIf="hiddenRectificationOrder.status=='起草'"></div>
+                            <div role="button" class="fa fa-check-square-o fa-font-size div-distance"
+                                 (click)="commit(hiddenRectificationOrder)"  tooltip="提交" placement="bottom"
+                                 *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></div>
                         </ng-template>
                     </p-column>
                 </p-dataTable>

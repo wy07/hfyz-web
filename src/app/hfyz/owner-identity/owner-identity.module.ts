@@ -17,6 +17,7 @@ import {OwnerIdentityComponent} from './owner-identity.component';
 import {OwnerIdentityService} from './shared/owner-identity.service';
 import {CompanyRegulationComponent} from './company-regulation/company-regulation.component';
 import {CompanyRegulationService} from './company-regulation/company-regulation.service';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import {CompanyRegulationService} from './company-regulation/company-regulation.
         ButtonModule,
         PaginatorModule,
         DialogModule,
-        CalendarModule
+        CalendarModule,
+        TooltipModule
     ],
     exports: [],
     providers: [
