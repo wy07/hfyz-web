@@ -45,36 +45,36 @@
 </div>
 <div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
   <div class="panel-heading">
-    <h4>新增黑名单信息</h4>
+    <h4>新增</h4>
   </div>
   <div class="panel-body no-padding">
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <label class="col-sm-3 control-label">车辆号牌：</label>
         <div class="col-xs-6 ">
           <input type="text" class="form-control" [(ngModel)]="blackList.vehicleNo">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">黑名单类型：</label>
+        <label class="col-sm-3 control-label">黑名单类型：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.blackType">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控行为：</label>
+        <label class="col-sm-3 control-label">布控行为：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlBehavior">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控方案：</label>
+        <label class="col-sm-3 control-label">布控方案：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.scheme">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <label class="col-sm-3 control-label">布控状态：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-dropdown [options]="status" [(ngModel)]="blackList.status"></p-dropdown>
         </div>
@@ -82,33 +82,33 @@
     </div>
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <label class="col-sm-3 control-label">布控开始时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
                       [(ngModel)]="blackList.controlBegin"></p-calendar>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控结束时间：</label>
+        <label class="col-sm-3 control-label">布控结束时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
                       [(ngModel)]="blackList.controlEnd"></p-calendar>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控范围：</label>
+        <label class="col-sm-3 control-label">布控范围：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlRange">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控单位：</label>
+        <label class="col-sm-3 control-label">布控单位：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlOrg">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控人：</label>
+        <label class="col-sm-3 control-label">布控人：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.executor">
         </div>
@@ -187,36 +187,36 @@
 </p-dialog>
 <div class="panel panel-default" *ngIf="(pageFlag=='UPDATE')">
   <div class="panel-heading">
-    <h4>修改黑名单信息</h4>
+    <h4>修改</h4>
   </div>
   <div class="panel-body no-padding">
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <label class="col-sm-3 control-label">车辆号牌：</label>
         <div class="col-xs-6 ">
           <input class="form-control" disabled [(ngModel)]="blackList.vehicleNo">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">黑名单类型：</label>
+        <label class="col-sm-3 control-label">黑名单类型：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.blackType">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控行为：</label>
+        <label class="col-sm-3 control-label">布控行为：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlBehavior">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控方案：</label>
+        <label class="col-sm-3 control-label">布控方案：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.scheme">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <label class="col-sm-3 control-label">布控状态：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-dropdown [options]="status" [(ngModel)]="blackList.status"></p-dropdown>
         </div>
@@ -224,33 +224,33 @@
     </div>
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <label class="col-sm-3 control-label">布控开始时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
                       [(ngModel)]="blackList.controlBegin"></p-calendar>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控结束时间：</label>
+        <label class="col-sm-3 control-label">布控结束时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
                       [(ngModel)]="blackList.controlEnd"></p-calendar>
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控范围：</label>
+        <label class="col-sm-3 control-label">布控范围：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlRange">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控单位：</label>
+        <label class="col-sm-3 control-label">布控单位：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.controlOrg">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控人：</label>
+        <label class="col-sm-3 control-label">布控人：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <input class="form-control" [(ngModel)]="blackList.executor">
         </div>

@@ -68,7 +68,7 @@ export class PlatformManageComponent implements OnInit {
     // 新增
     onCreat() {
         this.clearForm();
-        this.formTitle = '平台新增';
+        this.formTitle = '新增';
         this.isAdd = true;
         this.displayDialog = true;
     }
@@ -88,7 +88,7 @@ export class PlatformManageComponent implements OnInit {
     // 查看编辑
     onEdit(platform) {
         this.clearForm();
-        this.formTitle = `平台编辑`;
+        this.formTitle = `编辑`;
         this.isAdd = false;
         this.displayDialog = true;
         this.preEdit(platform.id);

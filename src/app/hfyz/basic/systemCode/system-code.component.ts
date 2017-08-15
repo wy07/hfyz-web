@@ -81,7 +81,7 @@ export class SystemCodeComponent implements OnInit {
 
     onEdit(id) {
         this.clearForm();
-        this.formTitle = `编辑 ${SYSTEM_CODE_TYPES[this.type]}`;
+        this.formTitle = `编辑`;
         this.isAdd = false;
         this.displayDialog = true;
         this.preEdit(id);
@@ -104,7 +104,7 @@ export class SystemCodeComponent implements OnInit {
     }
 
     onCreate() {
-        this.formTitle = `新增 ${SYSTEM_CODE_TYPES[this.type]}`;
+        this.formTitle = `新增`;
         this.isAdd = true;
         this.displayDialog = true;
         this.clearForm();
