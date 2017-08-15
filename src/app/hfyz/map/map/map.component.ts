@@ -1,12 +1,15 @@
-import { DatePipe } from '@angular/common';
-import { zh } from './../../common/shared/zh';
-import { NgRadio } from 'ng-radio';
-import { EventBuservice } from './../../common/shared/eventbus.service';
-import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
-import { GnssData } from '../../common/shared/gnss-data';
-import { MapService } from '../shared/map.service';
-import { ToastsManager } from 'ng2-toastr';
-import { RegularService } from '../../common/shared/regular.service';
+import {DatePipe} from '@angular/common';
+import {zh} from './../../common/shared/zh';
+import {NgRadio} from 'ng-radio';
+import {EventBuservice} from './../../common/shared/eventbus.service';
+import {Component, OnInit, OnDestroy, ElementRef, Renderer} from '@angular/core';
+import {GnssData} from '../../common/shared/gnss-data';
+import {MapService} from '../shared/map.service';
+import {ToastsManager} from 'ng2-toastr';
+import {RegularService} from '../../common/shared/regular.service';
+import {SelectItem} from "primeng/components/common/selectitem";
+import {OwnerIdentityService} from "../../owner-identity/shared/owner-identity.service";
+import {CarService} from "../../car/shared/car.service";
 declare var mapObject: any;
 @Component({
     selector: 'app-map',
@@ -38,12 +41,24 @@ export class MapComponent implements OnInit, OnDestroy {
     endDate: any;
     zh = zh;
 
+    companys: SelectItem[];
+    company: string;
+    carsGroupByCompany: any;
+
+    cars: SelectItem[];
+    selectCars: any[];
+
+
+    currentRealTimeAccordion: string;
+
     constructor(private toastr: ToastsManager
         , private regularService: RegularService
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
         , private radio: NgRadio
-        , private mapService: MapService) {
+        , private mapService: MapService
+        , private _ownerService: OwnerIdentityService
+        , private _carService: CarService) {
         this.lng = 117.126826;
         this.lat = 31.852467;
         this.realTimeGnssData = null;
@@ -58,6 +73,10 @@ export class MapComponent implements OnInit, OnDestroy {
         this.directions = [10, 46, 80, 100, 138, 160, 250, 320, 360];
         this.directionIndex = 0;
         this.startDate = new Date();
+
+
+        this.onRealTimeAccordion('singleCar');
+
         this.points = [{
             'dateStr': '2017-06-30 07:36:11',
             'plateColor': 2,
@@ -207,10 +226,18 @@ export class MapComponent implements OnInit, OnDestroy {
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
                 this.realTimeDataTOP10 = [];
-                if (this.realTimeMapKey !== inputs.key) {
-                    this.realTimeMapKey = inputs.key;
-                    this.realTimeMapFrameNo = inputs.frameNo;
+                if(inputs.currentRealTimeAccordion=='singleCar'){
+                    this.onRealTimeAccordion('singleCar');
+                    this.clearCompanysAndCars();
+                    if (this.realTimeMapKey !== inputs.key) {
+                        this.realTimeMapKey = inputs.key;
+                        this.realTimeMapFrameNo = inputs.frameNo;
+                    }
+                }else{
+                    this.onRealTimeAccordion('multipleCar');
                 }
+
+
             } else if (inputs.code === 'historyMap') {
                 this.realTimeDataTOP10 = [];
                 this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
@@ -236,6 +263,15 @@ export class MapComponent implements OnInit, OnDestroy {
                 this.mapCode = inputs.code;
             }
         })
+
+        this.companys = [];
+        this.carsGroupByCompany = {};
+        // for (let i = 0; i < 1000; i++) {
+        //     this.companys.push({label: `企业${i}`, value: `C00000000${i}`});
+        // }
+
+        this.cars = [];
+        this.selectCars = [];
     }
 
     ngOnInit() {
@@ -355,7 +391,6 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
 
-
     showPath() {
         for (const point of this.points) {
             mapObject.historyPoints(point.geoPoint, point.alarmState, GnssData.getRealTimeInfo(point));
@@ -417,6 +452,133 @@ export class MapComponent implements OnInit, OnDestroy {
         } else {
             list.push(data);
         }
+    }
+
+    onCombineQuery() {
+
+        mapObject.clean();
+
+
+        for (let i = 0; i < 5; i++) {
+
+
+            this.lng += 0.001;
+            this.lat += 0.001;
+            if (i == 0) {
+                mapObject.resetCenter(this.lng, this.lat)
+            }
+            mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
+                i,
+                `${this.lng},${this.lat}==${i}`,
+                23);
+        }
+        let lngaa = 117.126826;
+        let lataa = 31.852467;
+
+        setInterval(function () {
+            lngaa -= 0.001;
+            lataa += 0.001;
+            mapObject.combineQueryPoint(`${lngaa},${lataa}`,
+                0,
+                `${lngaa},${lataa}==${0}`,
+                50);
+        }, 2000)
+
+    }
+
+    onRealTimeAccordion(currentAccordion) {
+        this.currentRealTimeAccordion = currentAccordion;
+
+        if (currentAccordion === 'multipleCar') {
+            if (this.companys.length == 0) {
+                this.getCompanys();
+            }
+        }
+    }
+
+    getCompanys() {
+        this.companys = [];
+        this.carsGroupByCompany = {};
+        this._ownerService.all().subscribe(
+            res => {
+                for (const item of res.companys) {
+                    this.companys.push({label: item.name, value: item.code});
+                }
+            }
+        )
+    }
+
+    companySelectChange(event) {
+        this.cars = [];
+        if (this.regularService.isBlank(event.value)) {
+            this.cars = [];
+            return
+        }
+
+        if(this.carsGroupByCompany.hasOwnProperty(event.value)){
+
+            for (const item of this.carsGroupByCompany[event.value]) {
+                this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+            }
+        }else {
+            this.getCompanyCars(event.value)
+        }
+
+    }
+
+    getCompanyCars(companyCode){
+        this._carService.getCompanyCars(companyCode).subscribe(
+            res=>{
+                for (const item of res.cars) {
+                    this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+                }
+            }
+        )
+    }
+
+    carSelected(licenseNo){
+        return this.selectCars.findIndex(x => x.value === licenseNo)>-1;
+    }
+
+    carSelectChange(event, item) {
+        let carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
+        if (!event.target.checked) {
+            if (carIndex > -1) {
+                mapObject.removecombineQueryPoint(item.value);
+                this.selectCars.splice(carIndex, 1);
+            }
+        }
+
+        if (carIndex < 0) {
+            this.selectCars.push(item);
+            this.lng += 0.001;
+            this.lat += 0.001;
+            mapObject.resetCenter(this.lng, this.lat)
+            mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
+                item.value,
+                `${this.lng},${this.lat}==${item.value}`,
+                23);
+        }
+    }
+
+    removeCar(licenseNo){
+        let carIndex = this.selectCars.findIndex(x => x.value === licenseNo);
+        if (carIndex > -1) {
+            mapObject.removecombineQueryPoint(licenseNo);
+            this.selectCars.splice(carIndex, 1);
+        }
+    }
+
+    showCar(licenseNo){
+        mapObject.showCombinePoint(licenseNo);
+    }
+
+    clearCompanysAndCars(){
+        this.companys=[];
+        this.company='';
+        this.carsGroupByCompany={};
+        this.cars=[];
+        this.selectCars=[];
     }
 
 }

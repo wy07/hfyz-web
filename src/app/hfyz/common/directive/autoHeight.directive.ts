@@ -8,20 +8,14 @@ export class AutoHeightDirective implements OnInit {
 
     constructor(private _el: ElementRef
         , private _renderer: Renderer) {
-        // this.ratio=0
-        // this.offset=0
     }
 
     ngOnInit() {
-        console.log(this.ratio)
-        console.log(this.offset)
-
         let winowHeight=window.innerHeight;
         let headerHeight = 100;
         let footerHeight = 50;
 
         let height=(winowHeight-headerHeight-footerHeight)*this.ratio/100+this.offset;
-
 
         this._renderer.setElementStyle(this._el.nativeElement, 'height', height + 'px');
     }

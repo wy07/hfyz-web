@@ -231,7 +231,6 @@ export class HomeComponent implements OnInit {
 
     getHistoryDataset(enterRate, onlineRate, onlineTimeRate, overspeedRate, fatigueRate, realTimeOnlineRate) {
         this.historyDataset = [enterRate, onlineRate, onlineTimeRate, overspeedRate, fatigueRate, realTimeOnlineRate]
-        console.log(JSON.stringify(this.historyDataset))
 
     }
 
@@ -246,7 +245,6 @@ export class HomeComponent implements OnInit {
 
     setCarPieChartRateOption(code) {
         let item = this.carPieChartRates.find(x => x.code === code);
-        console.log(JSON.stringify(item.data))
         this.carPieChartRateOption = this._homeService.pieChartRateOption(item.name, ['危货', '班车', '旅游包车'], item.data)
     }
 

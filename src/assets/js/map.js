@@ -4,6 +4,8 @@ var historyMap;
 var maplet = null;
 var monitorBtn = "info";
 
+var combineQueryPoints=new Object();
+
 var mapObject = (function () {
     return {
         initMap: function (elm) {
@@ -17,6 +19,9 @@ var mapObject = (function () {
             window.onresize = function () {//自适应地图宽和高
                 maplet.resize(document.getElementById(elm).clientWidth - 20, document.documentElement.clientHeight - 400);
             };
+        },
+        resetCenter:function(lng,lat){
+            maplet.centerAndZoom(new MPoint(lng, lat), 12)
         },
         reload: function () {
             maplet.centerAndZoom(new MPoint(116.35566, 39.93218), 12);
@@ -96,6 +101,46 @@ var mapObject = (function () {
                 new MInfoWindow("详细信息", info)
             );
             maplet.addOverlay(historyMarker);
+        },
+
+        removecombineQueryPoint:function (carNo) {
+            if (combineQueryPoints[carNo]){
+                maplet.removeOverlay(combineQueryPoints[carNo])
+            }
+        },
+
+        combineQueryPoint:function (geoPoint,carNo, info, direction){
+            if (combineQueryPoints[carNo]){
+                maplet.removeOverlay(combineQueryPoints[carNo])
+            }
+
+            var point = new MPoint(geoPoint);
+            var marker = new MMarker(
+                point,
+                new MIcon('<img class="con" id="icon_realTimeMonitor" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48),
+                new MInfoWindow("详细信息", info)
+            );
+
+            maplet.addOverlay(marker);
+            combineQueryPoints[carNo]=marker;
+            // marker.openInfoWindow();
+            var $icon = $('#icon_combine_'+carNo);
+            $icon.css('transform', 'rotate(' + direction + 'deg)');//设置车辆方向
+            $icon.css('-ms-transform', 'rotate(' + direction + 'deg)');
+            $icon.css('-moz-transform', 'rotate(' + direction + 'deg)');
+            $icon.css('-o-transform', 'rotate(' + direction + 'deg)');
+            $icon.css('-webkit-transform', 'rotate(' + direction + 'deg)');
+        },
+
+        showCombinePoint:function (carNo) {
+            console.log("------in showCombinePoint")
+            console.log(carNo)
+            console.log(combineQueryPoints[carNo])
+
+            if (combineQueryPoints[carNo]){
+                maplet.centerAndZoom(combineQueryPoints[carNo].pt,12);
+                combineQueryPoints[carNo].openInfoWindow();
+            }
         }
     }
 
