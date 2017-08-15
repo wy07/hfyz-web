@@ -1,32 +1,36 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-sm-2">
         <p-dropdown [options]="types" [(ngModel)]="selectedType" [style]="{'width':'100%'}" [scrollHeight]="300"></p-dropdown>
       </div>
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <div class="input-group">
-          <span class="input-group-addon">姓名：</span>
-          <input type="text" class="form-control" [(ngModel)]="peopleName" placeholder="请输入姓名..."/>
+          <span class="search-span input-group-addon">姓名：</span>
+          <input type="text" class="search-input form-control" [(ngModel)]="peopleName" placeholder="请输入姓名..."/>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <div class="input-group">
-          <span class="input-group-addon">联系电话：</span>
-          <input type="text" class="form-control" [(ngModel)]="phoneNo" placeholder="请输入联系电话..."/>
+          <span class=" search-span input-group-addon">联系电话：</span>
+          <input type="text" class="search-input form-control" [(ngModel)]="phoneNo" placeholder="请输入联系电话..."/>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-sm-3">
         <div class="input-group">
-          <span class="input-group-addon">身份证号码：</span>
-          <input type="text" class="form-control" [(ngModel)]="IDCardNo" placeholder="请输入身份证号码..."/>
+          <span class="search-span input-group-addon">身份证号：</span>
+          <input type="text" class="search-input form-control" [(ngModel)]="IDCardNo" placeholder="请输入身份证号码..."/>
         </div>
-      </div>
-      <div class="col-md-1">
-        <button type="button" class="btn btn-primary" (click)="search()">检索</button>
       </div>
     </div>
+      <div class="row ">
+          <div class="col-sm-3 col-sm-offset-9 ">
+      <button type="button" pButton class="search-button" label="检索" (click)="search()"></button>
+      <button type="submit" pButton class="btn btn-primary" label="重置" (click)="cancel()"></button>
+          </div>
+      </div>
   </div>
+  <!--</div>-->
 
   <div class="panel-body">
     <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">

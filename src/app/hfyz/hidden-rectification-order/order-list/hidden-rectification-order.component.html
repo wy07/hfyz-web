@@ -1,30 +1,41 @@
-<div class="panel panel-default"  *ngIf="isDetails==false && edit==false">
+<div class="panel panel-default" *ngIf="isDetails==false && edit==false">
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">业户名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..."/>
+                    <span class="search-span input-group-addon">业户名称：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="company" name="company"
+                           placeholder="请输入业户名称..."/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="input-group">
-                    <span class="input-group-addon">上报时间：</span>
+                    <span class="search-span input-group-addon">上报时间：</span>
                     <div>
-                        <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
+                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
                         -
-                        <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
+                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
                     </div>
-                    <span class="input-group-addon">状态：</span>
-                    <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <button pButton label="检索" type="button"(click)="initData()"></button>
-                <button pButton label="取消" type="button" (click)="cancel()"></button>
-                <button pButton label="新增" type="button" (click)="onCreat()"></button>
+            <div class="col-sm-3" style="margin-left: -68px">
+                <div class="input-group">
+                    <span class="input-group-addon">状态：</span>
+                    <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态"
+                                [style]="{'width':'100%'}"></p-dropdown>
+                </div>
             </div>
         </div>
+        <div class="row">
+                <div class="col-sm-3 col-sm-offset-9">
+                    <button pButton label="检索" class="search-button" type="button" (click)="initData()"></button>
+                    <button pButton label="重置" class="search-button" type="button" (click)="cancel()"></button>
+                    <!--<button pButton label="新增" type="button" (click)="onCreat()"></button>-->
+                </div>
+            </div>
+
     </div>
     <div class="panel-body">
         <div class="row">
@@ -38,10 +49,14 @@
                     <p-column field="status" header="状态"></p-column>
                     <p-column field="" header="操作" [style]="{'width':'24%'}">
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
-                            <button pButton type="button" label="编辑" (click)="onEdit(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
-                            <button pButton type="button" label="删除" (click)="onDelete(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草'"></button>
-                            <button pButton type="button" label="详情" (click)="preEdit(hiddenRectificationOrder.id)"></button>
-                            <button pButton type="button" label="提交" (click)="commit(hiddenRectificationOrder)" *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
+                            <button pButton type="button" label="编辑" (click)="onEdit(hiddenRectificationOrder)"
+                                    *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
+                            <button pButton type="button" label="删除" (click)="onDelete(hiddenRectificationOrder)"
+                                    *ngIf="hiddenRectificationOrder.status=='起草'"></button>
+                            <button pButton type="button" label="详情"
+                                    (click)="preEdit(hiddenRectificationOrder.id)"></button>
+                            <button pButton type="button" label="提交" (click)="commit(hiddenRectificationOrder)"
+                                    *ngIf="hiddenRectificationOrder.status=='起草' || hiddenRectificationOrder.status=='已拒绝'"></button>
                         </ng-template>
                     </p-column>
                 </p-dataTable>
@@ -54,7 +69,7 @@
 <div *ngIf="edit">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="form-group"  >
+            <div class="form-group">
                 <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
             </div>
         </div>
@@ -64,8 +79,11 @@
                     <div class="col-sm-6">
                         <label for="enterpirse" class="col-sm-2 dialog-label" right>业户名称：<span class="notNull">*</span></label>
                         <div class="col-sm-6">
-                            <p-autoComplete id="enterpirse" name="enterpirse" [(ngModel)]="selectedCompany" [suggestions]="filteredEnterpirses"
-                                            (onSelect)="onSelect($event)" field="info" (completeMethod)="filteredEnterpirse($event)"  [size]="30" [minLength]="1" [delay]="500">
+                            <p-autoComplete id="enterpirse" name="enterpirse" [(ngModel)]="selectedCompany"
+                                            [suggestions]="filteredEnterpirses"
+                                            (onSelect)="onSelect($event)" field="info"
+                                            (completeMethod)="filteredEnterpirse($event)" [size]="30" [minLength]="1"
+                                            [delay]="500">
                                 <ng-template let-enterpirse pTemplate="item">
                                     {{enterpirse.ownerName}}
                                 </ng-template>
@@ -75,22 +93,27 @@
                     <div class="col-sm-6">
                         <label for="area" class="col-sm-2 dialog-label" right>区域：</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="area" name="area" [(ngModel)]="hiddenRectificationOrder.area">
+                            <input type="text" class="form-control" id="area" name="area"
+                                   [(ngModel)]="hiddenRectificationOrder.area">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <label for="inspectionDate" class="col-xs-2 col-sm-2 dialog-label" right>检查日期：<span class="notNull">*</span></label>
+                        <label for="inspectionDate" class="col-xs-2 col-sm-2 dialog-label" right>检查日期：<span
+                            class="notNull">*</span></label>
                         <div class="col-sm-2">
-                            <p-calendar name="inspectionDate" id="inspectionDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
+                            <p-calendar name="inspectionDate" id="inspectionDate" dateFormat="yy-mm-dd"
+                                        [showTime]="true" [readonlyInput]="true"
                                         [(ngModel)]="inspection"></p-calendar>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="examiner" class="col-sm-2 dialog-label" right>检查人：<span class="notNull">*</span></label>
+                        <label for="examiner" class="col-sm-2 dialog-label" right>检查人：<span
+                            class="notNull">*</span></label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenRectificationOrder.examiner">
+                            <input type="text" class="form-control" id="examiner" name="examiner"
+                                   [(ngModel)]="hiddenRectificationOrder.examiner">
                         </div>
                     </div>
                 </div>
@@ -98,23 +121,28 @@
                     <div class="col-sm-6">
                         <label for="dealineDate" class="col-sm-2 dialog-label" right>整改期限：<span class="notNull">*</span></label>
                         <div class="col-sm-2">
-                            <p-calendar name="dealineDate" id="dealineDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true"
-                                        [(ngModel)]="dealine">></p-calendar>
+                            <p-calendar name="dealineDate" id="dealineDate" dateFormat="yy-mm-dd" [showTime]="true"
+                                        [readonlyInput]="true"
+                                        [(ngModel)]="dealine">>
+                            </p-calendar>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insPosition" class="col-xs-1 col-sm-1 dialog-label" right>检查地点：<span class="notNull">*</span></label>
+                        <label for="insPosition" class="col-xs-1 col-sm-1 dialog-label" right>检查地点：<span
+                            class="notNull">*</span></label>
                         <div class="col-sm-6">
-        <textarea class="form-control fix" id="insPosition" name="insPosition" [(ngModel)]="hiddenRectificationOrder.insPosition"
+        <textarea class="form-control fix" id="insPosition" name="insPosition"
+                  [(ngModel)]="hiddenRectificationOrder.insPosition"
                   maxlength="1500"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insDesc" class="col-xs-1 col-sm-1 dialog-label" right>检查内容：<span class="notNull">*</span></label>
+                        <label for="insDesc" class="col-xs-1 col-sm-1 dialog-label" right>检查内容：<span
+                            class="notNull">*</span></label>
                         <div class="col-sm-6">
         <textarea class="form-control fix" id="insDesc" name="insDesc" [(ngModel)]="hiddenRectificationOrder.insDesc"
                   maxlength="1500"></textarea>
@@ -123,9 +151,11 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insQuestion" class="col-xs-1 col-sm-1 dialog-label" right>存在问题：<span class="notNull">*</span></label>
+                        <label for="insQuestion" class="col-xs-1 col-sm-1 dialog-label" right>存在问题：<span
+                            class="notNull">*</span></label>
                         <div class="col-sm-6">
-        <textarea class="form-control fix" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenRectificationOrder.insQuestion"
+        <textarea class="form-control fix" id="insQuestion" name="insQuestion"
+                  [(ngModel)]="hiddenRectificationOrder.insQuestion"
                   maxlength="1500"></textarea>
                         </div>
                     </div>
@@ -141,8 +171,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <button  pButton type="button" label="保存" (click)="onSaveNew()" ></button>
-                        <button  pButton type="button" label="返回" (click)="return()" ></button>
+                        <button pButton type="button" label="保存" (click)="onSaveNew()"></button>
+                        <button pButton type="button" label="返回" (click)="return()"></button>
                     </div>
                 </div>
             </form>
@@ -158,7 +188,7 @@
 </p-dialog>
 
 <div *ngIf="isDetails">
-    <div class="panel panel-default" >
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
         </div>
@@ -189,7 +219,7 @@
                     <div class="col-sm-4">
                         <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
                     </div>
-                    <label class="col-sm-1 "right>状态：</label>
+                    <label class="col-sm-1 " right>状态：</label>
                     <div class="col-sm-4">
                         <span>{{hiddenRectificationOrder.status}}</span>
                     </div>
@@ -207,7 +237,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-1" right>存在问题：</label>
+                    <label class="col-sm-1" right>存在问题：</label>
                     <div class="col-sm-8">
                         <span>{{hiddenRectificationOrder.insQuestion}}</span>
                     </div>

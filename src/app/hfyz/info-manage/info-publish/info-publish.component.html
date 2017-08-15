@@ -1,15 +1,15 @@
 <div class="ui-g" *ngIf="actionStr=='list'">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3 col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">标题：</span>
+                    <span class="search-span input-group-addon">标题：</span>
                     <input type="text" [(ngModel)]="textTitle" class="form-control" placeholder="请输入文档标题..."/>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-sm-6">
                 <div class="input-group">
-                    <span class="input-group-addon">起草时间：</span>
+                    <span class="search-span input-group-addon">起草时间：</span>
                     <div>
                         <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd"
                                     name="dateBegin"></p-calendar>
@@ -19,9 +19,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 col-sm-3">
                 <button pButton type="button" label="检索" (click)="onSearch()"></button>
-                <button pButton type="button" label="新增" (click)="onCreate()"></button>
+                <button pButton type="button" label="重置" (click)="onReset()"></button>
             </div>
         </div>
     </div>

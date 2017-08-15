@@ -6,14 +6,14 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <span class="input-group-addon">业户名称：</span>
-                            <input type="text" class="form-control" [(ngModel)]="ownerName" name="ownerName" placeholder="请输入业户名称..." />
+                            <span class="search-span input-group-addon">业户名称：</span>
+                            <input type="text" class="search-input form-control" [(ngModel)]="ownerName" name="ownerName" placeholder="请输入业户名称..." />
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-3 col-sm-offset-6">
                         <button pButton label="检索" type="button" (click)="onSearch()"></button>
-                        <button pButton label="取消" type="button" (click)="onCancel()"></button>
+                        <button pButton label="重置" type="button" (click)="onCancel()"></button>
                     </div>
                 </div>
                 <hr/>

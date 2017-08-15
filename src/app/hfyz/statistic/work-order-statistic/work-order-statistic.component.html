@@ -1,41 +1,42 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
-            <div class="panel-heading">工单统计</div>
-            <div class="panel-body">
+            <div class="panel-heading">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="input-group">
-                            <span class="input-group-addon">企业名称：</span>
-                            <input type="text" class="form-control" [(ngModel)]="companyName" name="companyName" placeholder="请输入企业名称..."/>
+                            <span class="search-span input-group-addon">企业名称：</span>
+                            <input type="text" class="search-input form-control" [(ngModel)]="companyName"
+                                   name="companyName" placeholder="请输入企业名称..."/>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-sm-offset-2">
+                    <div class="col-sm-3">
                         <div class="input-group">
-                            <span class="input-group-addon">报警类型：</span>
+                            <span class="search-span input-group-addon">报警类型：</span>
                             <select [(ngModel)]="alarmType" class="form-control">
-                                <option value="" >全部</option>
-                                <option *ngFor="let item of alarmTypes" [ngValue]="item.id" >{{item.name}}</option>
+                                <option value="">全部</option>
+                                <option *ngFor="let item of alarmTypes" [ngValue]="item.id">{{item.name}}</option>
                             </select>
                         </div>
                     </div>
-                </div>
-                <br/>
-                <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <span class="input-group-addon">时间范围：</span>
-                            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [style]="{'padding-right':'30px'}"></p-calendar>
+                            <span class="search-span input-group-addon">时间范围：</span>
+                            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'"
+                                        [style]="{'padding-right':'30px'}"></p-calendar>
                             -
                             <p-calendar [(ngModel)]="endDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'"></p-calendar>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <button pButton label="检索" type="button"(click)="onSearch()"></button>
-                        <button pButton label="取消" type="button" (click)="onCancel()"></button>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-9">
+                        <button pButton label="检索" class="search-button" type="button" (click)="onSearch()"></button>
+                        <button pButton label="重置" class="search-button" type="button" (click)="onCancel()"></button>
                     </div>
                 </div>
-                <hr/>
+            </div>
+            <div class="panel-body">
                 <p-dataTable [value]="records" [emptyMessage]="'暂无数据'">
                     <p-column field="companyName" header="业户名称"></p-column>
                     <p-column field="companyCode" header="组织机构编码"></p-column>

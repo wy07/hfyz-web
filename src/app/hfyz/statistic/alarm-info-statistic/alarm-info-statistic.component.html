@@ -6,15 +6,15 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group">
-                            <span class="input-group-addon">时间范围：</span>
+                            <span class="search-span input-group-addon">时间范围：</span>
                             <p-calendar [(ngModel)]="startDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh" [style]="{'padding-right':'30px'}"></p-calendar>
                             -
                             <p-calendar [(ngModel)]="endDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh"></p-calendar>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3 col-sm-offset-3">
                         <button pButton label="检索" type="button"(click)="onSearch()"></button>
-                        <button pButton label="取消" type="button" (click)="onCancel()"></button>
+                        <button pButton label="重置" type="button" (click)="onCancel()"></button>
                     </div>
                 </div>
                 <hr/>

@@ -1,15 +1,15 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">公司：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
+                    <span class="search-span input-group-addon">公司：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            <div class="col-sm-3 col-sm-offset-6">
+                <button type="button" pButton label="检索" (click)="search()"></button>
+                <button type="button" pButton label="重置" (click)="reset()"></button>
             </div>
         </div>
     </div>

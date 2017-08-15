@@ -56,7 +56,12 @@ export class CarListComponent implements OnInit {
             this.loadData();
         }
     }
-
+    onReset() {
+        this.businessType = '';
+        this.licenseNo = '';
+        this.dateBegin = null;
+        this.dateEnd = null;
+    }
     loadData(offset = 0) {
         // if(this.regularService.isBlank(this.businessType)){
         //   this.toastr.error('请选择行业类别');
