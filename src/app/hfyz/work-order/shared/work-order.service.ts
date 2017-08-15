@@ -10,6 +10,10 @@ export class WorkOrderService {
         return this.restangular.all('work-orders').customGET('list', { max: max, offset: offset });
     }
 
+    details(id){
+        return this.restangular.one('work-orders', id).customGET('edit');
+    }
+
     pendinglist(max, offset) {
         return this.restangular.all('work-orders').customGET('pending-work-order-list', { max: max, offset: offset });
     }
