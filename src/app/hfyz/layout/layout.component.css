@@ -403,9 +403,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
     display: inline-block;
     vertical-align: middle;
 }
-.required{
-    color:red;
-}
+
  /*.footer {
   background-color: #dee0e3;
   padding: 8px 14px; }

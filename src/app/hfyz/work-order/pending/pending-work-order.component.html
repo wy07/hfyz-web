@@ -1,203 +1,193 @@
-<div class="row" *ngIf="action==='list'">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">待审批列表</div>
-            <div class="panel-body">
-                <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
-                    <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
-                    <p-column field="alarmType" header="报警类型"></p-column>
-                    <p-column field="alarmLevel" header="报警等级"></p-column>
-                    <p-column field="ownerName" header="业户名称">
-                        <ng-template let-workOrder="rowData" pTemplate="body">
-                            <span>{{workOrder.ownerName || '无'}}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="frameNo" header="车架号">
-                        <ng-template let-workOrder="rowData" pTemplate="body">
-                            <span>{{workOrder.frameNo || '无'}}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="userID" header="从业人员身份证号">
-                        <ng-template let-workOrder="rowData" pTemplate="body">
-                            <span>{{workOrder.userID || '无'}}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="dateCreated" header="创建时间"></p-column>
-                    <p-column field="checkTime" header="检查时间"></p-column>
-                    <p-column field="rectificationTime" header="整改时间"></p-column>
-                    <p-column field="status.name" header="工单状态"></p-column>
-                    <p-column field="" header="操作" styleClass=operation-buttons-2>
-                        <ng-template let-node="rowData" pTemplate="body">
-                            <div role="button" class="fa fa-list-alt fa-font-size div-distance"
-                                 *ngIf="node.status.value=='DSH'" (click)="onExamine(node.id)" tooltip="审批" placement="bottom"></div>
-                            <div role="button" class="fa fa-wpforms fa-font-size div-distance"
-                                 *ngIf="node.status.value=='DYP'" (click)="onJudge(node.id)" tooltip="研判" placement="bottom"></div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"
-                             *ngIf="total>0"></p-paginator>
-            </div>
-        </div>
+<div *ngIf="action==='list'">
+    <div class="panel-body">
+        <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
+            <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
+            <p-column field="alarmType" header="报警类型"></p-column>
+            <p-column field="alarmLevel" header="报警等级"></p-column>
+            <p-column field="ownerName" header="业户名称">
+                <ng-template let-workOrder="rowData" pTemplate="body">
+                    <span>{{workOrder.ownerName || '无'}}</span>
+                </ng-template>
+            </p-column>
+            <p-column field="frameNo" header="车架号">
+                <ng-template let-workOrder="rowData" pTemplate="body">
+                    <span>{{workOrder.frameNo || '无'}}</span>
+                </ng-template>
+            </p-column>
+            <p-column field="userID" header="从业人员身份证号">
+                <ng-template let-workOrder="rowData" pTemplate="body">
+                    <span>{{workOrder.userID || '无'}}</span>
+                </ng-template>
+            </p-column>
+            <p-column field="dateCreated" header="创建时间"></p-column>
+            <p-column field="checkTime" header="检查时间"></p-column>
+            <p-column field="rectificationTime" header="整改时间"></p-column>
+            <p-column field="status.name" header="工单状态"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-2>
+                <ng-template let-node="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list-alt fa-font-size div-distance" *ngIf="node.status.value=='DSH'" (click)="onExamine(node.id)"
+                        tooltip="审批" placement="bottom"></div>
+                    <div role="button" class="fa fa-wpforms fa-font-size div-distance" *ngIf="node.status.value=='DYP'" (click)="onJudge(node.id)"
+                        tooltip="研判" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>0"></p-paginator>
     </div>
-</div>
-<div class="row" *ngIf="action==='examine'||action==='judge'">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">审批工单</div>
-            <div class="panel-body">
-                <div class="col-sm-12 form-horizontal">
-                    <h4>工单详情</h4>
-                    <div class="row">
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">工单编号</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.sn}}</p>
+    <div class="row" *ngIf="action==='examine'||action==='judge'">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">审批工单</div>
+                <div class="panel-body">
+                    <div class="col-sm-12 form-horizontal">
+                        <h4>工单详情</h4>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">工单编号</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.sn}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4" *ngIf="workOrder?.parent?.sn">
+                                <label class="col-sm-3 control-label">上级工单</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder?.parent?.sn}}</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">报警类型</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.alarmType}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group  col-sm-4">
+                                <label class="col-sm-3 control-label">报警等级</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.alarmLevel}}</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">业户名称</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.ownerName}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">经营负责人</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.operateManager}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">电话</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-sm-4" *ngIf="workOrder.frameNo">
+                                <label class="col-sm-3 control-label">车架号</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.frameNo}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4" *ngIf="workOrder.userID">
+                                <label class="col-sm-3 control-label">从业人员身份证号</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.userID}}</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">创建时间</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.dateCreated}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">检查时间</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.checkTime}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-3 control-label">整改时间</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control-static">{{workOrder.rectificationTime}}</p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-sm-12">
+                                <label class="col-sm-1 control-label">整改意见</label>
+                                <div class="col-sm-11">
+                                    <p class="form-control-static">{{workOrder.note}}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder?.parent?.sn" >
-                            <label class="col-sm-3 control-label">上级工单</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder?.parent?.sn}}</p>
+
+                    </div>
+
+                    <div class="col-sm-12">
+                        <h4>操作记录</h4>
+                        <table class="table table-bordered" *ngIf="workOrderRecords.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>操作人</th>
+                                    <th>动作</th>
+                                    <th>创建时间</th>
+                                    <th>状态</th>
+                                    <th>意见/反馈</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of workOrderRecords">
+                                    <td>{{item.user}}</td>
+                                    <td>{{item.operate}}</td>
+                                    <td>{{item.dateCreated}}</td>
+                                    <td>{{item.workOrderStatus}}</td>
+                                    <td>{{item.note}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center" *ngIf="workOrderRecords.length === 0">
+                            <span>暂无数据</span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 form-horizontal" *ngIf="action==='examine'">
+                        <h4>审批</h4>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">审批意见</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" maxlength="600" [(ngModel)]="examineNote"></textarea>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">报警类型</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.alarmType}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group  col-sm-4">
-                            <label class="col-sm-3 control-label">报警等级</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.alarmLevel}}</p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">业户名称</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.ownerName}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">经营负责人</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.operateManager}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">电话</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.phone}}</p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder.frameNo">
-                            <label class="col-sm-3 control-label" >车架号</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.frameNo}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder.userID">
-                            <label class="col-sm-3 control-label" >从业人员身份证号</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.userID}}</p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">创建时间</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.dateCreated}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">检查时间</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.checkTime}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">整改时间</label>
-                            <div class="col-sm-9">
-                                <p class="form-control-static">{{workOrder.rectificationTime}}</p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-12">
-                            <label class="col-sm-1 control-label">整改意见</label>
-                            <div class="col-sm-11">
-                                <p class="form-control-static">{{workOrder.note}}</p>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <button type="button" class="btn btn-default" (click)="submitExamine(true)">通过</button>
+                                <button type="button" class="btn btn-default" (click)="submitExamine(false)">拒绝</button>
                             </div>
                         </div>
                     </div>
 
-                </div>
-
-                <div class="col-sm-12">
-                    <h4>操作记录</h4>
-                    <table class="table table-bordered" *ngIf="workOrderRecords.length > 0">
-                        <thead>
-                        <tr>
-                            <th>操作人</th>
-                            <th>动作</th>
-                            <th>创建时间</th>
-                            <th>状态</th>
-                            <th>意见/反馈</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let item of workOrderRecords">
-                            <td>{{item.user}}</td>
-                            <td>{{item.operate}}</td>
-                            <td>{{item.dateCreated}}</td>
-                            <td>{{item.workOrderStatus}}</td>
-                            <td>{{item.note}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-center" *ngIf="workOrderRecords.length === 0">
-                        <span>暂无数据</span>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 form-horizontal"  *ngIf="action==='examine'">
-                    <h4>审批</h4>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">审批意见</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="6" maxlength="600"
-                                      [(ngModel)]="examineNote"></textarea>
+                    <div class="col-sm-12 form-horizontal" *ngIf="action==='judge'">
+                        <h4>研判</h4>
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">研判意见</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" maxlength="600" [(ngModel)]="judgeNote"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-9">
-                            <button type="button" class="btn btn-default" (click)="submitExamine(true)">通过</button>
-                            <button type="button" class="btn btn-default" (click)="submitExamine(false)">拒绝</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 form-horizontal"  *ngIf="action==='judge'">
-                    <h4>研判</h4>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">研判意见</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="6" maxlength="600"
-                                      [(ngModel)]="judgeNote"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-9">
-                            <button type="button" class="btn btn-default" (click)="submitJudge(true)">通过</button>
-                            <button type="button" class="btn btn-default" (click)="submitJudge(false)">拒绝</button>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <button type="button" class="btn btn-default" (click)="submitJudge(true)">通过</button>
+                                <button type="button" class="btn btn-default" (click)="submitJudge(false)">拒绝</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-

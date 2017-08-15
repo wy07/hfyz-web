@@ -1,37 +1,31 @@
 <div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
-    <div class="panel-body">
-        <div class="top-buttons">
-            <button pButton type="button" label="新增"
-                    (click)="create()"></button>
-        </div>
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
-            <p-column field="routerName" header="线路名称"></p-column>
-            <p-column field="provenance" header="始发地名称"></p-column>
-            <p-column field="destination" header="目的地名称"></p-column>
-            <p-column field="viaLand" header="途经地名称"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-3>
-                <ng-template let-data="rowData" pTemplate="body">
-                    <div role="button" class="fa fa-list fa-font-size div-distance"
-                         (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                         (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
-                    <div role="button" class="fa fa-times fa-font-size div-distance"
-                         (click)="delete(data.id)" tooltip="删除" placement="bottom"></div>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="create()"></button>
     </div>
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
+        <p-column field="routerName" header="线路名称"></p-column>
+        <p-column field="provenance" header="始发地名称"></p-column>
+        <p-column field="destination" header="目的地名称"></p-column>
+        <p-column field="viaLand" header="途经地名称"></p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-3>
+            <ng-template let-data="rowData" pTemplate="body">
+                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
+                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
+                <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id)" tooltip="删除" placement="bottom"></div>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 
 <div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
     <div class="panel-heading">
-        <h4>新增路线</h4>
+        新增路线
     </div>
     <div class="panel-body no-padding">
         <div class="form-horizontal col-md-6">
             <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称</label>
+                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称：</label>
                 <div class="col-xs-6 cole-sm-6 ">
                     <input class="form-control" [(ngModel)]="freightRouter.routerName" placeholder="输入线路名称">
                 </div>
@@ -76,12 +70,12 @@
 
 <div class="panel panel-default" *ngIf="(pageFlag=='EDIT')">
     <div class="panel-heading">
-        <h4>修改路线</h4>
+        修改路线
     </div>
     <div class="panel-body no-padding">
         <div class="form-horizontal col-md-6">
             <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称</label>
+                <label class="col-xs-4 col-sm-4 text-padding-top text-right">线路名称：</label>
                 <div class="col-xs-6 cole-sm-6 ">
                     <input class="form-control" [(ngModel)]="freightRouter.routerName" placeholder="输入线路名称">
                 </div>
@@ -124,40 +118,40 @@
     </div>
 </div>
 
-<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
-          [responsive]="true">
-  <div class="panel panel-default">
+
+<div class="panel panel-default panel-show" *ngIf="(pageFlag=='DETAIL')">
     <div class="panel-heading">
-      <div class="row">
-        <div class="col-sm-10 text-left">
-          <h5>
-            运单路线详情信息
-          </h5>
-        </div>
-        <div class="col-sm-2">
-          <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
-        </div>
-      </div>
+        路线详情
+        <button type="button" class="btn back-btn" (click)="pageFlag = 'LIST'">返回</button>
     </div>
-    <div class="panel-body no-padding" style=" overflow-y:auto;">
-      <table class="table table-striped">
-        <tr>
-          <td><label>线路名称：</label></td>
-          <td>{{freightRouter.routerName}}</td>
-        </tr>
-        <tr>
-          <td><label>始发地名称：</label></td>
-          <td>{{freightRouter.provenance}}</td>
-        </tr>
-        <tr>
-          <td><label>目的地名称：</label></td>
-          <td>{{freightRouter.destination}}</td>
-        </tr>
-        <tr>
-          <td><label>途经地名称：</label></td>
-          <td>{{freightRouter.viaLand}}</td>
-        </tr>
-      </table>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightRouter.routerName}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">始发地名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightRouter.provenance}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">目的地名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightRouter.destination}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-10">
+                    <label class="col-sm-2 control-label">途经地名称：</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-static">{{freightRouter.viaLand}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</p-dialog>
+</div>
