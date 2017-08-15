@@ -1,16 +1,16 @@
-<div class="panel panel-default" *ngIf="!displayDialog">
+<div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
     <div class="panel-heading">
         <div class="row">
             <div class=" col-md-4">
                 <div class="input-group">
                     <span class="inputPM input-group-addon ">企业名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="企业名称..."/>
+                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="企业名称..." />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="inputPM input-group-addon">组织机构代码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..."/>
+                    <input type="text" class="form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..." />
                 </div>
             </div>
             <div class="col-md-2">
@@ -72,106 +72,153 @@
     </div>
 </div>
 
-
-<div class="panel panel-default" *ngIf="displayDialog">
+<div class="panel panel-default" *ngIf="pageFlag=='SHOW'">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-10 text-left">
-                <h5>详情</h5>
+            <div class="col-sm-6">
+                <h4>业户信息详情信息</h4>
             </div>
-            <div class="col-sm-2">
-                <button pButton type="button" label="返回" (click)="cancle()"></button>
+            <div class="col-sm-6">
+                <button pButton type="button" label="返回" class="pull-right" (click)="cancle()"></button>
             </div>
         </div>
     </div>
-    <div class="panel-body showDetails">
+    <div class="panel-body no-padding showDetails">
         <div class="col-sm-12 form-horizontal">
             <div class="row">
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">业户名称：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{owner.ownerName}}</p></div>
+                        <p class="form-control-static">{{owner.ownerName}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">业户简称：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{owner.shortName}}</p></div>
+                        <p class="form-control-static">{{owner.shortName}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">组织机构代码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.companyCode}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.companyCode}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">企业单位代码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.ownerCode}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.ownerCode}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">上级企业名称：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.parentCompanyName}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.parentCompanyName}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">母公司：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.parentOwner}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.parentOwner}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">业户地址：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.ownerAddress}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.ownerAddress}}</p>
+                    </div>
                 </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">邮政编码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.postCode}}</p></div>
-                </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">行政区划名称：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.administrativeDivisionName}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.administrativeDivisionName}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">行政区划代码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.administrativeDivisionCode}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.administrativeDivisionCode}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">经济类型：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.economicType}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.economicType}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">法人代表：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.legalRepresentative}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.legalRepresentative}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">法人代表身份证号：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.idCardNo}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.idCardNo}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">法人代表照片：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.picture}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.picture}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">经营负责人：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.operateManager}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.operateManager}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">电话：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.phone}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.phone}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">传真号码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.fax}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.fax}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">手机号码：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.telephone}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.telephone}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">电子邮箱：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.email}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.email}}</p>
+                    </div>
                 </div>
+
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">网址：</label>
-                    <div class="col-sm-7"><p class="form-control-static">{{owner.website}}</p></div>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{owner.website}}</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
