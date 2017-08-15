@@ -23,4 +23,8 @@ export class OwnerIdentityService {
     view(id) {
         return this.restangular.one('owner-identitys', id).customGET('view');
     }
+
+    all(){
+        return this.restangular.all('owner-identitys').customGET('all');
+    }
 }
