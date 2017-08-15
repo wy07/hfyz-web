@@ -22,7 +22,6 @@
             <div class="col-sm-3">
                 <button pButton label="检索" type="button"(click)="initData()"></button>
                 <button pButton label="取消" type="button" (click)="cancel()"></button>
-                <!--<button pButton label="新增" type="button" (click)="onCreat()"></button>-->
             </div>
         </div>
     </div>
@@ -31,7 +30,7 @@
             <div class="col-md-12">
                 <div class="top-buttons">
                     <button pButton type="button" label="新增"
-                            (click)="onCreate()"></button>
+                            (click)="onCreat()"></button>
                 </div>
                 <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
                     <p-column field="billNo" header="单据编号"></p-column>
