@@ -2,7 +2,7 @@ import {Component, OnInit, Renderer} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {OwnerIdentityService} from './shared/owner-identity.service'
 import {DatePipe} from '@angular/common';
-import {TdLoadingService} from "@covalent/core";
+import {TdLoadingService} from '@covalent/core';
 
 @Component({
     selector: 'app-owner-identity',
@@ -21,6 +21,7 @@ export class OwnerIdentityComponent implements OnInit {
     currentPage: number;
     dateBegin: Date;
     dateEnd: Date;
+    pageFlag: string; // 页面切换  LIST 列表页 CREATE 新增页 EDIT 修改页 SHOW 详情
 
     constructor(private renderer: Renderer
         , private toastr: ToastsManager
@@ -31,6 +32,7 @@ export class OwnerIdentityComponent implements OnInit {
         this.owner = {};
         this.clearForm();
         this.max = 10;
+        this.pageFlag = 'LIST';
     }
 
 
@@ -61,12 +63,14 @@ export class OwnerIdentityComponent implements OnInit {
     }
 
     onView(id) {
-        this.displayDialog = true;
         this.formTitle = `企业详情`;
+        this._loadingService.register()
         this.ownerIdentityService.view(id).subscribe(
             res => {
+                this._loadingService.resolve()
                 if (res.result === 'success') {
                     this.owner = res.owner;
+                    this.pageFlag = 'SHOW';
                 } else {
                     this.toastr.error('获取数据失败');
                 }
@@ -82,7 +86,7 @@ export class OwnerIdentityComponent implements OnInit {
     }
 
     cancle() {
-        this.displayDialog = false;
+        this.pageFlag = 'LIST';
     }
 
     clearForm() {

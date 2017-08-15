@@ -188,3 +188,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 .operation-buttons-4{
     width: 180px;
 }
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-bottom .ui-tabview-nav li, body .ui-tabview.ui-tabview-left .ui-tabview-nav li, body .ui-tabview.ui-tabview-right .ui-tabview-nav li{
+    border: 1px solid #cccccc;
+}

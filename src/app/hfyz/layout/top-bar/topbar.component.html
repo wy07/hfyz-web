@@ -20,7 +20,7 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right u-navigation-ul" >
-          <li class><a>你好，{{currentUser}}!</a></li>
+          <li style="font-size: 18px;"><a>你好，{{currentUser}} ！</a></li>
           <li *ngFor="let menu of topbarMenu" class="{{menu.style}}">
               <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null" >{{menu.name}}
                 <b *ngIf="menu.children!==undefined" class="caret"></b>
