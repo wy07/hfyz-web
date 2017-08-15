@@ -43,7 +43,7 @@ import { CovalentLoadingModule, TdLoadingService } from '@covalent/core';
 import { StatisticModule } from './hfyz/statistic/statistic.module';
 import {RosterModule} from './hfyz/roster/roster.module';
 import {WaybillModule} from './hfyz/waybill/waybill.module';
-
+import {TooltipModule} from 'ngx-bootstrap';
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
     return () => configService.load();
@@ -90,7 +90,8 @@ export function ConfigLoader(configService: ConfigService) {
         RosterModule,
         CovalentLoadingModule,
         StatisticModule,
-        WaybillModule
+        WaybillModule,
+        TooltipModule.forRoot()
     ],
     /*providers: [ConfigService,
      {

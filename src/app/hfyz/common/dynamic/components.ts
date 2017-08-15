@@ -93,5 +93,5 @@ export const components = {
     platformStatisticComponent:PlatformStatisticComponent,
     travelStatistic: TravelStatisticComponent,
     dangerousStatistic: DangerousStatisticComponent,
-
+    passengerStatistic: PassengerStatisticComponent
 };

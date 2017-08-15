@@ -13,6 +13,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {PlatformManageComponent} from './platform-manage.component';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {PlatformManageComponent} from './platform-manage.component';
     ButtonModule,
     DropdownModule,
     PaginatorModule,
+    TooltipModule
   ],
   exports: [],
   providers: [

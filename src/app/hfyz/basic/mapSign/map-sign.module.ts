@@ -10,7 +10,7 @@ import { DataTableModule, SharedModule, DialogModule, ListboxModule,
          ButtonModule, DataGridModule, TreeModule, PaginatorModule, CalendarModule } from 'primeng/primeng';
 import { DatePipe } from '@angular/common';
 import {DropdownModule} from 'primeng/primeng';
-
+import { TooltipModule } from 'ngx-bootstrap';
 @NgModule({
     declarations: [
       MapSignComponent
@@ -31,7 +31,8 @@ import {DropdownModule} from 'primeng/primeng';
         TreeModule,
         PaginatorModule,
         CalendarModule,
-        DropdownModule
+        DropdownModule,
+        TooltipModule
     ],
     exports: [
     ],

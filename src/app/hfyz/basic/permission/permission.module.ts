@@ -13,7 +13,7 @@ import {
 } from 'primeng/primeng';
 import {PermissionService} from "./permission.service";
 import {PermissionComponent} from "./permission.component";
-
+import {TooltipModule} from 'ngx-bootstrap';
 @NgModule({
     declarations: [
         PermissionComponent
@@ -29,7 +29,8 @@ import {PermissionComponent} from "./permission.component";
         ButtonModule,
         TreeModule,
         DropdownModule,
-        PaginatorModule
+        PaginatorModule,
+        TooltipModule
     ],
     exports: [],
     providers: [
