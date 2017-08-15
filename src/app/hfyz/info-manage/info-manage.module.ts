@@ -11,7 +11,7 @@ import {InfoPublishModule} from './info-publish/info-publish.module';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DatePipe } from '@angular/common';
 import {InfoListService} from './info-list/info-list.service';
-
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import {InfoListService} from './info-list/info-list.service';
     , TreeModule
     , CKEditorModule
     , PaginatorModule
+    , TooltipModule
   ],
   exports: [],
   providers: [

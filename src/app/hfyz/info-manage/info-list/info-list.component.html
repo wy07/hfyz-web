@@ -14,9 +14,10 @@
           <p-column field="dateCreated" header="起草时间"></p-column>
           <p-column field="username" header="用户"></p-column>
           <p-column field="status" header="状态"></p-column>
-          <p-column field="" header="操作">
+          <p-column field="" header="操作" [style]="{'width':'50px'}">
             <ng-template  pTemplate="body" let-infoItem="rowData">
-              <button  pButton type="button"  class="btn btn-info" label="查看" (click)="onDisplay(infoItem)"></button>
+                <div role="button" class="fa fa-list fa-font-size div-distance"
+                     (click)="onDisplay(infoItem)"  tooltip="详情" placement="bottom"></div>
             </ng-template>
           </p-column>
         </p-dataTable>

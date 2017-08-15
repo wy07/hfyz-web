@@ -8,7 +8,7 @@ import {TreeNode} from 'primeng/primeng';
 })
 export class InfoCheckComponent implements OnInit {
   categories: TreeNode[];
-
+  dataSource: any;
   constructor() {
     this.categories = [{
       'label': '审核信息分类',
@@ -34,6 +34,12 @@ export class InfoCheckComponent implements OnInit {
     }
     ];
     window.console.log(this.categories);
+    this.dataSource = [{'id': 1, 'regular': '政策法规', 'regularName': '中华人民共和国行政诉讼法',
+        'time': '2017-07-03 10:04:16', 'name': '王敏', 'status': '待审核'},
+        {'id': 2, 'regular': '标准', 'regularName': '机动车维修规定',
+            'time': '2017-07-07 10:24:36', 'name': '王敏', 'status': '待审核'},
+
+    ]
   }
 
   ngOnInit() {

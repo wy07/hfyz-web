@@ -17,4 +17,8 @@ export class FreightWaybillService {
             offset: offset
         })
     }
+
+    show(id) {
+        return this.restangular.one('freight-waybills', id).customGET('show', {})
+    }
 }

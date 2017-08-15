@@ -15,12 +15,12 @@
                     <p-column field="configAttribute" header="配置属性"></p-column>
                     <p-column field="httpMethod" header="HTTP方法"></p-column>
                     <p-column field="url" header="URL"></p-column>
-                    <p-column field="" header="操作">
+                    <p-column field="" header="操作" [style]="{'width':'85px'}">
                         <ng-template let-perm="rowData" pTemplate="body">
-                            <button pButton type="button" label="编辑"
-                                    (click)="onEdit(perm)"></button>
-                            <button  pButton type="button" label="删除"
-                                    (click)="onDelete(perm)"></button>
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 (click)="onEdit(perm)" tooltip="编辑" placement="bottom"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 (click)="onDelete(perm)" tooltip="删除" placement="bottom"></div>
                         </ng-template>
                     </p-column>
                 </p-dataTable>

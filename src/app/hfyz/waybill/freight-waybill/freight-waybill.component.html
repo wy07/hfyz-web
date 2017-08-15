@@ -1,16 +1,16 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">车牌号：</span>
-                    <input type="text" class="form-control" [(ngModel)]="vehicleNo" placeholder="请输入车牌号..."/>
+                    <input type="text" class="form-control" [(ngModel)]="vehicleNo" placeholder="请输入车牌号..." />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group">
                     <span class="input-group-addon">业户名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
+                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..." />
                 </div>
             </div>
             <div class="col-md-2">
@@ -21,11 +21,9 @@
                 <div class="input-group">
                     <span class="input-group-addon">出发时间：</span>
                     <div>
-                        <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd"
-                                    name="dateBegin"></p-calendar>
+                        <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd" name="dateBegin"></p-calendar>
                         -
-                        <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd"
-                                    name="dateEnd"></p-calendar>
+                        <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" name="dateEnd"></p-calendar>
                     </div>
                 </div>
             </div>
@@ -43,10 +41,181 @@
                 <p-column field="departTime" header="出发时间"></p-column>
                 <p-column field="startCity" header="出发地"></p-column>
                 <p-column field="endCity" header="目的地"></p-column>
+                <p-column field="" header="操作" [style]="{'width':'50px'}">
+                    <ng-template let-data="rowData" pTemplate="body">
+                        <div role="button" class="fa fa-list fa-font-size div-distance"
+                             (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
+                    </ng-template>
+                </p-column>
             </p-dataTable>
             <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>
 
+<div class="panel panel-default" *ngIf="pageFlag=='SHOW'">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>电子运单详情信息</h4>
+            </div>
+            <div class="col-sm-6">
+                <button pButton type="button" label="返回" class="pull-right" (click)="goBack()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">车牌号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.vehicleNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">车架号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.frameNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">业户编码：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.companyCode}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">业户名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.ownerName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">危险品名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.dangerousName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">危险品分类：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.dangerousType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">核定载重质量：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.ratifiedPayload}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">应急预案：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.emergencyPlan}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">运输价格：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.price}}元/车</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否经营性运输：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.operatedType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">装载/卸载：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.loadedType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否满载：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.fullLoaded}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">装载量：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.amount}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">运输距离：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.mile}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">运输出场时间：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.departTime}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">驾驶员姓名：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.driverName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">驾驶员身份证号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.idCardNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">托运单位：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.consignCompany}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">托运会回场时间：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.backTime}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">出发地：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.startProvince}}/{{freightWaybill.startCity}}/{{freightWaybill.startDistrict}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">目的地：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.endProvince}}/{{freightWaybill.endCity}}/{{freightWaybill.endDistrict}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
