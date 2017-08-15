@@ -24,7 +24,7 @@
       <p-column field="vehicleNo" header="车牌号"></p-column>
       <p-column field="controlBegin" header="布控解除时间"></p-column>
       <p-column field="status" header="布控状态"></p-column>
-      <p-column field="" header="操作" [style]="{'width':'120px'}">
+      <p-column field="" header="操作" styleClass=operation-buttons-3>
         <ng-template let-data="rowData" pTemplate="body">
             <div role="button" class="fa fa-list fa-font-size div-distance"
                  (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>

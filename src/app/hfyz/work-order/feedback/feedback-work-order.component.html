@@ -26,7 +26,7 @@
                     <p-column field="checkTime" header="检查时间"></p-column>
                     <p-column field="rectificationTime" header="整改时间"></p-column>
                     <p-column field="status.name" header="工单状态"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'50px'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-1>
                         <ng-template let-node="rowData" pTemplate="body">
                             <div role="button" class="fa fa-file-text-o fa-font-size div-distance"
                                (click)="onFeedback(node.id)" tooltip="反馈" placement="bottom"></div>

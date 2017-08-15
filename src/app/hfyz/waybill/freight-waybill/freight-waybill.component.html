@@ -41,7 +41,7 @@
                 <p-column field="departTime" header="出发时间"></p-column>
                 <p-column field="startCity" header="出发地"></p-column>
                 <p-column field="endCity" header="目的地"></p-column>
-                <p-column field="" header="操作" [style]="{'width':'50px'}">
+                <p-column field="" header="操作" styleClass=operation-buttons-1>
                     <ng-template let-data="rowData" pTemplate="body">
                         <div role="button" class="fa fa-list fa-font-size div-distance"
                              (click)="show(data.id)" tooltip="详情" placement="bottom"></div>

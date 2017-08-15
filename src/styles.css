@@ -171,3 +171,20 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 .showDetails .form-group {
     margin-bottom: 0 !important;
 }
+
+.tooltip-inner{
+    z-index: 9999;
+}
+
+.operation-buttons-3{
+    width: 150px;
+}
+.operation-buttons-2{
+    width: 120px;
+}
+.operation-buttons-1{
+    width: 80px;
+}
+.operation-buttons-4{
+    width: 180px;
+}

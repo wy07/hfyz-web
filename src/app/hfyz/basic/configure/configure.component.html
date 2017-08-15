@@ -6,7 +6,7 @@
           <p-column field="name" header="名称"></p-column>
           <p-column field="configValue" header="值"></p-column>
           <p-column field="note" header="备注"></p-column>
-          <p-column field="" header="操作" [style]="{'width':'50px'}">
+          <p-column field="" header="操作" styleClass=operation-buttons-1>
             <ng-template let-configure="rowData" pTemplate="body">
                 <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
                      (click)="onEdit(configure.id)" tooltip="编辑" placement="bottom"></div>

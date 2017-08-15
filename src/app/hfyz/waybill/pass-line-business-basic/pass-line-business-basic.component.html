@@ -27,7 +27,7 @@
                 <p-column field="dayTimes" header="日发班次"></p-column>
                 <p-column field="businessWay" header="经营方式"></p-column>
                 <p-column field="decideTime" header="许可日期"></p-column>
-                <p-column field="" header="操作" [style]="{'width':'50px'}">
+                <p-column field="" header="操作" styleClass=operation-buttons-1>
                     <ng-template let-data="rowData" pTemplate="body">
                         <div role="button" class="fa fa-list fa-font-size div-distance"
                              (click)="show(data.id)" tooltip="详情" placement="bottom"></div>

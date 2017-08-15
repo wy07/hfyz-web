@@ -40,7 +40,7 @@
                     <p-column field="inspectionDate" header="检查日期"></p-column>
                     <p-column field="dealineDate" header="整改期限"></p-column>
                     <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'160px','text-align':'left'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-4>
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
                             <div role="button" class="fa fa-list fa-font-size div-distance"
                                  (click)="preEdit(hiddenRectificationOrder.id)"  tooltip="详情" placement="bottom"></div>

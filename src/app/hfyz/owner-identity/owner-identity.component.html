@@ -18,7 +18,6 @@
                 <button pButton label="重置" type="button" (click)="onReset()"></button>
             </div>
             <div class="col-md-2">
-
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
@@ -36,7 +35,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
-                <p-dataTable [value]="ownerList" scrollable="true" scrollWidth="100%" [emptyMessage]="'暂无数据'">
+                <p-dataTable [value]="ownerList" [emptyMessage]="'暂无数据'">
                     <p-column field="ownerName" header="业户名称"></p-column>
                     <!--<p-column field="shortName" header="业户简称" [style]="{'width':'120px'}"></p-column>-->
                     <p-column field="companyCode" header="组织机构代码"></p-column>
@@ -59,10 +58,10 @@
                     <!--<p-column field="telephone" header="手机号码" [style]="{'width':'80px'}"></p-column>-->
                     <!--<p-column field="email" header="电子邮箱" [style]="{'width':'80px'}"></p-column>-->
                     <!--<p-column field="website" header="网址" [style]="{'width':'100px'}"></p-column>-->
-                    <p-column field="" header="操作" [style]="{'width':'50px'}">
+                    <p-column field="" header="操作"  styleClass=operation-buttons-1  >
                         <ng-template let-owner="rowData" pTemplate="body">
-                            <div role="button" class="fa fa-list fa-font-size div-distance"
-                                 (click)="onView(owner.id)" tooltip="详情" placement="bottom"></div>
+                            <span role="button" class="fa fa-list fa-font-size div-distance"
+                                 (click)="onView(owner.id)" tooltip="详情"  placement="bottom"></span>
                         </ng-template>
                     </p-column>
                 </p-dataTable>
@@ -71,7 +70,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="panel panel-default" *ngIf="displayDialog">
     <div class="panel-heading">

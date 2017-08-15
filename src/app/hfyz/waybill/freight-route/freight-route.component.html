@@ -9,7 +9,7 @@
             <p-column field="provenance" header="始发地名称"></p-column>
             <p-column field="destination" header="目的地名称"></p-column>
             <p-column field="viaLand" header="途经地名称"></p-column>
-            <p-column field="" header="操作" [style]="{'width':'120px'}">
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-data="rowData" pTemplate="body">
                     <div role="button" class="fa fa-list fa-font-size div-distance"
                          (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>
