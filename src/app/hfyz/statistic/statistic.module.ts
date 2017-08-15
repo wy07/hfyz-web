@@ -27,6 +27,8 @@ import {CompanyReportService} from './company-report/company-report.service';
 import {WorkOrderStatisticComponent} from './work-order-statistic/work-order-statistic.component';
 import {CarBasicStatisticsComponent} from './car-basic-statistics/car-basic-statistics.component';
 import { AngularEchartsModule } from 'ngx-echarts';
+import { PlatformStatisticComponent } from './platform-statistic/platform-statistic.componemt';
+
 @NgModule({
   declarations: [
       CheckStatisticComponent,
@@ -37,7 +39,8 @@ import { AngularEchartsModule } from 'ngx-echarts';
       WorkOrderStatisticComponent,
       CarBasicStatisticsComponent,
       AlarmInfoStatisticComponent,
-      OwnerIdentityStatisticComponent
+      OwnerIdentityStatisticComponent,
+      PlatformStatisticComponent
   ],
   imports: [
     BrowserModule,

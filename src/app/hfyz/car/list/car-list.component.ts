@@ -94,7 +94,7 @@ export class CarListComponent implements OnInit {
             name: '实时状态',
             icon: 'fa-map',
             code: 'realTimeMap',
-            inputs: {frameNo: item.licenseNo, id: item.frameNo}
+            inputs: {frameNo: item.licenseNo, id: item.frameNo, currentRealTimeAccordion:'singleCar'}
         };
         this.layoutComponent.addTab(menu);
         // .then(res => {

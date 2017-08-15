@@ -1,4 +1,4 @@
-<div class="ui-g" *ngIf="actionStr=='list'">
+<div class="ui-g panel panel-default" *ngIf="actionStr=='list'">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-3 col-sm-3">
@@ -29,6 +29,10 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12">
+                <div class="top-buttons">
+                    <button pButton type="button" label="新增"
+                            (click)="onCreate()"></button>
+                </div>
                 <p-dataTable [value]="publishList" [emptyMessage]="'暂无数据'">
                     <!-- <p-column field="" header="序号"></p-column>-->
                     <p-column field="type" header="类别"></p-column>
@@ -36,12 +40,12 @@
                     <p-column field="dateCreated" header="起草时间"></p-column>
                     <p-column field="username" header="用户"></p-column>
                     <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作">
+                    <p-column field="" header="操作" [style]="{'width':'85px'}">
                         <ng-template pTemplate="body" let-infoItem="rowData">
-                            <button pButton type="button" class="btn btn-info" label="编辑"
-                                    (click)="onEdit(infoItem)"></button>
-                            <button pButton type="button" class="btn btn-info" label="删除"
-                                    (click)="onDelete(infoItem)"></button>
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 (click)="onDelete(infoItem)" tooltip="删除" placement="bottom"></div>
                         </ng-template>
                     </p-column>
                 </p-dataTable>

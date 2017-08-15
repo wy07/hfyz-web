@@ -6,6 +6,7 @@ import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import { TooltipModule } from 'ngx-bootstrap';
 import {
     DataTableModule,
     DialogModule,
@@ -35,7 +36,8 @@ import {
         DataGridModule,
         TreeModule,
         DropdownModule,
-        PaginatorModule
+        PaginatorModule,
+        TooltipModule
     ],
     exports: [],
     providers: [

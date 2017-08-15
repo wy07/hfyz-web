@@ -72,7 +72,7 @@ body .car-info .ui-panel-content {
 }
 
 .panel-body .top-buttons {
-    text-align: right;
+    text-align: left;
     padding-bottom: 10px;
 }
 
@@ -164,9 +164,20 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
     padding: 6px 6px !important;
 }
 .search-input{
-    width: 161px !important;
+    width: 130px !important;
 }
-.search-button{
+.search-button {
     margin: 10px 20px 0px 0px;
-    /*float: right;*/
+}
+
+.fa-font-size {
+    font-size: 20px;
+}
+
+.div-distance {
+    width: 30px;
+}
+
+.showDetails .form-group {
+    margin-bottom: 0 !important;
 }

@@ -38,4 +38,8 @@ export class StatisticService {
     getAppraiseStatistic(ownerName) {
         return this.restangular.all('owner-identitys').customGET('appraise-statistic', {ownerName: ownerName});
     }
+
+    getPlatformStatistic(){
+        return this.restangular.all('platform-statistics').customGET('list');
+    }
 }

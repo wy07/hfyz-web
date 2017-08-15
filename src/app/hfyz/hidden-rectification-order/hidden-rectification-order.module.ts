@@ -17,6 +17,7 @@ import {HiddenRectificationOrderComponent} from './order-list/hidden-rectificati
 import {HiddenRectificationOrderService} from './shared/hidden-rectification-order.service';
 import {EnterpriseFeedbackComponent} from './enterprise-feedback/enterprise-feedback.component';
 import {OrderExamineComponent} from './order-examine/order-examine.component';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {OrderExamineComponent} from './order-examine/order-examine.component';
     CalendarModule,
     AutoCompleteModule,
     RadioButtonModule,
-    DropdownModule
+    DropdownModule,
+    TooltipModule
   ],
   exports: [],
   providers: [

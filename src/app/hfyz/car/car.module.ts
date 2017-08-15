@@ -11,6 +11,7 @@ import {
 } from 'primeng/primeng';
 import {CarListComponent} from './list/car-list.component';
 import {CarService} from './shared/car.service';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {CarService} from './shared/car.service';
         SplitButtonModule,
         PaginatorModule,
         MapModule,
-        CalendarModule
+        CalendarModule,
+        TooltipModule
     ],
     exports: [],
     providers: [

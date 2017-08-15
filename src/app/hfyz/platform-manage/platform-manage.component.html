@@ -3,44 +3,50 @@
         <div class="row">
             <div class=" col-sm-3">
                 <div class="input-group">
-                    <span class="inputPM input-group-addon ">平台名称：</span>
-                    <input type="text" class="form-control " [(ngModel)]="name" placeholder="请输入平台名称..."/>
+                    <span class="search-span input-group-addon ">平台名称：</span>
+                    <input type="text" class="search-input form-control " [(ngModel)]="name" placeholder="请输入平台名称..."/>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="inputPM input-group-addon">平台代码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="code" placeholder="请输入平台代码..."/>
+                    <span class="search-span input-group-addon">平台代码：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="code" placeholder="请输入平台代码..."/>
                 </div>
             </div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-sm-offset-3">
                 <button pButton label="检索" type="button" (click)="initData()"></button>
                 <button pButton label="重置" type="button" (click)="onReset()"></button>
             </div>
         </div>
     </div>
-    <!--列表显示-->
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
-                    <p-column field="ip" header="平台IP地址"></p-column>
-                    <p-column field="port" header="端口号"></p-column>
-                    <p-column field="name" header="平台名称"></p-column>
-                    <p-column field="code" header="平台代码"></p-column>
-                    <p-column field="contactName" header="平台联系人"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'24%'}">
-                        <ng-template let-palrform="rowData" pTemplate="body">
-                            <button pButton type="button" label="编辑" (click)="onEdit(palrform)"></button>
-                            <button pButton type="button" label="详情" (click)="preEdit(palrform.id)"></button>
-                            <button pButton type="button" label="删除" (click)="onDelete(palrform)"></button>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-            </div>
-        </div>
+  </div>
+  <!--列表显示-->
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+          <div class="top-buttons">
+              <button pButton type="button" label="新增"
+                      (click)="onCreat()"></button>
+          </div>
+        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
+          <p-column field="ip" header="平台IP地址"></p-column>
+          <p-column field="port" header="端口号"></p-column>
+          <p-column field="name" header="平台名称"></p-column>
+          <p-column field="code" header="平台代码"></p-column>
+          <p-column field="contactName" header="平台联系人"></p-column>
+          <p-column field="" header="操作" [style]="{'width':'120px'}">
+              <ng-template let-palrform="rowData" pTemplate="body">
+                  <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                       (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
+                  <div role="button" class="fa fa-list fa-font-size div-distance"
+                       (click)="preEdit(palrform.id)" tooltip="详情" placement="bottom"></div>
+                  <div role="button" class="fa fa-times fa-font-size div-distance"
+                       (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
+              </ng-template>
+          </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+      </div>
     </div>
 </div>
 
