@@ -1,22 +1,22 @@
 <div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-3 pull-right">
-                <button type="button" class="btn btn-primary pull-right" (click)='create()'>新增</button>
-            </div>
-        </div>
-    </div>
     <div class="panel-body">
+        <div class="top-buttons">
+            <button pButton type="button" label="新增"
+                    (click)="create()"></button>
+        </div>
         <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
             <p-column field="routerName" header="线路名称"></p-column>
             <p-column field="provenance" header="始发地名称"></p-column>
             <p-column field="destination" header="目的地名称"></p-column>
             <p-column field="viaLand" header="途经地名称"></p-column>
-            <p-column field="" header="操作">
+            <p-column field="" header="操作" [style]="{'width':'120px'}">
                 <ng-template let-data="rowData" pTemplate="body">
-                     <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
-                    <button type="button" class="btn btn-primary btn-xs" (click)="edit(data.id)">修改</button>
-                    <button type="button" class="btn btn-primary btn-xs" (click)="delete(data.id)">删除</button>
+                    <div role="button" class="fa fa-list fa-font-size div-distance"
+                         (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                         (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance"
+                         (click)="delete(data.id)" tooltip="删除" placement="bottom"></div>
                 </ng-template>
             </p-column>
         </p-dataTable>

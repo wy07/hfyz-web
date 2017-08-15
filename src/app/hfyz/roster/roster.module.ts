@@ -6,6 +6,7 @@ import { CalendarModule, DataTableModule, DialogModule, DropdownModule, Paginato
 import { FormsModule } from '@angular/forms';
 import { BlackListService } from './black-list/black-list.service';
 import { WhiteListService } from './white-list/white-list.service';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { WhiteListService } from './white-list/white-list.service';
         PaginatorModule,
         DialogModule,
         DropdownModule,
+        TooltipModule
     ],
     declarations: [
         BlackListComponent,
