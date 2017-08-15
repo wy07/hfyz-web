@@ -159,6 +159,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 .progress-bar{
     padding-top: 7px;
 }
+
 /*列表搜索栏*/
 .search-span{
     padding: 6px 6px !important;
@@ -169,7 +170,6 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
 .search-button {
     margin: 10px 20px 0px 0px;
 }
-
 .fa-font-size {
     font-size: 20px;
 }
