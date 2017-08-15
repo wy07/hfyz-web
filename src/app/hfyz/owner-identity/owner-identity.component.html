@@ -1,34 +1,31 @@
 <div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
     <div class="panel-heading">
         <div class="row">
-            <div class=" col-md-4">
+            <div class=" col-sm-3">
                 <div class="input-group">
-                    <span class="inputPM input-group-addon ">企业名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="企业名称..." />
+                    <span class="search-span input-group-addon ">企业名称：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="ownerName" placeholder="企业名称..."/>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="inputPM input-group-addon">组织机构代码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..." />
+                    <span class="search-span input-group-addon">机构代码：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..."/>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button pButton label="查询" type="button" (click)="initData()"></button>
-                <button pButton label="重置" type="button" (click)="onReset()"></button>
-            </div>
-            <div class="col-md-2">
-
-            </div>
-        </div>
-        <div class="row" style="margin-top: 10px">
-            <div class="col-md-7">
+            <div class="col-sm-6">
                 <div class="input-group">
-                    <span class="input-group-addon">有效期至：</span>
+                    <span class="search-span input-group-addon">有效期至：</span>
                     <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateBegin"></p-calendar>
                     -
                     <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateEnd"></p-calendar>
                 </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-sm-3 col-sm-offset-9 ">
+                <button  pButton class="search-button" label="检索" type="button" (click)="initData()"></button>
+                <button  pButton class="search-button" label="重置" type="button" (click)="onReset()"></button>
             </div>
         </div>
     </div>
