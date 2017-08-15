@@ -38,9 +38,10 @@
       <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
       <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
       <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
-      <p-column field="" header="操作" [style]="{'width':'10%'}">
+      <p-column field="" header="操作" [style]="{'width':'50px'}">
         <ng-template let-a="rowData" pTemplate="body">
-          <button type="button" class="btn btn-primary btn-xs" (click)="moreInfo(a)">查看详情</button>
+            <div role="button" class="fa fa-list fa-font-size div-distance"
+                 (click)="moreInfo(a)" tooltip="详情" placement="bottom"></div>
         </ng-template>
       </p-column>
     </p-dataTable>
@@ -61,303 +62,563 @@
             </div>
         </div>
     </div>
-    <div class="panel-body no-padding" style=" overflow-y:auto;  height:400px;">
+    <div class="panel-body no-padding showDetails">
         <p-tabView>
             <p-tabPanel header="考核员" leftIcon="fa-check-square-o" *ngIf="checkMember!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>从业资格类别：</label></td>
-                                <td>{{checkMember.workLicenseType}}</td>
-                                <td><label>从业资格证号：</label></td>
-                                <td>{{checkMember.workLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业资格证初领时间：</label></td>
-                                <td>{{checkMember.workLicenseGetTime}}</td>
-                                <td><label>从业资格证发放时间：</label></td>
-                                <td>{{checkMember.workLicenseGrantTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证件有效期至：</label></td>
-                                <td>{{checkMember.endTime}}</td>
-                                <td><label>发证机关：</label></td>
-                                <td>{{checkMember.licenseGrantOrg}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证照状态：</label></td>
-                                <td>{{checkMember.licenseSituation}}</td>
-                                <td><label>补换证次数：</label></td>
-                                <td>{{checkMember.licenseChangeTimes}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>培训次数：</label></td>
-                                <td>{{checkMember.trainTimes}}</td>
-                                <td><label>考核类别：</label></td>
-                                <td>{{checkMember.checkType}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.workLicenseType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.workLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.workLicenseGrantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">从业资格证号：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{checkMember.workLicenseNo}}</p>
+                        </div>
+                    </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.licenseGrantOrg}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">补换证次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.licenseChangeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">培训次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.trainTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">考核类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.checkType}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="教练员" leftIcon="fa-user-plus" *ngIf="coach!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>从业资格类别：</label></td>
-                                <td>{{coach.workLicenseType}}</td>
-                                <td><label>从业资格证号：</label></td>
-                                <td>{{coach.workLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业资格证初领时间：</label></td>
-                                <td>{{coach.workLicenseGetTime}}</td>
-                                <td><label>从业资格证发放时间：</label></td>
-                                <td>{{coach.workLicenseGrantTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证件有效期至：</label></td>
-                                <td>{{coach.endTime}}</td>
-                                <td><label>驾驶证号：</label></td>
-                                <td>{{coach.driveLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>准驾车型：</label></td>
-                                <td>{{coach.driveCarType}}</td>
-                                <td><label>驾驶证初领时间：</label></td>
-                                <td>{{coach.driveLicenseGetTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>发证机关：</label></td>
-                                <td>{{coach.licenseGrantOrga}}</td>
-                                <td><label>证照状态：</label></td>
-                                <td>{{coach.licenseSituation}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业状态：</label></td>
-                                <td>{{coach.workSituation}}</td>
-                                <td><label>业户名称：</label></td>
-                                <td>{{coach.ownerName}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>经营许可证字：</label></td>
-                                <td>{{coach.businessPermitCharacter}}</td>
-                                <td><label>经营许可证号：</label></td>
-                                <td>{{coach.businessPermitNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>补换证次数：</label></td>
-                                <td>{{coach.changeTimes}}</td>
-                                <td><label>培训次数：</label></td>
-                                <td>{{coach.trainTimes}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>稽查处理状态：</label></td>
-                                <td>{{coach.inspectDealSituation}}</td>
-                                <td><label>准教类别：</label></td>
-                                <td>{{coach.teachType}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>准教车型：</label></td>
-                                <td>{{coach.teachCarType}}</td>
-                                <td><label>驾驶证证照状态：</label></td>
-                                <td>{{coach.driveLicenseSituation}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.workLicenseType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.workLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.workLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.workLicenseGrantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">驾驶证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.driveLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">准驾车型：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.driveCarType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">驾驶证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.driveLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.licenseGrantOrga}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.workSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">业户名称：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.ownerName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证字：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.businessPermitCharacter}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.businessPermitNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">补换证次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.changeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">培训次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.trainTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">稽查处理状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.inspectDealSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">准教类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.teachType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">准教车型：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.teachCarType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">驾驶证证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{coach.driveLicenseSituation}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="营运驾驶员" leftIcon="fa-cab" *ngIf="driver!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>从业资格类别：</label></td>
-                                <td>{{driver.workLicenseType}}</td>
-                                <td><label>从业资格证号：</label></td>
-                                <td>{{driver.workLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业资格证初领时间：</label></td>
-                                <td>{{driver.workLicenseGetTime}}</td>
-                                <td><label>从业资格证发放时间：</label></td>
-                                <td>{{driver.workLicenseGrantTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证件有效期至：</label></td>
-                                <td>{{driver.endTime}}</td>
-                                <td><label>驾驶证号：</label></td>
-                                <td>{{driver.driveLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>准驾车型：</label></td>
-                                <td>{{driver.driveCarType}}</td>
-                                <td><label>驾驶证初领时间：</label></td>
-                                <td>{{driver.driveLicenseGetTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>发证机关：</label></td>
-                                <td>{{driver.licenseGrantOrg}}</td>
-                                <td><label>证照状态：</label></td>
-                                <td>{{driver.licenseSituation}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业状态：</label></td>
-                                <td>{{driver.workSituation}}</td>
-                                <td><label>业户名称：</label></td>
-                                <td>{{driver.ownerName}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>经营许可证字：</label></td>
-                                <td>{{driver.businessPermitCharacter}}</td>
-                                <td><label>经营许可证号：</label></td>
-                                <td>{{driver.businessPermitNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>补换证次数：</label></td>
-                                <td>{{driver.changeTimes}}</td>
-                                <td><label>培训次数：</label></td>
-                                <td>{{driver.trainTimes}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>稽查处理状态：</label></td>
-                                <td>{{driver.inspectDealSituation}}</td>
-                                <td><label>交通事故记录次数：</label></td>
-                                <td>{{driver.trafficAccidentRecordNo}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.workLicenseType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.workLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.workLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.workLicenseGrantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">驾驶证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.driveLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">准驾车型：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.driveCarType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">驾驶证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.driveLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.licenseGrantOrg}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.workSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">业户名称：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.ownerName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证字：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.businessPermitCharacter}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.businessPermitNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">补换证次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.changeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">培训次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.trainTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">稽查处理状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.inspectDealSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">交通事故记录次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{driver.trafficAccidentRecordNo}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="押运装卸管理员" leftIcon="fa-truck" *ngIf="manager!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>从业资格类别：</label></td>
-                                <td>{{manager.workLicenseType}}</td>
-                                <td><label>从业资格证号：</label></td>
-                                <td>{{manager.workLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业资格证初领时间：</label></td>
-                                <td>{{manager.workLicenseGetTime}}</td>
-                                <td><label>从业资格证发放时间：</label></td>
-                                <td>{{manager.workLicenseGrantTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证件有效期至：</label></td>
-                                <td>{{manager.endTime}}</td>
-                                <td><label>发证机关：</label></td>
-                                <td>{{manager.licenseGrantOrg}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证照状态：</label></td>
-                                <td>{{manager.licenseSituation}}</td>
-                                <td><label>从业状态：</label></td>
-                                <td>{{manager.workSituation}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>业户名称：</label></td>
-                                <td>{{manager.ownerName}}</td>
-                                <td><label>经营许可证字：</label></td>
-                                <td>{{manager.businessPermitCharacter}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>经营许可证号：</label></td>
-                                <td>{{manager.businessPermitNo}}</td>
-                                <td><label>补换证次数：</label></td>
-                                <td>{{manager.changeTimes}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>培训次数：</label></td>
-                                <td>{{manager.trainTimes}}</td>
-                                <td><label>稽查处理状态：</label></td>
-                                <td>{{manager.inspectDealSituation}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>交通事故记录次数：</label></td>
-                                <td>{{manager.trafficAccidentRecordNo}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workLicenseType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workLicenseGrantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.licenseGrantOrg}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.licenseGrantOrg}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.workSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">业户名称：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.ownerName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证字：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.businessPermitCharacter}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.businessPermitNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">补换证次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.changeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">培训次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.changeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">稽查处理状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.inspectDealSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">交通事故记录次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{manager.trafficAccidentRecordNo}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="维修技术人员" leftIcon="fa-wrench" *ngIf="technology!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>从业资格类别：</label></td>
-                                <td>{{technology.workLicenseType}}</td>
-                                <td><label>从业资格证号：</label></td>
-                                <td>{{technology.workLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>从业资格证初领时间：</label></td>
-                                <td>{{technology.workLicenseGetTime}}</td>
-                                <td><label>从业资格证发放时间：</label></td>
-                                <td>{{technology.workLicenseGrantTime}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证件有效期至：</label></td>
-                                <td>{{technology.endTime}}</td>
-                                <td><label>发证机关：</label></td>
-                                <td>{{technology.licenseGrantOrganization}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>证照状态：</label></td>
-                                <td>{{technology.licenseSituation}}</td>
-                                <td><label>业户名称：</label></td>
-                                <td>{{technology.ownerName}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>经营许可证字：</label></td>
-                                <td>{{technology.businessPermitCharacter}}</td>
-                                <td><label>经营许可证号：</label></td>
-                                <td>{{technology.businessPermitNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>补换证次数：</label></td>
-                                <td>{{technology.changeTimes}}</td>
-                                <td><label>培训次数：</label></td>
-                                <td>{{technology.trainTimes}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>稽查处理状态：</label></td>
-                                <td>{{technology.inspectDealSituation}}</td>
-                                <td><label>是否技术负责人：</label></td>
-                                <td>{{technology.technologyDirector}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>专业技术等级：</label></td>
-                                <td>{{technology.technologyLevel}}</td>
-                                <td><label>专业技术证书发放时间：</label></td>
-                                <td>{{technology.technologyLicenseGrantTime}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格类别：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.workLicenseType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.workLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证初领时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.workLicenseGetTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">从业资格证发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.workLicenseGrantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证件有效期至：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.endTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证机关：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.licenseGrantOrganization}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">证照状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.licenseSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">业户名称：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.ownerName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证字：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.businessPermitCharacter}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">经营许可证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.businessPermitNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">补换证次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.changeTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">培训次数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.trainTimes}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">是否技术负责人：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.technologyDirector}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">稽查处理状态：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.inspectDealSituation}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">专业技术等级：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.technologyLevel}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">专业技术证书发放时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{technology.technologyLicenseGrantTime}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="站场服务人员" leftIcon="fa-street-view" *ngIf="waiter!=null">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped">
-                            <tr>
-                                <td><label>岗位名称：</label></td>
-                                <td>{{waiter.jobName}}</td>
-                                <td><label>岗位证编号：</label></td>
-                                <td>{{waiter.jobLicenseNo}}</td>
-                            </tr>
-                            <tr>
-                                <td><label>发证日期：</label></td>
-                                <td>{{waiter.grantTime}}</td>
-                                <td><label>上岗日期：</label></td>
-                                <td>{{waiter.beginWorkTime}}</td>
-                            </tr>
-                        </table>
+                <div class="col-sm-12 form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">岗位名称：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{waiter.jobName}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">岗位证编号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{waiter.jobLicenseNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发证日期：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{waiter.grantTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">上岗日期：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{waiter.beginWorkTime}}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </p-tabPanel>

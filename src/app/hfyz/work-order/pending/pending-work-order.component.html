@@ -26,14 +26,12 @@
                     <p-column field="checkTime" header="检查时间"></p-column>
                     <p-column field="rectificationTime" header="整改时间"></p-column>
                     <p-column field="status.name" header="工单状态"></p-column>
-                    <p-column field="" header="操作">
+                    <p-column field="" header="操作" [style]="{'width':'85px'}">
                         <ng-template let-node="rowData" pTemplate="body">
-                            <button type="button" class="btn btn-info"
-                                    (click)="onExamine(node.id)" *ngIf="node.status.value=='DSH'">审批
-                            </button>
-                            <button type="button" class="btn btn-info"
-                                    (click)="onJudge(node.id)" *ngIf="node.status.value=='DYP'">研判
-                            </button>
+                            <div role="button" class="fa fa-list-alt fa-font-size div-distance"
+                                 *ngIf="node.status.value=='DSH'" (click)="onExamine(node.id)" tooltip="审批" placement="bottom"></div>
+                            <div role="button" class="fa fa-wpforms fa-font-size div-distance"
+                                 *ngIf="node.status.value=='DYP'" (click)="onJudge(node.id)" tooltip="研判" placement="bottom"></div>
                         </ng-template>
                     </p-column>
                 </p-dataTable>

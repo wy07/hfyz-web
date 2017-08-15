@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DialogModule, TreeTableModule, DropdownModule, AutoCompleteModule, ButtonModule } from 'primeng/primeng';
+import {TooltipModule} from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { DialogModule, TreeTableModule, DropdownModule, AutoCompleteModule, Butt
         TreeTableModule,
         DropdownModule,
         AutoCompleteModule,
-        ButtonModule
+        ButtonModule,
+        TooltipModule
     ],
     exports: [
     ],

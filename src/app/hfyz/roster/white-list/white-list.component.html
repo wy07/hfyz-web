@@ -1,89 +1,95 @@
 <div class="panel panel-default" *ngIf="(pageFlag=='LIST')">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="input-group">
-                    <span class="input-group-addon">车牌号：</span>
-                    <input type="text" class="form-control" [(ngModel)]="vehicleNo" />
-                </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="add()">新增</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
-            </div>
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">车牌号：</span>
+          <input type="text" class="form-control" [(ngModel)]="vehicleNo"/>
         </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+        <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+      </div>
     </div>
-    <div class="panel-body">
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="whiteLists">
-            <p-column field="vehicleNo" header="车牌号"></p-column>
-            <p-column field="controlBegin" header="布控解除时间"></p-column>
-            <p-column field="status" header="布控状态"></p-column>
-            <p-column field="" header="操作">
-                <ng-template let-data="rowData" pTemplate="body">
-                    <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
-                    <button type="button" class="btn btn-primary btn-xs" (click)="update(data.id)">修改</button>
-                    <button type="button" class="btn btn-primary btn-xs" (click)="delete(data.id,data.vehicleNo)">删除</button>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-    </div>
+  </div>
+  <div class="panel-body">
+      <div class="top-buttons">
+          <button pButton type="button" label="新增"
+                  (click)="add()"></button>
+      </div>
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="whiteLists">
+      <p-column field="vehicleNo" header="车牌号"></p-column>
+      <p-column field="controlBegin" header="布控解除时间"></p-column>
+      <p-column field="status" header="布控状态"></p-column>
+      <p-column field="" header="操作" [style]="{'width':'120px'}">
+        <ng-template let-data="rowData" pTemplate="body">
+            <div role="button" class="fa fa-list fa-font-size div-distance"
+                 (click)="showDetail(data.id)"  tooltip="详情" placement="bottom"></div>
+            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                 (click)="update(data.id)" tooltip="编辑" placement="bottom"></div>
+            <div role="button" class="fa fa-times fa-font-size div-distance"
+                 (click)="delete(data.id,data.vehicleNo)" tooltip="删除" placement="bottom"></div>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+  </div>
 </div>
 <div class="panel panel-default" *ngIf="(pageFlag=='ADD')">
-    <div class="panel-heading">
-        <h4>新增白名单信息</h4>
-    </div>
-    <div class="panel-body no-padding">
-        <div class="form-horizontal col-md-6">
-            <div class="form-group">
-                <label class="col-xs-4  text-right">车辆号牌：</label>
-                <div class="col-xs-6 ">
-                    <input type="text" class="form-control" [(ngModel)]="whiteList.vehicleNo">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
-                <div class="col-xs-6 cole-sm-6 ">
-                    <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
-                </div>
-            </div>
+  <div class="panel-heading">
+    <h4>新增黑名单信息</h4>
+  </div>
+  <div class="panel-body no-padding">
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <div class="col-xs-6 ">
+          <input type="text" class="form-control" [(ngModel)]="whiteList.vehicleNo">
         </div>
-        <div class="form-horizontal col-md-6">
-            <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
-                <div class="col-xs-6 cole-sm-6 ">
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="whiteList.controlBegin"></p-calendar>
-                </div>
-            </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
         </div>
+      </div>
     </div>
-    <div class="panel-footer">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-5">
-                <button type="button" class="btn btn-primary" (click)="submitAdd()">确定</button>
-                <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
-            </div>
+    <div class="form-horizontal col-md-6">
+       <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
+                      [(ngModel)]="whiteList.controlBegin"></p-calendar>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <button type="button" class="btn btn-primary" (click)="submitAdd()">确定</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="panel panel-default" *ngIf="(pageFlag=='DETAIL')">
+  <div class="panel panel-default" *ngIf="(pageFlag=='DETAIL')">
     <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-6 text-left">
-                <h5>
-                    详情
-                </h5>
-            </div>
-            <div class="col-sm-6">
-                <button pButton type="button" label="返回" class="pull-right" (click)="switchPage()"></button>
-            </div>
+      <div class="row">
+        <div class="col-sm-10 text-left">
+          <h5>
+            详情
+          </h5>
         </div>
+        <div class="col-sm-2">
+          <button pButton type="button" class="pull-right" label="返回" (click)="switchPage()"></button>
+        </div>
+      </div>
     </div>
-
     <div class="panel-body no-padding showDetails">
         <div class="col-sm-12 form-horizontal">
             <div class="row">
@@ -97,6 +103,12 @@
                     <label class="col-sm-5 control-label">车辆颜色：</label>
                     <div class="col-sm-7">
                         <p class="form-control-static">{{detail.carColor}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">车牌颜色：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{detail.carPlateColor}}</p>
                     </div>
                 </div>
                 <div class="form-group col-sm-4">
@@ -114,49 +126,49 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">布控状态：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{detail.status}}</p>
+                        <p class="form-control-static">{{detail.controlBegin}}</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 <div class="panel panel-default" *ngIf="(pageFlag=='UPDATE')">
-    <div class="panel-heading">
-        <h4>修改白名单信息</h4>
-    </div>
-    <div class="panel-body no-padding">
-        <div class="form-horizontal col-md-6">
-            <div class="form-group">
-                <label class="col-xs-4  text-right">车辆号牌：</label>
-                <div class="col-xs-6 ">
-                    <input class="form-control" disabled [(ngModel)]="whiteList.vehicleNo">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
-                <div class="col-xs-6 cole-sm-6 ">
-                    <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
-                </div>
-            </div>
+  <div class="panel-heading">
+    <h4>修改白名单信息</h4>
+  </div>
+  <div class="panel-body no-padding">
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <div class="col-xs-6 ">
+          <input class="form-control" disabled [(ngModel)]="whiteList.vehicleNo">
         </div>
-        <div class="form-horizontal col-md-6">
-            <div class="form-group">
-                <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
-                <div class="col-xs-6 cole-sm-6 ">
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="whiteList.controlBegin"></p-calendar>
-                </div>
-            </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
         </div>
+      </div>
     </div>
-    <div class="panel-footer">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-5">
-                <button type="button" class="btn btn-primary" (click)="submitUpdate(whiteList.id)">确定</button>
-                <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
-            </div>
+    <div class="form-horizontal col-md-6">
+      <div class="form-group">
+        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <div class="col-xs-6 cole-sm-6 ">
+          <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true"
+                      [(ngModel)]="whiteList.controlBegin"></p-calendar>
         </div>
+      </div>
     </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-5">
+        <button type="button" class="btn btn-primary" (click)="submitUpdate(whiteList.id)">确定</button>
+        <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -9,6 +9,7 @@ import {UserComponent} from './user.component';
 import {NgModule} from '@angular/core';
 import {DataTableModule, DialogModule, ListboxModule, ButtonModule, PaginatorModule} from 'primeng/primeng';
 import {ChangePwdComponent} from './changePwd/change-pwd.component';
+import { TooltipModule } from 'ngx-bootstrap';
 @NgModule({
     declarations: [
         UserComponent,
@@ -26,7 +27,8 @@ import {ChangePwdComponent} from './changePwd/change-pwd.component';
         ListboxModule,
         ButtonModule,
         RoleModule,
-        PaginatorModule
+        PaginatorModule,
+        TooltipModule
     ],
     exports: [],
     providers: [

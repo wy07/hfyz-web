@@ -7,7 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {WarningComponent} from './warning.component';
 import {WarningService} from './shared/warning.service';
-
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import {WarningService} from './shared/warning.service';
     ButtonModule,
     DropdownModule,
     PaginatorModule,
+    TooltipModule
   ],
   exports: [],
   providers: [
