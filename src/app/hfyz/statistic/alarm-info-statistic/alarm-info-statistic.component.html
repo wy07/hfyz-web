@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
-            <div class="panel-heading">报警信息统计</div>
-            <div class="panel-body">
+            <div class="panel-heading">
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="input-group">
@@ -12,12 +11,13 @@
                             <p-calendar [(ngModel)]="endDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh"></p-calendar>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-sm-offset-3">
+                    <div class="col-sm-3 col-sm-offset-2">
                         <button pButton label="检索" type="button"(click)="onSearch()"></button>
                         <button pButton label="重置" type="button" (click)="onCancel()"></button>
                     </div>
                 </div>
-                <hr/>
+            </div>
+            <div class="panel-body">
                 <p-dataTable [value]="records" [emptyMessage]="'暂无数据'">
                     <p-column field="date" header="日期"></p-column>
                     <p-column field="total" header="总数"></p-column>
