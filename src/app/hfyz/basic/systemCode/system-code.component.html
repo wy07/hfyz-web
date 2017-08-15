@@ -9,10 +9,12 @@
         <p-treeTable [value]="systemCodeTree" (onNodeExpand)="loadNode($event)" styleClass="syscodeTable">
             <p-column field="name" header="名称"></p-column>
             <p-column field="codeNum" header="编码"></p-column>
-            <p-column field="" header="操作">
+            <p-column field="" header="操作" [style]="{'width':'85px'}">
                 <ng-template let-node="rowData" pTemplate="body">
-                    <button pButton type="button" label="编辑" (click)="onEdit(node.data.id)"></button>
-                    <button pButton type="button" label="删除" (click)="onDelete(node)"></button>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                         (click)="onEdit(node.data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance"
+                         (click)="onDelete(node)" tooltip="删除" placement="bottom"></div>
                 </ng-template>
             </p-column>
         </p-treeTable>

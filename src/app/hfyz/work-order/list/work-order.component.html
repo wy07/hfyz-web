@@ -15,38 +15,46 @@
             <span>{{workOrder.ownerName || '无'}}</span>
           </ng-template>
         </p-column>
-        <p-column field="operateManager" header="经营负责人">
+        <!--<p-column field="operateManager" header="经营负责人">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.operateManager || '无'}}</span>
           </ng-template>
-        </p-column>
+        </p-column>-->
         <p-column field="phone" header="电话">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.phone || '无'}}</span>
           </ng-template>
         </p-column>
-        <p-column field="frameNo" header="车架号">
+        <!--<p-column field="frameNo" header="车架号">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.frameNo || '无'}}</span>
           </ng-template>
-        </p-column>
-        <p-column field="userID" header="从业人员身份证号">
+        </p-column>-->
+        <!--<p-column field="userID" header="从业人员身份证号">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.userID || '无'}}</span>
           </ng-template>
-        </p-column>
+        </p-column>-->
         <p-column field="dateCreated" header="创建时间"></p-column>
         <p-column field="checkTime" header="检查时间"></p-column>
         <p-column field="rectificationTime" header="整改时间"></p-column>
-        <p-column field="note" header="备注">
+        <!--<p-column field="note" header="备注">
           <ng-template let-workOrder="rowData" pTemplate="body">
             <span>{{workOrder.note || '无'}}</span>
           </ng-template>
-        </p-column>
+        </p-column>-->
         <p-column field="status" header="工单状态"></p-column>
+        <p-column field="" header="操作" [style]="{'width':'50px','text-align':'left'}">
+            <ng-template let-workOrder="rowData" pTemplate="body">
+                <div role="button" class="fa fa-list fa-font-size div-distance"
+                (click)="preEdit(workOrder.id)"  tooltip="详情" placement="bottom"></div>
+            </ng-template>
+        </p-column>
       </p-dataTable>
       <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="workOrderList?.length>0"></p-paginator>
     </div>
   </div>
 </div>
+
+
 

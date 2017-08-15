@@ -19,8 +19,7 @@ export class BlackListComponent implements OnInit {
     dateBegin: Date; // 开始时间
     dateEnd: Date; // 结束时间
 
-    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 UPDATE 修改页
-    detailFlag: boolean; // 详情对话框flag
+    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 UPDATE 修改页 DETAIL 详情
 
     blackLists: any[]; // 表格数据
     blackList: any; // 新增和保存时的黑名单信息
@@ -34,7 +33,6 @@ export class BlackListComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastr: ToastsManager) {
         this.pageFlag = 'LIST';
-        this.detailFlag = false;
         this.max = 10;
         this.page = 0;
         this.total = 0;
@@ -107,7 +105,7 @@ export class BlackListComponent implements OnInit {
      * @param id
      */
     showDetail(id) {
-        this.detailFlag = true;
+        this.pageFlag = 'DETAIL';
         this._blackListService.more(id).subscribe(
             res => {
                 if (res.result === 'success') {
@@ -210,12 +208,6 @@ export class BlackListComponent implements OnInit {
         }
     }
 
-    /**
-     * 关闭对话框
-     */
-    closeDialog() {
-        this.detailFlag = false
-    }
 
     /**
      * 页面切换

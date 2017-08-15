@@ -1,15 +1,15 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="pageFlag=='LIST'">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-3">
                 <div class="input-group">
-                    <span class="input-group-addon">公司：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
+                    <span class="search-span input-group-addon">公司：</span>
+                    <input type="text" class="search-input form-control" [(ngModel)]="ownerName" placeholder="请输入业户名称..."/>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            <div class="col-sm-3 col-sm-offset-6">
+                <button type="button" pButton label="检索" (click)="search()"></button>
+                <button type="button" pButton label="重置" (click)="reset()"></button>
             </div>
         </div>
     </div>
@@ -27,8 +27,215 @@
                 <p-column field="dayTimes" header="日发班次"></p-column>
                 <p-column field="businessWay" header="经营方式"></p-column>
                 <p-column field="decideTime" header="许可日期"></p-column>
+                <p-column field="" header="操作" [style]="{'width':'50px'}">
+                    <ng-template let-data="rowData" pTemplate="body">
+                        <div role="button" class="fa fa-list fa-font-size div-distance"
+                             (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
+                    </ng-template>
+                </p-column>
             </p-dataTable>
             <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="pageFlag=='SHOW'">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>电子运单详情信息</h4>
+            </div>
+            <div class="col-sm-6">
+                <button pButton type="button" label="返回" class="pull-right" (click)="goBack()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路编号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.lineCode}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">业户名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.ownerName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">业户编码：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.companyCode}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">经营许可证字：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.licenseCharacter}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">经营许可证号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.licenseNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">班车类别：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.busType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">起点站：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.startStationName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">终点站：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.endStationName}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">途经站点：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.stopStation}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">途经主要站点：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.mainPoint}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">日发班次：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.dayTimes}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">经营方式：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.businessWay}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">许可决定书编号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.licenseDecideBookNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">许可日期：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.decideTime}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">许可机构：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.decideOrc}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">有效起始日期：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.beginTime}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">有效结束日期：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.endTime}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">牌证类别：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.licenseType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">营运状态：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.businessSituation}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">牌证类别：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.licenseType}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">补换证次数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.changeLicenseTimes}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">一般信息变更次数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.generalinfoChangeTimes}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">营运状态变更次数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.businessinfoChangeTimes}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">投入的车辆总数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.inputTotalCar}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">投入车辆的座位总数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.inputTotalSeat}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路牌总数：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLineBusinessBasicInfo.totalLinePlate}}</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

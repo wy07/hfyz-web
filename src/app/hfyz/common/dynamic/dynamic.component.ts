@@ -65,7 +65,7 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
                     FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
                     FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
                     PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
-                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent,PlatformStatisticComponent],
+                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent],
 
     template: `
     <ng-template #container></ng-template>

@@ -15,6 +15,7 @@ import {
   DropdownModule,
   TabViewModule
 } from 'primeng/primeng';
+import { TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {
     FormsModule,
     ReactiveFormsModule,
     DropdownModule,
-    TabViewModule
+    TabViewModule,
+    TooltipModule
   ],
   declarations: [
     PeopleListComponent

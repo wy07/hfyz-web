@@ -10,6 +10,7 @@ import {WorkOrderService} from './shared/work-order.service';
 import {PendingWorkOrderComponent} from "./pending/pending-work-order.component";
 import {FormsModule} from '@angular/forms';
 import {FeedbackWorkOrderComponent} from "./feedback/feedback-work-order.component";
+import {TooltipModule} from 'ngx-bootstrap';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {FeedbackWorkOrderComponent} from "./feedback/feedback-work-order.compone
         CommonModule,
         DataTableModule,
         PaginatorModule,
-        FormsModule
+        FormsModule,
+        TooltipModule
     ],
     exports: [],
     providers: [

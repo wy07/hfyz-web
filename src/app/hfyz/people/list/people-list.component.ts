@@ -18,7 +18,8 @@ export class PeopleListComponent implements OnInit {
     phoneNo: string; // 搜索条件 -手机号
     IDCardNo: string; // 搜索条件-身份证号码
 
-    displayDialog: boolean; // 对话框flag
+    pageFlag: boolean; // 页面切换
+    pageTitle: string; // 详情页标题
 
     checkMember: any; // 考核员
     coach: any; // 教练员
@@ -49,7 +50,8 @@ export class PeopleListComponent implements OnInit {
             {label: '站场服务人员', value: '站场服务人员'}];
         this.selectedType = '';
 
-        this.displayDialog = false;
+        this.pageFlag = true;
+        this.pageTitle = '详情';
         this.checkMember = {};
         this.coach = {};
         this.driver = {};
@@ -95,12 +97,20 @@ export class PeopleListComponent implements OnInit {
         this.loadData();
     }
 
+    cancel() {
+        this.selectedType = '';
+        this.peopleName = '';
+        this.phoneNo = '';
+        this.IDCardNo = '';
+    }
+
     /**
      * 表格查看详情
      * @param people 表格当前row数据
      */
     moreInfo(people) {
-        this.displayDialog = true;
+        this.pageFlag = false;
+        this.pageTitle = people.name + '的详情信息';
         this._peopleService.moreInfo(people.IDCardNo).subscribe(
             res => {
                 this.checkMember = res.checkMember;
@@ -117,7 +127,7 @@ export class PeopleListComponent implements OnInit {
      * 关闭对话框
      */
     closeDialog() {
-        this.displayDialog = false;
+        this.pageFlag = true;
         this.checkMember = {};
         this.coach = {};
         this.driver = {};
