@@ -71,7 +71,7 @@ export class RoleComponent implements OnInit {
     onEdit(role) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑' + role.name;
+        this.formTitle = '编辑';
         this.preEdit(role.id)
     }
 
