@@ -1,6 +1,6 @@
-import {Directive, ElementRef, Renderer, Input, OnInit} from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, OnInit } from '@angular/core';
 
-@Directive({selector: '[autoHeight]'})
+@Directive({ selector: '[autoHeight]' })
 export class AutoHeightDirective implements OnInit {
 
     @Input() ratio: number;
@@ -11,11 +11,11 @@ export class AutoHeightDirective implements OnInit {
     }
 
     ngOnInit() {
-        let winowHeight=window.innerHeight;
+        let winowHeight = window.innerHeight;
         let headerHeight = 100;
         let footerHeight = 50;
 
-        let height=(winowHeight-headerHeight-footerHeight)*this.ratio/100+this.offset;
+        let height = (winowHeight - headerHeight - footerHeight) * this.ratio / 100 + this.offset;
 
         this._renderer.setElementStyle(this._el.nativeElement, 'height', height + 'px');
     }
