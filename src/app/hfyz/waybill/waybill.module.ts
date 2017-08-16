@@ -23,7 +23,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         FormsModule,
         WuCitySelectModule,
         DialogModule,
-        TooltipModule
+        TooltipModule,
+        DropdownModule,
     ],
     declarations: [
         FreightWaybillComponent,

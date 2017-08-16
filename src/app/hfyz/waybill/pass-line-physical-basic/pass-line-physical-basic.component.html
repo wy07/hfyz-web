@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" *ngIf="pageFlag=='LIST'">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-4">
@@ -21,7 +21,7 @@
     </div>
     <div class="panel-body ">
         <div class="row">
-            <p-dataTable [value]="passLinePhysicalInfos" [emptyMessage]="'暂无数据'">
+            <p-dataTable [value]="passLinePhysicalBasicInfos" [emptyMessage]="'暂无数据'">
                 <p-column field="lineCode" header="线路编码"></p-column>
                 <p-column field="lineName" header="线路名称"></p-column>
                 <p-column field="businessArea" header="经营区域"></p-column>
@@ -44,10 +44,120 @@
                         <span>{{passLineData.busLine ? '是':'否'}}</span>
                     </ng-template>
                 </p-column>
+                <p-column field="" header="操作">
+                    <ng-template let-data="rowData" pTemplate="body">
+                        <button type="button" class="btn btn-primary btn-xs" (click)="showDetail(data.id)">详情</button>
+                    </ng-template>
+                </p-column>
             </p-dataTable>
             <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>
 
+<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
+          [responsive]="true">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-10 text-left">
+                    <h5>
+                        物理路线详情信息
+                    </h5>
+                </div>
+                <div class="col-sm-2">
+                    <button pButton type="button" icon="fa-close" label="关闭" (click)="closeDialog()"></button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body no-padding" style=" overflow-y:auto;">
+            <table class="table table-striped">
+                <tr>
+                    <td><label>线路编码：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.lineCode}}</td>
+                </tr>
+                <tr>
+                    <td><label>线路名称：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.lineName}}</td>
+                </tr>
+                <tr>
+                    <td><label>更新时间：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.modifyTime | date:'yyyy-MM-dd'}}</td>
+                </tr>
+                <tr>
+                    <td><label>经营区域：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.businessArea}}</td>
+                </tr>
+                <tr>
+                    <td><label>线路类型：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.lineType}}</td>
+                </tr>
+                <tr>
+                    <td><label>始发地名称：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.startPlace}}</td>
+                </tr>
+                <tr>
+                    <td><label>目的地名称：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.endPlace}}</td>
+                </tr>
+                <tr>
+                    <td><label>途径主要地点：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.mainPoint}}</td>
+                </tr>
+                <tr>
+                    <td><label>起点行政区划代码：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.startAdminDivsionCode}}</td>
+                </tr>
+                <tr>
+                    <td><label>起点行政区划名称：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.startAdminDivsionName}}</td>
+                </tr>
+                <tr>
+                    <td><label>终点行政区划代码：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.endAdminDivsionCode}}</td>
+                </tr>
+                <tr>
+                    <td><label>终点行政区划名称：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.endAdminDivsionName}}</td>
+                </tr>
+                <tr>
+                    <td><label>线路里程：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.lineMileAge}}公里</td>
+                </tr>
+                <tr>
+                    <td><label>高速里程：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.highwayMileAge}}公里</td>
+                </tr>
+                <tr>
+                    <td><label>占总里程的百分比：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.percentage*100}}%</td>
+                </tr>
+                <tr>
+                    <td><label>高速入口：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.highwayEntry}}</td>
+                </tr>
+                <tr>
+                    <td><label>高速出口：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.highwayExit}}</td>
+                </tr>
+                <tr>
+                    <td><label>是否高速：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.highway?'是':'否'}}</td>
+                </tr>
+                <tr>
+                    <td><label>是否农村客运：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.villageLine?'是':'否'}}</td>
+                </tr>
+                <tr>
+                    <td><label>是否旅游线路：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.travelLine?'是':'否'}}</td>
+                </tr>
+                <tr>
+                    <td><label>是否公交线路：</label></td>
+                    <td>{{passLinePhysicalBasicInfo.busLine?'是':'否'}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</p-dialog>
 

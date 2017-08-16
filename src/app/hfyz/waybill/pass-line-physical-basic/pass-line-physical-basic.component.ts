@@ -18,7 +18,7 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     detailFlag: boolean; // 详情对话框flag
     pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 EDIT 修改页
     passLinePhysicalBasicInfo: PassLinePhysicalBasicInfo;
-    passLinePhysicalInfos: Array<PassLinePhysicalBasicInfo>;
+    passLinePhysicalBasicInfos: Array<PassLinePhysicalBasicInfo>;
     lineCode: string;
     lineName: string;
 
@@ -27,19 +27,21 @@ export class PassLinePhysicalBasicComponent implements OnInit {
                 private datePipe: DatePipe,
                 private _passLinePhysicalBasicService: PassLinePhysicalBasicService,
                 private toastr: ToastsManager) {
-        this.max = 2;
+        this.max = 10;
         this.page = 0;
         this.total = 0;
         this.lineCode = '';
         this.lineName = '';
         this.pageFlag = 'LIST';
         this.detailFlag = false;
-        this.passLinePhysicalInfos = [];
+        this.passLinePhysicalBasicInfos = [];
+
     }
 
     ngOnInit() {
         this.loadData();
     }
+
 
     /**
      * 加载表格数据
@@ -51,13 +53,30 @@ export class PassLinePhysicalBasicComponent implements OnInit {
             res => {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
-                    this.passLinePhysicalInfos = res.resultList;
+                    this.passLinePhysicalBasicInfos = res.resultList;
                     this.total = res.total
                 } else {
                     this.toastr.error(res.errors)
                 }
             }
         )
+    }
+
+    /**
+     * 搜索
+     */
+    search() {
+        this.loadData()
+    }
+
+    showDetail(id) {
+        this._loadingService.register();
+        this._passLinePhysicalBasicService.show(id).subscribe(res => {
+            console.log('===showDetail===' + JSON.stringify(res));
+            this._loadingService.resolve();
+            this.passLinePhysicalBasicInfo = res.instance;
+            this.detailFlag = true;
+        });
     }
 
     /**
@@ -72,18 +91,25 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     }
 
     /**
-     * 搜索
-     */
-    search() {
-        this.loadData()
-    }
-
-    /**
      * 重置
      */
     reset() {
         this.lineCode = '';
         this.lineName = '';
+    }
+
+    /**
+     * 页面切换
+     */
+    switchPage() {
+        this.pageFlag = 'LIST'
+    }
+
+    /**
+     * 关闭详情页
+     */
+    closeDialog() {
+        this.detailFlag = false
     }
 
 
