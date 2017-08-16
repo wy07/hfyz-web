@@ -3,6 +3,7 @@ import {ToastsManager} from 'ng2-toastr';
 import {OwnerIdentityService} from './shared/owner-identity.service'
 import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
+import {zh} from "../common/shared/zh"
 
 @Component({
     selector: 'app-owner-identity',
@@ -22,7 +23,7 @@ export class OwnerIdentityComponent implements OnInit {
     dateBegin: Date;
     dateEnd: Date;
     pageFlag: string; // 页面切换  LIST 列表页 CREATE 新增页 EDIT 修改页 SHOW 详情
-
+    zh = zh;
     constructor(private renderer: Renderer
         , private toastr: ToastsManager
         , private datePipe: DatePipe

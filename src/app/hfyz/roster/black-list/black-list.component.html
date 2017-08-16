@@ -15,12 +15,11 @@
                     <label class="col-sm-4 control-label">布控开始时间：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true" styleClass=calendar-span
-                                inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                     </div>
                 </div>
@@ -93,13 +92,13 @@
             <div class="form-group">
                 <label class=" col-sm-4 text-right">布控开始时间：</label>
                 <div class=" col-sm-6 ">
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="blackList.controlBegin"></p-calendar>
+                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="blackList.controlBegin" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                 </div>
             </div>
             <div class="form-group">
                 <label class=" col-sm-4 text-right">布控结束时间：</label>
                 <div class=" col-sm-6 ">
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="blackList.controlEnd"></p-calendar>
+                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="blackList.controlEnd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                 </div>
             </div>
             <div class="form-group">

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TreeNode} from 'primeng/primeng';
+import {zh} from "../../common/shared/zh";
 
 @Component({
   selector: 'app-info-check',
@@ -9,6 +10,7 @@ import {TreeNode} from 'primeng/primeng';
 export class InfoCheckComponent implements OnInit {
   categories: TreeNode[];
   dataSource: any;
+  zh = zh;
   constructor() {
     this.categories = [{
       'label': '审核信息分类',

@@ -3,6 +3,7 @@ import {TdLoadingService} from '@covalent/core';
 import {ToastsManager} from 'ng2-toastr';
 import {CompanyRegulationService} from './company-regulation.service';
 import {DatePipe} from '@angular/common';
+import {zh} from '../../common/shared/zh';
 
 @Component({
     selector: 'app-company-regulation',
@@ -19,7 +20,7 @@ export class CompanyRegulationComponent implements OnInit {
     dateEnd: Date; // 搜索条件-结束时间
 
     regulationList: any[];
-
+    zh = zh;
     constructor(private _regulationService: CompanyRegulationService,
                 private _loadingService: TdLoadingService,
                 private toastr: ToastsManager,

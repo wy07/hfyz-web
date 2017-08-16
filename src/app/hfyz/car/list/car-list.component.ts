@@ -7,6 +7,7 @@ import {ToastsManager} from 'ng2-toastr';
 import {CarService} from '../shared/car.service';
 import {LayoutComponent} from '../../layout/main-tab/layout.component';
 import {DatePipe} from '@angular/common';
+import {zh} from "../../common/shared/zh"
 
 @Component({
     selector: 'car-list',
@@ -26,6 +27,7 @@ export class CarListComponent implements OnInit {
     dateEnd: Date;
     layoutComponent: any;
 
+    zh=zh;
     constructor(private toastr: ToastsManager
         , private regularService: RegularService
         , private carService: CarService
