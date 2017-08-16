@@ -1,5 +1,15 @@
+
 <div class="querys">
     <div class="row form-horizontal">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">行业类别：</label>
+                <div class="col-sm-8">
+                    <p-dropdown [options]="businessTypes" [(ngModel)]="businessType" placeholder="请选择行业类别"
+                                styleClass=p-dropdown-form-control></p-dropdown>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-5">
             <div class="form-group">
                 <label class="col-sm-4 control-label">车牌号码：</label>
@@ -9,30 +19,24 @@
             </div>
         </div>
         <div class="col-sm-5">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">行业类别：</label>
-                    <div class="col-sm-8">
-                        <p-dropdown [options]="businessTypes" [(ngModel)]="businessType" placeholder="请选择行业类别" styleClass=p-dropdown-form-control></p-dropdown>
-                    </div>
-                </div>
-            </div>
-        <div class="col-sm-5">
             <div class="form-group">
                 <label class="col-sm-4 control-label">有效期至：</label>
                 <div class="col-sm-8 calendar-group">
                     <div class="cgl">
-                        <p-calendar [(ngModel)]="dateBegin" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        <p-calendar [(ngModel)]="dateBegin" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd"
+                                    styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                     </div>
                     <div class="cgm">-</div>
                     <div class="cgr">
-                        <p-calendar [(ngModel)]="dateEnd" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        <p-calendar [(ngModel)]="dateEnd" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd"
+                                    styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-5 col-sm-offset-1">
-            <button type="button" pButton  label="检索" (click)="search()"></button>
-            <button type="button" pButton  label="重置" (click)="onReset()"></button>
+            <button type="button" pButton label="检索" (click)="search()"></button>
+            <button type="button" pButton label="重置" (click)="onReset()"></button>
         </div>
     </div>
 </div>
@@ -48,11 +52,15 @@
     <p-column field="endTime" header="资格有效期至"></p-column>
     <p-column field="" header="操作" styleClass=operation-buttons-3>
         <ng-template let-item="rowData" pTemplate="body">
-            <div role="button" class="fa fa-refresh fa-font-size div-distance" (click)="showRealTimeMap(item)" tooltip="实时状态" placement="bottom"></div>
-            <div role="button" class="fa fa-eercast fa-font-size div-distance" (click)="showRealTimeMonitorMap(item)" tooltip="实时监控"
-                placement="bottom"></div>
-            <div role="button" class="fa fa-history fa-font-size div-distance" (click)="showHistoryMapp(item)" tooltip="历史轨迹" placement="bottom"></div>
+            <div role="button" class="fa fa-refresh fa-font-size div-distance" (click)="showRealTimeMap(item)"
+                 tooltip="实时状态" placement="bottom"></div>
+            <div role="button" class="fa fa-eercast fa-font-size div-distance" (click)="showRealTimeMonitorMap(item)"
+                 tooltip="实时监控"
+                 placement="bottom"></div>
+            <div role="button" class="fa fa-history fa-font-size div-distance" (click)="showHistoryMapp(item)"
+                 tooltip="历史轨迹" placement="bottom"></div>
         </ng-template>
     </p-column>
 </p-dataTable>
-<p-paginator rows="{{max}}" totalRecords="{{totalCars}}" (onPageChange)="paginate($event)" *ngIf="totalCars>0"></p-paginator>
+<p-paginator rows="{{max}}" totalRecords="{{totalCars}}" (onPageChange)="paginate($event)"
+             *ngIf="totalCars>0"></p-paginator>

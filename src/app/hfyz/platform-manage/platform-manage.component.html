@@ -1,3 +1,4 @@
+
 <div *ngIf="action==='list'">
     <div class="querys">
         <div class="row form-horizontal">
@@ -27,6 +28,7 @@
     <div class="top-buttons">
         <button pButton type="button" label="新增" (click)="onCreat()"></button>
     </div>
+
     <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
         <p-column field="ip" header="平台IP地址"></p-column>
         <p-column field="port" header="端口号"></p-column>
@@ -190,4 +192,5 @@
             </div>
         </div>
     </div>
+
 </div>

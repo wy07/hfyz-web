@@ -5,7 +5,8 @@ import { PlatFormService } from './shared/plat-form.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { DatePipe } from '@angular/common';
 import { EventBuservice } from '../../common/shared/eventbus.service';
-import { TdLoadingService } from '@covalent/core';
+import {TdLoadingService} from '@covalent/core';
+import {zh} from '../../common/shared/zh'
 
 @Component({
     selector: 'plat-form',
@@ -14,17 +15,18 @@ import { TdLoadingService } from '@covalent/core';
 })
 
 export class PlatFormComponent implements OnInit {
-    company: string;
-    startDate: any;
-    endDate: any;
-    checkRecordList: any;
-    max: number;
-    total: number;
-    currentPage: number;
-    flag: boolean;
-    maxDate: any;
-    inspectDisplay: boolean;
-    inspectQ: any;
+  company: string;
+  startDate: any;
+  endDate: any;
+  checkRecordList: any;
+  max: number;
+  total: number;
+  currentPage: number;
+  flag: boolean;
+  maxDate: any;
+  inspectDisplay: boolean;
+  inspectQ: any;
+  zh = zh;
 
     constructor(private _toastr: ToastsManager
         , private _regularService: RegularService
