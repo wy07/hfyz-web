@@ -1,24 +1,29 @@
-<div class="panel panel-default" *ngIf="pageFlag=='LIST'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">线路编码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="lineCode" placeholder="请输入线路编码..."/>
+<div *ngIf="pageFlag == 'LIST'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">线路编码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="lineCode" placeholder="请输入线路编码..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">线路名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="lineName" placeholder="请输入线路名称..."/>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">线路名称：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="lineName" placeholder="请输入线路名称..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            <div class="col-sm-2">
+                <button pButton label="检索" type="button" (click)="search()"></button>
+                <button pButton label="重置" type="button" (click)="reset()"></button>
             </div>
         </div>
     </div>
+
     <div class="panel-body ">
         <div class="row">
             <p-dataTable [value]="passLinePhysicalBasicInfos" [emptyMessage]="'暂无数据'">
@@ -55,8 +60,7 @@
     </div>
 </div>
 
-<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"
-          [responsive]="true">
+<p-dialog [showHeader]="false" [(visible)]="detailFlag" *ngIf="detailFlag" modal="modal" width="900"  [responsive]="true">
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row">
