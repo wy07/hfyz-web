@@ -1,12 +1,12 @@
-<div *ngIf="selectedTab==='tab1'" autoHeight [ratio]="100" [offset]="0" >
-    <div class="row" style="height: 40%">
-        <div class="col-sm-12" style="height: 100%">
+<div *ngIf="selectedTab==='tab1'" autoHeight [ratio]="100" [offset]="0">
+    <div class="row height40">
+        <div class="col-sm-12 height100">
             <div class="car-basic-statistics-title">
                 当前车辆总体情况
             </div>
             <div class="col-sm-6">
                 <div class="row" style="padding-top: 40px">
-                    <div class="col-sm-3 text-right title-2">车辆总数</div>
+                    <div class="col-sm-3 car-num-title">车辆总数</div>
                     <div class="col-sm-7">
                         <progressbar [max]="carNum" [value]="carNum" type="success">
                             <b>{{carNum}} 辆</b>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 text-right  title-2">入网车辆数</div>
+                    <div class="col-sm-3 car-num-title">入网车辆数</div>
                     <div class="col-sm-7">
                         <progressbar [max]="carNum" [value]="enterCarNum" type="warning">
                             <b>{{enterCarNum}} 辆</b>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 text-right  title-2">在线车辆数</div>
+                    <div class="col-sm-3 car-num-title">在线车辆数</div>
                     <div class="col-sm-7">
                         <progressbar [max]="carNum" [value]="onlineCarNum" type="danger">
                             <b>{{onlineCarNum}} 辆</b>
@@ -30,30 +30,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6" style="height: 100%">
-                <div class="col-sm-6" style="height: 100%">
+            <div class="col-sm-6 height100 ">
+                <div class="col-sm-6 height100">
                     <div echarts theme="macarons" [options]="enterCarRateOption" class="rate-chart"></div>
                 </div>
-                <div class="col-sm-6" style="height: 100%">
+                <div class="col-sm-6 height100">
                     <div echarts theme="macarons" [options]="onlineCarRateOption" class="rate-chart"></div>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="row" style="height: 60%">
-        <div class="col-sm-12" style="height: 100%">
+    <div class="row height60" style="padding-top:20px">
+        <div class="col-sm-12 height100">
             <div class="car-basic-statistics-title">
                 统计分析
             </div>
             <div class="input-group">
                 <span class="input-group-addon">统计年份：</span>
-                <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto"
-                        (change)="getCarHistoryStatistic()">
+                <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto" (change)="getCarHistoryStatistic()">
                     <option *ngFor="let item of years" [ngValue]="item">{{item}}</option>
                 </select>
             </div>
-            <div class="col-sm-12" style="height: 95%">
+            <div class="col-sm-12 height100">
                 <div echarts theme="macarons" [options]="historyOption" [dataset]="historyDataset" class="history-chart"></div>
             </div>
         </div>
@@ -62,78 +61,67 @@
 </div>
 
 
-<div *ngIf="selectedTab==='tab2'" >
-    <div class="row" autoHeight [ratio]="100" [offset]="-220">
-        <div class="col-sm-3" style="height: 100%">
-            <div class="row" style="height: 50%">
+<div *ngIf="selectedTab==='tab2'" autoHeight [ratio]="100" [offset]="-200">
+    <div class="row border-b tab2-top height100">
+        <div class="col-sm-3 height100">
+            <div class="row border-b border-r height50">
                 <h3>数据比率：</h3>
                 <div class="col-sm-4">
                     <ul class="list-unstyled">
-                        <li *ngFor="let item of carGaugeChartRates" (click)="onSelectCarRateGaugeChart(item.code)"
-                            role="button" [ngClass]="item.code==currentCarGaugeChartRate?'bg-info':''">{{item.name}}
+                        <li *ngFor="let item of carGaugeChartRates" (click)="onSelectCarRateGaugeChart(item.code)" role="button" [ngClass]="item.code==currentCarGaugeChartRate?'bg-info':''">{{item.name}}
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-8" style="height: 100%">
-                    <div echarts theme="macarons" [options]="carGaugeChartRateOption" class="min-chart-rate-l"></div>
-
-                    <!--<div class="row">-->
-                    <!--</div>-->
+                <div class="col-sm-8 height100">
+                    <div echarts theme="macarons" [options]="carGaugeChartRateOption" class="chart-1"></div>
                 </div>
             </div>
-            <div class="row" style="height: 50%">
+            <div class="row border-r height50">
                 <h3>两客一危情况：</h3>
                 <div class="col-sm-4">
-                    <div *ngFor="let item of carPieChartRates">
-
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="carPieChartRadio" [(ngModel)]="currentCarPieChartRate"
-                                       [value]="item.code" (click)="onChangeCarPieChartRadio(item.code)">
-                                {{item.name}}
-                            </label>
-                        </div>
+                    <div class="radio" *ngFor="let item of carPieChartRates">
+                        <label>
+                            <input type="radio" name="carPieChartRadio" [(ngModel)]="currentCarPieChartRate" [value]="item.code" (click)="onChangeCarPieChartRadio(item.code)"/> {{item.name}}
+                        </label>
                     </div>
                 </div>
-                <div class="col-sm-8" style="height: 100%">
-                    <div echarts theme="macarons" [options]="carPieChartRateOption" class="min-chart-rate-l"></div>
+                <div class="col-sm-8 height100">
+                    <div echarts theme="macarons" [options]="carGaugeChartRateOption" class="chart-1"></div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6" style="height: 100%">
+        <div class="col-sm-6 height100">
             <h3>区域情况：</h3>
-            <div echarts theme="macarons" [options]="regionBarBrushOption" style="height: 90%"></div>
+            <div echarts theme="macarons" [options]="regionBarBrushOption" class="chart-2"></div>
+
         </div>
-        <div class="col-sm-3" style="height: 100%">
-            <div class="row" style="height: 50%">
+        <div class="col-sm-3 height100">
+            <div class="row border-b border-l height50">
                 <h3>当月时间处理情况：</h3>
-                <div class="col-sm-12" style="height: 100%">
-                    <div echarts theme="macarons" [options]="workOrderBarChartOption" class="min-chart-rate-r"></div>
+                <div class="col-sm-12 height100">
+                    <div echarts theme="macarons" [options]="workOrderBarChartOption" class="chart-3"></div>
 
                 </div>
             </div>
-            <div class="row" style="height: 50%">
+            <div class="row border-l height50">
                 <h3>事件分类趋势：</h3>
-                <div class="col-sm-12" style="height: 100%">
-                    <div echarts theme="macarons" [options]="warningLineChartOption"  class="min-chart-rate-r"></div>
+                <div class="col-sm-12 height100">
+                    <div echarts theme="macarons" [options]="warningLineChartOption" class="chart-3" style="height:80%;min-height:220px"></div>
                 </div>
-
             </div>
         </div>
     </div>
-    <div class="row" style="height: 150px;margin-top: 70px">
-        <div class="col-sm-6">
+
+    <div class="row" class="tab2-bottom">
+        <div class="col-sm-6 border-r">
 
             <div class="row">
                 <h3>车辆在线总览：</h3>
                 <div class="col-sm-6">
                     <div class="row">
-                        <!--<div class="manage-"></div>-->
-                        <!--<div></div>-->
 
-
-                        <div class="manage-overview-title">两客一危</div>
-                        <div class="manage-overview-content">
+                        <div class="manage-online-overview-title">两客一危：</div>
+                        <div class="manage-online-overview-content">
                             <progressbar [max]="carNum" [value]="carNum" type="success">
                                 <b>{{carNum}} 辆</b>
                             </progressbar>
@@ -142,8 +130,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
-                        <div class="manage-overview-title">班线客运</div>
-                        <div class="manage-overview-content">
+                        <div class="manage-online-overview-title">班线客运：</div>
+                        <div class="manage-online-overview-content">
                             <progressbar [max]="carNum" [value]="carNum" type="success">
                                 <b>{{carNum}} 辆</b>
                             </progressbar>
@@ -152,8 +140,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
-                        <div class="manage-overview-title">危险品</div>
-                        <div class="manage-overview-content">
+                        <div class="manage-online-overview-title">危险品：</div>
+                        <div class="manage-online-overview-content">
                             <progressbar [max]="carNum" [value]="carNum" type="success">
                                 <b>{{carNum}} 辆</b>
                             </progressbar>
@@ -162,8 +150,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
-                        <div class="manage-overview-title">旅游包车</div>
-                        <div class="manage-overview-content">
+                        <div class="manage-online-overview-title">旅游包车：</div>
+                        <div class="manage-online-overview-content">
                             <progressbar [max]="carNum" [value]="carNum" type="success">
                                 <b>{{carNum}} 辆</b>
                             </progressbar>
