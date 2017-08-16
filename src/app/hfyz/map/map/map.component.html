@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-        </div>      
+        </div>
     </div>
     <div *ngIf="mapCode=='realTimeMonitorMap'">
         <div class="col-sm-5">
@@ -30,7 +30,7 @@
                         <input type="text" class="form-control" [(ngModel)]="realTimeMonitorFrameNo"
                                id="realTimeMonitorFrameNo" placeholder="">
                     </div>
-                    <button type="button" class="btn btn-default" (click)="getRealTimeMonitorMap()">查询</button>                    
+                    <button type="button" class="btn btn-default" (click)="getRealTimeMonitorMap()">查询</button>
                 </div>
             </div>
         </div>
@@ -93,60 +93,6 @@
         </accordion>
     </div>
     <div [ngClass]="mapCode==='realTimeMap'?'col-sm-9':'col-sm-12'" autoHeight [ratio]="100" [offset]="-150">
-        <div id="map" class='mapSize'></div>
-    </div>
-
-    <div class="col-sm-3 " *ngIf="mapCode==='realTimeMap'"  autoHeight [ratio]="100" [offset]="-200"  style="overflow: auto">
-        <accordion [closeOthers]="true">
-            <accordion-group heading="多车监控"  (click)="onRealTimeAccordion('multipleCar')" [isOpen]="currentRealTimeAccordion==='multipleCar'">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <p-dropdown [options]="companys" [(ngModel)]="company" [style]="{'width':'100%'}" filter="filter"
-                                    (onChange)="companySelectChange($event)" placeholder="请选择企业">
-                            <ng-template let-c pTemplate="item">
-                                {{c.label}}
-                            </ng-template>
-                        </p-dropdown>
-
-                        <!--<p-listbox [options]="cars" [(ngModel)]="selectedCities" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'90%'}"></p-listbox>-->
-
-                        <div class="cars-checkbox-box">
-                            <h4 *ngIf="cars.length<=0" class="text-center">暂无车辆</h4>
-
-                            <div class="checkbox" *ngFor="let item of cars" >
-                                <label>
-                                    <input type="checkbox" value="{{item.value}}" (click)="carSelectChange($event,item)" [checked]="carSelected(item.value)">
-                                    {{item.label}}
-                                </label>
-                            </div>
-                        </div>
-                        <h4 *ngIf="selectCars.length>0">显示车辆：</h4>
-                        <ul class="list-unstyled">
-                            <li *ngFor="let item of selectCars">
-                                {{item.label}}
-                                <span class="fa fa-map-marker pull-right" role="button" title="定位" (click)="showCar(item.value)" ></span>
-                                <span class="fa fa-remove pull-right" role="button" title="移除" (click)="removeCar(item.value)"></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--<button type="button" (click)="onCombineQuery()">查询</button>-->
-            </accordion-group>
-            <accordion-group heading="车牌查询" (click)="onRealTimeAccordion('singleCar')" [isOpen]="currentRealTimeAccordion==='singleCar'">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="input-group">
-                            <input type="text" class="form-control" [(ngModel)]="realTimeMapFrameNo"
-                                   id="realTimeMapFrameNo" placeholder="请输入要查询的车牌号"/>
-                            <span class=" input-group-addon " role="button" (click)="getRealTimeMap()">查询</span>
-                        </div>
-                    </div>
-                </div>
-            </accordion-group>
-        </accordion>
-    </div>
-    <div [ngClass]="mapCode==='realTimeMap'?'col-sm-9':'col-sm-12'" autoHeight [ratio]="100" [offset]="-200">
         <div id="map" class='mapSize'></div>
     </div>
 </div>
