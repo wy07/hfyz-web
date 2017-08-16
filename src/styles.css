@@ -86,11 +86,12 @@ body .car-info .ui-panel-content {
 
 .map-left {
     position: fixed;
-    /* left: 5% !important; */
     bottom: 0;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 200px;
     width: calc(100% - 130px);
+    background-color: white;
 }
 
 .warnning {
