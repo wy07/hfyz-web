@@ -1,3 +1,4 @@
+
 <div *ngIf="pageFlag=='LIST'">
   <div class="querys">
     <div class="row form-horizontal">
@@ -40,21 +41,22 @@
   <div class="panel-body no-padding">
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <label class="col-sm-3 control-label">车辆号牌：</label>
         <div class="col-xs-6 ">
           <input type="text" class="form-control" [(ngModel)]="whiteList.vehicleNo">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <label class="col-sm-3 control-label">布控状态：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
         </div>
       </div>
     </div>
     <div class="form-horizontal col-md-6">
+
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <label class="col-xs-4 control-label col-sm-4 text-right">布控开始时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="whiteList.controlBegin"></p-calendar>
         </div>
@@ -127,13 +129,13 @@
   <div class="panel-body no-padding">
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4  text-right">车辆号牌：</label>
+        <label class="col-sm-3 control-label">车辆号牌：</label>
         <div class="col-xs-6 ">
           <input class="form-control" disabled [(ngModel)]="whiteList.vehicleNo">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控状态：</label>
+        <label class="col-sm-3 control-label">布控状态：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-dropdown [options]="status" [(ngModel)]="whiteList.status"></p-dropdown>
         </div>
@@ -141,7 +143,7 @@
     </div>
     <div class="form-horizontal col-md-6">
       <div class="form-group">
-        <label class="col-xs-4 col-sm-4 text-right">布控开始时间：</label>
+        <label class="col-sm-3 control-label">布控开始时间：</label>
         <div class="col-xs-6 cole-sm-6 ">
           <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [showIcon]="true" [(ngModel)]="whiteList.controlBegin"></p-calendar>
         </div>

@@ -1,3 +1,4 @@
+
 <div class="querys">
   <div class="row form-horizontal">
     <div class="col-sm-5">
@@ -76,28 +77,30 @@
 <p-dialog header="查岗" [(visible)]="inspectDisplay" modal="modal" width="600" [responsive]="true">
   <div class="form-horizontal">
     <div class="form-group">
-      <label for="companyCode" class="col-sm-3 control-label">业户组织机构代码</label>
+      <label for="companyCode" class="col-sm-3 control-label">业户组织机构代码：</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="companyCode" name="companyCode" [(ngModel)]="inspectQ.companyCode">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="name" class="col-sm-3 control-label">问题</label>
+      <label for="name" class="col-sm-3 control-label">问题：</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="name" name="name" [(ngModel)]="inspectQ.question">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="codeNum" class="col-sm-3 control-label">答案</label>
+      <label for="codeNum" class="col-sm-3 control-label">答案：</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="codeNum" name="codeNum" [(ngModel)]="inspectQ.answer">
       </div>
     </div>
   </div>
-  <p-footer>
-    <button type="button" pButton icon="fa-check" (click)="inspect()" label="查岗"></button>
-    <button type="button" pButton icon="fa-close" (click)="inspectDisplay=false" label="取消"></button>
+  <p-footer >
+    <div class="form-group">
+        <button type="button" pButton icon="fa-check" (click)="inspect()" label="查岗"></button>
+        <button type="button" pButton icon="fa-close" (click)="inspectDisplay=false" label="取消"></button>
+    </div>
   </p-footer>
 </p-dialog>

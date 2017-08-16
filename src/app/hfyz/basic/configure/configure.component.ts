@@ -51,7 +51,7 @@ export class ConfigureComponent implements OnInit {
 
     onEdit(id) {
         this.clearConfigure();
-        this.configureTitle = `编辑配置`;
+        this.configureTitle = `编辑`;
         this.displayDialog = true;
         this.preEdit(id);
     }
