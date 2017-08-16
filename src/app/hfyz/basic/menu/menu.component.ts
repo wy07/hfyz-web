@@ -5,7 +5,7 @@ import { TreeNode } from 'primeng/components/common/api';
 import { RegularService } from '../../common/shared/regular.service';
 import {TdLoadingService} from "@covalent/core";
 @Component({
-    selector: 'menu',
+    selector: 'app-menu',
     templateUrl: 'menu.component.html',
     styleUrls: ['menu.component.css']
 })
