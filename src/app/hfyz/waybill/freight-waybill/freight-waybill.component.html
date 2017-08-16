@@ -37,12 +37,6 @@
                 <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-3 col-sm-offset-9">
-                <button type="button" pButton class="search-button" label="检索" (click)="search()"></button>
-                <button type="button" pButton class="search-button" label="重置" (click)="reset()"></button>
-            </div>
-        </div>
     </div>
     <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'">
         <p-column field="vehicleNo" header="车牌号"></p-column>

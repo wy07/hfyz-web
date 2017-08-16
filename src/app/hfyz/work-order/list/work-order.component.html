@@ -1,4 +1,4 @@
-
+<div class="panel panel-default" *ngIf="isDetails==false">
 <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
     <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
     <p-column field="alarmType" header="报警类型"></p-column>
@@ -42,9 +42,14 @@
       </ng-template>
     </p-column>
     <p-column field="status" header="工单状态"></p-column>
+    <p-column field="" header="操作" styleClass=operation-buttons-1>
+            <ng-template let-workOrder="rowData" pTemplate="body">
+                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(workOrder.id)" tooltip="详情" placement="bottom"></div>
+            </ng-template>
+    </p-column>
   </p-dataTable>
   <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="workOrderList?.length>0"></p-paginator>
-
+</div>
 
 <div class="panel panel-default" *ngIf="isDetails==true">
     <div class="panel-heading">

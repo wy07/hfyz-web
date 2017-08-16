@@ -68,7 +68,7 @@
             <form class="form-horizontal">
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">类别 &nbsp;</label>
+                    <label class="col-sm-2 control-label">类别：</label>
                     <div class="col-sm-6">
                         <p-dropdown [options]="infoType" [(ngModel)]="infoaudit.type" name="selectedType"
                                     placeholder="请选择类别"></p-dropdown>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">标题</label>
+                    <label class="col-sm-2 control-label">标题：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" [(ngModel)]="infoaudit.title" name="title"
                                placeholder="请输入...">
@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">起草时间</label>
+                    <label class="col-sm-2 control-label">起草时间：</label>
                     <div class="col-sm-6" *ngIf="isAdd==true">
                         <p-calendar [showTime]="true" [(ngModel)]="infoaudit.vimTime" name="dataCreate"></p-calendar>
                     </div>
@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+                    <label for="inputPassword3" class="col-sm-2 control-label">内容：</label>
                     <div class="col-sm-8">
                         <ckeditor name="ckeditor"
                                   [(ngModel)]="infoaudit.content"
@@ -116,12 +116,12 @@
                 <!--</div>-->
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">状态</label>
+                    <label class="col-sm-2 control-label">状态：</label>
                     <div class="col-sm-2">{{"起草"}}</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputFile" class="col-sm-2 control-label">附件</label>
+                    <label for="exampleInputFile" class="col-sm-2 control-label">附件：</label>
                     <input type="file" id="exampleInputFile" class="col-sm-1 control-label">
                 </div>
 

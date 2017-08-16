@@ -75,7 +75,7 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <label for="enterpirse" class="col-sm-4 " right>业户名称：<span class="notNull">*</span></label>
+                        <label for="enterpirse" class="col-sm-4 " right><span class="notNull">*</span>业户名称：</label>
                         <div class="col-sm-6">
                             <p-autoComplete id="enterpirse" name="enterpirse" [(ngModel)]="selectedCompany" [suggestions]="filteredEnterpirses" (onSelect)="onSelect($event)"
                                 field="info" (completeMethod)="filteredEnterpirse($event)" [size]="30" [minLength]="1" [delay]="500">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="area" class="col-sm-4 " right>区域：</label>
+                        <label for="area" class="col-sm-4 " right>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区域：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="area" name="area" [(ngModel)]="hiddenRectificationOrder.area">
                         </div>
@@ -94,15 +94,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <label for="inspectionDate" class="col-sm-4" right>检查日期：<span
-                            class="notNull">*</span></label>
+                        <label for="inspectionDate" class="col-sm-4" right><span class="notNull">*</span>检查日期：</label>
                         <div class="col-sm-6">
                             <p-calendar name="inspectionDate" id="inspectionDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true" [(ngModel)]="inspection" [showIcon]="true"></p-calendar>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="examiner" class="col-sm-4 " right>检查人：<span
-                            class="notNull">*</span></label>
+                        <label for="examiner" class="col-sm-4 " right><span class="notNull">*</span>检查人：</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="examiner" name="examiner" [(ngModel)]="hiddenRectificationOrder.examiner">
                         </div>
@@ -110,7 +108,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-6">
-                        <label for="dealineDate" class="col-sm-4 " right>整改期限：<span class="notNull">*</span></label>
+                        <label for="dealineDate" class="col-sm-4 " right><span class="notNull">*</span>整改期限：</label>
                         <div class="col-sm-6">
                             <p-calendar name="dealineDate" id="dealineDate" dateFormat="yy-mm-dd" [showTime]="true" [readonlyInput]="true" [(ngModel)]="dealine" [showIcon]="true">
                             </p-calendar>
@@ -119,8 +117,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insPosition" class="col-sm-2 " right>检查地点：<span
-                            class="notNull">*</span></label>
+                        <label for="insPosition" class="col-sm-2 " right><span class="notNull">*</span>检查地点：</label>
                         <div class="col-sm-6">
                             <textarea class="form-control fix" id="insPosition" name="insPosition" [(ngModel)]="hiddenRectificationOrder.insPosition"
                                 maxlength="1500"></textarea>
@@ -129,8 +126,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insDesc" class="col-sm-2 " right>检查内容：<span
-                            class="notNull">*</span></label>
+                        <label for="insDesc" class="col-sm-2 " right><span class="notNull">*</span>检查内容：</label>
                         <div class="col-sm-6">
                             <textarea class="form-control fix" id="insDesc" name="insDesc" [(ngModel)]="hiddenRectificationOrder.insDesc" maxlength="1500"></textarea>
                         </div>
@@ -138,8 +134,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="insQuestion" class="col-sm-2 " right>存在问题：<span
-                            class="notNull">*</span></label>
+                        <label for="insQuestion" class="col-sm-2 " right><span class="notNull">*</span>存在问题：</label>
                         <div class="col-sm-6">
                             <textarea class="form-control fix" id="insQuestion" name="insQuestion" [(ngModel)]="hiddenRectificationOrder.insQuestion"
                                 maxlength="1500"></textarea>
@@ -148,7 +143,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label for="proPosal" class="col-sm-2" right>整改意见：<span class="notNull">*</span></label>
+                        <label for="proPosal" class="col-sm-2" right><span class="notNull">*</span>整改意见：</label>
                         <div class="col-sm-6">
                             <textarea class="form-control fix" id="proPosal" name="proPosal" [(ngModel)]="hiddenRectificationOrder.proPosal" maxlength="1500"></textarea>
                         </div>
