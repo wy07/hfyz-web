@@ -15,7 +15,7 @@ export class MapService {
         const num = 10;
         let dateTime = new Date().getTime();
         for (let i = 0; i < num; i++) {
-            dateTime = i==0?dateTime : (dateTime + 30 * 1000);
+            dateTime = i === 0 ? dateTime : (dateTime + 30 * 1000);
             const date = this.datePipe.transform(new Date(dateTime), 'yyyy-MM-dd HH:mm:ss');
             const point = {
                 dateStr: date,

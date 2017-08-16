@@ -1,43 +1,41 @@
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">报警信息统计</div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="input-group">
-                            <span class="input-group-addon">时间范围：</span>
-                            <p-calendar [(ngModel)]="startDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh" [style]="{'padding-right':'30px'}"></p-calendar>
-                            -
-                            <p-calendar [(ngModel)]="endDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh"></p-calendar>
-                        </div>
+<div class="querys">
+    <div class="row form-horizontal">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">时间范围：</label>
+                <div class="col-sm-8 calendar-group">
+                    <div class="cgl">
+                        <p-calendar [(ngModel)]="startDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
                     </div>
-                    <div class="col-sm-6">
-                        <button pButton label="检索" type="button"(click)="onSearch()"></button>
-                        <button pButton label="取消" type="button" (click)="onCancel()"></button>
+                    <div class="cgm">-</div>
+                    <div class="cgr">
+                        <p-calendar [(ngModel)]="endDate" [showIcon]="true" [dateFormat]="'yy/mm/dd'" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
                     </div>
                 </div>
-                <hr/>
-                <p-dataTable [value]="records" [emptyMessage]="'暂无数据'">
-                    <p-column field="date" header="日期"></p-column>
-                    <p-column field="total" header="总数"></p-column>
-                    <p-column field="passengerCharterCrossborder" header="客运包车越界"></p-column>
-                    <p-column field="passengerTravelBusNormal" header="客运旅游车正常"></p-column>
-                    <p-column field="passengerTravelBusAbnormal" header="客运旅游车不符"></p-column>
-                    <p-column field="passengerTravelBusUndeclared" header="客运旅游车未申报"></p-column>
-                    <p-column field="passengerTwoToFiveNotStop" header="客运2-5小时未停驶"></p-column>
-                    <p-column field="passengerLocateFault" header="客运卫星定位故障"></p-column>
-                    <p-column field="passengerOverSpeed" header="客运超速"></p-column>
-                    <p-column field="dancargoErouterNormal" header="危货电子路单正常"></p-column>
-                    <p-column field="dancargoErouterAbnormal" header="危货电子路单未上报"></p-column>
-                    <p-column field="dancargoErouterUndeclared" header="危货电子路单不符"></p-column>
-                    <p-column field="dancargoTwoToFiveNotStop" header="危货2-5小时未停驶"></p-column>
-                    <p-column field="dancargoLocateFault" header="危货2-5小时未停驶"></p-column>
-                    <p-column field="dancargoOverSpeed" header="危货超速"></p-column>
-                    <p-column field="safetyAccidents" header="危货超速"></p-column>
-                </p-dataTable>
             </div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <button pButton label="检索" type="button" (click)="onSearch()"></button>
+            <button pButton label="重置" type="button" (click)="onCancel()"></button>
         </div>
     </div>
 </div>
 
+<p-dataTable [value]="records" [emptyMessage]="'暂无数据'">
+    <p-column field="date" header="日期"></p-column>
+    <p-column field="total" header="总数"></p-column>
+    <p-column field="passengerCharterCrossborder" header="客运包车越界"></p-column>
+    <p-column field="passengerTravelBusNormal" header="客运旅游车正常"></p-column>
+    <p-column field="passengerTravelBusAbnormal" header="客运旅游车不符"></p-column>
+    <p-column field="passengerTravelBusUndeclared" header="客运旅游车未申报"></p-column>
+    <p-column field="passengerTwoToFiveNotStop" header="客运2-5小时未停驶"></p-column>
+    <p-column field="passengerLocateFault" header="客运卫星定位故障"></p-column>
+    <p-column field="passengerOverSpeed" header="客运超速"></p-column>
+    <p-column field="dancargoErouterNormal" header="危货电子路单正常"></p-column>
+    <p-column field="dancargoErouterAbnormal" header="危货电子路单未上报"></p-column>
+    <p-column field="dancargoErouterUndeclared" header="危货电子路单不符"></p-column>
+    <p-column field="dancargoTwoToFiveNotStop" header="危货2-5小时未停驶"></p-column>
+    <p-column field="dancargoLocateFault" header="危货2-5小时未停驶"></p-column>
+    <p-column field="dancargoOverSpeed" header="危货超速"></p-column>
+    <p-column field="safetyAccidents" header="危货超速"></p-column>
+</p-dataTable>

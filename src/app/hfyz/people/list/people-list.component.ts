@@ -97,6 +97,13 @@ export class PeopleListComponent implements OnInit {
         this.loadData();
     }
 
+    cancel() {
+        this.selectedType = '';
+        this.peopleName = '';
+        this.phoneNo = '';
+        this.IDCardNo = '';
+    }
+
     /**
      * 表格查看详情
      * @param people 表格当前row数据

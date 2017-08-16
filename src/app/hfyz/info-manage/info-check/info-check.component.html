@@ -1,15 +1,15 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3 col-sm-3">
         <div class="input-group">
-          <span class="input-group-addon">标题：</span>
+          <span class="search-span input-group-addon">标题：</span>
           <input type="text" class="form-control" placeholder="请输入文档标题..."/>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-6">
         <div class="input-group">
-          <span class="input-group-addon">起草时间：</span>
+          <span class="search-span input-group-addon">起草时间：</span>
           <div>
             <p-calendar></p-calendar>
             -
@@ -17,8 +17,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-primary">检索</button>
+      <div class="col-md-3 col-sm-3">
+          <button pButton label="检索" type="button" ></button>
+          <button pButton label="重置" type="button" ></button>
       </div>
     </div>
   </div>
@@ -36,7 +37,7 @@
               <p-column field="time" header="起草时间"></p-column>
               <p-column field="name" header="用户"></p-column>
               <p-column field="status" header="状态"></p-column>
-              <p-column field="" header="操作" [style]="{'width':'120px'}">
+              <p-column field="" header="操作" styleClass=operation-buttons-3>
                   <ng-template  pTemplate="body">
                       <div role="button" class="fa fa-list-alt fa-font-size div-distance" tooltip="审核" placement="bottom"></div>
                       <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" tooltip="编辑" placement="bottom"></div>

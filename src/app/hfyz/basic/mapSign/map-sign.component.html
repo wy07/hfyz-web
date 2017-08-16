@@ -11,7 +11,7 @@
                     <span>{{mapSign.display? '显示':'隐藏'}}</span>
                 </ng-template>
             </p-column>
-            <p-column field="" header="操作" [style]="{'width':'85px'}">
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-mapSign="rowData"  pTemplate="body">
                     <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
                          (click)="delete(mapSign)" tooltip="删除" placement="bottom"></div>

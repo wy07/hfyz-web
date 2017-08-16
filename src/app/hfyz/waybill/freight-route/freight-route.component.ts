@@ -15,7 +15,6 @@ export class FreightRouteComponent implements OnInit {
     max: number;   // 表格行数
     page: number;   // 当前页数
     total: number;  // 总数
-    detailFlag: boolean; // 详情对话框flag
 
     freightRouter: FreightRouter;
 
@@ -33,7 +32,6 @@ export class FreightRouteComponent implements OnInit {
         this.page = 0;
         this.total = 0;
         this.pageFlag = 'LIST';
-        this.detailFlag = false;
         this.initData();
     }
 
@@ -161,12 +159,7 @@ export class FreightRouteComponent implements OnInit {
             console.log('===edit===' + JSON.stringify(res));
             this._loadingService.resolve();
             this.freightRouter = res.freightRouter;
-            // this.pageFlag = 'EDIT';
-            this.detailFlag = true;
+            this.pageFlag = 'DETAIL';
         });
-    }
-
-    closeDialog() {
-        this.detailFlag = false
     }
 }
