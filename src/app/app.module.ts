@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './hfyz/common/custom-directive.module';
 import {MapModule} from './hfyz/map/map.module';
 import {InfoManageModule} from './hfyz/info-manage/info-manage.module';
 import {SideBarComponent} from './hfyz/layout/side-bar/sidebar.component';
@@ -8,7 +9,6 @@ import {AdminService} from './hfyz/admin/admin.service';
 import {LoginModule} from './hfyz/login/login.module';
 import {BasicModule} from './hfyz/basic/basic.module';
 import {HomeModule} from './hfyz/home/home.module';
-import {CommonModule} from './hfyz/common/common.module';
 import {LogManageModule} from './hfyz/log-manage/log-manage.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, Injector} from '@angular/core';
@@ -70,7 +70,7 @@ export function ConfigLoader(configService: ConfigService) {
         ToastModule.forRoot(),
         RestangularModule.forRoot([Router, Http, ToastsManager, Injector], RestangularConfigFactory),
         LogManageModule,
-        CommonModule,
+        CustomDirectiveModule,
         HomeModule,
         BasicModule,
         LoginModule,

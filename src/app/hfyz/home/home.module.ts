@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 import {NgModule} from '@angular/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -8,9 +9,8 @@ import {HomeComponent} from './home.component';
 import {AutoCompleteModule, ChartModule, PanelModule} from 'primeng/primeng';
 import {ProgressbarModule} from 'ngx-bootstrap';
 import {AngularEchartsModule} from 'ngx-echarts';
-import {HomeService} from "./home.service";
-import {AutoHeightDirective} from "../common/directive/autoHeight.directive";
-import {CommonModule} from "../common/common.module";
+import {HomeService} from './home.service';
+import {AutoHeightDirective} from '../common/directive/autoHeight.directive';
 
 
 @NgModule({
@@ -26,8 +26,8 @@ import {CommonModule} from "../common/common.module";
         PanelModule,
         ChartModule,
         AngularEchartsModule,
-        CommonModule,
-        ProgressbarModule.forRoot()
+        ProgressbarModule.forRoot(),
+        CustomDirectiveModule
     ],
     exports: [],
     providers: [
