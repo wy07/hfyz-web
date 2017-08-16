@@ -1,82 +1,77 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-sm-12">
-        <form class="form-horizontal">
-          <div class="form-group">
-            <div class="col-sm-4">
-              <div class="input-group">
-                <span class="input-group-addon">企业名称：</span>
-                <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入企业名称..."/>
-              </div>
-            </div>
-            <div class="col-md-5">
-            <div class="input-group">
-              <span class="input-group-addon">查岗时间：</span>
-              <div>
-                <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"></p-calendar>
-                -
-                <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"  [showTime]="true" [readonlyInput]="true"></p-calendar>
-              </div>
-            </div>
-            </div>
-            <div class="col-sm-2">
-              <button type="submit" class="btn btn-primary" (click)="initData()">检索</button>
-              <button type="submit" class="btn btn-primary" (click)="cancel()">取消</button>
-              <button type="submit" class="btn btn-primary" (click)="onInspect()">查岗</button>
-            </div>
-          </div>
-        </form>
-      </div>
-      </div>
-  </div>
-  <div class="panel-body" *ngIf="checkRecordList?.length>0" >
-    <div class="row">
-      <div class="col-md-12">
-        <p-dataTable [value]="checkRecordList">
-          <p-column field="companyCode" header="企业名称"></p-column>
-          <p-column field="dateCreated" header="查岗时间"></p-column>
-          <p-column field="question" header="查岗内容"></p-column>
-          <p-column field="answer" header="问题答案"></p-column>
-          <p-column field="responsed" header="信息状态">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.responsed ? '已响应':'未响应'}}</span>
-            </ng-template>
-          </p-column>
-          <p-column field="auto" header="查岗类型">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.auto ? '自动':'手动'}}</span>
-            </ng-template>
-          </p-column>
-          <p-column field="operator" header="查岗人">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.operator || '无'}}</span>
-            </ng-template>
-          </p-column>
-          <p-column field="responseDate" header="应答时间">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.responseDate || '无'}}</span>
-            </ng-template>
-          </p-column>
-          <p-column field="responseContent" header="应答内容">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.responseContent || '无'}}</span>
-            </ng-template>
-          </p-column>
-          <p-column field="responseTime" header="响应时间(分:秒)">
-            <ng-template let-checkRecord="rowData" pTemplate="body">
-              <span>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</span>
-            </ng-template>
-          </p-column>
-        </p-dataTable>
-        <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
+<div class="querys">
+  <div class="row form-horizontal">
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">企业名称：</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" [(ngModel)]="company" name="company" placeholder="请输入企业名称..." />
+        </div>
       </div>
     </div>
-  </div>
-  <div *ngIf="checkRecordList?.length<=0" class="center">
-    <h4>暂无查岗信息</h4>
+    <div class="clearfix"></div>
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">查岗时间：</label>
+        <div class="col-sm-8 calendar-group">
+          <div class="cgl">
+            <p-calendar [(ngModel)]="startDate" name="startDate" [showIcon]="true" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
+              dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+          </div>
+          <div class="cgm">-</div>
+          <div class="cgr">
+            <p-calendar [(ngModel)]="endDate" name="endDate" [showIcon]="true" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true"
+              [readonlyInput]="true" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-5 col-sm-offset-1">
+      <button type="submit" pButton label="检索" (click)="initData()"></button>
+      <button type="submit" pButton label="重置" (click)="cancel()"></button>
+    </div>
   </div>
 </div>
+<div class="top-buttons">
+  <button pButton type="button" label="查岗" (click)="onInspect()"></button>
+</div>
+<p-dataTable [value]="checkRecordList" [emptyMessage]="'暂无数据'">
+  <p-column field="companyCode" header="企业名称"></p-column>
+  <p-column field="dateCreated" header="查岗时间"></p-column>
+  <p-column field="question" header="查岗内容"></p-column>
+  <p-column field="answer" header="问题答案"></p-column>
+  <p-column field="responsed" header="信息状态">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.responsed ? '已响应':'未响应'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column field="auto" header="查岗类型">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.auto ? '自动':'手动'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column field="operator" header="查岗人">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.operator || '无'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column field="responseDate" header="应答时间">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.responseDate || '无'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column field="responseContent" header="应答内容">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.responseContent || '无'}}</span>
+    </ng-template>
+  </p-column>
+  <p-column field="responseTime" header="响应时间(分:秒)">
+    <ng-template let-checkRecord="rowData" pTemplate="body">
+      <span>{{checkRecord.responseTime*1000 | date: "mm:ss"}}</span>
+    </ng-template>
+  </p-column>
+</p-dataTable>
+<p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
+
 
 <p-dialog header="查岗" [(visible)]="inspectDisplay" modal="modal" width="600" [responsive]="true">
   <div class="form-horizontal">

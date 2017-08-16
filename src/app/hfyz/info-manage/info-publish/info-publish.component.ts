@@ -151,7 +151,7 @@ export class InfoPublishComponent implements OnInit {
         const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm');
         console.log(dateBegin)
         this._loadingService.register();
-        this.infoPublishService.search(this.textTitle, dateBegin?dateBegin:'', dateEnd?dateBegin:'', this.max, offset).subscribe(
+        this.infoPublishService.search(this.textTitle, dateBegin ? dateBegin : '', dateEnd ? dateBegin : '', this.max, offset).subscribe(
             res => {
                 // this.publishList = res.publishList;
                 this._loadingService.resolve();
@@ -159,6 +159,12 @@ export class InfoPublishComponent implements OnInit {
                 this.total = res.publishList.total;
             }
         );
+    }
+
+    onReset() {
+        this.textTitle = '';
+        this.dateBegin = null;
+        this.dateEnd = null;
     }
 
     onEdit(infoaudit) {
