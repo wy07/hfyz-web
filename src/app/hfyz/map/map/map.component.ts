@@ -403,8 +403,13 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
     showPath() {
-        for (const point of this.points) {
+        for (let i = 0; i < this.points.length; i++) {
+            const point = this.points[i];
             mapObject.historyPoints(point.geoPoint, point.alarmState, GnssData.getRealTimeInfo(point));
+            if (i === 0) {
+                const val = point.geoPoint.split(',');
+                mapObject.resetCenter(val[0], val[1]);
+            }
         }
     }
 
@@ -566,7 +571,7 @@ export class MapComponent implements OnInit, OnDestroy {
             this.selectCars.push(item);
             this.lng += 0.001;
             this.lat += 0.001;
-            const point = {
+            const point: any = {
                 dateStr: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
                 plateColor: 1,
                 plateNo: item.value,
@@ -584,7 +589,7 @@ export class MapComponent implements OnInit, OnDestroy {
             mapObject.resetCenter(this.lng, this.lat)
             mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
                 item.value,
-                `${this.lng},${this.lat}==${item.value}`,
+                GnssData.getRealTimeInfo(point),
                 23);
         }
     }
