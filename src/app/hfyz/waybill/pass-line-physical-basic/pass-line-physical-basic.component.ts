@@ -15,7 +15,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     max: number;   // 表格行数
     page: number;   // 当前页数
     total: number;  // 总数
-    detailFlag: boolean; // 详情对话框flag
     pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 EDIT 修改页
     passLinePhysicalBasicInfo: PassLinePhysicalBasicInfo;
     passLinePhysicalBasicInfos: Array<PassLinePhysicalBasicInfo>;
@@ -33,7 +32,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         this.lineCode = '';
         this.lineName = '';
         this.pageFlag = 'LIST';
-        this.detailFlag = false;
         this.passLinePhysicalBasicInfos = [];
 
     }
@@ -75,7 +73,7 @@ export class PassLinePhysicalBasicComponent implements OnInit {
             console.log('===showDetail===' + JSON.stringify(res));
             this._loadingService.resolve();
             this.passLinePhysicalBasicInfo = res.instance;
-            this.detailFlag = true;
+            this.pageFlag = 'DETAIL';
         });
     }
 
@@ -105,12 +103,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         this.pageFlag = 'LIST'
     }
 
-    /**
-     * 关闭详情页
-     */
-    closeDialog() {
-        this.detailFlag = false
-    }
 
 
 }
