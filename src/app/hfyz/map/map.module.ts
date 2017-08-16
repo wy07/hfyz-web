@@ -1,7 +1,7 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 import {DatePipe} from '@angular/common';
 import {MapTabsBarComponent} from './shared/map-tab-bar/map-tabs-bar.component';
 import {BrowserModule} from '@angular/platform-browser';
-import {CommonModule} from './../common/common.module';
 import {NgModule} from '@angular/core';
 import {PanelModule, ButtonModule, DataTableModule, CalendarModule, DropdownModule,MultiSelectModule,ListboxModule} from 'primeng/primeng';
 import {NullMapComponent} from './nullMap/null-map.component';
@@ -20,7 +20,6 @@ import {TabsModule, AccordionModule} from 'ngx-bootstrap';
         BrowserModule,
         PanelModule,
         ButtonModule,
-        CommonModule,
         FormsModule,
         DataTableModule,
         TabsModule.forRoot(),
@@ -28,7 +27,8 @@ import {TabsModule, AccordionModule} from 'ngx-bootstrap';
         CalendarModule,
         DropdownModule,
         MultiSelectModule,
-        ListboxModule
+        ListboxModule,
+        CustomDirectiveModule
     ],
     exports: [],
     providers: [

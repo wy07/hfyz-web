@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { FreightWaybillService } from './freight-waybill/sheard/freight-waybill.service';
 import { PassLineBusinessBasicService } from './pass-line-business-basic/sheard/pass-line-business-basic.service';
 import { PassLineBusinessBasicComponent } from './pass-line-business-basic/pass-line-business-basic.component';
@@ -23,7 +24,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         FormsModule,
         WuCitySelectModule,
         DialogModule,
-        TooltipModule
+        TooltipModule,
+        CustomDirectiveModule
     ],
     declarations: [
         FreightWaybillComponent,

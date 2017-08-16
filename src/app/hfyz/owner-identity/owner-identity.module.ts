@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 /**
  * Created by wangyan on 2017/7/27.
  */
@@ -36,7 +37,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         PaginatorModule,
         DialogModule,
         CalendarModule,
-        TooltipModule
+        TooltipModule,
+        CustomDirectiveModule
     ],
     exports: [],
     providers: [
