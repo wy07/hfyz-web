@@ -1,7 +1,7 @@
-import {Directive, ElementRef, Renderer, Input, OnInit} from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, OnInit, AfterViewChecked } from '@angular/core';
 
-@Directive({selector: '[autoHeight]'})
-export class AutoHeightDirective implements OnInit {
+@Directive({ selector: '[autoHeight]' })
+export class AutoHeightDirective implements OnInit, AfterViewChecked {
 
     @Input() ratio: number;
     @Input() offset: number;
@@ -11,13 +11,25 @@ export class AutoHeightDirective implements OnInit {
     }
 
     ngOnInit() {
-        let winowHeight=window.innerHeight;
-        let headerHeight = 100;
-        let footerHeight = 50;
-
-        let height=(winowHeight-headerHeight-footerHeight)*this.ratio/100+this.offset;
-
+        const winowHeight = window.innerHeight;
+        sessionStorage.setItem('winowHeight', winowHeight.toString());
+        const headerHeight = 100;
+        const footerHeight = 50;
+        const height = (winowHeight - headerHeight - footerHeight) * this.ratio / 100 + this.offset;
         this._renderer.setElementStyle(this._el.nativeElement, 'height', height + 'px');
+    }
+
+    ngAfterViewChecked() {
+        const oldHeight = sessionStorage.getItem('winowHeight')
+        if (oldHeight !== window.innerHeight.toString()) {
+            console.log('=====in====ngAfterViewChecked==')
+            const winowHeight = window.innerHeight;
+            sessionStorage.setItem('winowHeight', winowHeight.toString());
+            const headerHeight = 100;
+            const footerHeight = 50;
+            const height = (winowHeight - headerHeight - footerHeight) * this.ratio / 100 + this.offset;
+            this._renderer.setElementStyle(this._el.nativeElement, 'height', height + 'px');
+        }
     }
 }
 

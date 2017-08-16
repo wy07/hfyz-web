@@ -15,7 +15,7 @@
                     <p-column field="configAttribute" header="配置属性"></p-column>
                     <p-column field="httpMethod" header="HTTP方法"></p-column>
                     <p-column field="url" header="URL"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'85px'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-2>
                         <ng-template let-perm="rowData" pTemplate="body">
                             <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
                                  (click)="onEdit(perm)" tooltip="编辑" placement="bottom"></div>

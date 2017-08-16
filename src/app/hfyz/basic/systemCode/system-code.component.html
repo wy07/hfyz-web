@@ -1,11 +1,11 @@
-<div class="ui-g">
-    <div class="ui-g-12 ">
+<div class="panel panel-default">
+    <div class="panel-heading">菜单列表</div>
+    <div class="panel-body">
         <p-dropdown [options]="systemCodeTypes" [(ngModel)]="type" (onChange)="reload()"
                     [style]="{'width':'300px'}" [autoWidth]="false" class="pull-left" filter="filter"></p-dropdown>
-        <button [hasPermission]="'systemcode:create'" pButton type="button" label="新增" (click)="onCreate()"
-                class="pull-right"></button>
-    </div>
-    <div class="ui-g-12">
+        <div class="top-buttons">
+            <button pButton type="button" label="新增" (click)="onCreate()"></button>
+        </div>
         <p-treeTable [value]="systemCodeTree" (onNodeExpand)="loadNode($event)" styleClass="syscodeTable">
             <p-column field="name" header="名称"></p-column>
             <p-column field="codeNum" header="编码"></p-column>

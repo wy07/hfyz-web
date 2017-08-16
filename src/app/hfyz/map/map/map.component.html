@@ -36,7 +36,9 @@
         </div>
     </div>
 
-    <div class="col-sm-3 " *ngIf="mapCode==='realTimeMap'"  autoHeight [ratio]="100" [offset]="-200"  style="overflow: auto">
+
+
+    <div class="col-sm-3 " *ngIf="mapCode==='realTimeMap'"  autoHeight [ratio]="100" [offset]="-150"  style="overflow: auto">
         <accordion [closeOthers]="true">
             <accordion-group heading="多车监控"  (click)="onRealTimeAccordion('multipleCar')" [isOpen]="currentRealTimeAccordion==='multipleCar'">
                 <div class="row">
@@ -86,7 +88,7 @@
             </accordion-group>
         </accordion>
     </div>
-    <div [ngClass]="mapCode==='realTimeMap'?'col-sm-9':'col-sm-12'" autoHeight [ratio]="100" [offset]="-200">
+    <div [ngClass]="mapCode==='realTimeMap'?'col-sm-9':'col-sm-12'" autoHeight [ratio]="100" [offset]="-150">
         <div id="map" class='mapSize'></div>
     </div>
 

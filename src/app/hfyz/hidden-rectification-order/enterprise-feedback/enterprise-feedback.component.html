@@ -45,7 +45,7 @@
                     <p-column field="inspectionDate" header="检查日期"></p-column>
                     <p-column field="dealineDate" header="整改期限"></p-column>
                     <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'85px','text-align':'left'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-2>
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
                             <div role="button" class="fa fa-file-text-o fa-font-size div-distance"
                                  (click)="onEdit(hiddenRectificationOrder)"  tooltip="反馈" placement="bottom"
@@ -137,9 +137,9 @@
                               maxlength="1500"></textarea>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10 col-md-offset-5">
-                        <button  pButton type="button" label="反馈" (click)="onSaveNew()" ></button>
-                        <button  pButton type="button" label="返回" (click)="return()" ></button>
+                    <div class="col-md-2">
+                        <button pButton type="button" label="反馈" (click)="onSaveNew()"></button>
+                        <button pButton type="button" label="返回" (click)="return()"></button>
                     </div>
                 </div>
             </form>

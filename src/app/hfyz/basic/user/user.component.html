@@ -14,7 +14,7 @@
                     <p-column field="dateCreated" header="创建时间"></p-column>
                     <p-column field="org" header="组织"></p-column>
                     <p-column field="roles" header="角色"></p-column>
-                    <p-column field="" header="操作" [style]="{'width':'120px'}">
+                    <p-column field="" header="操作" styleClass=operation-buttons-3>
                         <ng-template let-user="rowData" pTemplate="body">
                             <div *ngIf="user.username!='admin'">
                                 <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
