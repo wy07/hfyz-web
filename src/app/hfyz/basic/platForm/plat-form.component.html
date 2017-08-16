@@ -16,12 +16,12 @@
         <div class="col-sm-8 calendar-group">
           <div class="cgl">
             <p-calendar [(ngModel)]="startDate" name="startDate" [showIcon]="true" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
-              dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+              dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
           </div>
           <div class="cgm">-</div>
           <div class="cgr">
             <p-calendar [(ngModel)]="endDate" name="endDate" [showIcon]="true" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true"
-              [readonlyInput]="true" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+              [readonlyInput]="true" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
           </div>
         </div>
       </div>
