@@ -13,13 +13,16 @@ export class CompanyRegulationComponent implements OnInit {
     max: number;   // 表格行数
     page: number;   // 当前页数
     total: number;  // 总数
-
+    action: string;
     ownerName: string; // 搜索条件-业户名称
+    regulationName: string;
     dateBegin: Date; // 搜索条件-起始时间
     dateEnd: Date; // 搜索条件-结束时间
-
+    upload: any[];
     regulationList: any[];
-
+    formData: FormData;
+    file: boolean;
+    MAXFILESIZE = 5242880;
     constructor(private _regulationService: CompanyRegulationService,
                 private _loadingService: TdLoadingService,
                 private toastr: ToastsManager,
@@ -30,8 +33,10 @@ export class CompanyRegulationComponent implements OnInit {
         this.ownerName = '';
         this.dateBegin = null;
         this.dateEnd = null;
-
-        this.regulationList = []
+        this.action = 'list';
+        this.upload = [];
+        this.regulationList = [];
+        this.file = false;
     }
 
     ngOnInit() {
@@ -104,5 +109,57 @@ export class CompanyRegulationComponent implements OnInit {
             this.toastr.error('起止时间必须全部填写！')
         }
         return flag
+    }
+
+    onCreate() {
+        this.action = 'create';
+        this.regulationName = '';
+        this.file = false;
+        this.formData = new FormData();
+    }
+    return() {
+        this.action = 'list';
+    }
+    fileChangeEvent(fileInput: any) {
+        this.file = false;
+        this.formData = new FormData();
+        const files = fileInput.target.files;
+        if (files.length > 0) {
+            this.file = true;
+            if (files[0].size > this.MAXFILESIZE) {
+                this.toastr.info('选择的文件过大，请重新选择！');
+                return;
+            }
+            this.formData.append('upload', files[0], files[0].fileName)
+        }
+    }
+    onSave() {
+        console.log(this.file);
+        if (!this.validate_create()) {
+            return;
+        }
+        this.formData.append('regulationName', JSON.stringify(this.regulationName));
+        this._regulationService.save(this.formData).subscribe(
+            res => {
+                if (res.result === 'success') {
+                    this.toastr.info('新增成功');
+                    this.loadData();
+                    this.action = 'list';
+                    this.file = false;
+                }
+            }
+        )
+    }
+
+    validate_create() {
+        if (!this.regulationName) {
+            this.toastr.error('请输入制度名称！');
+            return false;
+        }
+        if (!this.file) {
+            this.toastr.error('请选择一个文件！');
+            return false;
+        }
+        return true;
     }
 }
