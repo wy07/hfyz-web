@@ -11,7 +11,7 @@ export class WorkOrderService {
     }
 
     details(id){
-        return this.restangular.one('work-orders', id).customGET('edit');
+        return this.restangular.one('work-orders', id).customGET('show');
     }
 
     pendinglist(max, offset) {
