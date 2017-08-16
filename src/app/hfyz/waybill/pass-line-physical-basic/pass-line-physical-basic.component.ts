@@ -12,10 +12,10 @@ import {RegularService} from '../../common/shared/regular.service';
     styleUrls: ['./pass-line-physical-basic.component.css']
 })
 export class PassLinePhysicalBasicComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
-    pageFlag: string; // 页面切换  LIST 列表页 ADD 新增页 EDIT 修改页
+    max: number;  
+    page: number;  
+    total: number;  
+    pageFlag: string; 
     passLinePhysicalBasicInfo: PassLinePhysicalBasicInfo;
     passLinePhysicalBasicInfos: Array<PassLinePhysicalBasicInfo>;
     lineCode: string;
@@ -40,11 +40,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         this.loadData();
     }
 
-
-    /**
-     * 加载表格数据
-     * @param {number} offset
-     */
     loadData(offset = 0) {
         this._loadingService.register();
         this._passLinePhysicalBasicService.search(this.lineCode, this.lineName, this.max, offset).subscribe(
@@ -60,9 +55,6 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         )
     }
 
-    /**
-     * 搜索
-     */
     search() {
         this.loadData()
     }
@@ -70,17 +62,12 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     showDetail(id) {
         this._loadingService.register();
         this._passLinePhysicalBasicService.show(id).subscribe(res => {
-            console.log('===showDetail===' + JSON.stringify(res));
             this._loadingService.resolve();
             this.passLinePhysicalBasicInfo = res.instance;
             this.pageFlag = 'DETAIL';
         });
     }
 
-    /**
-     * 分页插件p-paginator方法
-     * @param event
-     */
     paginate(event) {
         if (this.page !== event.page) {
             this.page = event.page;
@@ -88,17 +75,11 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         }
     }
 
-    /**
-     * 重置
-     */
     reset() {
         this.lineCode = '';
         this.lineName = '';
     }
 
-    /**
-     * 页面切换
-     */
     switchPage() {
         this.pageFlag = 'LIST'
     }

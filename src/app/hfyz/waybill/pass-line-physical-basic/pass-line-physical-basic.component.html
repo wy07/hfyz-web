@@ -49,7 +49,7 @@
                         <span>{{passLineData.busLine ? '是':'否'}}</span>
                     </ng-template>
                 </p-column>
-                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                <p-column field="" header="操作" styleClass=operation-buttons-1>
                     <ng-template let-data="rowData" pTemplate="body">
                         <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
                     </ng-template>
@@ -141,13 +141,13 @@
                     </div>
                 </div>
                 <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">线路里程：</label>
+                    <label class="col-sm-5 control-label">线路里程(km)：</label>
                     <div class="col-sm-7">
                         <p class="form-control-static">{{passLinePhysicalBasicInfo.lineMileAge}}</p>
                     </div>
                 </div>
                 <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">高速里程：</label>
+                    <label class="col-sm-5 control-label">高速里程(km)：</label>
                     <div class="col-sm-7">
                         <p class="form-control-static">{{passLinePhysicalBasicInfo.highwayMileAge}}</p>
                     </div>
