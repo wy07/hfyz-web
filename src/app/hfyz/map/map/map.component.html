@@ -40,7 +40,7 @@
 
     <div class="col-sm-3 " *ngIf="mapCode==='realTimeMap'"  autoHeight [ratio]="100" [offset]="-150"  style="overflow: auto">
         <accordion [closeOthers]="true">
-            <accordion-group heading="多车监控"  (click)="onRealTimeAccordion('multipleCar')" [isOpen]="currentRealTimeAccordion==='multipleCar'">
+            <accordion-group heading="多车监控" panelClass='custom-accordion' (click)="onRealTimeAccordion('multipleCar')" [isOpen]="currentRealTimeAccordion==='multipleCar'">
                 <div class="row">
                     <div class="col-sm-12">
                         <p-dropdown isCompanyUser [options]="companys" [(ngModel)]="company" [style]="{'width':'100%'}" filter="filter"
@@ -78,7 +78,7 @@
                 </div>
                 <!--<button type="button" (click)="onCombineQuery()">查询</button>-->
             </accordion-group>
-            <accordion-group heading="车牌查询" (click)="onRealTimeAccordion('singleCar')" [isOpen]="currentRealTimeAccordion==='singleCar'">
+            <accordion-group heading="车牌查询" panelClass='custom-accordion' (click)="onRealTimeAccordion('singleCar')" [isOpen]="currentRealTimeAccordion==='singleCar'">
 
                 <div class="row">
                     <div class="col-sm-12">

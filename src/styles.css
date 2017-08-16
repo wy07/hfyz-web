@@ -85,12 +85,12 @@ body .car-info .ui-panel-content {
 }
 
 .map-left {
-    position: fixed;
-    bottom: 0;
+    /* position: fixed;
+    bottom: 0; */
     overflow-y: scroll;
     overflow-x: hidden;
     height: 200px;
-    width: calc(100% - 130px);
+    width: 100%;
     background-color: white;
 }
 
@@ -273,4 +273,54 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 
 .p-dropdown-form-control{
     width: 100% !important;
+}
+
+.custom-accordion {
+    border: 1px solid gainsboro;
+}
+
+.custom-accordion .card-header{
+    background: url("assets/images/top-navbar.png");
+    color: white;
+    /* background-size: 100% auto; */
+}
+
+.map-left .tab-container .nav-tabs {
+    border-bottom: 1px solid #5598B7 !important;
+}
+
+.map-footer .tab-container .nav-tabs {
+    border-bottom: 1px solid #5598B7 !important;
+}
+
+.map-left .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    color: #fff;
+    cursor: default;
+    background-color: #5598B7;
+    border: 1px solid #5598B7;
+    border-bottom-color: transparent;
+}
+
+.map-footer .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+    color: #fff;
+    cursor: default;
+    background-color: #5598B7;
+    border: 1px solid #5598B7;
+    border-bottom-color: transparent;
+}
+
+.map-left .nav-tabs>li.active>a>span{
+    color: #fff;
+}
+
+.map-footer .nav-tabs>li.active>a>span{
+    color: #fff;
+}
+
+.map-left .nav-tabs>li>a>span {
+    color: black
+}
+
+.map-footer .nav-tabs>li>a>span {
+    color: black
 }
