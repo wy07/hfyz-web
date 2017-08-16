@@ -101,7 +101,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.inspection = null;
     this.dealine = null;
     this.clear();
-    this.hiddenRectificationOrderTitle = '新增隐患整改单';
+    this.hiddenRectificationOrderTitle = '新增';
     this.isAdd = true;
     this.edit = true;
   }
@@ -125,7 +125,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
 
   onEdit(hiddenDanger) {
     this.clear();
-    this.hiddenRectificationOrderTitle = '编辑隐患整改单';
+    this.hiddenRectificationOrderTitle = '编辑';
     this.isAdd = false;
     this.edit = true;
     this.preEdit(hiddenDanger.id);

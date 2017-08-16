@@ -1,15 +1,15 @@
-import {DatePipe} from '@angular/common';
-import {zh} from './../../common/shared/zh';
-import {NgRadio} from 'ng-radio';
-import {EventBuservice} from './../../common/shared/eventbus.service';
-import {Component, OnInit, OnDestroy, ElementRef, Renderer} from '@angular/core';
-import {GnssData} from '../../common/shared/gnss-data';
-import {MapService} from '../shared/map.service';
-import {ToastsManager} from 'ng2-toastr';
-import {RegularService} from '../../common/shared/regular.service';
-import {SelectItem} from "primeng/components/common/selectitem";
-import {OwnerIdentityService} from "../../owner-identity/shared/owner-identity.service";
-import {CarService} from "../../car/shared/car.service";
+import { DatePipe } from '@angular/common';
+import { zh } from './../../common/shared/zh';
+import { NgRadio } from 'ng-radio';
+import { EventBuservice } from './../../common/shared/eventbus.service';
+import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
+import { GnssData } from '../../common/shared/gnss-data';
+import { MapService } from '../shared/map.service';
+import { ToastsManager } from 'ng2-toastr';
+import { RegularService } from '../../common/shared/regular.service';
+import { SelectItem } from 'primeng/components/common/selectitem';
+import { OwnerIdentityService } from '../../owner-identity/shared/owner-identity.service';
+import { CarService } from '../../car/shared/car.service';
 declare var mapObject: any;
 @Component({
     selector: 'app-map',
@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, OnDestroy {
     startDate: any;
     endDate: any;
     zh = zh;
+    companyName: string;
 
     companys: SelectItem[];
     company: string;
@@ -73,6 +74,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.directions = [10, 46, 80, 100, 138, 160, 250, 320, 360];
         this.directionIndex = 0;
         this.startDate = new Date();
+        this.companyName = sessionStorage.getItem('companyName')
+        console.log('===companyName====' + sessionStorage.getItem('companyName'))
 
 
         this.onRealTimeAccordion('singleCar');
@@ -226,18 +229,20 @@ export class MapComponent implements OnInit, OnDestroy {
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
                 this.realTimeDataTOP10 = [];
-                if(inputs.currentRealTimeAccordion=='singleCar'){
+                if (inputs.currentRealTimeAccordion === 'singleCar') {
                     this.onRealTimeAccordion('singleCar');
                     this.clearCompanysAndCars();
                     if (this.realTimeMapKey !== inputs.key) {
                         this.realTimeMapKey = inputs.key;
                         this.realTimeMapFrameNo = inputs.frameNo;
                     }
-                }else{
+                } else {
                     this.onRealTimeAccordion('multipleCar');
                 }
-
-
+                const companyCode = sessionStorage.getItem('companyCode');
+                if (companyCode !== 'null') {
+                    this.getCompanyCars(companyCode)
+                }
             } else if (inputs.code === 'historyMap') {
                 this.realTimeDataTOP10 = [];
                 this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
@@ -303,26 +308,29 @@ export class MapComponent implements OnInit, OnDestroy {
         clearTimeout(this.timer);
     }
 
-    getDataTOP10() {
-        this.realTimeDataTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
-        if (this.realTimeDataTOP10.length > 0) {
+    getDataTOP10(list, type) {
+        if (list.length > 0) {
             const data = {
                 'msg': {
-                    'dateStr': this.realTimeDataTOP10[0].dateStr,
-                    'plateColor': this.realTimeDataTOP10[0].plateColor,
+                    'dateStr': list[0].dateStr,
+                    'plateColor': list[0].plateColor,
                     'plateNo': this.realTimeMapFrameNo,
-                    'posEncrypt': this.realTimeDataTOP10[0].posEncrypt,
-                    'geoPoint': this.realTimeDataTOP10[0].geoPoint,
-                    'gpsSpeed': this.realTimeDataTOP10[0].gpsSpeed,
-                    'totalMileage': this.realTimeDataTOP10[0].totalMileage,
-                    'recSpeed': this.realTimeDataTOP10[0].recSpeed,
-                    'direction': this.realTimeDataTOP10[0].direction,
-                    'altitude': this.realTimeDataTOP10[0].altitude,
-                    'vehicleState': this.realTimeDataTOP10[0].vehicleState,
-                    'alarmState': this.realTimeDataTOP10[0].alarmState
+                    'posEncrypt': list[0].posEncrypt,
+                    'geoPoint': list[0].geoPoint,
+                    'gpsSpeed': list[0].gpsSpeed,
+                    'totalMileage': list[0].totalMileage,
+                    'recSpeed': list[0].recSpeed,
+                    'direction': list[0].direction,
+                    'altitude': list[0].altitude,
+                    'vehicleState': list[0].vehicleState,
+                    'alarmState': list[0].alarmState
                 }
             };
-            this.getRealTimeGnssDataByEventBus(data, 'histroyData')
+            if (type === 'realTimeData') {
+                this.getRealTimeGnssDataByEventBus(data, 'histroyData');
+            } else {
+                this.getRealTimeMonitorGnssData(data, 'histroyData');
+            }
         }
     }
 
@@ -336,16 +344,17 @@ export class MapComponent implements OnInit, OnDestroy {
     registerRealTimeMonitorHandler() {
         const $this = this;
         this.eventBuservice.carRealTimeRegisterHandler(this.realTimeMonitorFrameNo, res => {
-            $this.getRealTimeMonitorGnssData(res, 'realTimeData');
+            $this.getRealTimeMonitorGnssData(res, 'realTimeMonitor');
         })
     }
 
     getRealTimeMap() {
+        this.clearCompanysAndCars();
         this.eventBuservice.closeEventBus();
         if (this.realTimeMapFrameNo) {
             this.realTimeDataTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
             console.log('=====realTimeDataTOP10=====' + JSON.stringify(this.realTimeDataTOP10));
-            this.getDataTOP10();
+            this.getDataTOP10(this.realTimeDataTOP10, 'realTimeData');
             this.registerHandler();
         } else {
             this.toastr.error('请输入车牌号');
@@ -355,6 +364,8 @@ export class MapComponent implements OnInit, OnDestroy {
     getRealTimeMonitorMap() {
         this.eventBuservice.closeEventBus();
         if (this.realTimeMonitorFrameNo) {
+            this.realTimeMonitorTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
+            this.getDataTOP10(this.realTimeMonitorTOP10, 'realTimeMonitor');
             this.registerRealTimeMonitorHandler();
         } else {
             this.toastr.error('请输入车牌号');
@@ -392,8 +403,13 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
     showPath() {
-        for (const point of this.points) {
+        for (let i = 0; i < this.points.length; i++) {
+            const point = this.points[i];
             mapObject.historyPoints(point.geoPoint, point.alarmState, GnssData.getRealTimeInfo(point));
+            if (i === 0) {
+                const val = point.geoPoint.split(',');
+                mapObject.resetCenter(val[0], val[1]);
+            }
         }
     }
 
@@ -455,16 +471,11 @@ export class MapComponent implements OnInit, OnDestroy {
     }
 
     onCombineQuery() {
-
         mapObject.clean();
-
-
         for (let i = 0; i < 5; i++) {
-
-
             this.lng += 0.001;
             this.lat += 0.001;
-            if (i == 0) {
+            if (i === 0) {
                 mapObject.resetCenter(this.lng, this.lat)
             }
             mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
@@ -490,7 +501,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.currentRealTimeAccordion = currentAccordion;
 
         if (currentAccordion === 'multipleCar') {
-            if (this.companys.length == 0) {
+            if (this.companys.length === 0) {
                 this.getCompanys();
             }
         }
@@ -502,7 +513,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this._ownerService.all().subscribe(
             res => {
                 for (const item of res.companys) {
-                    this.companys.push({label: item.name, value: item.code});
+                    this.companys.push({ label: item.name, value: item.code });
                 }
             }
         )
@@ -515,35 +526,42 @@ export class MapComponent implements OnInit, OnDestroy {
             return
         }
 
-        if(this.carsGroupByCompany.hasOwnProperty(event.value)){
+        if (this.carsGroupByCompany.hasOwnProperty(event.value)) {
 
             for (const item of this.carsGroupByCompany[event.value]) {
-                this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+                this.cars.push({ label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo });
             }
-        }else {
+        } else {
             this.getCompanyCars(event.value)
         }
 
     }
 
-    getCompanyCars(companyCode){
+    getCompanyCars(companyCode) {
         this._carService.getCompanyCars(companyCode).subscribe(
-            res=>{
+            res => {
                 for (const item of res.cars) {
-                    this.cars.push({label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo});
+                    this.cars.push({ label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo });
                 }
             }
         )
     }
 
-    carSelected(licenseNo){
-        return this.selectCars.findIndex(x => x.value === licenseNo)>-1;
+    carSelected(licenseNo) {
+        if (this.selectCars.length === 0) {
+            this.clearListAndFrameNo();
+        }
+        return this.selectCars.findIndex(x => x.value === licenseNo) > -1;
     }
 
     carSelectChange(event, item) {
-        let carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
+        const carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
         if (!event.target.checked) {
             if (carIndex > -1) {
+                console.log('====this.realTimeDataTOP10===1==' + JSON.stringify(this.realTimeDataTOP10));
+                this.realTimeDataTOP10 = this.realTimeDataTOP10.filter(res => res.plateNo !== item.value);
+                console.log('=====realTimeDataTOP10===2=' + JSON.stringify(this.realTimeDataTOP10))
+                this.eventBuservice.unregisterHandler(item.value);
                 mapObject.removecombineQueryPoint(item.value);
                 this.selectCars.splice(carIndex, 1);
             }
@@ -553,32 +571,59 @@ export class MapComponent implements OnInit, OnDestroy {
             this.selectCars.push(item);
             this.lng += 0.001;
             this.lat += 0.001;
+            const point: any = {
+                dateStr: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+                plateColor: 1,
+                plateNo: item.value,
+                posEncrypt: 0,
+                geoPoint: `${this.lng},${this.lat}`,
+                gpsSpeed: '60',
+                totalMileage: 1,
+                recSpeed: 60,
+                direction: 100,
+                altitude: 0,
+                vehicleState: 3,
+                alarmState: 1
+            }
+            this.realTimeDataTOP10.push(point)
             mapObject.resetCenter(this.lng, this.lat)
             mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
                 item.value,
-                `${this.lng},${this.lat}==${item.value}`,
+                GnssData.getRealTimeInfo(point),
                 23);
         }
     }
 
-    removeCar(licenseNo){
-        let carIndex = this.selectCars.findIndex(x => x.value === licenseNo);
+    removeCar(licenseNo) {
+        const carIndex = this.selectCars.findIndex(x => x.value === licenseNo);
         if (carIndex > -1) {
             mapObject.removecombineQueryPoint(licenseNo);
             this.selectCars.splice(carIndex, 1);
         }
     }
 
-    showCar(licenseNo){
+    showCar(licenseNo) {
         mapObject.showCombinePoint(licenseNo);
     }
 
-    clearCompanysAndCars(){
-        this.companys=[];
-        this.company='';
-        this.carsGroupByCompany={};
-        this.cars=[];
-        this.selectCars=[];
+    clearCompanysAndCars() {
+        this.eventBuservice.closeEventBus();
+        this.companys = [];
+        this.company = '';
+        this.carsGroupByCompany = {};
+        this.cars = [];
+        this.selectCars = [];
+        this.realTimeDataTOP10 = [];
+        mapObject.clean();
+    }
+
+    clearListAndFrameNo() {
+        this.eventBuservice.closeEventBus();
+        this.realTimeDataTOP10 = [];
+        this.realTimeMonitorTOP10 = [];
+        this.realTimeMapFrameNo = '';
+        this.realTimeMonitorFrameNo = '';
+        mapObject.clean();
     }
 
 }

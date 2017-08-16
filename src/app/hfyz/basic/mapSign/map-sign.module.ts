@@ -1,6 +1,6 @@
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { MapSignComponent } from './map-sign.component';
 import { MapSignService } from './shared/map-sign.service';
-import { CommonModule } from './../../common/common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ import { TooltipModule } from 'ngx-bootstrap';
         HttpModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        CommonModule,
+        CustomDirectiveModule,
         DataTableModule,
         SharedModule,
         DialogModule,

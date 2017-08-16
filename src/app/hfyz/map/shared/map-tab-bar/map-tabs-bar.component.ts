@@ -8,11 +8,17 @@ export class MapTabsBarComponent implements OnInit {
     @Input() historyDataTOP10 = [];
     @Input() warningDataTOP10 = [];
     @Input() type = '';
+    isShow: boolean;
 
     constructor() {
+        this.isShow = false;
     }
 
     ngOnInit() {
+    }
+
+    showTab() {
+        this.isShow = !this.isShow;
     }
 
 }

@@ -1,7 +1,7 @@
 <div *ngIf="isDetails==false && edit==false">
     <div class="querys">
         <div class="row form-horizontal">
-            <div class="col-sm-5">
+            <div isCompanyUser class="col-sm-5">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">状态：</label>
                     <div class="col-sm-8">
@@ -89,7 +89,8 @@
                         <p-autoComplete name="enterpirse" [(ngModel)]="selectedCompany"
                                         [suggestions]="filteredEnterpirses" (onSelect)="onSelect($event)"
                                         field="info" (completeMethod)="filteredEnterpirse($event)" [size]="30"
-                                        [minLength]="1" [delay]="500" [inputStyle]="{'width':'100%'}" [style]="{'width':'100%'}">
+                                        [minLength]="1" [delay]="500" [inputStyle]="{'width':'100%'}"
+                                        [style]="{'width':'100%'}">
                             <ng-template let-enterpirse pTemplate="item">
                                 {{enterpirse.ownerName}}
                             </ng-template>

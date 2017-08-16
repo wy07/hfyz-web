@@ -1,4 +1,4 @@
-import { CommonModule } from './../../common/common.module';
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,6 @@ import { DatePipe } from '@angular/common';
     HttpModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    CommonModule,
     DataTableModule,
     DialogModule,
     ListboxModule,
@@ -31,6 +30,7 @@ import { DatePipe } from '@angular/common';
     SharedModule,
     CalendarModule,
     PaginatorModule,
+    CustomDirectiveModule
   ],
   exports: [
   ],
