@@ -13,7 +13,7 @@
             </p-column>
             <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-mapSign="rowData"  pTemplate="body">
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                    <div role="button" class="fa fa-times fa-font-size div-distance"
                          (click)="delete(mapSign)" tooltip="删除" placement="bottom"></div>
                     <div *ngIf="!mapSign.display" role="button" class="fa fa-eye fa-font-size div-distance"
                          (click)="changeDisplay(mapSign)" tooltip="显示" placement="bottom"></div>
