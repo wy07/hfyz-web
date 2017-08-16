@@ -5,16 +5,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">状态：</label>
                     <div class="col-sm-8">
-                        <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态"
-                                    styleClass=p-dropdown-form-control></p-dropdown>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">业户名称：</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..."/>
+                        <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态" styleClass=p-dropdown-form-control></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -23,19 +14,26 @@
                     <label class="col-sm-4 control-label">上报时间：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd"
-                                        [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true" [showIcon]="true"
-                                        [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
+                                [showIcon]="true" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
-                                        [showTime]="true" [readonlyInput]="true" [locale]="zh" styleClass=calendar-span
-                                        inputStyleClass=calendar [showIcon]="true"></p-calendar>
+                            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
+                                [locale]="zh" styleClass=calendar-span inputStyleClass=calendar [showIcon]="true"></p-calendar>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">业户名称：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..." />
+                    </div>
+                </div>
+            </div>
+
             <div class="col-sm-5 col-sm-offset-1">
                 <button type="button" class="btn btn-primary" (click)="initData()">检索</button>
                 <button type="button" class="btn btn-primary" (click)="cancel()">重置</button>
@@ -53,16 +51,14 @@
                 <p-column field="status" header="状态"></p-column>
                 <p-column field="" header="操作" styleClass=operation-buttons-2>
                     <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
-                        <div role="button" class="fa fa-file-text-o fa-font-size div-distance"
-                             (click)="onEdit(hiddenRectificationOrder)" tooltip="反馈" placement="bottom"
-                             *ngIf="hiddenRectificationOrder.status=='待反馈'"></div>
-                        <div role="button" class="fa fa-list fa-font-size div-distance"
-                             (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情" placement="bottom"></div>
+                        <div role="button" class="fa fa-file-text-o fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder)" tooltip="反馈"
+                            placement="bottom" *ngIf="hiddenRectificationOrder.status=='待反馈'"></div>
+                        <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
+                            placement="bottom"></div>
                     </ng-template>
                 </p-column>
             </p-dataTable>
-            <p-paginator rows="{{max}}" totalRecords="{{total}}"
-                         (onPageChange)="paginate($event)"></p-paginator>
+            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>
@@ -142,11 +138,8 @@
                     <div class="form-group col-sm-12">
                         <label class="col-sm-2 control-label" style="width: 13.7%">反馈内容：</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control fix"
-                                      id="hiddenRectificationOrder.replyDesc"
-                                      name="hiddenRectificationOrder.replyDesc"
-                                      [(ngModel)]="hiddenRectificationOrder.replyDesc"
-                                      maxlength="1500"></textarea>
+                            <textarea class="form-control fix" id="hiddenRectificationOrder.replyDesc" name="hiddenRectificationOrder.replyDesc" [(ngModel)]="hiddenRectificationOrder.replyDesc"
+                                maxlength="1500"></textarea>
                         </div>
                     </div>
                 </div>
@@ -256,4 +249,3 @@
         </div>
     </div>
 </div>
-

@@ -143,7 +143,7 @@ h3{
 }
 
 .tab2-top{
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ededed;
     min-height: 600px ;
 }
 
@@ -156,14 +156,14 @@ h3{
 }
 
 .border-b{
-    border-bottom: 1px solid #ddd;  
+    border-bottom: 1px solid #ededed;  
 }
 
 .border-r{
-    border-right: 1px solid #ddd;        
+    border-right: 1px solid #ededed;        
 }
 .border-l{
-    border-left: 1px solid #ddd;        
+    border-left: 1px solid #ededed;        
 }
 
 .tab2-bottom>div{
