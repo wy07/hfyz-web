@@ -1,7 +1,7 @@
 <div class="panel panel-default" *ngIf="isDetails==false && edit==false">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-3">
+            <div isCompanyUser class="col-sm-3">
                 <div class="input-group">
                     <span class="search-span input-group-addon">业户名称：</span>
                     <input type="text" class="form-control" [(ngModel)]="company" name="company"

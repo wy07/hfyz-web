@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {
@@ -40,7 +41,8 @@ import { TooltipModule } from 'ngx-bootstrap';
     AutoCompleteModule,
     RadioButtonModule,
     DropdownModule,
-    TooltipModule
+    TooltipModule,
+    CustomDirectiveModule
   ],
   exports: [],
   providers: [

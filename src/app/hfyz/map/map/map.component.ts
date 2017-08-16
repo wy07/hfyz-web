@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, OnDestroy {
     startDate: any;
     endDate: any;
     zh = zh;
+    companyName: string;
 
     companys: SelectItem[];
     company: string;
@@ -73,6 +74,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.directions = [10, 46, 80, 100, 138, 160, 250, 320, 360];
         this.directionIndex = 0;
         this.startDate = new Date();
+        this.companyName = sessionStorage.getItem('companyName')
+        console.log('===companyName====' + sessionStorage.getItem('companyName'))
 
 
         this.onRealTimeAccordion('singleCar');
@@ -236,8 +239,10 @@ export class MapComponent implements OnInit, OnDestroy {
                 } else {
                     this.onRealTimeAccordion('multipleCar');
                 }
-
-
+                const companyCode = sessionStorage.getItem('companyCode');
+                if (companyCode !== 'null') {
+                    this.getCompanyCars(companyCode)
+                }
             } else if (inputs.code === 'historyMap') {
                 this.realTimeDataTOP10 = [];
                 this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
