@@ -1,3 +1,4 @@
+
 <div *ngIf="pageFlag == 'LIST'">
     <div class="querys">
         <div class="row form-horizontal">
@@ -23,11 +24,11 @@
                     <label class="col-sm-4 control-label">有效期至：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                     </div>
                 </div>
@@ -126,7 +127,6 @@
                         <p class="form-control-static">{{owner.ownerAddress}}</p>
                     </div>
                 </div>
-
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">行政区划名称：</label>
                     <div class="col-sm-7">
@@ -205,6 +205,7 @@
                 </div>
 
                 <div class="form-group col-sm-4">
+
                     <label class="col-sm-5 control-label">网址：</label>
                     <div class="col-sm-7">
                         <p class="form-control-static">{{owner.website}}</p>

@@ -1,36 +1,31 @@
 <div class="row" *ngIf="action=='list'">
     <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">用户列表</div>
-            <div class="panel-body">
-                <div class="top-buttons">
-                    <button pButton type="button" label="新增"
-                            (click)="onCreate()"></button>
-                </div>
-
-                <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
-                    <p-column field="name" header="姓名"></p-column>
-                    <p-column field="username" header="账号"></p-column>
-                    <p-column field="dateCreated" header="创建时间"></p-column>
-                    <p-column field="org" header="组织"></p-column>
-                    <p-column field="roles" header="角色"></p-column>
-                    <p-column field="" header="操作" styleClass=operation-buttons-3>
-                        <ng-template let-user="rowData" pTemplate="body">
-                            <div *ngIf="user.username!='admin'">
-                                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                                     (click)="onEdit(user)" tooltip="编辑" placement="bottom"></div>
-                                <div role="button" class="fa fa-times fa-font-size div-distance"
-                                     (click)="onDelete(user)" tooltip="删除" placement="bottom"></div>
-                                <div role="button" class="fa fa-key fa-font-size div-distance"
-                                     (click)="onResetPassword(user)" tooltip="重置密码" placement="bottom"></div>
-                            </div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{totalUsers}}" (onPageChange)="paginate($event)"
-                             *ngIf="totalUsers>0"></p-paginator>
-            </div>
+        <div class="top-buttons">
+            <button pButton type="button" label="新增"
+                    (click)="onCreate()"></button>
         </div>
+
+        <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
+            <p-column field="name" header="姓名"></p-column>
+            <p-column field="username" header="账号"></p-column>
+            <p-column field="dateCreated" header="创建时间"></p-column>
+            <p-column field="org" header="组织"></p-column>
+            <p-column field="roles" header="角色"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
+                <ng-template let-user="rowData" pTemplate="body">
+                    <div *ngIf="user.username!='admin'">
+                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                             (click)="onEdit(user)" tooltip="编辑" placement="bottom"></div>
+                        <div role="button" class="fa fa-times fa-font-size div-distance"
+                             (click)="onDelete(user)" tooltip="删除" placement="bottom"></div>
+                        <div role="button" class="fa fa-key fa-font-size div-distance"
+                             (click)="onResetPassword(user)" tooltip="重置密码" placement="bottom"></div>
+                    </div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{totalUsers}}" (onPageChange)="paginate($event)"
+                     *ngIf="totalUsers>0"></p-paginator>
     </div>
 </div>
 
@@ -52,23 +47,26 @@
                     <div class="form-group">
                         <label for="username" class="col-sm-3 control-label"><span class="required">*</span>账号：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.username">
+                            <input type="text" class="form-control" id="username" name="username"
+                                   [(ngModel)]="user.username">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label"><span class="required">*</span>角色：</label>
                         <div class="col-sm-6">
-                            <p-listbox [options]="roleList" [(ngModel)]="user.roles" multiple="multiple"  checkbox="checkbox" filter="filter" [style]="{'width':'190px','max-height':'150px'}"></p-listbox>
+                            <p-listbox [options]="roleList" [(ngModel)]="user.roles" multiple="multiple"
+                                       checkbox="checkbox" filter="filter"
+                                       [style]="{'width':'190px','max-height':'150px'}"></p-listbox>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label for="httpMethod" class="col-sm-3 control-label">部门：</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <select [(ngModel)]="user.orgId" class="form-control" id="httpMethod">
-                                <option *ngFor="let item of orgList" [ngValue]="item.value" >{{item.label}}</option>
+                                <option *ngFor="let item of orgList" [ngValue]="item.value">{{item.label}}</option>
                             </select>
                         </div>
                     </div>
@@ -87,7 +85,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-10">
                             <button pButton type="button" label="保存" (click)="isAdd?save():update()"></button>
-                            <button pButton type="button" label="返回" (click)="action='list'"></button>
+                            <button pButton type="button" label="取消" (click)="action='list'"></button>
                         </div>
                     </div>
                 </div>
