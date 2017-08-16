@@ -1,191 +1,196 @@
-<div class="panel panel-default" *ngIf="isDetails==false">
-  <div class="panel-heading">
-    <div class="row">
-      <div class=" col-md-4">
-        <div class="input-group">
-          <span class="inputPM input-group-addon ">平台名称：</span>
-          <input type="text" class="form-control" [(ngModel)]="name" placeholder="请输入平台名称..."/>
+
+<div *ngIf="action==='list'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">平台名称：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control " [(ngModel)]="name" placeholder="请输入平台名称..." />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">平台代码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="code" placeholder="请输入平台代码..." />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button pButton label="检索" type="button" (click)="initData()"></button>
+                <button pButton label="重置" type="button" (click)="onReset()"></button>
+            </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="input-group">
-          <span class="inputPM input-group-addon">平台代码：</span>
-          <input type="text" class="form-control" [(ngModel)]="code" placeholder="请输入平台代码..."/>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <button pButton label="查询" type="button" (click)="initData()"></button>
-        <button pButton label="重置" type="button" (click)="onReset()"></button>
-      </div>
     </div>
-  </div>
-  <!--列表显示-->
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-12">
-          <div class="top-buttons">
-              <button pButton type="button" label="新增"
-                      (click)="onCreat()"></button>
-          </div>
-        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
-          <p-column field="ip" header="平台IP地址"></p-column>
-          <p-column field="port" header="端口号"></p-column>
-          <p-column field="name" header="平台名称"></p-column>
-          <p-column field="code" header="平台代码"></p-column>
-          <p-column field="contactName" header="平台联系人"></p-column>
-          <p-column field="" header="操作" [style]="{'width':'120px'}">
-              <ng-template let-palrform="rowData" pTemplate="body">
-                  <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                       (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
-                  <div role="button" class="fa fa-list fa-font-size div-distance"
-                       (click)="preEdit(palrform.id)" tooltip="详情" placement="bottom"></div>
-                  <div role="button" class="fa fa-times fa-font-size div-distance"
-                       (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
-              </ng-template>
-          </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-      </div>
+
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="onCreat()"></button>
     </div>
-  </div>
+
+    <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
+        <p-column field="ip" header="平台IP地址"></p-column>
+        <p-column field="port" header="端口号"></p-column>
+        <p-column field="name" header="平台名称"></p-column>
+        <p-column field="code" header="平台代码"></p-column>
+        <p-column field="contactName" header="平台联系人"></p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-3>
+            <ng-template let-palrform="rowData" pTemplate="body">
+                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
+                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onShow(palrform.id)" tooltip="详情" placement="bottom"></div>
+                <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 
-<p-dialog header="{{formTitle}}" [(visible)]="displayDialog" modal="modal" width="500" [responsive]="true">
-  <div class="form-horizontal w-dialog">
-    <div class="form-group">
-      <label for="ip" class="col-sm-3 col-xs-4 control-label"><label class="notNull">*</label>平台IP地址：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
-      </div>
+<div class="row" *ngIf="action==='update'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{formTitle}}</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="ip" class="control-label col-sm-3"><span class="required">*</span>平台IP地址：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="ip" name="name" [(ngModel)]="platform.ip">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="port" class="control-label col-sm-3"><span class="required">*</span>端口号：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class=" control-label col-sm-3"><span class="required">*</span>平台名称：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="code" class="control-label col-sm-3"><span class="required">*</span>平台代码：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName" class="control-label col-sm-3"><span class="required">*</span>平台联系人：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone" class="control-label col-sm-3"><span class="required">*</span>平台联系电话：</label>
+                        <div class=" col-sm-6">
+                            <input type="text" class="form-control" id="contactPhone" name="contactPhone" [(ngModel)]="platform.contactPhone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-10">
+                            <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?onSave():update()"></button>
+                            <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="port" class="col-sm-3 control-label"><label class="notNull">*</label>端口号：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="port" name="name" [(ngModel)]="platform.port">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="name" class="col-sm-3 control-label"><label class="notNull">*</label>平台名称：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="platform.name ">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="code" class="col-sm-3 control-label"><label class="notNull">*</label>平台代码：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="code" name="code" [(ngModel)]="platform.code">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactName" class="col-sm-3 control-label"><label class="notNull">*</label>平台联系人：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="contactName" name="contactName" [(ngModel)]="platform.contactName">
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="contactPhone" class="col-sm-3  control-label"><label class="notNull">*</label>联系电话：</label>
-      <div class="col-xs-6 col-sm-6">
-        <input type="text" class="form-control" id="contactPhone" name="contactPhone"
-               [(ngModel)]="platform.contactPhone">
-      </div>
-    </div>
-  </div>
-  <p-footer>
-    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix ">
-      <div class="col-md-6 col-md-offset-3">
-        <button pButton type="button" icon="fa-check" label="保存" (click)="isAdd?onSave():update()"></button>
-        <button pButton type="button" icon="fa-close" label="返回" (click)="cancle()"></button>
-      </div>
-    </div>
-  </p-footer>
-</p-dialog>
+</div>
+
 
 <!--paltform-details-->
-<div class="panel panel-default" *ngIf="isDetails==true">
-  <div class="row">
-    <div class="col-md-2">
-      <button pButton class="return" label="返回" type="button" (click)="return()"></button>
-    </div>
-    <div class="col-md-8" ><h4 align="center" class="title">平台详情</h4></div>
-  </div>
-  <div class="panel-heading ">
-
-    <div class="row ">
-      <div class="form-group basicInfo">
-        <label class="col-md-2 right">端口号：</label>
-        <p class="col-md-1">{{platform.port}}</p>
-        <label class="col-md-2 right">平台IP地址：</label>
-        <p class="col-md-2">{{platform.ip}}</p>
-        <label class="col-md-2 right">平台名称：</label>
-        <p class="col-md-3">{{platform.name}}</p>
-      </div>
-      <div class="form-group viewTitle">
-        <label class="col-md-2 right">平台联系人：</label>
-        <p class="col-md-1">{{platform.contactName}}</p>
-        <label class="col-md-2 right">平台联系电话：</label>
-        <p class="col-md-2">{{platform.contactPhone}}</p>
-        <label class="col-md-2 right">平台代码：</label>
-        <p class="col-md-3">{{platform.code}}</p>
-      </div>
-      <div class="form-group viewTitle">
-        <label class="col-md-2 right">平台历史上线车辆：</label>
-        <p class="col-md-1">****</p>
-        <label class="col-md-2 right">平台未上线车辆：</label>
-        <p class="col-md-2">****</p>
-        <label class="col-md-2 right">平台在线车辆：</label>
-        <p class="col-md-3">****</p>
-      </div>
-    </div>
-  </div>
-  <!--平台下属企业信息-->
-  <div class="panel-body">
+<div class="panel panel-default" *ngIf="action==='show'">
     <div class="row">
-      <h4 align="center">下属企业信息</h4>
-      <div class="col-md-12">
-        <table class="table table-striped table-bordered">
-          <tr>
-            <th>企业名称</th>
-            <th>业户名称</th>
-            <th>平台车辆数量</th>
-            <th>在线车辆数量</th>
-            <th>历史上线车辆数量</th>
-            <th>违法违规车辆</th>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>
-        </table>
-        <p-paginator rows="{{max}}" ></p-paginator>
-      </div>
+        <div class="col-md-8 col-md-offset-2">
+            <h4 align="center" class="title">平台详情</h4>
+        </div>
+        <div class="col-md-2 text-right">
+            <button class="back-btn" pButton label="返回" type="button" (click)="return()"></button>
+        </div>
     </div>
-  </div>
+    <div class="panel-heading ">
+
+        <div class="row ">
+            <div class="form-group basicInfo">
+                <label class="col-md-2 right">端口号：</label>
+                <p class="col-md-1">{{platform.port}}</p>
+                <label class="col-md-2 right">平台IP地址：</label>
+                <p class="col-md-2">{{platform.ip}}</p>
+                <label class="col-md-2 right">平台名称：</label>
+                <p class="col-md-3">{{platform.name}}</p>
+            </div>
+            <div class="form-group viewTitle">
+                <label class="col-md-2 right">平台联系人：</label>
+                <p class="col-md-1">{{platform.contactName}}</p>
+                <label class="col-md-2 right">平台联系电话：</label>
+                <p class="col-md-2">{{platform.contactPhone}}</p>
+                <label class="col-md-2 right">平台代码：</label>
+                <p class="col-md-3">{{platform.code}}</p>
+            </div>
+            <div class="form-group viewTitle">
+                <label class="col-md-2 right">平台历史上线车辆：</label>
+                <p class="col-md-1">****</p>
+                <label class="col-md-2 right">平台未上线车辆：</label>
+                <p class="col-md-2">****</p>
+                <label class="col-md-2 right">平台在线车辆：</label>
+                <p class="col-md-3">****</p>
+            </div>
+        </div>
+    </div>
+    <!--平台下属企业信息-->
+    <div class="panel-body">
+        <div class="row">
+            <h4 align="center">下属企业信息</h4>
+            <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>企业名称</th>
+                        <th>业户名称</th>
+                        <th>平台车辆数量</th>
+                        <th>在线车辆数量</th>
+                        <th>历史上线车辆数量</th>
+                        <th>违法违规车辆</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+                <p-paginator rows="{{max}}"></p-paginator>
+            </div>
+        </div>
+    </div>
+
 </div>

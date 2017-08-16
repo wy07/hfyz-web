@@ -1,6 +1,6 @@
 <div class="ui-g" style="margin-left:-40px; margin-top: -14px">
     <div class="top-buttons">
-        <button pButton type="button" label="新增" [hasPermission]="'menu:create'"
+        <button pButton type="button" label="新增"
                 (click)="onCreate()"></button>
     </div>
   <div class="ui-g-12">
@@ -13,9 +13,9 @@
       <p-column field="display" header="显示"></p-column>
       <p-column field="" header="操作" [style]="{'width':'85px'}">
         <ng-template let-node="rowData" pTemplate="body">
-            <div [hasPermission]="'menu:edit'" role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
                  (click)="onEdit(node.data.id)" tooltip="编辑" placement="bottom"></div>
-            <div [hasPermission]="'menu:delete'" role="button" class="fa fa-times fa-font-size div-distance"
+            <div  role="button" class="fa fa-times fa-font-size div-distance"
                  (click)="onDelete(node)" tooltip="删除" placement="bottom"></div>﻿​
         </ng-template>
       </p-column>

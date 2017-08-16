@@ -1,53 +1,52 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">线路编码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="lineCode" placeholder="请输入线路编码..."/>
+
+<div *ngIf="pageFlag == 'LIST'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">线路编码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="lineCode" placeholder="请输入线路编码..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">线路名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="lineName" placeholder="请输入线路名称..."/>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">线路名称：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="lineName" placeholder="请输入线路名称..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            <div class="col-sm-2">
+                <button pButton label="检索" type="button" (click)="search()"></button>
+                <button pButton label="重置" type="button" (click)="reset()"></button>
             </div>
         </div>
     </div>
-    <div class="panel-body ">
-        <div class="row">
-            <p-dataTable [value]="passLinePhysicalInfos" [emptyMessage]="'暂无数据'">
-                <p-column field="lineCode" header="线路编码"></p-column>
-                <p-column field="lineName" header="线路名称"></p-column>
-                <p-column field="businessArea" header="经营区域"></p-column>
-                <p-column field="lineType" header="线路类型"></p-column>
-                <p-column field="startPlace" header="始发地"></p-column>
-                <p-column field="endPlace" header="目的地"></p-column>
-                <p-column field="mainPoint" header="途径主要地点"></p-column>
-                <p-column field="villageLine" header="是否农村客运">
-                    <ng-template let-passLineData="rowData" pTemplate="body">
-                        <span>{{passLineData.villageLine ? '是':'否'}}</span>
-                    </ng-template>
-                </p-column>
-                <p-column field="travelLine" header="是否旅游线路">
-                    <ng-template let-passLineData="rowData" pTemplate="body">
-                        <span>{{passLineData.travelLine ? '是':'否'}}</span>
-                    </ng-template>
-                </p-column>
-                <p-column field="busLine" header="是否公交线路">
-                    <ng-template let-passLineData="rowData" pTemplate="body">
-                        <span>{{passLineData.busLine ? '是':'否'}}</span>
-                    </ng-template>
-                </p-column>
-            </p-dataTable>
-            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-        </div>
-    </div>
+    <p-dataTable [value]="passLinePhysicalInfos" [emptyMessage]="'暂无数据'">
+        <p-column field="lineCode" header="线路编码"></p-column>
+        <p-column field="lineName" header="线路名称"></p-column>
+        <p-column field="businessArea" header="经营区域"></p-column>
+        <p-column field="lineType" header="线路类型"></p-column>
+        <p-column field="startPlace" header="始发地"></p-column>
+        <p-column field="endPlace" header="目的地"></p-column>
+        <p-column field="mainPoint" header="途径主要地点"></p-column>
+        <p-column field="villageLine" header="是否农村客运">
+            <ng-template let-passLineData="rowData" pTemplate="body">
+                <span>{{passLineData.villageLine ? '是':'否'}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="travelLine" header="是否旅游线路">
+            <ng-template let-passLineData="rowData" pTemplate="body">
+                <span>{{passLineData.travelLine ? '是':'否'}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="busLine" header="是否公交线路">
+            <ng-template let-passLineData="rowData" pTemplate="body">
+                <span>{{passLineData.busLine ? '是':'否'}}</span>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
-
-

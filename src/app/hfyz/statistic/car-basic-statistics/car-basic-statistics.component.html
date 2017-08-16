@@ -46,7 +46,7 @@
             统计分析
         </div>
         <div class="input-group">
-            <span class="input-group-addon">统计年份：</span>
+            <span class="search-span input-group-addon">统计年份：</span>
             <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto" (change)="getCarHistoryStatistic()" >
                 <option *ngFor="let item of years" [ngValue]="item" >{{item}}</option>
             </select>

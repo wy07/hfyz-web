@@ -1,87 +1,80 @@
-<div class="panel panel-default" *ngIf="pageFlag == 'LIST'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class=" col-md-4">
-                <div class="input-group">
-                    <span class="inputPM input-group-addon ">企业名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="企业名称..." />
+
+<div *ngIf="pageFlag == 'LIST'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">企业名称：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="企业名称..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="inputPM input-group-addon">组织机构代码：</span>
-                    <input type="text" class="form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..." />
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">机构代码：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="companyCode" placeholder="组织机构代码..." />
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button pButton label="查询" type="button" (click)="initData()"></button>
+
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">有效期至：</label>
+                    <div class="col-sm-8 calendar-group">
+                        <div class="cgl">
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        </div>
+                        <div class="cgm">-</div>
+                        <div class="cgr">
+                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-sm-offset-1">
+                <button pButton label="检索" type="button" (click)="initData()"></button>
                 <button pButton label="重置" type="button" (click)="onReset()"></button>
             </div>
-            <div class="col-md-2">
-
-            </div>
-        </div>
-        <div class="row" style="margin-top: 10px">
-            <div class="col-md-7">
-                <div class="input-group">
-                    <span class="input-group-addon">有效期至：</span>
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateBegin"></p-calendar>
-                    -
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateEnd"></p-calendar>
-                </div>
-            </div>
         </div>
     </div>
-    <!--列表显示-->
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <p-dataTable [value]="ownerList" scrollable="true" scrollWidth="100%" [emptyMessage]="'暂无数据'">
-                    <p-column field="ownerName" header="业户名称"></p-column>
-                    <!--<p-column field="shortName" header="业户简称" [style]="{'width':'120px'}"></p-column>-->
-                    <p-column field="companyCode" header="组织机构代码"></p-column>
-                    <p-column field="ownerCode" header="企业单位代码"></p-column>
-                    <!--<p-column field="parentCompanyName" header="上级企业名称" [style]="{'width':'150px'}"></p-column>-->
-                    <!--<p-column field="parentOwner" header="母公司" [style]="{'width':'150px'}"></p-column>-->
-                    <!--<p-column field="ownerAddress" header="业户地址" [style]="{'width':'250px'}"></p-column>-->
-                    <!--<p-column field="postCode" header="邮政编码" [style]="{'width':'50px'}"></p-column>-->
-                    <!--<p-column field="administrativeDivisionName" header="行政区划名称" [style]="{'width':'150px'}"></p-column>-->
-                    <!--<p-column field="administrativeDivisionCode" header="行政区划代码" [style]="{'width':'150px'}"></p-column>-->
-                    <p-column field="economicType" header="经济类型"></p-column>
-                    <p-column field="legalRepresentative" header="法人代表"></p-column>
-                    <!--<p-column field="idCardType" header="法人代表身份证类型" [style]="{'width':'100px'}"></p-column>-->
-                    <!--<p-column field="idCardNo" header="法人代表身份证号" [style]="{'width':'150px'}"></p-column>-->
-                    <!--<p-column field="picture" header="法人代表照片" [style]="{'width':'150px'}"></p-column>-->
-                    <p-column field="operateManager" header="经营负责人"></p-column>
-                    <p-column field="phone" header="电话"></p-column>
-                    <p-column field="endTime" header="资格有效期至"></p-column>
-                    <!--<p-column field="fax" header="传真号码" [style]="{'width':'80px'}"></p-column>-->
-                    <!--<p-column field="telephone" header="手机号码" [style]="{'width':'80px'}"></p-column>-->
-                    <!--<p-column field="email" header="电子邮箱" [style]="{'width':'80px'}"></p-column>-->
-                    <!--<p-column field="website" header="网址" [style]="{'width':'100px'}"></p-column>-->
-                    <p-column field="" header="操作" [style]="{'width':'50px'}">
-                        <ng-template let-owner="rowData" pTemplate="body">
-                            <div role="button" class="fa fa-list fa-font-size div-distance"
-                                 (click)="onView(owner.id)" tooltip="详情" placement="bottom"></div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-            </div>
-        </div>
-    </div>
+    <p-dataTable [value]="ownerList" [emptyMessage]="'暂无数据'">
+        <p-column field="ownerName" header="业户名称"></p-column>
+        <!--<p-column field="shortName" header="业户简称" [style]="{'width':'120px'}"></p-column>-->
+        <p-column field="companyCode" header="组织机构代码"></p-column>
+        <p-column field="ownerCode" header="企业单位代码"></p-column>
+        <!--<p-column field="parentCompanyName" header="上级企业名称" [style]="{'width':'150px'}"></p-column>-->
+        <!--<p-column field="parentOwner" header="母公司" [style]="{'width':'150px'}"></p-column>-->
+        <!--<p-column field="ownerAddress" header="业户地址" [style]="{'width':'250px'}"></p-column>-->
+        <!--<p-column field="postCode" header="邮政编码" [style]="{'width':'50px'}"></p-column>-->
+        <!--<p-column field="administrativeDivisionName" header="行政区划名称" [style]="{'width':'150px'}"></p-column>-->
+        <!--<p-column field="administrativeDivisionCode" header="行政区划代码" [style]="{'width':'150px'}"></p-column>-->
+        <p-column field="economicType" header="经济类型"></p-column>
+        <p-column field="legalRepresentative" header="法人代表"></p-column>
+        <!--<p-column field="idCardType" header="法人代表身份证类型" [style]="{'width':'100px'}"></p-column>-->
+        <!--<p-column field="idCardNo" header="法人代表身份证号" [style]="{'width':'150px'}"></p-column>-->
+        <!--<p-column field="picture" header="法人代表照片" [style]="{'width':'150px'}"></p-column>-->
+        <p-column field="operateManager" header="经营负责人"></p-column>
+        <p-column field="phone" header="电话"></p-column>
+        <p-column field="endTime" header="资格有效期至"></p-column>
+        <!--<p-column field="fax" header="传真号码" [style]="{'width':'80px'}"></p-column>-->
+        <!--<p-column field="telephone" header="手机号码" [style]="{'width':'80px'}"></p-column>-->
+        <!--<p-column field="email" header="电子邮箱" [style]="{'width':'80px'}"></p-column>-->
+        <!--<p-column field="website" header="网址" [style]="{'width':'100px'}"></p-column>-->
+        <p-column field="" header="操作" styleClass=operation-buttons-1>
+            <ng-template let-owner="rowData" pTemplate="body">
+                <span role="button" class="fa fa-list fa-font-size div-distance" (click)="onView(owner.id)" tooltip="详情" placement="bottom"></span>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 
-<div class="panel panel-default" *ngIf="pageFlag=='SHOW'">
+<div class="panel panel-default panel-show" *ngIf="pageFlag=='SHOW'">
     <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-6">
-                <h4>业户信息详情信息</h4>
-            </div>
-            <div class="col-sm-6">
-                <button pButton type="button" label="返回" class="pull-right" (click)="cancle()"></button>
-            </div>
-        </div>
+        业户信息详情信息
+        <button type="button" class="btn back-btn" (click)="cancle()">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">
         <div class="col-sm-12 form-horizontal">
@@ -134,7 +127,6 @@
                         <p class="form-control-static">{{owner.ownerAddress}}</p>
                     </div>
                 </div>
-
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">行政区划名称：</label>
                     <div class="col-sm-7">
@@ -213,6 +205,7 @@
                 </div>
 
                 <div class="form-group col-sm-4">
+
                     <label class="col-sm-5 control-label">网址：</label>
                     <div class="col-sm-7">
                         <p class="form-control-static">{{owner.website}}</p>
