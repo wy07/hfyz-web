@@ -117,7 +117,7 @@ var mapObject = (function () {
             var point = new MPoint(geoPoint);
             var marker = new MMarker(
                 point,
-                new MIcon('<img class="con" id="icon_realTimeMonitor" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48),
+                new MIcon('<img class="con" id="icon_realTimeMonitor" src="assets/images/car0.png"  width="24px" height="48px"/><br/><span style="margin-left:-20px;width:100px;display:block;font-size:10px;color:red">'+carNo+'</span>', 24, 48),
                 new MInfoWindow("详细信息", info)
             );
 
@@ -133,10 +133,6 @@ var mapObject = (function () {
         },
 
         showCombinePoint:function (carNo) {
-            console.log("------in showCombinePoint")
-            console.log(carNo)
-            console.log(combineQueryPoints[carNo])
-
             if (combineQueryPoints[carNo]){
                 maplet.centerAndZoom(combineQueryPoints[carNo].pt,12);
                 combineQueryPoints[carNo].openInfoWindow();

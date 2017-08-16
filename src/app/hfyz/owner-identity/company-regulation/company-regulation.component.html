@@ -1,42 +1,53 @@
 <div class="panel panel-default" *ngIf="action=='list'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="input-group">
-                    <span class="input-group-addon">企业名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="ownerName" placeholder="请输入企业名称..."/>
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">企业名称：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" [(ngModel)]="ownerName" placeholder="请输入企业名称..."/>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <span class="input-group-addon">有效期至：</span>
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateBegin"></p-calendar>
-                    -
-                    <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateEnd"></p-calendar>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">有效期至：</label>
+                    <div class="col-sm-8 calendar-group">
+                        <div class="cgl">
+                            <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateBegin"
+                                        styleClass=calendar-span inputStyleClass=calendar
+                                        [showIcon]="true" [locale]="zh"></p-calendar>
+                        </div>
+                        <div class="cgm">-</div>
+                        <div class="cgr">
+                            <p-calendar [showTime]="true" dateFormat="yy-mm-dd" [(ngModel)]="dateEnd"
+                                        styleClass=calendar-span inputStyleClass=calendar
+                                        [showIcon]="true" [locale]="zh"></p-calendar>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            <div class="col-sm-2">
+                <button type="button" pButton label="检索" (click)="search()"></button>
+                <button type="button" pButton label="重置" (click)="reset()"></button>
             </div>
         </div>
     </div>
-
     <div class="panel-body">
         <div class="top-buttons">
             <button pButton type="button" label="新增"
                     (click)="onCreate()"></button>
         </div>
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList">
-            <p-column field="ownerName" header="企业名称" ></p-column>
-            <p-column field="regulationName" header="制度名称" ></p-column>
-            <p-column field="fileName" header="文件名"></p-column>
-            <p-column field="fileType" header="文件类型" ></p-column>
-            <p-column field="fileSize" header="文件大小（KB）" ></p-column>
-            <p-column field="dateCreated" header="创建时间" ></p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
+    <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList">
+        <p-column field="ownerName" header="企业名称"></p-column>
+        <p-column field="regulationName" header="制度名称"></p-column>
+        <p-column field="fileName" header="文件名"></p-column>
+        <p-column field="fileType" header="文件类型"></p-column>
+        <p-column field="fileSize" header="文件大小（KB）"></p-column>
+        <p-column field="dateCreated" header="创建时间"></p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 <div class="row" *ngIf="action=='create'">
     <div class="panel-heading">

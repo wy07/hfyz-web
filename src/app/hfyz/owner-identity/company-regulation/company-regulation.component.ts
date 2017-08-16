@@ -3,6 +3,7 @@ import {TdLoadingService} from '@covalent/core';
 import {ToastsManager} from 'ng2-toastr';
 import {CompanyRegulationService} from './company-regulation.service';
 import {DatePipe} from '@angular/common';
+import {zh} from '../../common/shared/zh';
 
 @Component({
     selector: 'app-company-regulation',
@@ -23,6 +24,7 @@ export class CompanyRegulationComponent implements OnInit {
     formData: FormData;
     file: boolean;
     MAXFILESIZE = 5242880;
+    zh = zh;
     constructor(private _regulationService: CompanyRegulationService,
                 private _loadingService: TdLoadingService,
                 private toastr: ToastsManager,

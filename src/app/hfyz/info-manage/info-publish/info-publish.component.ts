@@ -10,6 +10,7 @@ import {tokenReference} from '@angular/compiler';
 import {UserService} from '../../basic/user/user.service';
 import {DatePipe} from '@angular/common';
 import {TdLoadingService} from "@covalent/core";
+import {zh} from "../../common/shared/zh";
 
 @Component({
     selector: 'info-publish',
@@ -42,7 +43,8 @@ export class InfoPublishComponent implements OnInit {
     currentPage: number;
     isAdd: boolean;
     currentUser: string;
-    currentUserId: number
+    currentUserId: number;
+    zh = zh;
 
     constructor(private _toastr: ToastsManager
         , private infoPublishService: InfoPublishService
@@ -90,9 +92,9 @@ export class InfoPublishComponent implements OnInit {
          this.infoType.push({label: '通报信息', value: {id: 3, name: '通报信息', code: 'TBXX'}});
          this.infoType.push({label: '通知信息', value: {id: 4, name: '通知信息', code: 'TZXX'}});
          this.infoType.push({label: '公告信息', value: {id: 5,  name: '公告信息', code: 'GGXX'}});*/
-        this.dateEnd = new Date();
-        const a = new Date().getTime() - ( 1000 * 3600 * 24);
-        this.dateBegin = new Date(a);
+        this.dateEnd = null;
+        // const a = new Date().getTime() - ( 1000 * 3600 * 24);
+        this.dateBegin = null;
         this.infoStatus = [];
         this.infoStatus.push({label: '起草', value: '起草'});
         /*this.infoStatus.push({label: '起草', value: {id: 1, name: '起草', code: 'QC'}});
@@ -151,7 +153,7 @@ export class InfoPublishComponent implements OnInit {
         const dateEnd = this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm');
         console.log(dateBegin)
         this._loadingService.register();
-        this.infoPublishService.search(this.textTitle, dateBegin?dateBegin:'', dateEnd?dateBegin:'', this.max, offset).subscribe(
+        this.infoPublishService.search(this.textTitle, dateBegin ? dateBegin : '', dateEnd ? dateBegin : '', this.max, offset).subscribe(
             res => {
                 // this.publishList = res.publishList;
                 this._loadingService.resolve();
@@ -159,6 +161,12 @@ export class InfoPublishComponent implements OnInit {
                 this.total = res.publishList.total;
             }
         );
+    }
+
+    onReset() {
+        this.textTitle = '';
+        this.dateBegin = null;
+        this.dateEnd = null;
     }
 
     onEdit(infoaudit) {

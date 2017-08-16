@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class HomeService {
@@ -28,7 +28,7 @@ export class HomeService {
                 {
                     name: 'title',
                     type: 'gauge',
-                    detail: {formatter: '{value}%'},
+                    detail: { formatter: '{value}%' },
                     data: data
                 }
             ]
@@ -168,7 +168,7 @@ export class HomeService {
         }
     }
 
-    workOrderBarChartOption(doneData,doingData,todoData,freezeData) {
+    workOrderBarChartOption(doneData, doingData, todoData, freezeData) {
         return {
             tooltip: {
                 trigger: 'axis'
@@ -213,7 +213,7 @@ export class HomeService {
         }
     }
 
-    warningLineChartOption(xAxisData,promptData,normalData,seriousData){
+    warningLineChartOption(xAxisData, promptData, normalData, seriousData) {
         return {
             tooltip: {
                 trigger: 'axis'
@@ -223,40 +223,40 @@ export class HomeService {
             },
             grid: {
                 left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
             xAxis: {
                 type: 'category',
-                    boundaryGap: false,
-                    data: xAxisData
+                boundaryGap: false,
+                data: xAxisData
             },
             yAxis: {
                 type: 'value',
-                axisTick:{
-                    show:false
-                },
-                axisLabel:{
-                    show:false,
-                    margin:0
-                }
+                // axisTick: {
+                //     show: false
+                // },
+                // axisLabel: {
+                //     show: false,
+                //     margin: 0
+                // }
             },
             series: [
                 {
-                    name:'提示告警',
-                    type:'line',
-                    data:promptData
+                    name: '提示告警',
+                    type: 'line',
+                    data: promptData
                 },
                 {
-                    name:'一般告警',
-                    type:'line',
-                    data:normalData
+                    name: '一般告警',
+                    type: 'line',
+                    data: normalData
                 },
                 {
-                    name:'严重告警',
-                    type:'line',
-                    data:seriousData
+                    name: '严重告警',
+                    type: 'line',
+                    data: seriousData
                 }
             ]
         }

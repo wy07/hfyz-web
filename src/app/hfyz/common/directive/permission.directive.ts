@@ -1,7 +1,7 @@
-import {Directive, ElementRef, Renderer, Input, OnInit} from '@angular/core';
-import {isUndefined} from "util";
+import { Directive, ElementRef, Renderer, Input, OnInit } from '@angular/core';
+import { isUndefined } from 'util';
 
-@Directive({selector: '[hasPermission]'})
+@Directive({ selector: '[hasPermission]' })
 export class PermissionDirective implements OnInit {
     @Input() hasPermission: string;
     constructor(private _el: ElementRef
@@ -13,9 +13,9 @@ export class PermissionDirective implements OnInit {
             return true;
         }
 
-        let rights: any=[];
+        let rights: any = [];
         if (!isUndefined(sessionStorage.getItem('rights'))) {
-            rights=sessionStorage.getItem('rights').split(';');
+            rights = sessionStorage.getItem('rights').split(';');
         }
         const targetRight = this.hasPermission.split(';');
         const intersection = rights.filter(v => targetRight.indexOf(v) > -1);

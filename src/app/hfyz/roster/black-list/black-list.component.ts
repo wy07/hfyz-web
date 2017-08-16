@@ -4,7 +4,7 @@ import {ToastsManager} from 'ng2-toastr';
 import {TdLoadingService} from '@covalent/core';
 import {DatePipe} from '@angular/common';
 import {RegularService} from '../../common/shared/regular.service';
-
+import {zh} from "../../common/shared/zh"
 @Component({
     selector: 'app-black-list',
     templateUrl: './black-list.component.html',
@@ -27,6 +27,7 @@ export class BlackListComponent implements OnInit {
 
     status: any[]; // 布控状态下拉选
 
+    zh = zh;
     constructor(private _blackListService: BlackListService,
                 private _loadingService: TdLoadingService,
                 private _regularService: RegularService,

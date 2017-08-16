@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 /**
  * Created by wangyan on 2017/7/27.
@@ -24,7 +24,7 @@ export class OwnerIdentityService {
         return this.restangular.one('owner-identitys', id).customGET('view');
     }
 
-    all(){
+    all() {
         return this.restangular.all('owner-identitys').customGET('all');
     }
 }

@@ -5,6 +5,7 @@ import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
 import {RegularService} from '../../common/shared/regular.service';
 import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
+import {zh} from '../../common/shared/zh';
 @Component({
   selector: 'app-order-examine',
   templateUrl: './order-examine.component.html',
@@ -36,6 +37,7 @@ export class OrderExamineComponent implements OnInit {
   reviewAndApprovalList: any[];
   statusList: any[];
   listStatus: any;
+  zh = zh;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService

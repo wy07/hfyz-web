@@ -1,6 +1,6 @@
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { PlatFormService } from './shared/plat-form.service';
 import { PlatFormComponent } from './plat-form.component';
-import { CommonModule } from './../../common/common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,6 @@ import { DatePipe } from '@angular/common';
         HttpModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        CommonModule,
         DataTableModule,
         DialogModule,
         ListboxModule,
@@ -28,7 +27,8 @@ import { DatePipe } from '@angular/common';
         DataGridModule,
         TreeModule,
         PaginatorModule,
-        CalendarModule
+        CalendarModule,
+        CustomDirectiveModule
     ],
     exports: [
     ],

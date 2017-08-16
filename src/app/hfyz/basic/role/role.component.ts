@@ -1,14 +1,14 @@
-import {AuthService} from '../../security/auth.service';
-import {RegularService} from '../../common/shared/regular.service';
+import { AuthService } from '../../security/auth.service';
+import { RegularService } from '../../common/shared/regular.service';
 import {
     Component,
     OnInit
 } from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {TreeNode} from 'primeng/components/common/api';
-import {RoleService} from './role.service';
-import {SelectItem} from 'primeng/primeng';
-import {TdLoadingService} from "@covalent/core";
+import { ToastsManager } from 'ng2-toastr';
+import { TreeNode } from 'primeng/components/common/api';
+import { RoleService } from './role.service';
+import { SelectItem } from 'primeng/primeng';
+import { TdLoadingService } from "@covalent/core";
 @Component({
     selector: 'role',
     templateUrl: 'role.component.html',
@@ -34,7 +34,7 @@ export class RoleComponent implements OnInit {
     currentUserId: number;
     currentRoleString: string;
 
-    assignRoleId:number;
+    assignRoleId: number;
 
     constructor(private _toastr: ToastsManager
         , private _roleService: RoleService
@@ -49,7 +49,7 @@ export class RoleComponent implements OnInit {
 
         this.currentRoleString = this._authService.getCurrentUser('roleId')
         this.currentUserId = this._authService.getCurrentUser('id')
-        this.role = {id: ''};
+        this.role = { id: '' };
     }
 
     ngOnInit() {
@@ -71,7 +71,7 @@ export class RoleComponent implements OnInit {
     onEdit(role) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑' + role.name;
+        this.formTitle = '编辑';
         this.preEdit(role.id)
     }
 
@@ -96,13 +96,13 @@ export class RoleComponent implements OnInit {
                 this.formTitle = '新增';
                 this.isAdd = true;
                 this.action = 'update';
-                this.role = {id: '', operator: this.currentUserId};
+                this.role = { id: '', operator: this.currentUserId };
             })
     }
 
     save() {
         if (this.validate()) {
-            this.role.org = {id: this.role.orgId};
+            this.role.org = { id: this.role.orgId };
             this._roleService.save(this.role).subscribe(
                 res => {
                     this.action = 'list';
@@ -116,7 +116,7 @@ export class RoleComponent implements OnInit {
 
     update() {
         if (this.validate()) {
-            this.role.org = {id: this.role.orgId};
+            this.role.org = { id: this.role.orgId };
             this._roleService.update(this.role.id, this.role).subscribe(
                 res => {
                     this.action = 'list';
@@ -140,16 +140,16 @@ export class RoleComponent implements OnInit {
     }
 
     onAssign(roleId) {
-        this.assignRoleId=roleId;
+        this.assignRoleId = roleId;
         this._roleService.preAssignPerm(roleId).subscribe(
             res => {
                 console.log(JSON.stringify(res))
-                this.action='assign';
+                this.action = 'assign';
                 this.permList = res.perms;
-                this.selectedPerms=[];
+                this.selectedPerms = [];
                 for (const pPerm of this.permList) {
                     for (let perm of pPerm.children) {
-                        if(perm.data.selected){
+                        if (perm.data.selected) {
                             this.selectedPerms.push(perm);
                         }
                     }
@@ -166,19 +166,19 @@ export class RoleComponent implements OnInit {
     }
 
     savePermission() {
-        if (this.selectedPerms===[]) {
+        if (this.selectedPerms === []) {
             this._toastr.error('请为角色分配权限！');
         } else {
             const permissions = [];
             for (let i = 0; i < this.selectedPerms.length; i++) {
-                if(!this._regularService.isBlank(this.selectedPerms[i].data)){
+                if (!this._regularService.isBlank(this.selectedPerms[i].data)) {
                     permissions.push(this.selectedPerms[i].data.id)
                 }
 
             }
             this._roleService.savePermission(this.assignRoleId, permissions).subscribe(
                 res => {
-                    this.action='list';
+                    this.action = 'list';
                     this.initData();
                     this._toastr.info(`权限分配成功！`);
                 }

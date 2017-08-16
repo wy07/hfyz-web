@@ -1,66 +1,67 @@
 <div class="panel panel-default" *ngIf="pageFlag">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-md-2">
-        <p-dropdown [options]="types" [(ngModel)]="selectedType" [style]="{'width':'100%'}" [scrollHeight]="300"></p-dropdown>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <span class="input-group-addon">姓名：</span>
-          <input type="text" class="form-control" [(ngModel)]="peopleName" placeholder="请输入姓名..."/>
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">人员类型：</label>
+                    <div class="col-sm-8">
+                        <p-dropdown [options]="types" [(ngModel)]="selectedType" [style]="{'width':'100%'}"
+                                    [scrollHeight]="300"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">姓名：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" [(ngModel)]="peopleName" placeholder="请输入姓名..."/></div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">联系电话：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" [(ngModel)]="phoneNo" placeholder="请输入联系电话..."/></div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">身份证号：</label>
+                    <div class="col-sm-8"><input class="form-control" [(ngModel)]="IDCardNo" placeholder="请输入身份证号码..."/></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <span class="input-group-addon">联系电话：</span>
-          <input type="text" class="form-control" [(ngModel)]="phoneNo" placeholder="请输入联系电话..."/>
+        <div class="row ">
+            <div class="col-sm-3 col-sm-offset-9 ">
+                <button type="button" pButton class="search-button" label="检索" (click)="search()"></button>
+                <button type="submit" pButton class="btn btn-primary" label="重置" (click)="cancel()"></button>
+            </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="input-group">
-          <span class="input-group-addon">身份证号码：</span>
-          <input type="text" class="form-control" [(ngModel)]="IDCardNo" placeholder="请输入身份证号码..."/>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <button type="button" class="btn btn-primary" (click)="search()">检索</button>
-      </div>
     </div>
-  </div>
-
-  <div class="panel-body">
+    <!--</div>-->
     <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">
-      <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
-      <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
-      <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
-      <p-column field="birthday" header="出生日期" [style]="{'width':'10%'}"></p-column>
-      <p-column field="nation" header="民族" [style]="{'width':'5%'}"></p-column>
-      <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
-      <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
-      <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
-      <p-column field="" header="操作" [style]="{'width':'50px'}">
-        <ng-template let-a="rowData" pTemplate="body">
-            <div role="button" class="fa fa-list fa-font-size div-distance"
-                 (click)="moreInfo(a)" tooltip="详情" placement="bottom"></div>
-        </ng-template>
-      </p-column>
+        <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
+        <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
+        <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
+        <p-column field="birthday" header="出生日期" [style]="{'width':'10%'}"></p-column>
+        <p-column field="nation" header="民族" [style]="{'width':'5%'}"></p-column>
+        <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
+        <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
+        <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-1>
+            <ng-template let-a="rowData" pTemplate="body">
+                <div role="button" class="fa fa-list fa-font-size div-distance"
+                     (click)="moreInfo(a)" tooltip="详情" placement="bottom"></div>
+            </ng-template>
+        </p-column>
     </p-dataTable>
     <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-  </div>
 </div>
 
-<div class="panel panel-default" *ngIf="!pageFlag">
+<div class="panel panel-default panel-show" *ngIf="!pageFlag">
     <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-10 text-left">
-                <h4>
-                    {{pageTitle}}
-                </h4>
-            </div>
-            <div class="col-sm-2">
-                <button pButton type="button"  label="返回" (click)="closeDialog()"></button>
-            </div>
-        </div>
+        {{pageTitle}}
+        <button type="button" class="btn back-btn" (click)="closeDialog()">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">
         <p-tabView>
@@ -86,11 +87,11 @@
                             </div>
                         </div>
                         <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">从业资格证号：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{checkMember.workLicenseNo}}</p>
+                            <label class="col-sm-5 control-label">从业资格证号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{checkMember.workLicenseNo}}</p>
+                            </div>
                         </div>
-                    </div>
                         <div class="form-group col-sm-4">
                             <label class="col-sm-5 control-label">证件有效期至：</label>
                             <div class="col-sm-7">
