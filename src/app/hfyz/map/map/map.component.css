@@ -19,18 +19,3 @@
 .list-unstyled li{
     padding: 5px;
 }
-
-/* .card.customClass,
-.card.customClass .card-header,
-.panel.customClass {
-  background-color: #5bc0de;
-  color: #fff;
-}
-.panel.customClass .panel-body {
-  background-color: #337aa7;
-} */
-
-.mapSize .custom .card-header{
-    background: url("../../../../assets/images/top-navbar.png");
-    background-size: 100% auto;
-}
