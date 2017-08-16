@@ -56,17 +56,19 @@ export class LoginComponent implements OnInit {
         this._authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
             res => {
                 this._authService.isLoggedIn = true;
-                console.log('--------in login ')
+                console.log('--------in login ' + JSON.stringify(res));
                 this._authService.isLoggedIn = true;
                 sessionStorage.setItem('currentUser', JSON.stringify({
                     username: this.loginForm.value.username
                     , password: this.loginForm.value.password
                     , token: res.token
                     , roles: res.roles
+                    , companyName: res.companyName
                 }));
                 sessionStorage.setItem('username', this.loginForm.value.username);
                 sessionStorage.setItem('password', this.loginForm.value.password);
                 sessionStorage.setItem('companyCode', res.companyCode);
+                sessionStorage.setItem('companyName', res.companyName);
                 sessionStorage.setItem('token', res.token);
 
                 this.eventBuservice.notify.emit({type: 'inspect', companyCode: res.companyCode});

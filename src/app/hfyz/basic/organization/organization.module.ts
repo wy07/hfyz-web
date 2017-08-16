@@ -1,7 +1,7 @@
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { OrganizationService } from './shared/org.service';
 import { OrganizationComponent } from './organization.component';
 import { RoleModule } from './../role/role.module';
-import { CommonModule } from './../../common/common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,9 +19,9 @@ import { OrganizationChartModule, TreeTableModule } from 'primeng/primeng';
         HttpModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        CommonModule,
         OrganizationChartModule,
-        TreeTableModule
+        TreeTableModule,
+        CustomDirectiveModule
     ],
     exports: [
     ],

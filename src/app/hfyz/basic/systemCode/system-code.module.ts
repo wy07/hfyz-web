@@ -1,7 +1,7 @@
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { SystemCodeService } from './shared/system-code.service';
 import { SystemCodeComponent } from './system-code.component';
 import { RoleModule } from './../role/role.module';
-import { CommonModule } from './../../common/common.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,13 +19,13 @@ import { TooltipModule } from 'ngx-bootstrap';
         HttpModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        CommonModule,
         DropdownModule,
         TreeTableModule,
         AutoCompleteModule,
         DialogModule,
         ButtonModule,
-        TooltipModule
+        TooltipModule,
+        CustomDirectiveModule
     ],
     exports: [
     ],
