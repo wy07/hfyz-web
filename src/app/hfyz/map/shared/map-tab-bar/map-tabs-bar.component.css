@@ -1,11 +1,28 @@
 .map-footer {
     position: fixed;
-    /* left: 19%; */
     bottom: 0;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 200px;
-    /* width: 79%; */
     width: calc(100% - 330px);
+    background-color: white;
+
+}
+
+.showHeight{
+    height: 200px;
+}
+
+.hideHeight{
+    height: 150px;
+}
+
+.showPrompt {
+    margin-top: 5%;
+}
+
+.hidePrompt {
+    margin-top: 2%;
 }
 
 .map-footer .table-row {
@@ -25,7 +42,7 @@
 .text-center {
     text-align: center;
     margin-right: 20%;
-    margin-top: 5%;
+    /* margin-top: 5%; */
 }
 
 .text-center span {
