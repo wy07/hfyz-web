@@ -40,7 +40,7 @@
     </div>
 </div>
 
-<p-dataTable [value]="cars">
+<p-dataTable [value]="cars" [emptyMessage]="'暂无数据'">
     <p-column field="transformLicenseNo" header="道路运输证号"></p-column>
     <p-column field="licenseNo" header="车辆（挂车）号牌"></p-column>
     <p-column field="ownerName" header="业户名称"></p-column>
