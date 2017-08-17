@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkOrderService} from '../shared/work-order.service';
-import {ToastsManager} from 'ng2-toastr';
+import { WorkOrderService } from '../shared/work-order.service';
+import { ToastsManager } from 'ng2-toastr';
 
 
 @Component({
@@ -14,37 +14,40 @@ export class WorkOrderComponent implements OnInit {
   currentPage: number;
   max: any;
   total: any;
-  workOrderTitle:string ;
-  isDetails:boolean ;
-  workOrder:any ;
-  sn : string;             
-  alarmType : string;   
-  alarmLevel :string ;  
-  companyCode :string ;     
-  ownerName :string;       
-  operateManager : string ;  
-  phone : string ;          
-  frameNo : string ;         
-  userID : string ;         
+  workOrderTitle: string;
+  isDetails: boolean;
+  workOrder: any;
+  sn: string;
+  alarmType: string;
+  alarmLevel: string;
+  companyCode: string;
+  ownerName: string;
+  operateManager: string;
+  phone: string;
+  frameNo: string;
+  userID: string;
 
-  flows : any ;           
-  flowStep : number;       
-  todoRole : string ;        
-  dateCreated : Date;
-  lastUpdated : Date ;
-  checkTime : Date ;         
-  rectificationTime : Date;  
-  note : string ;             
-  status :string    
-  
+  flows: any;
+  flowStep: number;
+  todoRole: string;
+  dateCreated: Date;
+  lastUpdated: Date;
+  checkTime: Date;
+  rectificationTime: Date;
+  note: string;
+  status: string
 
-  constructor(private _workOrderService: WorkOrderService,private _toastr: ToastsManager
+  workOrderRecords: any[];
+
+
+  constructor(private _workOrderService: WorkOrderService, private _toastr: ToastsManager
   ) {
     this.workOrderList = [];
     this.max = 10;
     this.total = 0;
     this.isDetails = false;
     this.workOrder = {};
+    this.workOrderRecords = [];
   }
 
   ngOnInit() {
@@ -59,14 +62,15 @@ export class WorkOrderComponent implements OnInit {
     );
   }
 
-  preEdit(id){
+  preEdit(id) {
     this.workOrderTitle = '详情';
-    this.isDetails = true ;
+    this.isDetails = true;
     this._workOrderService.details(id).subscribe(
       res => {
-        if(res.result === 'success'){
-          this.workOrder = res.workOrder;        
-        }else{
+        if (res.result === 'success') {
+          this.workOrder = res.workOrder;
+          this.workOrderRecords = res.workOrderRecords ? res.workOrderRecords : [];
+        } else {
           this._toastr.error('获取数据失败');
         }
       }

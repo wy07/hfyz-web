@@ -57,7 +57,7 @@ export class PermissionComponent implements OnInit {
     onEdit(perm) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑' + perm.name;
+        this.formTitle = '编辑';
         this.preEdit(perm.id)
     }
 

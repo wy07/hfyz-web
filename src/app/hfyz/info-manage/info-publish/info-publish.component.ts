@@ -224,12 +224,14 @@ export class InfoPublishComponent implements OnInit {
     }
 
     onDelete(infoaudit) {
-        this.infoPublishService.delete(infoaudit.id).subscribe(
-            res => {
-                this.initData()
-                this._toastr.info(`成功移除信息`);
-            }
-        );
+        if(confirm("确认删除——"+infoaudit.title+"吗？")){
+            this.infoPublishService.delete(infoaudit.id).subscribe(
+                res => {
+                    this.initData()
+                    this._toastr.info(`成功移除信息`);
+                }
+            );
+        }
     }
 
     validate() {

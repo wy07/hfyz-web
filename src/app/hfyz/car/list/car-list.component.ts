@@ -63,6 +63,7 @@ export class CarListComponent implements OnInit {
         this.licenseNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.loadData();
     }
     loadData(offset = 0) {
         // if(this.regularService.isBlank(this.businessType)){
