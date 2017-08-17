@@ -238,7 +238,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     return true;
   }
   validation() {
-    if (this.selectedCompany.info !== this.ownerName) {
+    if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
     this._toastr.info('请选择正确的企业名称');
     return false;
     }
