@@ -103,6 +103,7 @@ export class BlackListComponent implements OnInit {
         this.vehicleNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.loadData();
     }
 
     /**
