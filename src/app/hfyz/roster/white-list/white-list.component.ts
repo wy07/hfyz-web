@@ -204,6 +204,7 @@ export class WhiteListComponent implements OnInit {
      */
     reset() {
         this.vehicleNo = '';
+        this.loadData()
     }
 
     /**
