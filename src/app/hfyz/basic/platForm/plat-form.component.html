@@ -32,7 +32,7 @@
     </div>
 </div>
 <div class="top-buttons">
-    <button pButton type="button" label="查岗" (click)="onInspect()"></button>
+    <button pButton [hasPermission]="'owner_check_record_manual'" type="button" label="查岗" (click)="onInspect()"></button>
 </div>
 
 <div class='basic-bottom'>
