@@ -1,64 +1,51 @@
-<div class="panel panel-default" *ngIf="!displayDialog">
-  <div class="panel-heading">
-    <div class="row">
-      <div class=" col-md-3 col-sm-3">
-        <div class="input-group">
-          <span class="search-span input-group-addon ">车架号：</span>
-          <input type="text" class="search-input form-control" [(ngModel)]="frameNo" placeholder="请输入车架号..."/>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <div class="input-group">
-          <span class="search-span input-group-addon">车牌号：</span>
-          <input type="text" class="search-input form-control" [(ngModel)]="carLicenseNo" placeholder="请输入车牌号..."/>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3 col-md-offset-3">
-        <button pButton label="检索" type="button" (click)="initData()"></button>
-        <button pButton label="重置" type="button" (click)="onReset()"></button>
-      </div>
-    </div>
-  </div>
-  <!--列表显示-->
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-12">
-          <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
-              <p-column field="frameNo" header="车架号"></p-column>
-              <p-column field="carLicenseNo" header="车牌号">
-                  <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                      <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
-                  </ng-template>
-              </p-column>
-              <p-column field="carColor" header="车辆颜色"></p-column>
-              <p-column field="warningSource" header="报警信息来源"></p-column>
-              <p-column field="warningType" header="报警类型"></p-column>
-              <p-column field="" header="操作" styleClass=operation-buttons-1>
-                  <ng-template let-a="rowData" pTemplate="body">
-                      <div role="button" class="fa fa-list fa-font-size div-distance"
-                           (click)="onView(a)" tooltip="详情" placement="bottom"></div>
-                  </ng-template>
-              </p-column>
-          </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="panel panel-default" *ngIf="displayDialog">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-10 text-left">
-                <h5>
-                    详情
-                </h5>
+<div *ngIf="!displayDialog">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">车架号：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="frameNo" placeholder="请输入车架号..." />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">车牌号：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]="carLicenseNo" placeholder="请输入车牌号..." />
+                    </div>
+                </div>
             </div>
             <div class="col-sm-2">
-                <button pButton type="button" label="返回" (click)="cancle()"></button>
+                <button type="button" class="btn btn-primary" (click)="initData()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="onReset()">重置</button>
             </div>
         </div>
+    </div>
+    <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
+        <p-column field="frameNo" header="车架号"></p-column>
+        <p-column field="carLicenseNo" header="车牌号">
+            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
+            </ng-template>
+        </p-column>
+        <p-column field="carColor" header="车辆颜色"></p-column>
+        <p-column field="warningSource" header="报警信息来源"></p-column>
+        <p-column field="warningType" header="报警类型"></p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-1>
+            <ng-template let-a="rowData" pTemplate="body">
+                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onView(a)" tooltip="详情" placement="bottom"></div>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+</div>
+
+<div class="panel panel-default panel-show" *ngIf="displayDialog">
+    <div class="panel-heading">
+        详情
+        <button type="button" class="btn back-btn" (click)="cancle()">返回</button>
     </div>
     <div class="panel-body showDetails">
         <div class="col-sm-12 form-horizontal">
@@ -146,4 +133,3 @@
         </div>
     </div>
 </div>
-

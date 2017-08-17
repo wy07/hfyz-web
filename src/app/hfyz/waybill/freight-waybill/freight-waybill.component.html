@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5">
+            <div isCompanyUser class="col-sm-5">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">业户名称：</label>
                     <div class="col-sm-8">
@@ -23,11 +23,11 @@
                     <label class="col-sm-4 control-label">出发时间：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" [showIcon]="true" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" [showIcon]="true" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
 
 <div class="panel panel-default panel-show" *ngIf="pageFlag=='SHOW'">
     <div class="panel-heading">
-        电子运单详情信息
+        危货电子路单详情信息
         <button type="button" class="btn back-btn" (click)="goBack()">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">

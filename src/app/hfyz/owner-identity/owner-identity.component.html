@@ -1,8 +1,8 @@
 
 <div *ngIf="pageFlag == 'LIST'">
-    <div class="querys">
+    <div isCompanyUser class="querys">
         <div class="row form-horizontal">
-            <div isCompanyUser class="col-sm-5">
+            <div class="col-sm-5">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">企业名称：</label>
                     <div class="col-sm-8">
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div isCompanyUser class="col-sm-5">
+            <div class="col-sm-5">
                 <div class="form-group">
                     <label class="col-sm-4 control-label">机构代码：</label>
                     <div class="col-sm-8">
@@ -24,11 +24,11 @@
                     <label class="col-sm-4 control-label">有效期至：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                            <p-calendar [(ngModel)]="dateEnd" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
                         </div>
                     </div>
                 </div>

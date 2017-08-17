@@ -5,6 +5,8 @@ import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
 import {RegularService} from '../../common/shared/regular.service';
 import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
+import {zh} from '../../common/shared/zh';
+
 @Component({
   selector: 'app-hidden-rectification-order',
   templateUrl: './hidden-rectification-order.component.html',
@@ -36,6 +38,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   listStatus: any;
   selectedCompany: any;
   ownerName: string;
+  zh = zh;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService

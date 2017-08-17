@@ -5,6 +5,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { TdLoadingService } from '@covalent/core';
 import { DatePipe } from '@angular/common';
 import { RegularService } from '../../common/shared/regular.service';
+import {zh} from '../../common/shared/zh';
 
 @Component({
     selector: 'app-freight-waybill',
@@ -25,6 +26,7 @@ export class FreightWaybillComponent implements OnInit {
 
     waybillList: Array<FreightWaybill>; // 表格数据
     freightWaybill: FreightWaybill;
+    zh = zh;
     constructor(private _loadingService: TdLoadingService,
         private datePipe: DatePipe,
         private _freightWaybillService: FreightWaybillService,

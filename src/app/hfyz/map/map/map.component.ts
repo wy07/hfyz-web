@@ -238,6 +238,9 @@ export class MapComponent implements OnInit, OnDestroy {
                     }
                 } else {
                     this.onRealTimeAccordion('multipleCar');
+                    for (const item of this.selectCars) {
+                        this.addCar(item, false);
+                    }
                 }
                 const companyCode = sessionStorage.getItem('companyCode');
                 if (companyCode !== 'null') {
@@ -568,30 +571,36 @@ export class MapComponent implements OnInit, OnDestroy {
         }
 
         if (carIndex < 0) {
-            this.selectCars.push(item);
-            this.lng += 0.001;
-            this.lat += 0.001;
-            const point: any = {
-                dateStr: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-                plateColor: 1,
-                plateNo: item.value,
-                posEncrypt: 0,
-                geoPoint: `${this.lng},${this.lat}`,
-                gpsSpeed: '60',
-                totalMileage: 1,
-                recSpeed: 60,
-                direction: 100,
-                altitude: 0,
-                vehicleState: 3,
-                alarmState: 1
-            }
-            this.realTimeDataTOP10.push(point)
-            mapObject.resetCenter(this.lng, this.lat)
-            mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
-                item.value,
-                GnssData.getRealTimeInfo(point),
-                23);
+            this.addCar(item, true);
         }
+    }
+
+    addCar(item, isPush) {
+        if (isPush) {
+            this.selectCars.push(item);
+        }
+        this.lng += 0.001;
+        this.lat += 0.001;
+        const point: any = {
+            dateStr: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+            plateColor: 1,
+            plateNo: item.value,
+            posEncrypt: 0,
+            geoPoint: `${this.lng},${this.lat}`,
+            gpsSpeed: '60',
+            totalMileage: 1,
+            recSpeed: 60,
+            direction: 100,
+            altitude: 0,
+            vehicleState: 3,
+            alarmState: 1
+        }
+        this.realTimeDataTOP10.push(point)
+        mapObject.resetCenter(this.lng, this.lat)
+        mapObject.combineQueryPoint(`${this.lng},${this.lat}`,
+            item.value,
+            GnssData.getRealTimeInfo(point),
+            23);
     }
 
     removeCar(licenseNo) {

@@ -4,6 +4,7 @@ import {DatePipe} from '@angular/common';
 import {WhiteListService} from '../white-list/white-list.service';
 import {TdLoadingService} from '@covalent/core';
 import {RegularService} from '../../common/shared/regular.service';
+import {zh} from "../../common/shared/zh";
 
 @Component({
     selector: 'app-white-list',
@@ -24,7 +25,7 @@ export class WhiteListComponent implements OnInit {
     detail: any; // 详情
 
     status: any[]; // 布控状态下拉选
-
+    zh = zh;
     constructor(private _whiteListService: WhiteListService,
                 private _loadingService: TdLoadingService,
                 private _regularService: RegularService,
