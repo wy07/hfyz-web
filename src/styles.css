@@ -324,3 +324,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 .map-footer .nav-tabs>li>a>span {
     color: black
 }
+
+.basic-bottom{
+    margin-bottom: 20px;
+}
