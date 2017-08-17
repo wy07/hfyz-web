@@ -1,3 +1,4 @@
+import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlackListComponent } from './black-list/black-list.component';
@@ -17,7 +18,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         PaginatorModule,
         DialogModule,
         DropdownModule,
-        TooltipModule
+        TooltipModule,
+        CustomDirectiveModule
     ],
     declarations: [
         BlackListComponent,
