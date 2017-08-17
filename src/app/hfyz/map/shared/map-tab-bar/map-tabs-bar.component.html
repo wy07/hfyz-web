@@ -46,39 +46,25 @@
         <tab heading="报警数据">
             <div class="table-row">
                 <div class="col-md-12" style='padding-left:0;margin-bottom:20px;padding-top: 10px;'>
-                    <table class="table table-bordered" *ngIf="historyDataTOP10.length > 0">
+                    <table class="table table-bordered" *ngIf="alarmDataTOP10.length > 0">
                         <thead>
                             <tr>
                                 <th>车牌号码</th>
-                                <th>车辆颜色</th>
-                                <th>经纬度</th>
-                                <th>速度</th>
-                                <th>行驶记录速度</th>
-                                <th>总里程数</th>
-                                <th>方向</th>
-                                <th>海拔高度</th>
-                                <th>车辆状态</th>
-                                <th>报警状态</th>
-                                <th>更新时间</th>
+                                <th>告警类型</th>
+                                <th>告警级别</th>
+                                <th>告警时间</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of historyDataTOP10">
+                            <tr *ngFor="let item of alarmDataTOP10">
                                 <td>{{item.plateNo}}</td>
-                                <td>{{item.plateColor}}</td>
-                                <td>{{item.geoPoint}}</td>
-                                <td>{{item.gpsSpeed}}</td>
-                                <td>{{item.recSpeed}}</td>
-                                <td>{{item.totalMileage}}</td>
-                                <td>{{item.direction}}</td>
-                                <td>{{item.altitude}}</td>
-                                <td>{{item.vehicleState}}</td>
-                                <td>{{item.alarmState}}</td>
+                                <td>{{item.alarmType}}</td>
+                                <td>{{item.alarmLevel}}</td>
                                 <td>{{item.dateStr}}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <div class="text-center" [ngClass]="{'showPrompt':isShow,'hidePrompt':!isShow}" *ngIf="historyDataTOP10.length === 0">
+                    <div class="text-center" [ngClass]="{'showPrompt':isShow,'hidePrompt':!isShow}" *ngIf="alarmDataTOP10.length === 0">
                         <span>暂无数据</span>
                     </div>
                 </div>

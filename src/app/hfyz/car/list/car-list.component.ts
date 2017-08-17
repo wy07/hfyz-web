@@ -1,13 +1,13 @@
-import {NgRadio} from 'ng-radio';
-import {EventBuservice} from './../../common/shared/eventbus.service';
-import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
-import {Component, OnInit, Injector} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {CarService} from '../shared/car.service';
-import {LayoutComponent} from '../../layout/main-tab/layout.component';
-import {DatePipe} from '@angular/common';
-import {zh} from "../../common/shared/zh"
+import { NgRadio } from 'ng-radio';
+import { EventBuservice } from './../../common/shared/eventbus.service';
+import { TdLoadingService } from '@covalent/core';
+import { RegularService } from '../../common/shared/regular.service';
+import { Component, OnInit, Injector } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
+import { CarService } from '../shared/car.service';
+import { LayoutComponent } from '../../layout/main-tab/layout.component';
+import { DatePipe } from '@angular/common';
+import { zh } from '../../common/shared/zh';
 
 @Component({
     selector: 'car-list',
@@ -27,7 +27,7 @@ export class CarListComponent implements OnInit {
     dateEnd: Date;
     layoutComponent: any;
 
-    zh=zh;
+    zh = zh;
     constructor(private toastr: ToastsManager
         , private regularService: RegularService
         , private carService: CarService
@@ -43,8 +43,8 @@ export class CarListComponent implements OnInit {
         this.licenseNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
-        this.businessTypes = [{label: '全部', value: ''}, {label: '班线客车', value: '班线客车'},
-            {label: '旅游包车', value: '旅游包车'}, {label: '危险品运输车', value: '危险品运输车'}]
+        this.businessTypes = [{ label: '全部', value: '' }, { label: '班线客车', value: '班线客车' },
+        { label: '旅游包车', value: '旅游包车' }, { label: '危险品运输车', value: '危险品运输车' }]
         this.businessType = '';
         this.layoutComponent = this.inj.get(LayoutComponent);
     }
@@ -96,7 +96,7 @@ export class CarListComponent implements OnInit {
             name: '实时状态',
             icon: 'fa-map',
             code: 'realTimeMap',
-            inputs: {frameNo: item.licenseNo, id: item.frameNo, currentRealTimeAccordion:'singleCar'}
+            inputs: { frameNo: item.licenseNo, id: item.frameNo, currentRealTimeAccordion: 'singleCar' }
         };
         this.layoutComponent.addTab(menu);
         // .then(res => {
@@ -113,7 +113,7 @@ export class CarListComponent implements OnInit {
             name: '实时监控',
             icon: 'fa-map',
             code: 'realTimeMonitorMap',
-            inputs: {frameNo: item.licenseNo, id: item.frameNo}
+            inputs: { frameNo: item.licenseNo, id: item.frameNo }
         };
         this.layoutComponent.addTab(menu);
     }
@@ -123,7 +123,7 @@ export class CarListComponent implements OnInit {
             name: '历史轨迹',
             icon: 'fa-map',
             code: 'historyMap',
-            inputs: {frameNo: item.licenseNo, id: item.frameNo}
+            inputs: { frameNo: item.licenseNo, id: item.frameNo }
         };
         this.layoutComponent.addTab(menu);
     }

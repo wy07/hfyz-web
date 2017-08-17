@@ -37,6 +37,8 @@ export class MapComponent implements OnInit, OnDestroy {
     historyMapFrameNo: string;
     realTimeDataTOP10 = [];
     realTimeMonitorTOP10 = [];
+    realTimeDataAlarmTOP10 = [];
+    realTimeMonitorAlarmTOP10 = [];
     startDate: any;
     endDate: any;
     zh = zh;
@@ -229,6 +231,7 @@ export class MapComponent implements OnInit, OnDestroy {
             mapObject.clean();
             if (inputs.code === 'realTimeMap') {
                 this.realTimeDataTOP10 = [];
+                this.realTimeDataAlarmTOP10 = [];
                 if (inputs.currentRealTimeAccordion === 'singleCar') {
                     this.onRealTimeAccordion('singleCar');
                     this.clearCompanysAndCars();
@@ -248,6 +251,7 @@ export class MapComponent implements OnInit, OnDestroy {
                 }
             } else if (inputs.code === 'historyMap') {
                 this.realTimeDataTOP10 = [];
+                this.realTimeDataAlarmTOP10 = [];
                 this.startDate = new Date(this.startDate.setHours(this.startDate.getHours() - 1));
                 this.endDate = new Date();
                 if (this.historyMapKey !== inputs.key) {
@@ -256,6 +260,7 @@ export class MapComponent implements OnInit, OnDestroy {
                 }
             } else if (inputs.code === 'realTimeMonitorMap') {
                 this.realTimeMonitorTOP10 = [];
+                this.realTimeMonitorAlarmTOP10 = [];
                 if (this.realTimeMonitorKey !== inputs.key) {
                     this.realTimeMonitorKey = inputs.key;
                     this.realTimeMonitorFrameNo = inputs.frameNo;
@@ -356,7 +361,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.eventBuservice.closeEventBus();
         if (this.realTimeMapFrameNo) {
             this.realTimeDataTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
-            console.log('=====realTimeDataTOP10=====' + JSON.stringify(this.realTimeDataTOP10));
+            this.realTimeDataAlarmTOP10 = this.mapService.getHistoryAlarmData(this.realTimeMapFrameNo);
             this.getDataTOP10(this.realTimeDataTOP10, 'realTimeData');
             this.registerHandler();
         } else {
@@ -367,7 +372,9 @@ export class MapComponent implements OnInit, OnDestroy {
     getRealTimeMonitorMap() {
         this.eventBuservice.closeEventBus();
         if (this.realTimeMonitorFrameNo) {
-            this.realTimeMonitorTOP10 = this.mapService.getHistoryData(this.realTimeMapFrameNo);
+            this.realTimeMonitorTOP10 = this.mapService.getHistoryData(this.realTimeMonitorFrameNo);
+            this.realTimeMonitorAlarmTOP10 = this.mapService.getHistoryAlarmData(this.realTimeMonitorFrameNo);
+            console.log('===realTimeMonitorAlarmTOP10====' + JSON.stringify(this.realTimeMonitorAlarmTOP10));
             this.getDataTOP10(this.realTimeMonitorTOP10, 'realTimeMonitor');
             this.registerRealTimeMonitorHandler();
         } else {
@@ -378,6 +385,7 @@ export class MapComponent implements OnInit, OnDestroy {
     getHistoryMap() {
         if (this.validationHistoryMap()) {
             this.realTimeDataTOP10 = this.mapService.getHistoryData(this.historyMapFrameNo);
+            this.realTimeDataAlarmTOP10 = this.mapService.getHistoryAlarmData(this.historyMapFrameNo);
             this.showPath();
         }
     }
@@ -561,9 +569,8 @@ export class MapComponent implements OnInit, OnDestroy {
         const carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
         if (!event.target.checked) {
             if (carIndex > -1) {
-                console.log('====this.realTimeDataTOP10===1==' + JSON.stringify(this.realTimeDataTOP10));
                 this.realTimeDataTOP10 = this.realTimeDataTOP10.filter(res => res.plateNo !== item.value);
-                console.log('=====realTimeDataTOP10===2=' + JSON.stringify(this.realTimeDataTOP10))
+                this.realTimeDataAlarmTOP10 = this.realTimeDataAlarmTOP10.filter(res => res.plateNo !== item.value);
                 this.eventBuservice.unregisterHandler(item.value);
                 mapObject.removecombineQueryPoint(item.value);
                 this.selectCars.splice(carIndex, 1);
@@ -623,6 +630,7 @@ export class MapComponent implements OnInit, OnDestroy {
         this.cars = [];
         this.selectCars = [];
         this.realTimeDataTOP10 = [];
+        this.realTimeDataAlarmTOP10 = [];
         mapObject.clean();
     }
 
@@ -630,6 +638,8 @@ export class MapComponent implements OnInit, OnDestroy {
         this.eventBuservice.closeEventBus();
         this.realTimeDataTOP10 = [];
         this.realTimeMonitorTOP10 = [];
+        this.realTimeDataAlarmTOP10 = [];
+        this.realTimeMonitorAlarmTOP10 = [];
         this.realTimeMapFrameNo = '';
         this.realTimeMonitorFrameNo = '';
         mapObject.clean();
