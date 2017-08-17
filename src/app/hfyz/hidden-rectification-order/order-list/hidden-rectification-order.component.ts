@@ -140,7 +140,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   preEdit(id) {
     if (this.edit === false) {
       this.isDetails = true;
-      this.hiddenRectificationOrderTitle = '隐患整改单详情';
+      this.hiddenRectificationOrderTitle = '详情';
     }
     this._loadingService.register();
     this._hiddenRectificationOrderService.edit(id).subscribe(
