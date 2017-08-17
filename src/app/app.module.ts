@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { CustomDirectiveModule } from './hfyz/common/custom-directive.module';
 import {MapModule} from './hfyz/map/map.module';
 import {InfoManageModule} from './hfyz/info-manage/info-manage.module';
@@ -91,7 +92,8 @@ export function ConfigLoader(configService: ConfigService) {
         CovalentLoadingModule,
         StatisticModule,
         WaybillModule,
-        TooltipModule.forRoot()
+        TooltipModule.forRoot(),
+        CommonModule
     ],
     /*providers: [ConfigService,
      {
