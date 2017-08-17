@@ -69,7 +69,7 @@ export class MenuComponent implements OnInit {
 
     onEdit(id) {
         this.clearForm();
-        this.formTitle = `编辑菜单`;
+        this.formTitle = `编辑`;
         this.isAdd = false;
         this.displayDialog = true;
         this.preEdit(id);
@@ -92,7 +92,7 @@ export class MenuComponent implements OnInit {
     }
 
     onCreate() {
-        this.formTitle = `新增菜单`;
+        this.formTitle = `新增`;
         this.isAdd = true;
         this.displayDialog = true;
         this.clearForm();
