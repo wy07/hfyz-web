@@ -1,9 +1,10 @@
-<div class="map-footer" [ngClass]="{'showHeight':isShow,'hideHeight':!isShow}" id="mapFooter">
-    <div class="pull-right" style="padding:10px" (click)='showTab()'>{{!isShow?'显示':'隐藏'}}</div>
+<div class="line"></div>
+ <div class="map-footer" [ngClass]="{'showHeight':isShow,'hideHeight':!isShow}" id="mapFooter">
+    <!-- <div class="pull-right" style="padding:10px" (click)='showTab()'>{{!isShow?'显示':'隐藏'}}</div> -->
     <tabset>
         <tab heading="{{type === 'historyMap'?'历史数据':'实时数据'}}">
             <div class="table-row">
-                <div class="col-md-12 col-lg-12" style='padding-left:0;margin-bottom:20px'>
+                <div class="col-md-12 col-lg-12" style='padding-left:0;margin-bottom:20px;padding-top: 10px;'>
                     <table class="table table-bordered" *ngIf="historyDataTOP10.length > 0">
                         <thead>
                             <tr>
@@ -44,7 +45,7 @@
         </tab>
         <tab heading="报警数据">
             <div class="table-row">
-                <div class="col-md-12" style='padding-left:0;margin-bottom:20px'>
+                <div class="col-md-12" style='padding-left:0;margin-bottom:20px;padding-top: 10px;'>
                     <table class="table table-bordered" *ngIf="historyDataTOP10.length > 0">
                         <thead>
                             <tr>
@@ -84,4 +85,4 @@
             </div>
         </tab>
     </tabset>
-    </div>
+</div>
