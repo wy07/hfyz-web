@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {WorkOrderService} from '../shared/work-order.service';
-import {TdLoadingService} from "@covalent/core";
-import {RegularService} from "../../common/shared/regular.service";
-import {ToastsManager} from "ng2-toastr";
+import { Component, OnInit } from '@angular/core';
+import { WorkOrderService } from '../shared/work-order.service';
+import { TdLoadingService } from "@covalent/core";
+import { RegularService } from "../../common/shared/regular.service";
+import { ToastsManager } from "ng2-toastr";
 
 @Component({
     selector: 'feedback-work-order',
@@ -19,7 +19,7 @@ export class FeedbackWorkOrderComponent implements OnInit {
 
     workOrder: any;
 
-    note:string;
+    note: string;
 
     constructor(private _workOrderService: WorkOrderService
         , private _loadingService: TdLoadingService
@@ -29,9 +29,9 @@ export class FeedbackWorkOrderComponent implements OnInit {
         this.max = 10;
         this.total = 0;
         this.action = 'list';
-        this.currentPage=0;
+        this.currentPage = 0;
 
-        this.workOrder={};
+        this.workOrder = {};
     }
 
     ngOnInit() {
@@ -57,16 +57,16 @@ export class FeedbackWorkOrderComponent implements OnInit {
     }
 
     onFeedback(id) {
-        this.note='';
+        this.note = '';
         this._workOrderService.preFeedback(id).subscribe(
             res => {
                 this.workOrder = res.workOrder;
-                this.action='feedback';
+                this.action = 'feedback';
             }
         );
     }
 
-    submitFeedback(){
+    submitFeedback() {
         if (this._regularService.isBlank(this.note)) {
             this._toastr.error('反馈内容不能为空');
             return false;
@@ -76,9 +76,9 @@ export class FeedbackWorkOrderComponent implements OnInit {
             return false;
         }
 
-        this._workOrderService.feedback(this.workOrder.id,{note:this.note}).subscribe(
+        this._workOrderService.feedback(this.workOrder.id, { note: this.note }).subscribe(
             res => {
-                this.action='list';
+                this.action = 'list';
                 this.initData(this.max * this.currentPage);
             }
         );
