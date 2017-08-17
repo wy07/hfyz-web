@@ -24,6 +24,7 @@ export class CompanyRegulationComponent implements OnInit {
     formData: FormData;
     file: boolean;
     MAXFILESIZE = 5242880;
+    fileSize: number;
     zh = zh;
     constructor(private _regulationService: CompanyRegulationService,
                 private _loadingService: TdLoadingService,
@@ -128,8 +129,8 @@ export class CompanyRegulationComponent implements OnInit {
         const files = fileInput.target.files;
         if (files.length > 0) {
             this.file = true;
-            if (files[0].size > this.MAXFILESIZE) {
-                this.toastr.info('选择的文件过大，请重新选择！');
+            this.fileSize = files[0].size;
+            if (this.fileSize > this.MAXFILESIZE) {
                 return;
             }
             this.formData.append('upload', files[0], files[0].fileName)
@@ -141,8 +142,10 @@ export class CompanyRegulationComponent implements OnInit {
             return;
         }
         this.formData.append('regulationName', JSON.stringify(this.regulationName));
+        this._loadingService.register();
         this._regulationService.save(this.formData).subscribe(
             res => {
+                this._loadingService.resolve();
                 if (res.result === 'success') {
                     this.toastr.info('新增成功');
                     this.loadData();
@@ -160,6 +163,10 @@ export class CompanyRegulationComponent implements OnInit {
         }
         if (!this.file) {
             this.toastr.error('请选择一个文件！');
+            return false;
+        }
+        if (this.fileSize > this.MAXFILESIZE) {
+            this.toastr.error('选择的文件过大，请重新选择！');
             return false;
         }
         return true;

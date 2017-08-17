@@ -33,11 +33,8 @@
             </div>
         </div>
     </div>
-    <div class="panel-body">
-        <div class="top-buttons">
-            <button pButton type="button" label="新增"
-                    (click)="onCreate()"></button>
-        </div>
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="onCreate()"></button>
     </div>
     <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList">
         <p-column field="ownerName" header="企业名称"></p-column>
@@ -50,38 +47,36 @@
     <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
 <div class="row" *ngIf="action=='create'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-10 text-left">
-                <h4>
-                    新增管理制度
-                </h4>
-            </div>
-            <div class="col-sm-2">
-                <button pButton type="button"  label="返回"></button>
+    <div class="panel panel-default panel-show">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-sm-10 text-left">
+                        新增
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><span class="notNull">*</span>制度名称：</label>
-                        <div class="col-sm-2">
-                            <input class="form-control" id="name" name="name" [(ngModel)]="regulationName">
-                        </div>
+        <div class="panel-body">
+            <div class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><span class="notNull">*</span>制度名称：</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="name" name="name" [(ngModel)]="regulationName">
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><span class="notNull">*</span>请选择：</label>
-                            <input type="file" id="file" name="file" (change)="fileChangeEvent($event)">
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><span class="notNull">*</span>请选择：</label>
+                    <div class="col-sm-2">
+                        <input type="file" id="file" name="file" (change)="fileChangeEvent($event)">
+                        <span class="notNull">(文件大小不超过5M)</span>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-5 col-sm-10">
-                            <button pButton type="button" label="保存" (click)="onSave()"></button>
-                            <button pButton type="button" label="返回" (click)="return()"></button>
-                        </div>
-                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-5">
+                    <button type="button" class="btn btn-primary" (click)="onSave()">保存</button>
+                    <button type="button" class="btn btn-primary" (click)="return()">返回</button>
                 </div>
             </div>
         </div>
