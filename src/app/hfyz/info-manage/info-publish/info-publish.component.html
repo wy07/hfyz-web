@@ -1,56 +1,62 @@
-<div class="ui-g panel panel-default" *ngIf="actionStr=='list'">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-md-3 col-sm-3">
-                <div class="input-group">
-                    <span class="search-span input-group-addon">标题：</span>
-                    <input type="text" [(ngModel)]="textTitle" class="form-control" placeholder="请输入文档标题..."/>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="input-group">
-                    <span class="search-span input-group-addon">起草时间：</span>
-                    <div>
-                        <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd"
-                                    name="dateBegin"></p-calendar>
-                        -
-                        <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd"
-                                    name="dateEnd"></p-calendar>
+<div class="panel panel-default" *ngIf="actionStr=='list'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">标题：</label>
+                    <div class="col-sm-8">
+                        <input [(ngModel)]="textTitle" class="form-control" placeholder="请输入文档标题..."/>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-3">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">起草时间：</label>
+                    <div class="col-sm-8 calendar-group">
+                        <div class="cgl">
+                            <p-calendar [showTime]="true" [(ngModel)]="dateBegin" dateFormat="yy-mm-dd"
+                                        name="dateBegin" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"
+                                        [showIcon]="true"></p-calendar>
+                        </div>
+                        <div class="cgm">-</div>
+                        <div class="cgr">
+                            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd"
+                                        name="dateEnd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"
+                                        [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
                 <button pButton type="button" label="检索" (click)="onSearch()"></button>
                 <button pButton type="button" label="重置" (click)="onReset()"></button>
             </div>
         </div>
     </div>
 
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="top-buttons">
-                    <button pButton type="button" label="新增"
-                            (click)="onCreate()"></button>
-                </div>
-                <p-dataTable [value]="publishList" [emptyMessage]="'暂无数据'">
-                    <!-- <p-column field="" header="序号"></p-column>-->
-                    <p-column field="type" header="类别"></p-column>
-                    <p-column field="title" header="标题"></p-column>
-                    <p-column field="dateCreated" header="起草时间"></p-column>
-                    <p-column field="username" header="用户"></p-column>
-                    <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" styleClass=operation-buttons-2>
-                        <ng-template pTemplate="body" let-infoItem="rowData">
-                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                                 (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>
-                            <div role="button" class="fa fa-times fa-font-size div-distance"
-                                 (click)="onDelete(infoItem)" tooltip="删除" placement="bottom"></div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="top-buttons">
+                <button pButton type="button" label="新增"
+                        (click)="onCreate()"></button>
             </div>
+            <p-dataTable [value]="publishList" [emptyMessage]="'暂无数据'">
+                <!-- <p-column field="" header="序号"></p-column>-->
+                <p-column field="type" header="类别"></p-column>
+                <p-column field="title" header="标题"></p-column>
+                <p-column field="dateCreated" header="起草时间"></p-column>
+                <p-column field="username" header="用户"></p-column>
+                <p-column field="status" header="状态"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-2>
+                    <ng-template pTemplate="body" let-infoItem="rowData">
+                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                             (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>
+                        <div role="button" class="fa fa-times fa-font-size div-distance"
+                             (click)="onDelete(infoItem)" tooltip="删除" placement="bottom"></div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>
@@ -59,44 +65,36 @@
 <div *ngIf="actionStr == 'details'">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="form-group">
-                <span>信息编辑</span>
-            </div>
+            <span>信息编辑</span>
         </div>
 
         <div class="panel-body">
             <form class="form-horizontal">
-
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">类别 &nbsp;</label>
+                    <label class="col-sm-2 control-label">类别：</label>
                     <div class="col-sm-6">
                         <p-dropdown [options]="infoType" [(ngModel)]="infoaudit.type" name="selectedType"
                                     placeholder="请选择类别"></p-dropdown>
                     </div>
-
-
                 </div>
-
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">标题</label>
+                    <label class="col-sm-2 control-label">标题：</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" [(ngModel)]="infoaudit.title" name="title"
                                placeholder="请输入...">
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">起草时间</label>
+                    <label class="col-sm-2 control-label">起草时间：</label>
                     <div class="col-sm-6" *ngIf="isAdd==true">
-                        <p-calendar [showTime]="true" [(ngModel)]="infoaudit.vimTime" name="dataCreate"></p-calendar>
+                        <p-calendar [showTime]="true" [(ngModel)]="infoaudit.vimTime" name="dataCreate" [showIcon]="true" [locale]="zh"></p-calendar>
                     </div>
                     <div class="col-sm-6" *ngIf="isAdd==false">
                         {{infoaudit.dataCreate| date:'yyyy-MM-dd HH:mm:ss' }}
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
+                    <label for="inputPassword3" class="col-sm-2 control-label">内容：</label>
                     <div class="col-sm-8">
                         <ckeditor name="ckeditor"
                                   [(ngModel)]="infoaudit.content"
@@ -108,32 +106,30 @@
                 </div>
 
                 <!--<div class="form-group">-->
-                    <!--<label for="inputPassword3" class="col-sm-2 control-label">用户</label>-->
-                    <!--<div class="col-sm-2">-->
-                        <!--<input type="text" class="form-control" id="inputPassword3" [(ngModel)]="currentUser"-->
-                               <!--name="userName" placeholder="{{currentUser}}">-->
-                    <!--</div>-->
+                <!--<label for="inputPassword3" class="col-sm-2 control-label">用户</label>-->
+                <!--<div class="col-sm-2">-->
+                <!--<input type="text" class="form-control" id="inputPassword3" [(ngModel)]="currentUser"-->
+                <!--name="userName" placeholder="{{currentUser}}">-->
+                <!--</div>-->
                 <!--</div>-->
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">状态</label>
+                    <label class="col-sm-2 control-label">状态：</label>
                     <div class="col-sm-2">{{"起草"}}</div>
                 </div>
-
                 <div class="form-group">
-                    <label for="exampleInputFile" class="col-sm-2 control-label">附件</label>
+                    <label for="exampleInputFile" class="col-sm-2 control-label">附件：</label>
                     <input type="file" id="exampleInputFile" class="col-sm-1 control-label">
                 </div>
-
-                <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <button pButton type="button" label="保存" (click)="onSaveNew()"></button>
-                        <button pButton type="button" label="退出" (click)="onQuit()"></button>
-                    </div>
-                </div>
-
             </form>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-5">
+                    <button type="button" class="btn btn-primary" (click)="onSaveNew()">保存</button>
+                    <button type="button" class="btn btn-primary" (click)="onQuit()">返回</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

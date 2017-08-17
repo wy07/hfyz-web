@@ -73,7 +73,7 @@ export class UserComponent implements OnInit {
             res => {
                 this._loadingService.resolve();
                 this.userList = res.userList;
-                this.totalUsers=res.totalUsers;
+                this.totalUsers = res.totalUsers;
             }
         );
     }
@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
     onEdit(user) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑';
+        this.formTitle = '编辑' + user.name;
 
         this._userService.edit(user.id).subscribe(
             res => {

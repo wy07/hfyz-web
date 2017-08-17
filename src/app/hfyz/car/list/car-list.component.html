@@ -2,37 +2,40 @@
     <div class="row form-horizontal">
         <div class="col-sm-5">
             <div class="form-group">
+                <label class="col-sm-4 control-label">行业类别：</label>
+                <div class="col-sm-8">
+                    <p-dropdown [options]="businessTypes" [(ngModel)]="businessType" placeholder="请选择行业类别" styleClass=p-dropdown-form-control></p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">有效期至：</label>
+                <div class="col-sm-8 calendar-group">
+                    <div class="cgl">
+                        <p-calendar [(ngModel)]="dateBegin" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar
+                            [locale]="zh"></p-calendar>
+                    </div>
+                    <div class="cgm">-</div>
+                    <div class="cgr">
+                        <p-calendar [(ngModel)]="dateEnd" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar
+                            [locale]="zh"></p-calendar>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="form-group">
                 <label class="col-sm-4 control-label">车牌号码：</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" [(ngModel)]="licenseNo" id="licenseNo" placeholder="所有车辆">
                 </div>
             </div>
         </div>
-        <div class="col-sm-5">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">行业类别：</label>
-                    <div class="col-sm-8">
-                        <p-dropdown [options]="businessTypes" [(ngModel)]="businessType" placeholder="请选择行业类别" styleClass=p-dropdown-form-control></p-dropdown>
-                    </div>
-                </div>
-            </div>
-        <div class="col-sm-5">
-            <div class="form-group">
-                <label class="col-sm-4 control-label">有效期至：</label>
-                <div class="col-sm-8 calendar-group">
-                    <div class="cgl">
-                        <p-calendar [(ngModel)]="dateBegin" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
-                    </div>
-                    <div class="cgm">-</div>
-                    <div class="cgr">
-                        <p-calendar [(ngModel)]="dateEnd" [showTime]="true" [showIcon]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="col-sm-5 col-sm-offset-1">
-            <button type="button" pButton  label="检索" (click)="search()"></button>
-            <button type="button" pButton  label="重置" (click)="onReset()"></button>
+            <button type="button" pButton label="检索" (click)="search()"></button>
+            <button type="button" pButton label="重置" (click)="onReset()"></button>
         </div>
     </div>
 </div>

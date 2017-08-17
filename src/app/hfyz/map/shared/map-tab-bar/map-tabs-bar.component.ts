@@ -6,7 +6,7 @@ import { Component, OnInit, OnDestroy, ElementRef, Renderer, Input } from '@angu
 })
 export class MapTabsBarComponent implements OnInit {
     @Input() historyDataTOP10 = [];
-    @Input() warningDataTOP10 = [];
+    @Input() alarmDataTOP10 = [];
     @Input() type = '';
     isShow: boolean;
 

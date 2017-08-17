@@ -28,8 +28,9 @@
             </ng-template>
         </p-column>
     </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="totalRoles>0"></p-paginator>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>0"></p-paginator>
 </div>
+
 <div class="row" *ngIf="action==='feedback'">
     <div class="col-sm-12">
         <div class="panel panel-default">

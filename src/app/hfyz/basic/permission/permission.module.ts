@@ -1,4 +1,4 @@
-import {CommonModule} from './../../common/common.module';
+import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -11,8 +11,8 @@ import {
     DropdownModule,
     PaginatorModule
 } from 'primeng/primeng';
-import {PermissionService} from "./permission.service";
-import {PermissionComponent} from "./permission.component";
+import {PermissionService} from './permission.service';
+import {PermissionComponent} from './permission.component';
 import {TooltipModule} from 'ngx-bootstrap';
 @NgModule({
     declarations: [
@@ -24,13 +24,13 @@ import {TooltipModule} from 'ngx-bootstrap';
         HttpModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        CommonModule,
         DataTableModule,
         ButtonModule,
         TreeModule,
         DropdownModule,
         PaginatorModule,
-        TooltipModule
+        TooltipModule,
+        CustomDirectiveModule
     ],
     exports: [],
     providers: [

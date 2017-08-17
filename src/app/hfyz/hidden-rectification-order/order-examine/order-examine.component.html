@@ -1,295 +1,311 @@
-<div class="panel panel-default" *ngIf="isDetails==false && edit==false">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="input-group">
-                    <span class="search-span input-group-addon">业户名称：</span>
-                    <input type="text" class="form-control" [(ngModel)]="company" name="company"
-                           placeholder="请输入业户名称..."/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="input-group">
-                    <span class="search-span input-group-addon">上报时间：</span>
-                    <div>
-                        <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
-                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
-                        -
-                        <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"
-                                    [showTime]="true" [readonlyInput]="true"></p-calendar>
+<div class="panel panel-default " *ngIf="isDetails==false && edit==false">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">状态：</label>
+                    <div class="col-sm-8">
+                        <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态" styleClass=p-dropdown-form-control></p-dropdown>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3" style="margin-left: -26px">
-                <div class="input-group">
-                    <span class="search-span input-group-addon">状态：</span>
-                    <p-dropdown [options]="statusList" [(ngModel)]="listStatus" placeholder="请选择状态"
-                                [style]="{'width':'100%'}"></p-dropdown>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">上报时间：</label>
+                    <div class="col-sm-8 calendar-group">
+                        <div class="cgl">
+                            <p-calendar [(ngModel)]="startDate" name="startDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
+                                [showIcon]="true" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        </div>
+                        <div class="cgm">-</div>
+                        <div class="cgr">
+                            <p-calendar [(ngModel)]="endDate" name="endDate" dateFormat="yy-mm-dd" [maxDate]="maxDate" [showTime]="true" [readonlyInput]="true"
+                                [locale]="zh" styleClass=calendar-span inputStyleClass=calendar [showIcon]="true"></p-calendar>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3 col-sm-offset-9">
-                <button pButton label="检索" class="search-button" type="button" (click)="initData()"></button>
-                <button pButton label="重置" class="search-button" type="button" (click)="cancel()"></button>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">业户名称：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..." />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5 col-sm-offset-1">
+                <button type="button" class="btn btn-primary" (click)="initData()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="cancel()">重置</button>
             </div>
         </div>
     </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
-                    <p-column field="billNo" header="单据编号"></p-column>
-                    <p-column field="enterpirse" header="业户名称"></p-column>
-                    <p-column field="examiner" header="检查人"></p-column>
-                    <p-column field="inspectionDate" header="检查日期"></p-column>
-                    <p-column field="dealineDate" header="整改期限"></p-column>
-                    <p-column field="status" header="状态"></p-column>
-                    <p-column field="" header="操作" styleClass=operation-buttons-3>
-                        <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
-                            <div role="button" class="fa fa-list-alt fa-font-size div-distance"
-                                 (click)="onEdit(hiddenRectificationOrder)" tooltip="审核" placement="bottom"
-                                 *ngIf="hiddenRectificationOrder.status=='待审核'"></div>
-                            <div role="button" class="fa fa-list fa-font-size div-distance"
-                                 (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情" placement="bottom"></div>
-                            <div role="button" class="fa fa-check fa-font-size div-distance"
-                                 (click)="onEdit(hiddenRectificationOrder)"  tooltip="确认" placement="bottom"
-                                 *ngIf="hiddenRectificationOrder.status=='待确认'"></div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}"
-                             (onPageChange)="paginate($event)"></p-paginator>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
+                <p-column field="billNo" header="单据编号"></p-column>
+                <p-column field="enterpirse" header="业户名称"></p-column>
+                <p-column field="examiner" header="检查人"></p-column>
+                <p-column field="inspectionDate" header="检查日期"></p-column>
+                <p-column field="dealineDate" header="整改期限"></p-column>
+                <p-column field="status" header="状态"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                    <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
+                        <div role="button" class="fa fa-list-alt fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder)" tooltip="审核"
+                            placement="bottom" *ngIf="hiddenRectificationOrder.status=='待审核'"></div>
+                        <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
+                            placement="bottom"></div>
+                        <div role="button" class="fa fa-check fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder)" tooltip="确认"
+                            placement="bottom" *ngIf="hiddenRectificationOrder.status=='待确认'"></div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>
 <div *ngIf="edit">
-    <div class="panel panel-default">
+    <div class="panel panel-default panel-show">
         <div class="panel-heading">
-            <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
+            {{hiddenRectificationOrderTitle}}
         </div>
-        <div class="panel-body">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-1" right>业户名称:</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.enterpirse}}</span>
+        <div class="panel-body no-padding showDetails">
+            <div class="col-sm-12 form-horizontal ">
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">业户名称：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.enterpirse}}</p>
+                        </div>
                     </div>
-                    <label class="col-sm-1" right>区域：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.area || '无'}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">区域：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.area || '无'}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查日期：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{inspection | date: "yyyy-MM-dd HH:mm"}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查人：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.examiner}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">整改期限：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{dealine | date: "yyyy-MM-dd HH:mm"}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label ">状态：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.status}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查地点：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insPosition}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查内容：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insDesc}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">存在问题：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insQuestion}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">整改意见：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.proPosal}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">企业反馈：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.replyDesc || '无'}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">反馈日期：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.replyDate || '无'}}</p>
+                        </div>
+                    </div>
+                    <hr class="col-sm-12">
+                    <div *ngIf="hiddenRectificationOrder.status == '待审核'" class="col-sm-12">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" style="width: 13.7%">审核日期：</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">{{approveTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" style="width: 13.7%">审核意见：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control fix" id="approveDesc" name="approveDesc" [(ngModel)]="approveDesc" maxlength="1500"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" style="width: 13.7%">审核结果：</label>
+                            <div class="col-sm-10">
+                                <p-radioButton name="status" value="true" label="同意" [(ngModel)]="tempStatus"></p-radioButton>
+                                <p-radioButton name="status" value="false" label="拒绝" [(ngModel)]="tempStatus"></p-radioButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="hiddenRectificationOrder.status == '待确认'">
+                        <div class="form-group col-sm-12">
+                            <label class="col-sm-2 control-label" style="width: 13.7%">确认结果：</label>
+                            <div class="col-sm-10">
+                                <p-radioButton name="status" value="true" label="合格" [(ngModel)]="tempStatus"></p-radioButton>
+                                <p-radioButton name="status" value="false" label="不合格" [(ngModel)]="tempStatus"></p-radioButton>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>检查日期：</label>
-                    <div class="col-sm-4">
-                        <span>{{inspection | date: "yyyy-MM-dd HH:mm"}}</span>
-                    </div>
-                    <label class="col-sm-1" right>检查人：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.examiner}}</span>
-                    </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-5">
+                    <button type="button" class="btn btn-primary" (click)="onSaveNew()">提交</button>
+                    <button type="button" class="btn btn-primary" (click)="return()">返回</button>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>整改期限：</label>
-                    <div class="col-sm-4">
-                        <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
+            </div>
+        </div>
+        <p-dialog header="提示" [(visible)]="displayDialog" modal="modal" height="200" width="300" [responsive]="true">
+            <P>是否提交审核信息？请选择！</P>
+            <p-footer>
+                <button type="button" pButton icon="fa-check" (click)="hiddenRectificationOrder.status == '待审核'?onSave():onSure()" label="是"></button>
+                <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
+            </p-footer>
+        </p-dialog>
+    </div>
+</div>
+<div *ngIf="isDetails">
+    <div class="panel panel-default panel-show">
+        <div class="panel-heading">
+            {{hiddenRectificationOrderTitle}}
+            <button type="button" class="btn back-btn" (click)="return()">返回</button>
+        </div>
+        <div class="panel-body no-padding showDetails">
+            <div class="col-sm-12 form-horizontal ">
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">业户名称：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.enterpirse}}</p>
+                        </div>
                     </div>
-                    <label class="col-sm-1 " right>状态：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.status}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">区域：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.area || '无'}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>检查地点：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.insPosition}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查日期：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{inspection | date: "yyyy-MM-dd HH:mm"}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>检查内容：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.insDesc}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查人：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.examiner}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>存在问题：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.insQuestion}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">整改期限：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{dealine | date: "yyyy-MM-dd HH:mm"}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>整改意见：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.proPosal}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label ">状态：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.status}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>企业反馈：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.replyDesc || '无'}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查地点：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insPosition}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>反馈日期：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.replyDate || '无'}}</span>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">检查内容：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insDesc}}</p>
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <div *ngIf="hiddenRectificationOrder.status == '待审核'">
-                    <div class="form-group">
-                        <label class="col-sm-1" right>审核日期：</label>
-                        <span>{{approveTime | date: 'yyyy-MM-dd HH:mm'}}</span>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">存在问题：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.insQuestion}}</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-1" right>审核意见：</label>
-                        <textarea class="form-control fix" id="approveDesc" name="approveDesc"
-                                  [(ngModel)]="approveDesc"
-                                  maxlength="1500"></textarea>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">整改意见：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.proPosal}}</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-1" right>审核结果：</label>
-                        <p-radioButton name="status" value="true" label="同意"
-                                       [(ngModel)]="tempStatus"></p-radioButton>
-                        <p-radioButton name="status" value="false" label="拒绝"
-                                       [(ngModel)]="tempStatus"></p-radioButton>
+                    <div class="form-group col-sm-12">
+                        <label class="col-sm-2 control-label" style="width: 13.7%">企业反馈：</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{hiddenRectificationOrder.replyDesc || '无'}}</p>
+                        </div>
                     </div>
-                </div>
-                <div *ngIf="hiddenRectificationOrder.status == '待确认'">
-                    <div class="form-group">
-                        <label class="col-sm-1" right>确认结果：</label>
-                        <p-radioButton name="status" value="true" label="合格"
-                                       [(ngModel)]="tempStatus"></p-radioButton>
-                        <p-radioButton name="status" value="false" label="不合格"
-                                       [(ngModel)]="tempStatus"></p-radioButton>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">反馈日期：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.replyDate || '无'}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <button pButton type="button" label="提交" (click)="onSaveNew()"></button>
-                        <button pButton type="button" label="返回" (click)="return()"></button>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p-dataTable [value]="reviewAndApprovalList" [emptyMessage]="'暂无数据'">
+                                    <p-column field="approver" header="审核人">
+                                        <ng-template let-reviewAndApproval="rowData" pTemplate="body">
+                                            <span>{{reviewAndApproval.approver || '无'}}</span>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column field="approveTime" header="审核日期">
+                                        <ng-template let-reviewAndApproval="rowData" pTemplate="body">
+                                            <span>{{reviewAndApproval.approveTime || '无'}}</span>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column field="approveDesc" header="审核内容">
+                                        <ng-template let-reviewAndApproval="rowData" pTemplate="body">
+                                            <span>{{reviewAndApproval.approveDesc || '无'}}</span>
+                                        </ng-template>
+                                    </p-column>
+                                    <p-column field="approvalResult" header="审核结果">
+                                        <ng-template let-reviewAndApproval="rowData" pTemplate="body">
+                                            <span>{{reviewAndApproval.approvalResult? '通过':'拒绝'}}</span>
+                                        </ng-template>
+                                    </p-column>
+                                </p-dataTable>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <p-dialog header="提示" [(visible)]="displayDialog" modal="modal" height="200" width="300" [responsive]="true">
-        <P>是否提交审核信息？请选择！</P>
-        <p-footer>
-            <button type="button" pButton icon="fa-check"
-                    (click)="hiddenRectificationOrder.status == '待审核'?onSave():onSure()" label="是"></button>
-            <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
-        </p-footer>
-    </p-dialog>
 </div>
-<div *ngIf="isDetails">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4><span>{{hiddenRectificationOrderTitle}}</span></h4>
-        </div>
-        <div class="panel-body">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-1" right>业户名称:</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.enterpirse}}</span>
-                    </div>
-                    <label class="col-sm-1" right>区域：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.area || '无'}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>检查日期：</label>
-                    <div class="col-sm-4">
-                        <span>{{inspection | date: "yyyy-MM-dd HH:mm"}}</span>
-                    </div>
-                    <label class="col-sm-1" right>检查人：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.examiner}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>整改期限：</label>
-                    <div class="col-sm-4">
-                        <span>{{dealine | date: "yyyy-MM-dd HH:mm"}}</span>
-                    </div>
-                    <label class="col-sm-1" right>状态：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.status}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>检查地点：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.insPosition}}</span>
-                    </div>
-                    <label class="col-sm-1" right>检查内容：</label>
-                    <div class="col-sm-4">
-                        <span>{{hiddenRectificationOrder.insDesc}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>存在问题：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.insQuestion}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>整改意见：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.proPosal}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>企业反馈：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.replyDesc || '无'}}</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-1" right>反馈日期：</label>
-                    <div class="col-sm-8">
-                        <span>{{hiddenRectificationOrder.replyDate || '无'}}</span>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p-dataTable [value]="reviewAndApprovalList" [emptyMessage]="'暂无数据'">
-                                <p-column field="approver" header="审核人">
-                                    <ng-template let-reviewAndApproval="rowData" pTemplate="body">
-                                        <span>{{reviewAndApproval.approver || '无'}}</span>
-                                    </ng-template>
-                                </p-column>
-                                <p-column field="approveTime" header="审核日期">
-                                    <ng-template let-reviewAndApproval="rowData" pTemplate="body">
-                                        <span>{{reviewAndApproval.approveTime || '无'}}</span>
-                                    </ng-template>
-                                </p-column>
-                                <p-column field="approveDesc" header="审核内容">
-                                    <ng-template let-reviewAndApproval="rowData" pTemplate="body">
-                                        <span>{{reviewAndApproval.approveDesc || '无'}}</span>
-                                    </ng-template>
-                                </p-column>
-                                <p-column field="approvalResult" header="审核结果">
-                                    <ng-template let-reviewAndApproval="rowData" pTemplate="body">
-                                        <span>{{reviewAndApproval.approvalResult? '通过':'拒绝'}}</span>
-                                    </ng-template>
-                                </p-column>
-                            </p-dataTable>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2">
-                        <button pButton class="return" label="返回" type="button" (click)="return()"></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-

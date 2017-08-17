@@ -5,6 +5,8 @@ import {DatePipe} from '@angular/common';
 import {TdLoadingService} from '@covalent/core';
 import {RegularService} from '../../common/shared/regular.service';
 import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
+import {zh} from '../../common/shared/zh';
+
 @Component({
   selector: 'app-hidden-rectification-order',
   templateUrl: './hidden-rectification-order.component.html',
@@ -36,6 +38,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   listStatus: any;
   selectedCompany: any;
   ownerName: string;
+  zh = zh;
   constructor(
      private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -98,7 +101,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.inspection = null;
     this.dealine = null;
     this.clear();
-    this.hiddenRectificationOrderTitle = '新增隐患整改单';
+    this.hiddenRectificationOrderTitle = '新增';
     this.isAdd = true;
     this.edit = true;
   }
@@ -122,7 +125,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
 
   onEdit(hiddenDanger) {
     this.clear();
-    this.hiddenRectificationOrderTitle = '编辑隐患整改单';
+    this.hiddenRectificationOrderTitle = '编辑';
     this.isAdd = false;
     this.edit = true;
     this.preEdit(hiddenDanger.id);
@@ -235,7 +238,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     return true;
   }
   validation() {
-    if (this.selectedCompany.info !== this.ownerName) {
+    if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
     this._toastr.info('请选择正确的企业名称');
     return false;
     }

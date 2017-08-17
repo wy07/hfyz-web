@@ -1,51 +1,59 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="row">
-      <div class="col-md-3 col-sm-3">
-        <div class="input-group">
-          <span class="search-span input-group-addon">标题：</span>
-          <input type="text" class="form-control" placeholder="请输入文档标题..."/>
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">标题：</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" placeholder="请输入文档标题..."/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">起草时间：</label>
+                    <div class="col-sm-8 calendar-group">
+                        <div class="cgl">
+                            <p-calendar [showIcon]="true" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        </div>
+                        <div class="cgm">-</div>
+                        <div class="cgr">
+                            <p-calendar [showIcon]="true" [locale]="zh" styleClass=calendar-span inputStyleClass=calendar></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button pButton label="检索" type="button"></button>
+                <button pButton label="重置" type="button"></button>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6 col-sm-6">
-        <div class="input-group">
-          <span class="search-span input-group-addon">起草时间：</span>
-          <div>
-            <p-calendar></p-calendar>
-            -
-            <p-calendar></p-calendar>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-3">
-          <button pButton label="检索" type="button" ></button>
-          <button pButton label="重置" type="button" ></button>
-      </div>
     </div>
-  </div>
 
-  <div class="panel-body">
+
     <div class="row">
-      <div class="col-md-3">
-        <p-tree [value]="categories"></p-tree>
-      </div>
-      <div class="col-md-9">
-          <p-dataTable [value]="dataSource" [emptyMessage]="'暂无数据'">
-              <p-column field="id" header="序号"></p-column>
-              <p-column field="regular" header="类别"></p-column>
-              <p-column field="regularName" header="标题"></p-column>
-              <p-column field="time" header="起草时间"></p-column>
-              <p-column field="name" header="用户"></p-column>
-              <p-column field="status" header="状态"></p-column>
-              <p-column field="" header="操作" styleClass=operation-buttons-3>
-                  <ng-template  pTemplate="body">
-                      <div role="button" class="fa fa-list-alt fa-font-size div-distance" tooltip="审核" placement="bottom"></div>
-                      <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" tooltip="编辑" placement="bottom"></div>
-                      <div role="button" class="fa fa-times fa-font-size div-distance" tooltip="删除" placement="bottom"></div>
-                  </ng-template>
-              </p-column>
-          </p-dataTable>
-      </div>
+        <div class="col-md-3">
+            <p-tree [value]="categories"></p-tree>
+        </div>
+        <div class="col-md-9">
+            <p-dataTable [value]="dataSource" [emptyMessage]="'暂无数据'">
+                <p-column field="id" header="序号"></p-column>
+                <p-column field="regular" header="类别"></p-column>
+                <p-column field="regularName" header="标题"></p-column>
+                <p-column field="time" header="起草时间"></p-column>
+                <p-column field="name" header="用户"></p-column>
+                <p-column field="status" header="状态"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                    <ng-template pTemplate="body">
+                        <div role="button" class="fa fa-list-alt fa-font-size div-distance" tooltip="审核"
+                             placement="bottom"></div>
+                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" tooltip="编辑"
+                             placement="bottom"></div>
+                        <div role="button" class="fa fa-times fa-font-size div-distance" tooltip="删除"
+                             placement="bottom"></div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
     </div>
-  </div>
 </div>

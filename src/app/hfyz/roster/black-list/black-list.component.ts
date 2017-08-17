@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {BlackListService} from './black-list.service';
-import {ToastsManager} from 'ng2-toastr';
-import {TdLoadingService} from '@covalent/core';
-import {DatePipe} from '@angular/common';
-import {RegularService} from '../../common/shared/regular.service';
+import { CustomDialogService } from './../../common/shared/custom-dialog.service';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { BlackListService } from './black-list.service';
+import { ToastsManager } from 'ng2-toastr';
+import { TdLoadingService } from '@covalent/core';
+import { DatePipe } from '@angular/common';
+import { RegularService } from '../../common/shared/regular.service';
+import { zh } from '../../common/shared/zh'
+import { TdDialogService } from '@covalent/core';
 
 @Component({
     selector: 'app-black-list',
@@ -27,11 +30,13 @@ export class BlackListComponent implements OnInit {
 
     status: any[]; // 布控状态下拉选
 
+    zh = zh;
     constructor(private _blackListService: BlackListService,
-                private _loadingService: TdLoadingService,
-                private _regularService: RegularService,
-                private datePipe: DatePipe,
-                private toastr: ToastsManager) {
+        private _loadingService: TdLoadingService,
+        private _regularService: RegularService,
+        private _customDialogService: CustomDialogService,
+        private datePipe: DatePipe,
+        private toastr: ToastsManager) {
         this.pageFlag = 'LIST';
         this.max = 10;
         this.page = 0;
@@ -45,7 +50,7 @@ export class BlackListComponent implements OnInit {
         this.blackList = {};
         this.detail = {};
 
-        this.status = [{label: '未布控', value: 0}, {label: '布控中', value: 1}, {label: '解除布控', value: 2}]
+        this.status = [{ label: '未布控', value: 0 }, { label: '布控中', value: 1 }, { label: '解除布控', value: 2 }]
     }
 
     ngOnInit() {
@@ -123,18 +128,22 @@ export class BlackListComponent implements OnInit {
      * @param vehicleNo 车牌号
      */
     delete(id, vehicleNo) {
-        if (confirm('确认删除车牌号【' + vehicleNo + '】的黑名单信息吗？')) {
-            this._blackListService.delete(id).subscribe(
-                res => {
-                    if (res.result === 'success') {
-                        this.toastr.success('删除成功！')
-                        this.search()
-                    } else {
-                        this.toastr.success('删除失败！')
+        const msg = '确认删除车牌号【' + vehicleNo + '】的黑名单信息吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._blackListService.delete(id).subscribe(
+                    res => {
+                        if (res.result === 'success') {
+                            this.toastr.success('删除成功！')
+                            this.search()
+                        } else {
+                            this.toastr.success('删除失败！')
+                        }
                     }
-                }
-            )
-        }
+                )
+            }
+        })
     }
 
     /**
