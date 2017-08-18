@@ -5,10 +5,9 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">查岗时间：</label>
                 <div class="col-sm-10">
-                    <p-radioButton name="date" label="日" value="day" [(ngModel)]="date" (click)="clear()"></p-radioButton>
-                    <p-radioButton name="date" label="月" value="month" [(ngModel)]="date" (click)="clear()"></p-radioButton>
-                    <p-radioButton name="date" label="年" value="year" [(ngModel)]="date" (click)="clear()"></p-radioButton>
-
+                    <input type="radio" name="date" value="day" [(ngModel)]="date" (click)="clear()">日&nbsp;
+                    <input type="radio" name="date" value="month" [(ngModel)]="date" (click)="clear()">月&nbsp;
+                    <input type="radio" name="date" value="year" [(ngModel)]="date" (click)="clear()">年
                     <input readonly="true" pInputText placeholder="请选择开始日期..." [(ngModel)]="startDate" (click)="changeStartDate()">                    -
                     <input readonly="true" pInputText placeholder="请选择结束日期..." [(ngModel)]="endDate" (click)="changeEndDate()">
 
