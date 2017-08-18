@@ -155,8 +155,7 @@ export class FreightRouteComponent implements OnInit {
 
     showDetail(id) {
         this._loadingService.register();
-        this._freightRouteService.edit(id).subscribe(res => {
-            console.log('===edit===' + JSON.stringify(res));
+        this._freightRouteService.show(id).subscribe(res => {
             this._loadingService.resolve();
             this.freightRouter = res.freightRouter;
             this.pageFlag = 'DETAIL';
