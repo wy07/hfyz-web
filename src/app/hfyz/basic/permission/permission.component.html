@@ -22,7 +22,7 @@
             </p-column>
         </p-dataTable>
         <p-paginator rows="{{max}}" totalRecords="{{totalPerms}}" (onPageChange)="paginate($event)"
-                     *ngIf="totalPerms>0"></p-paginator>
+                     *ngIf="totalPerms>max"></p-paginator>
     </div>
 </div>
 

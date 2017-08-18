@@ -19,5 +19,5 @@
         </ng-template>
     </p-column>
 </p-dataTable>
-<p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="mapSignList?.length>0"></p-paginator>
+<p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>max"></p-paginator>
 

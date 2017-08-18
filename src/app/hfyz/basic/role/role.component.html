@@ -25,7 +25,7 @@
             </p-column>
         </p-dataTable>
         <p-paginator rows="{{max}}" totalRecords="{{totalRoles}}" (onPageChange)="paginate($event)"
-                     *ngIf="totalRoles>0"></p-paginator>
+                     *ngIf="totalRoles>max"></p-paginator>
     </div>
 </div>
 
