@@ -9,21 +9,21 @@
       </div>
 
       <div class="col-md-9">
-        <p-dataTable  [value]="publishList" [emptyMessage]="'暂无数据'" >
-          <p-column field="title" header="标题"></p-column>
-          <p-column field="dateCreated" header="起草时间"></p-column>
-          <p-column field="username" header="用户"></p-column>
-          <p-column field="status" header="状态"></p-column>
-          <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template  pTemplate="body" let-infoItem="rowData">
-                <div role="button" class="fa fa-list fa-font-size div-distance"
-                     (click)="onDisplay(infoItem)"  tooltip="详情" placement="bottom"></div>
-            </ng-template>
-          </p-column>
-        </p-dataTable>
-
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
-
+          <div class='basic-bottom'>
+            <p-dataTable  [value]="publishList" [emptyMessage]="'暂无数据'" >
+              <p-column field="title" header="标题"></p-column>
+              <p-column field="dateCreated" header="起草时间"></p-column>
+              <p-column field="username" header="用户"></p-column>
+              <p-column field="status" header="状态"></p-column>
+              <p-column field="" header="操作" styleClass=operation-buttons-1>
+                <ng-template  pTemplate="body" let-infoItem="rowData">
+                    <div role="button" class="fa fa-list fa-font-size div-distance"
+                         (click)="onDisplay(infoItem)"  tooltip="详情" placement="bottom"></div>
+                </ng-template>
+              </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+          </div>
       </div>
     </div>
   </div>
