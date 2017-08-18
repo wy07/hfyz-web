@@ -1,5 +1,5 @@
 <div class="panel panel-default" *ngIf="isDetails==false">
-<p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
+  <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
     <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
     <p-column field="alarmType" header="报警类型"></p-column>
     <p-column field="alarmLevel" header="报警等级"></p-column>
@@ -43,123 +43,149 @@
     </p-column>
     <p-column field="status" header="工单状态"></p-column>
     <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template let-workOrder="rowData" pTemplate="body">
-                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(workOrder.id)" tooltip="详情" placement="bottom"></div>
-            </ng-template>
+      <ng-template let-workOrder="rowData" pTemplate="body">
+        <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(workOrder.id)" tooltip="详情" placement="bottom"></div>
+      </ng-template>
     </p-column>
   </p-dataTable>
-  <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="workOrderList?.length>0"></p-paginator>
+  <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="workOrderList?.length>0"></p-paginator>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="isDetails==true">
-    <div class="panel-heading">
-        {{workOrderTitle}}
-        <button type="button" class="btn back-btn" (click)="return()">返回</button>
-    </div>
-    <div class="panel-body no-padding showDetails">
-            <div class="col-sm-12 form-horizontal">
-                <div class="row">
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">业户编号：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.sn}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">报警类型：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.alarmType}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">报警等级：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.alarmLevel}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">业户编码：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.companyCode}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">经营负责人：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.operateManager}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">电话：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.phone}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">车架号：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.frameNo || '无'}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">从业人员身份证ID：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.userID || '无'}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">执行角色名称：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.todoRole || '无'}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">创建日期：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.dateCreated}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">检查日期：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.checkTime}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">整改时间：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.rectificationTime}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">工单状态：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.status}}</p>
-                        </div>
-                    </div>
-    
-                    <div class="form-group col-sm-4">
-                        <label class="col-sm-5 control-label">备注：</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-static">{{workOrder.note}}</p>
-                        </div>
-                    </div>
-    
-                </div>
-            </div>
+  <div class="panel-heading">
+    {{workOrderTitle}}
+    <button type="button" class="btn back-btn" (click)="return()">返回</button>
+  </div>
+  <div class="panel-body no-padding showDetails">
+    <div class="col-sm-12 form-horizontal">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">工单编号：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.sn}}</p>
+          </div>
         </div>
-  
-</div>
 
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">工单状态：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.status}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4" *ngIf="workOrder?.parent?.sn">
+          <label class="col-sm-5 control-label">上级工单：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder?.parent?.sn}}</p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">报警类型：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.alarmType}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">报警等级：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.alarmLevel}}</p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">业户名称：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.ownerName}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">经营负责人：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.operateManager}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">电话：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.phone}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">车架号：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.frameNo || '无'}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">从业人员身份证号：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.userID || '无'}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">创建日期：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.dateCreated}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">检查日期：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.checkTime}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">整改时间：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.rectificationTime}}</p>
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label class="col-sm-5 control-label">整改意见：</label>
+          <div class="col-sm-7">
+            <p class="form-control-static">{{workOrder.note}}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-12" *ngIf="workOrderRecords.length > 0">
+      <hr/>
+      <h4>操作记录</h4>
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th>操作人</th>
+            <th>动作</th>
+            <th>操作时间</th>
+            <th>状态</th>
+            <th>意见/反馈</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of workOrderRecords">
+            <td>{{item.user}}</td>
+            <td>{{item.operate}}</td>
+            <td>{{item.dateCreated}}</td>
+            <td>{{item.workOrderStatus}}</td>
+            <td>{{item.note}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

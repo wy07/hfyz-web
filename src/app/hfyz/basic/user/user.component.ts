@@ -81,7 +81,7 @@ export class UserComponent implements OnInit {
     onEdit(user) {
         this.action = 'update';
         this.isAdd = false;
-        this.formTitle = '编辑' + user.name;
+        this.formTitle = '编辑';
 
         this._userService.edit(user.id).subscribe(
             res => {

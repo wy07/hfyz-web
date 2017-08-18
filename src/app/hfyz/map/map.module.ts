@@ -1,5 +1,5 @@
 import { CustomDirectiveModule } from './../common/custom-directive.module';
-import {DatePipe} from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import {MapTabsBarComponent} from './shared/map-tab-bar/map-tabs-bar.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
@@ -28,7 +28,8 @@ import {TabsModule, AccordionModule} from 'ngx-bootstrap';
         DropdownModule,
         MultiSelectModule,
         ListboxModule,
-        CustomDirectiveModule
+        CustomDirectiveModule,
+        CommonModule
     ],
     exports: [],
     providers: [

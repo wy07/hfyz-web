@@ -110,7 +110,7 @@ export class PeopleListComponent implements OnInit {
      */
     moreInfo(people) {
         this.pageFlag = false;
-        this.pageTitle = people.name + '的详情信息';
+        this.pageTitle = '详情';
         this._peopleService.moreInfo(people.IDCardNo).subscribe(
             res => {
                 this.checkMember = res.checkMember;

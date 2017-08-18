@@ -35,4 +35,22 @@ export class MapService {
         }
         return points
     }
+
+    getHistoryAlarmData(plateNo) {
+        const alarms = [];
+        const num = 10;
+        let dateTime = new Date().getTime();
+        for (let i = 0; i < num; i++) {
+            dateTime = i === 0 ? dateTime : (dateTime + 30 * 1000);
+            const date = this.datePipe.transform(new Date(dateTime), 'yyyy-MM-dd HH:mm:ss');
+            const alarm = {
+                dateStr: date,
+                alarmType: '车辆超速',
+                alarmLevel: '一般告警',
+                plateNo: plateNo
+            }
+            alarms.push(alarm);
+        }
+        return alarms
+    }
 };

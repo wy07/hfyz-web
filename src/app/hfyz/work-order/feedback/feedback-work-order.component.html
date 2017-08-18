@@ -30,111 +30,140 @@
     </p-dataTable>
     <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>0"></p-paginator>
 </div>
+
 <div class="row" *ngIf="action==='feedback'">
     <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">审批工单</div>
+        <div class="panel panel-default panel-show">
+            <div class="panel-heading">
+                反馈
+                <button type="button" class="btn back-btn" (click)="action='list'">返回</button>
+            </div>
             <div class="panel-body">
                 <div class="col-sm-12 form-horizontal">
                     <h4>工单详情</h4>
-                    <div class="row">
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">工单编号</label>
-                            <div class="col-sm-9">
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">工单编号：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.sn}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder?.parent?.sn">
-                            <label class="col-sm-3 control-label">上级工单</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4" *ngIf="workOrder?.parent?.sn">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">上级工单：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder?.parent?.sn}}</p>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">报警类型</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">报警类型：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.alarmType}}</p>
                             </div>
                         </div>
-                        <div class="form-group  col-sm-4">
-                            <label class="col-sm-3 control-label">报警等级</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group  col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">报警等级：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.alarmLevel}}</p>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">业户名称</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-4">
+                        <div class="row"><label class="col-sm-5 control-label">业户名称：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.ownerName}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">经营负责人</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">经营负责人：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.operateManager}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">电话</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">电话：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.phone}}</p>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder.frameNo">
-                            <label class="col-sm-3 control-label">车架号</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-4" *ngIf="workOrder.frameNo">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">车架号：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.frameNo}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4" *ngIf="workOrder.userID">
-                            <label class="col-sm-3 control-label">从业人员身份证号</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4" *ngIf="workOrder.userID">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">从业人员身份证号：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.userID}}</p>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">创建时间</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">创建时间：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.dateCreated}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">检查时间</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">检查时间：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.checkTime}}</p>
                             </div>
                         </div>
-                        <div class="form-group col-sm-4">
-                            <label class="col-sm-3 control-label">整改时间</label>
-                            <div class="col-sm-9">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <div class="row">
+                            <label class="col-sm-5 control-label">整改时间：</label>
+                            <div class="col-sm-7">
                                 <p class="form-control-static">{{workOrder.rectificationTime}}</p>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-sm-12">
-                            <label class="col-sm-1 control-label">整改意见</label>
-                            <div class="col-sm-11">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-sm-10">
+                        <div class="row">
+                            <label class="col-sm-2 control-label">整改意见：</label>
+                            <div class="col-sm-10">
                                 <p class="form-control-static">{{workOrder.note}}</p>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
                 <div class="col-sm-12 form-horizontal">
                     <h4>反馈</h4>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">反馈</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="6" maxlength="600" [(ngModel)]="note"></textarea>
+                    <div class="form-group col-sm-10">
+                        <div class="row">
+                            <label class="col-sm-2 control-label">反馈：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="6" maxlength="600" [(ngModel)]="note"></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-9">
+                        <div class="col-sm-offset-5 col-sm-5">
                             <button type="button" class="btn btn-default" (click)="submitFeedback(true)">提交</button>
                             <button type="button" class="btn btn-default" (click)="action='list'">取消</button>
                         </div>

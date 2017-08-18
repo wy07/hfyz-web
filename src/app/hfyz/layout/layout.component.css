@@ -49,7 +49,7 @@ ul.nav li.hoverdown a {
 }
 
 .hoverdown-menu{
-    width:150px;
+    width:100px;
 }
 ul.nav li.hoverdown:hover {
     background-color: white;
