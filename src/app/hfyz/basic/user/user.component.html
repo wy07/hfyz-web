@@ -5,27 +5,29 @@
                     (click)="onCreate()"></button>
         </div>
 
-        <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
-            <p-column field="name" header="姓名"></p-column>
-            <p-column field="username" header="账号"></p-column>
-            <p-column field="dateCreated" header="创建时间"></p-column>
-            <p-column field="org" header="组织"></p-column>
-            <p-column field="roles" header="角色"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-3>
-                <ng-template let-user="rowData" pTemplate="body">
-                    <div *ngIf="user.username!='admin'">
-                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                             (click)="onEdit(user)" tooltip="编辑" placement="bottom"></div>
-                        <div role="button" class="fa fa-times fa-font-size div-distance"
-                             (click)="onDelete(user)" tooltip="删除" placement="bottom"></div>
-                        <div role="button" class="fa fa-key fa-font-size div-distance"
-                             (click)="onResetPassword(user)" tooltip="重置密码" placement="bottom"></div>
-                    </div>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{totalUsers}}" (onPageChange)="paginate($event)"
+        <div class='basic-bottom'>
+            <p-dataTable [value]="userList" [emptyMessage]="'暂无数据'">
+                <p-column field="name" header="姓名"></p-column>
+                <p-column field="username" header="账号"></p-column>
+                <p-column field="dateCreated" header="创建时间"></p-column>
+                <p-column field="org" header="组织"></p-column>
+                <p-column field="roles" header="角色"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                    <ng-template let-user="rowData" pTemplate="body">
+                        <div *ngIf="user.username!='admin'">
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 (click)="onEdit(user)" tooltip="编辑" placement="bottom"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 (click)="onDelete(user)" tooltip="删除" placement="bottom"></div>
+                            <div role="button" class="fa fa-key fa-font-size div-distance"
+                                 (click)="onResetPassword(user)" tooltip="重置密码" placement="bottom"></div>
+                        </div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{totalUsers}}" (onPageChange)="paginate($event)"
                      *ngIf="totalUsers>0"></p-paginator>
+        </div>
     </div>
 </div>
 

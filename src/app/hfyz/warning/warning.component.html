@@ -23,23 +23,25 @@
             </div>
         </div>
     </div>
-    <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
-        <p-column field="frameNo" header="车架号"></p-column>
-        <p-column field="carLicenseNo" header="车牌号">
-            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
-            </ng-template>
-        </p-column>
-        <p-column field="carColor" header="车辆颜色"></p-column>
-        <p-column field="warningSource" header="报警信息来源"></p-column>
-        <p-column field="warningType" header="报警类型"></p-column>
-        <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template let-a="rowData" pTemplate="body">
-                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onView(a)" tooltip="详情" placement="bottom"></div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
+            <p-column field="frameNo" header="车架号"></p-column>
+            <p-column field="carLicenseNo" header="车牌号">
+                <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                    <a (click)="showRealTimeMap(car)" href="javascript:;">{{car[col.field]}}</a>
+                </ng-template>
+            </p-column>
+            <p-column field="carColor" header="车辆颜色"></p-column>
+            <p-column field="warningSource" header="报警信息来源"></p-column>
+            <p-column field="warningType" header="报警类型"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-1>
+                <ng-template let-a="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onView(a)" tooltip="详情" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="displayDialog">

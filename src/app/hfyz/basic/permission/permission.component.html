@@ -4,25 +4,26 @@
             <button pButton type="button" label="新增"
                     (click)="onCreate()"></button>
         </div>
-
-        <p-dataTable [value]="permList" [emptyMessage]="'暂无数据'">
-            <p-column field="name" header="名称"></p-column>
-            <p-column field="code" header="编码"></p-column>
-            <p-column field="category" header="权限分组"></p-column>
-            <p-column field="configAttribute" header="配置属性"></p-column>
-            <p-column field="httpMethod" header="HTTP方法"></p-column>
-            <p-column field="url" header="URL"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-2>
-                <ng-template let-perm="rowData" pTemplate="body">
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                         (click)="onEdit(perm)" tooltip="编辑" placement="bottom"></div>
-                    <div role="button" class="fa fa-times fa-font-size div-distance"
-                         (click)="onDelete(perm)" tooltip="删除" placement="bottom"></div>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{totalPerms}}" (onPageChange)="paginate($event)"
-                     *ngIf="totalPerms>0"></p-paginator>
+        <div class='basic-bottom'>
+            <p-dataTable [value]="permList" [emptyMessage]="'暂无数据'">
+                <p-column field="name" header="名称"></p-column>
+                <p-column field="code" header="编码"></p-column>
+                <p-column field="category" header="权限分组"></p-column>
+                <p-column field="configAttribute" header="配置属性"></p-column>
+                <p-column field="httpMethod" header="HTTP方法"></p-column>
+                <p-column field="url" header="URL"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-2>
+                    <ng-template let-perm="rowData" pTemplate="body">
+                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                             (click)="onEdit(perm)" tooltip="编辑" placement="bottom"></div>
+                        <div role="button" class="fa fa-times fa-font-size div-distance"
+                             (click)="onDelete(perm)" tooltip="删除" placement="bottom"></div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{totalPerms}}" (onPageChange)="paginate($event)"
+                         *ngIf="totalPerms>0"></p-paginator>
+        </div>
     </div>
 </div>
 

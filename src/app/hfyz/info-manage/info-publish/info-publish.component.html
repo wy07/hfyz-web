@@ -40,23 +40,25 @@
                 <button pButton type="button" label="新增"
                         (click)="onCreate()"></button>
             </div>
-            <p-dataTable [value]="publishList" [emptyMessage]="'暂无数据'">
-                <!-- <p-column field="" header="序号"></p-column>-->
-                <p-column field="type" header="类别"></p-column>
-                <p-column field="title" header="标题"></p-column>
-                <p-column field="dateCreated" header="起草时间"></p-column>
-                <p-column field="username" header="用户"></p-column>
-                <p-column field="status" header="状态"></p-column>
-                <p-column field="" header="操作" styleClass=operation-buttons-2>
-                    <ng-template pTemplate="body" let-infoItem="rowData">
-                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                             (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>
-                        <div role="button" class="fa fa-times fa-font-size div-distance"
-                             (click)="onDelete(infoItem)" tooltip="删除" placement="bottom"></div>
-                    </ng-template>
-                </p-column>
-            </p-dataTable>
-            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+            <div class='basic-bottom'>
+                <p-dataTable [value]="publishList" [emptyMessage]="'暂无数据'">
+                    <!-- <p-column field="" header="序号"></p-column>-->
+                    <p-column field="type" header="类别"></p-column>
+                    <p-column field="title" header="标题"></p-column>
+                    <p-column field="dateCreated" header="起草时间"></p-column>
+                    <p-column field="username" header="用户"></p-column>
+                    <p-column field="status" header="状态"></p-column>
+                    <p-column field="" header="操作" styleClass=operation-buttons-2>
+                        <ng-template pTemplate="body" let-infoItem="rowData">
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 (click)="onEdit(infoItem)" tooltip="编辑" placement="bottom"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 (click)="onDelete(infoItem)" tooltip="删除" placement="bottom"></div>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
         </div>
     </div>
 </div>

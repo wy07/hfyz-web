@@ -25,6 +25,7 @@ import { TooltipModule } from 'ngx-bootstrap';
         WuCitySelectModule,
         DialogModule,
         TooltipModule,
+        DropdownModule,
         CustomDirectiveModule
     ],
     declarations: [

@@ -1,16 +1,18 @@
 <div *ngIf="displayDialog == false">
-    <p-dataTable [value]="configureList" [emptyMessage]="'暂无数据'">
-        <p-column field="name" header="名称"></p-column>
-        <p-column field="configValue" header="值"></p-column>
-        <p-column field="note" header="备注"></p-column>
-        <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template let-configure="rowData" pTemplate="body">
-                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                     (click)="onEdit(configure.id)" tooltip="编辑" placement="bottom"></div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [value]="configureList" [emptyMessage]="'暂无数据'">
+            <p-column field="name" header="名称"></p-column>
+            <p-column field="configValue" header="值"></p-column>
+            <p-column field="note" header="备注"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-1>
+                <ng-template let-configure="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                         (click)="onEdit(configure.id)" tooltip="编辑" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="displayDialog==true">

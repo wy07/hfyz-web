@@ -4,28 +4,30 @@
             <button [hasPermission]="'organization_manage'" pButton type="button" label="新增"
                     (click)="onCreate()"></button>
         </div>
-        <p-dataTable [value]="roleList" [emptyMessage]="'暂无数据'">
-            <p-column field="name" header="名称"></p-column>
-            <p-column field="authority" header="编码"></p-column>
-            <p-column field="org" header="所属部门"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-3>
-                <ng-template let-role="rowData" pTemplate="body">
-                    <div *ngIf="role.authority!='ROLE_ROOT'">
-                        <div role="button" class="fa fa-user-o fa-font-size div-distance"
-                             [hasPermission]="'organization_manage'"
-                             (click)="onAssign(role.id)" tooltip="权限分配" placement="bottom"></div>
-                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                             [hasPermission]="'organization_manage'"
-                             (click)="onEdit(role)" tooltip="编辑" placement="bottom"></div>
-                        <div role="button" class="fa fa-times fa-font-size div-distance"
-                             [hasPermission]="'organization_manage'"
-                             (click)="onDelete(role)" tooltip="删除" placement="bottom"></div>
-                    </div>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{totalRoles}}" (onPageChange)="paginate($event)"
+        <div class='basic-bottom'>
+            <p-dataTable [value]="roleList" [emptyMessage]="'暂无数据'">
+                <p-column field="name" header="名称"></p-column>
+                <p-column field="authority" header="编码"></p-column>
+                <p-column field="org" header="所属部门"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                    <ng-template let-role="rowData" pTemplate="body">
+                        <div *ngIf="role.authority!='ROLE_ROOT'">
+                            <div role="button" class="fa fa-user-o fa-font-size div-distance"
+                                 [hasPermission]="'organization_manage'"
+                                 (click)="onAssign(role.id)" tooltip="权限分配" placement="bottom"></div>
+                            <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
+                                 [hasPermission]="'organization_manage'"
+                                 (click)="onEdit(role)" tooltip="编辑" placement="bottom"></div>
+                            <div role="button" class="fa fa-times fa-font-size div-distance"
+                                 [hasPermission]="'organization_manage'"
+                                 (click)="onDelete(role)" tooltip="删除" placement="bottom"></div>
+                        </div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+            <p-paginator rows="{{max}}" totalRecords="{{totalRoles}}" (onPageChange)="paginate($event)"
                      *ngIf="totalRoles>0"></p-paginator>
+        </div>
     </div>
 </div>
 
