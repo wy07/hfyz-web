@@ -19,6 +19,10 @@ export class FreightRouteService {
     return this.restangular.one('freight-routers', id).customDELETE('delete', {});
   }
 
+  show(id) {
+    return this.restangular.one('freight-routers', id).customGET('show');
+  }
+
   edit(id) {
     return this.restangular.one('freight-routers', id).customGET('edit');
   }
