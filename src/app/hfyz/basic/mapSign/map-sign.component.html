@@ -1,23 +1,24 @@
-<p-dataTable [value]="mapSignList"  [emptyMessage]="'暂无数据'">
-    <p-column field="name" header="路标名称"></p-column>
-    <p-column field="mapSignType" header="路标类型"></p-column>
-    <p-column field="longitude" header="经度"></p-column>
-    <p-column field="latitude" header="纬度"></p-column>
-    <p-column field="display" header="是否显示">
-        <ng-template let-mapSign="rowData" pTemplate="body">
-            <span>{{mapSign.display? '显示':'隐藏'}}</span>
-        </ng-template>
-    </p-column>
-    <p-column field="" header="操作" styleClass=operation-buttons-3>
-        <ng-template let-mapSign="rowData"  pTemplate="body">
-            <div role="button" class="fa fa-times fa-font-size div-distance"
-                 (click)="delete(mapSign)" tooltip="删除" placement="bottom"></div>
-            <div *ngIf="!mapSign.display" role="button" class="fa fa-eye fa-font-size div-distance"
-                 (click)="changeDisplay(mapSign)" tooltip="显示" placement="bottom"></div>
-            <div *ngIf="mapSign.display" role="button" class="fa fa-eye-slash fa-font-size div-distance"
-                 (click)="changeDisplay(mapSign)" tooltip="隐藏" placement="bottom"></div>
-        </ng-template>
-    </p-column>
-</p-dataTable>
-<p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>max"></p-paginator>
-
+<div class='basic-bottom'>
+    <p-dataTable [value]="mapSignList"  [emptyMessage]="'暂无数据'">
+        <p-column field="name" header="路标名称"></p-column>
+        <p-column field="mapSignType" header="路标类型"></p-column>
+        <p-column field="longitude" header="经度"></p-column>
+        <p-column field="latitude" header="纬度"></p-column>
+        <p-column field="display" header="是否显示">
+            <ng-template let-mapSign="rowData" pTemplate="body">
+                <span>{{mapSign.display? '显示':'隐藏'}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-3>
+            <ng-template let-mapSign="rowData"  pTemplate="body">
+                <div role="button" class="fa fa-times fa-font-size div-distance"
+                     (click)="delete(mapSign)" tooltip="删除" placement="bottom"></div>
+                <div *ngIf="!mapSign.display" role="button" class="fa fa-eye fa-font-size div-distance"
+                     (click)="changeDisplay(mapSign)" tooltip="显示" placement="bottom"></div>
+                <div *ngIf="mapSign.display" role="button" class="fa fa-eye-slash fa-font-size div-distance"
+                     (click)="changeDisplay(mapSign)" tooltip="隐藏" placement="bottom"></div>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <p-paginator  rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>max"></p-paginator>
+</div>

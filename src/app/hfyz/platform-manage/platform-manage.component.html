@@ -28,22 +28,23 @@
     <div class="top-buttons">
         <button pButton type="button" label="新增" (click)="onCreat()"></button>
     </div>
-
-    <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
-        <p-column field="ip" header="平台IP地址"></p-column>
-        <p-column field="port" header="端口号"></p-column>
-        <p-column field="name" header="平台名称"></p-column>
-        <p-column field="code" header="平台代码"></p-column>
-        <p-column field="contactName" header="平台联系人"></p-column>
-        <p-column field="" header="操作" styleClass=operation-buttons-3>
-            <ng-template let-palrform="rowData" pTemplate="body">
-                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
-                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onShow(palrform.id)" tooltip="详情" placement="bottom"></div>
-                <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
+            <p-column field="ip" header="平台IP地址"></p-column>
+            <p-column field="port" header="端口号"></p-column>
+            <p-column field="name" header="平台名称"></p-column>
+            <p-column field="code" header="平台代码"></p-column>
+            <p-column field="contactName" header="平台联系人"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
+                <ng-template let-palrform="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onShow(palrform.id)" tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
 </div>
 
 <div class="row" *ngIf="action==='update'">
