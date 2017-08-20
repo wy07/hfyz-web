@@ -35,8 +35,8 @@
             </div>
 
             <div class="col-sm-2 col-sm-offset-1">
-                <button type="button" class="btn btn-primary" (click)="initData()">检索</button>
-                <button type="button" class="btn btn-primary" (click)="cancel()">重置</button>
+                <button type="button" class="btn btn-primary" (click)="onSearch()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="onReset()">重置</button>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <button pButton type="button" label="新增" (click)="onCreat()"></button>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="hiddenRectificationOrderList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="billNo" header="单据编号"></p-column>
             <p-column field="enterpirse" header="业户名称"></p-column>
             <p-column field="examiner" header="检查人"></p-column>
@@ -64,7 +64,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 
@@ -173,7 +172,7 @@
     <div class="panel panel-default panel-show">
         <div class="panel-heading">
             {{hiddenRectificationOrderTitle}}
-            <button type="button" class="btn back-btn" (click)="return()">返回</button>
+            <button type="button" class="btn btn-primary back-btn" (click)="return()">返回</button>
         </div>
         <div class="panel-body no-padding showDetails">
             <div class="col-sm-12 form-horizontal ">

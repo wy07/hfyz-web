@@ -10,14 +10,14 @@
             </div>
         </div>
         <div class="col-sm-5 col-sm-offset-1">
-            <button pButton label="检索" type="button" (click)="initData()"></button>
-            <button pButton label="重置" type="button" (click)="cancel()"></button>
+            <button pButton label="检索" type="button" (click)="onSearch()"></button>
+            <button pButton label="重置" type="button" (click)="onReset()"></button>
         </div>
     </div>
 </div>
 
 
-<p-dataTable [value]="travelStatisticList" [emptyMessage]="'暂无数据'">
+<p-dataTable [value]="travelStatisticList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst" >
     <p-column field="ownerName" header="业户名称"></p-column>
     <p-column field="online" header="在线旅游包车">
         <ng-template let-col let-travel="rowData" let-ri="rowIndex" pTemplate="body">
@@ -39,5 +39,4 @@
             <a (click)="showWarning(travel)" href="javascript:;">{{travel[col.field]}}</a>
         </ng-template>
     </p-column>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </p-dataTable>

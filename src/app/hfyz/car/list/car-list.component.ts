@@ -15,9 +15,10 @@ import { zh } from '../../common/shared/zh';
 })
 
 export class CarListComponent implements OnInit {
-    max: number;
-    currentPage: number;
-    totalCars: number;
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     cars: any[];
     businessTypes: any[];
@@ -36,9 +37,10 @@ export class CarListComponent implements OnInit {
         , private datePipe: DatePipe
         , private radio: NgRadio
         , private inj: Injector) {
-        this.max = 10;
-        this.currentPage = 0;
-        this.totalCars = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.cars = [];
         this.licenseNo = '';
         this.dateBegin = null;
@@ -55,6 +57,8 @@ export class CarListComponent implements OnInit {
 
     search() {
         if (this.validate()) {
+            this.pageFirst = 0;
+            this.pageOffset = 0;
             this.loadData();
         }
     }
@@ -63,9 +67,11 @@ export class CarListComponent implements OnInit {
         this.licenseNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData();
     }
-    loadData(offset = 0) {
+    loadData() {
         // if(this.regularService.isBlank(this.businessType)){
         //   this.toastr.error('请选择行业类别');
         //   return false;
@@ -73,19 +79,19 @@ export class CarListComponent implements OnInit {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register();
-        this.carService.search(begin, end, this.businessType, this.licenseNo, this.max, offset).subscribe(
+        this.carService.search(begin, end, this.businessType, this.licenseNo, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.cars = res.carList;
-                this.totalCars = res.carCount;
+                this.pageTotal = res.carCount;
+                this.pageOffset = this.pageFirst;
             }
         );
     }
 
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 

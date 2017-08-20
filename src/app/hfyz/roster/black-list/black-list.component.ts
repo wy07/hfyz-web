@@ -14,9 +14,10 @@ import { TdDialogService } from '@covalent/core';
     styleUrls: ['./black-list.component.css']
 })
 export class BlackListComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     vehicleNo: string; // 车辆号牌
     dateBegin: Date; // 开始时间
@@ -38,9 +39,11 @@ export class BlackListComponent implements OnInit {
         private datePipe: DatePipe,
         private toastr: ToastsManager) {
         this.pageFlag = 'LIST';
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
 
         this.vehicleNo = '';
         this.dateBegin = null;
@@ -59,18 +62,18 @@ export class BlackListComponent implements OnInit {
 
     /**
      * 加载表格数据
-     * @param {number} offset
      */
-    loadData(offset = 0) {
+    loadData() {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register()
-        this._blackListService.search(this.vehicleNo, begin, end, this.max, offset).subscribe(
+        this._blackListService.search(this.vehicleNo, begin, end, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve()
                 if (res.result === 'success') {
-                    this.blackLists = res.resultList
-                    this.total = res.total
+                    this.blackLists = res.resultList;
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -83,9 +86,8 @@ export class BlackListComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
@@ -93,7 +95,9 @@ export class BlackListComponent implements OnInit {
      * 搜索
      */
     search() {
-        this.loadData()
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.loadData();
     }
 
     /**
@@ -103,6 +107,8 @@ export class BlackListComponent implements OnInit {
         this.vehicleNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData();
     }
 

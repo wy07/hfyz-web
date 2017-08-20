@@ -1,24 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {DatePipe} from '@angular/common';
-import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
-import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
-import {zh} from '../../common/shared/zh';
+import { DatePipe } from '@angular/common';
+import { TdLoadingService } from '@covalent/core';
+import { RegularService } from '../../common/shared/regular.service';
+import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
+import { zh } from '../../common/shared/zh';
 @Component({
   selector: 'app-order-examine',
   templateUrl: './order-examine.component.html',
   styleUrls: ['./order-examine.component.css']
 })
 export class OrderExamineComponent implements OnInit {
+  pageMax: number;
+  pageTotal: number;
+  pageFirst: number;
+  pageOffset: number;
+
   hiddenRectificationOrderList: any;
   hiddenRectificationOrder: any;
   edit: boolean;
   hiddenRectificationOrderTitle: string;
-  max: number;
-  total: number;
-  currentPage: number;
   inspection: Date;
   dealine: Date;
   company: string;
@@ -39,16 +41,20 @@ export class OrderExamineComponent implements OnInit {
   listStatus: any;
   zh = zh;
   constructor(
-     private _toastr: ToastsManager
+    private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
-    ) {
+  ) {
+    this.pageMax = 10;
+    this.pageTotal = 0;
+    this.pageFirst = 0;
+    this.pageOffset = 0;
+
     this.edit = false;
     this.hiddenRectificationOrder = {};
     this.clear();
-    this.max = 10;
     this.company = '';
     this.startDate = '';
     this.endDate = '';
@@ -58,14 +64,14 @@ export class OrderExamineComponent implements OnInit {
     this.disabled = false;
     this.approveTime = new Date();
     this.statusList = [{ label: '全部', value: '' }, { label: '待审核', value: '1' },
-      { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
+    { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
   }
 
   ngOnInit() {
     this.initData();
   }
 
-  initData(offset = 0) {
+  initData() {
     if (!this.validation_search()) {
       return false;
     }
@@ -78,19 +84,19 @@ export class OrderExamineComponent implements OnInit {
       ed = this._datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed, 'SH', this.listStatus).subscribe(
+    this._hiddenRectificationOrderService.list(this.pageMax, this.pageFirst, this.company, sd, ed, 'SH', this.listStatus).subscribe(
       res => {
         this._loadingService.resolve();
         this.hiddenRectificationOrderList = res.hiddenRectificationOrderList;
-        this.total = res.total;
+        this.pageTotal = res.total;
+        this.pageOffset = this.pageFirst;
       }
     );
   }
 
   paginate(event) {
-    if (this.currentPage !== event.page) {
-      this.currentPage = event.page;
-      this.initData(this.max * event.page);
+    if (this.pageOffset !== event.first) {
+      this.initData();
     }
   }
 
@@ -99,14 +105,14 @@ export class OrderExamineComponent implements OnInit {
       const time = this._datePipe.transform(this.approveTime, 'yyyy-MM-dd HH:mm');
       this._loadingService.register();
       this._hiddenRectificationOrderService.saveApproval(this.hiddenRectificationOrder.id, time,
-      this.approveDesc, this.tempStatus).subscribe(
+        this.approveDesc, this.tempStatus).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('提交成功');
           this.initData();
           this.edit = false;
         }
-      );
+        );
     }
     this.displayDialog = false;
   }
@@ -193,11 +199,19 @@ export class OrderExamineComponent implements OnInit {
     this.approveTime = new Date();
   }
 
-  cancel() {
+  onSearch() {
+    this.pageFirst = 0;
+    this.pageOffset = 0;
+    this.initData();
+  }
+
+  onReset() {
     this.company = '';
     this.startDate = null;
     this.endDate = null;
     this.listStatus = '';
+    this.pageFirst = 0;
+    this.pageOffset = 0;
     this.initData();
   }
 

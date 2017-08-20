@@ -18,13 +18,13 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <button type="button" class="btn btn-primary" (click)="initData()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="onSearch()">检索</button>
                 <button type="button" class="btn btn-primary" (click)="onReset()">重置</button>
             </div>
         </div>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="warningList"  [lazy]="true" [emptyMessage]="'暂无数据'" [rows]="max" [totalRecords]="total"  [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="first">
             <p-column field="frameNo" header="车架号"></p-column>
             <p-column field="carLicenseNo" header="车牌号">
                 <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
@@ -40,7 +40,7 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+        <!-- <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>max" [(first)]="first"></p-paginator> -->
     </div>
 </div>
 

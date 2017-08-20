@@ -26,8 +26,8 @@
             </div>
         </div>
         <div class="col-sm-2">
-            <button type="submit" pButton label="检索" (click)="initData()"></button>
-            <button type="submit" pButton label="重置" (click)="cancel()"></button>
+            <button type="submit" pButton label="检索" (click)="onSearch()"></button>
+            <button type="submit" pButton label="重置" (click)="onReset()"></button>
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
 </div>
 
 <div class='basic-bottom'>
-    <p-dataTable [value]="checkRecordList" [emptyMessage]="'暂无数据'">
+    <p-dataTable [value]="checkRecordList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst" >
         <p-column field="companyCode" header="企业编码"></p-column>
         <p-column field="dateCreated" header="查岗时间"></p-column>
         <p-column field="question" header="查岗内容"></p-column>
@@ -72,7 +72,6 @@
             </ng-template>
         </p-column>
     </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="checkRecordList?.length>0"></p-paginator>
 </div>
 
 <p-dialog header="查岗" [(visible)]="inspectDisplay" modal="modal" width="600" [responsive]="true">

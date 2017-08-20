@@ -4,7 +4,7 @@
     </div>
     <div class="panel panel-default">
         <div class='basic-bottom'>
-            <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
+            <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
                 <p-column field="routerName" header="线路名称"></p-column>
                 <p-column field="provenance" header="始发地名称"></p-column>
                 <p-column field="destination" header="目的地名称"></p-column>
@@ -19,7 +19,6 @@
                     </ng-template>
                 </p-column>
             </p-dataTable>
-            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
         </div>
     </div>
 </div>

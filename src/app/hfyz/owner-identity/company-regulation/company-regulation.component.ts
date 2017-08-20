@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {TdLoadingService} from '@covalent/core';
-import {ToastsManager} from 'ng2-toastr';
-import {CompanyRegulationService} from './company-regulation.service';
-import {DatePipe} from '@angular/common';
-import {zh} from '../../common/shared/zh';
+import { Component, OnInit } from '@angular/core';
+import { TdLoadingService } from '@covalent/core';
+import { ToastsManager } from 'ng2-toastr';
+import { CompanyRegulationService } from './company-regulation.service';
+import { DatePipe } from '@angular/common';
+import { zh } from '../../common/shared/zh';
 
 @Component({
     selector: 'app-company-regulation',
@@ -11,9 +11,10 @@ import {zh} from '../../common/shared/zh';
     styleUrls: ['./company-regulation.component.css']
 })
 export class CompanyRegulationComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     ownerName: string; // 搜索条件-业户名称
     dateBegin: Date; // 搜索条件-起始时间
@@ -22,12 +23,14 @@ export class CompanyRegulationComponent implements OnInit {
     regulationList: any[];
     zh = zh;
     constructor(private _regulationService: CompanyRegulationService,
-                private _loadingService: TdLoadingService,
-                private toastr: ToastsManager,
-                private datePipe: DatePipe) {
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        private _loadingService: TdLoadingService,
+        private toastr: ToastsManager,
+        private datePipe: DatePipe) {
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+
         this.ownerName = '';
         this.dateBegin = null;
         this.dateEnd = null;
@@ -41,18 +44,18 @@ export class CompanyRegulationComponent implements OnInit {
 
     /**
      * 加载表格数据
-     * @param {number} offset
      */
-    loadData(offset = 0) {
+    loadData() {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register()
-        this._regulationService.search(this.ownerName, begin, end, this.max, offset).subscribe(
+        this._regulationService.search(this.ownerName, begin, end, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve()
                 if (res.result === 'success') {
-                    this.regulationList = res.resultList
-                    this.total = res.total
+                    this.regulationList = res.resultList;
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -65,9 +68,8 @@ export class CompanyRegulationComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
@@ -76,7 +78,9 @@ export class CompanyRegulationComponent implements OnInit {
      */
     search() {
         if (this.validate()) {
-            this.loadData()
+            this.pageFirst = 0;
+            this.pageOffset = 0;
+            this.loadData();
         }
     }
 
@@ -87,6 +91,9 @@ export class CompanyRegulationComponent implements OnInit {
         this.ownerName = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.loadData();
     }
 
     /**

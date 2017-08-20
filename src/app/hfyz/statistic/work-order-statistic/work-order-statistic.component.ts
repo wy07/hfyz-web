@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {SystemCodeService} from "../../basic/systemCode/shared/system-code.service";
-import {RegularService} from "../../common/shared/regular.service";
-import {TdLoadingService} from "@covalent/core";
-import {WorkOrderService} from "../../work-order/shared/work-order.service";
-import {ToastsManager} from "ng2-toastr";
-import {DatePipe} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { SystemCodeService } from "../../basic/systemCode/shared/system-code.service";
+import { RegularService } from "../../common/shared/regular.service";
+import { TdLoadingService } from "@covalent/core";
+import { WorkOrderService } from "../../work-order/shared/work-order.service";
+import { ToastsManager } from "ng2-toastr";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-work-order-statistic',
@@ -13,9 +13,10 @@ import {DatePipe} from "@angular/common";
 })
 export class WorkOrderStatisticComponent implements OnInit {
     records: any[];
-    max: number;
-    total: number;
-    currentPage: number;
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     companyName: string;
     alarmTypes: any[];
@@ -33,8 +34,10 @@ export class WorkOrderStatisticComponent implements OnInit {
         this.alarmType = '';
         this.startDate = new Date();
         this.endDate = new Date();
-        this.currentPage = 0;
-
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
     }
 
     ngOnInit() {
@@ -50,18 +53,19 @@ export class WorkOrderStatisticComponent implements OnInit {
     }
 
     onSearch() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.statistic();
     }
 
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.statistic(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.statistic();
         }
     }
 
-    statistic(offset = 0) {
-        let params = {max: this.max, offset: offset};
+    statistic() {
+        const params = { max: this.pageMax, offset: this.pageFirst };
         if (this._regularService.isBlank(this.startDate)) {
             this._toastr.error('请选择起始时间');
             return;
@@ -91,20 +95,21 @@ export class WorkOrderStatisticComponent implements OnInit {
             res => {
                 this._loadingService.resolve();
                 this.records = res.statisticList;
-                this.total = res.statisticCount;
+                this.pageTotal = res.statisticCount;
+                this.pageOffset = this.pageFirst;
             }
         )
     }
 
-    onCancel() {
-        this.records=[];
-        this.total=0;
-        this.currentPage = 0;
+    onReset() {
+        this.records = [];
+        this.pageFirst = 0;
+        this.pageOffset = 0;
 
         this.alarmType = '';
         this.startDate = new Date();
         this.endDate = new Date();
-        this.companyName='';
+        this.companyName = '';
     }
 
 }

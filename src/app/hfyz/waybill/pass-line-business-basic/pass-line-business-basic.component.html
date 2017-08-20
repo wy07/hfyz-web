@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="passLineBusinessInfos" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="passLineBusinessInfos" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="ownerName" header="公司"></p-column>
             <p-column field="licenseCharacter" header="经营许可证字"></p-column>
             <p-column field="licenseNo" header="经营许可证号"></p-column>
@@ -35,7 +35,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 
