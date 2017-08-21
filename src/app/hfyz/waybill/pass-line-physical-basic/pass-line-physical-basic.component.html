@@ -28,7 +28,7 @@
     <div class="panel-body ">
         <div class="row">
             <div class='basic-bottom'>
-                <p-dataTable [value]="passLinePhysicalBasicInfos" [emptyMessage]="'暂无数据'">
+                <p-dataTable [value]="passLinePhysicalBasicInfos" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
                     <p-column field="lineCode" header="线路编码"></p-column>
                     <p-column field="lineName" header="线路名称"></p-column>
                     <p-column field="businessArea" header="经营区域"></p-column>
@@ -57,7 +57,6 @@
                         </ng-template>
                     </p-column>
                 </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
             </div>
         </div>
     </div>

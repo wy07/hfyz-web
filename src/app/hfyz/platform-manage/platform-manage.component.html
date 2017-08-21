@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <button pButton label="检索" type="button" (click)="initData()"></button>
+                <button pButton label="检索" type="button" (click)="onSearch()"></button>
                 <button pButton label="重置" type="button" (click)="onReset()"></button>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <button pButton type="button" label="新增" (click)="onCreat()"></button>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="ip" header="平台IP地址"></p-column>
             <p-column field="port" header="端口号"></p-column>
             <p-column field="name" header="平台名称"></p-column>
@@ -43,7 +43,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 

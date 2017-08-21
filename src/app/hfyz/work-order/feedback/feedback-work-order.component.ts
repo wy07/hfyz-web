@@ -11,10 +11,12 @@ import { ToastsManager } from "ng2-toastr";
 })
 
 export class FeedbackWorkOrderComponent implements OnInit {
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
+
     workOrderList: any;
-    currentPage: number;
-    max: any;
-    total: any;
     action: string;
 
     workOrder: any;
@@ -26,10 +28,11 @@ export class FeedbackWorkOrderComponent implements OnInit {
         , private _regularService: RegularService
         , private _toastr: ToastsManager) {
         this.workOrderList = [];
-        this.max = 10;
-        this.total = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.action = 'list';
-        this.currentPage = 0;
 
         this.workOrder = {};
     }
@@ -38,21 +41,21 @@ export class FeedbackWorkOrderComponent implements OnInit {
         this.initData();
     }
 
-    initData(offset = 0) {
+    initData() {
         this._loadingService.register();
-        this._workOrderService.feedbackList(this.max, offset).subscribe(
+        this._workOrderService.feedbackList(this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.workOrderList = res.workOrderList;
-                this.total = res.total;
+                this.pageTotal = res.total;
+                this.pageOffset = this.pageFirst;
             }
         );
     }
 
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.initData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.initData();
         }
     }
 
@@ -79,7 +82,7 @@ export class FeedbackWorkOrderComponent implements OnInit {
         this._workOrderService.feedback(this.workOrder.id, { note: this.note }).subscribe(
             res => {
                 this.action = 'list';
-                this.initData(this.max * this.currentPage);
+                this.initData();
             }
         );
     }

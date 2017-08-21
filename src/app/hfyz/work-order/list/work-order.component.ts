@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { Component, OnInit } from '@angular/core';
 import { WorkOrderService } from '../shared/work-order.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -10,10 +11,12 @@ import { ToastsManager } from 'ng2-toastr';
 })
 
 export class WorkOrderComponent implements OnInit {
+  pageMax: number;
+  pageTotal: number;
+  pageFirst: number;
+  pageOffset: number;
+
   workOrderList: any;
-  currentPage: number;
-  max: any;
-  total: any;
   workOrderTitle: string;
   isDetails: boolean;
   workOrder: any;
@@ -40,11 +43,15 @@ export class WorkOrderComponent implements OnInit {
   workOrderRecords: any[];
 
 
-  constructor(private _workOrderService: WorkOrderService, private _toastr: ToastsManager
+  constructor(private _workOrderService: WorkOrderService
+    , private _toastr: ToastsManager
+    , private _loadingService: TdLoadingService
   ) {
     this.workOrderList = [];
-    this.max = 10;
-    this.total = 0;
+    this.pageMax = 10;
+    this.pageTotal = 0;
+    this.pageFirst = 0;
+    this.pageOffset = 0;
     this.isDetails = false;
     this.workOrder = {};
     this.workOrderRecords = [];
@@ -54,10 +61,13 @@ export class WorkOrderComponent implements OnInit {
     this.initData();
   }
   initData(offset = 0) {
-    this._workOrderService.list(this.max, offset).subscribe(
+    this._loadingService.register();
+    this._workOrderService.list(this.pageMax, this.pageFirst).subscribe(
       res => {
+        this._loadingService.resolve();
         this.workOrderList = res.workOrderList;
-        this.total = res.total;
+        this.pageTotal = res.total;
+        this.pageOffset = this.pageFirst;
       }
     );
   }
@@ -82,9 +92,8 @@ export class WorkOrderComponent implements OnInit {
   }
 
   paginate(event) {
-    if (this.currentPage !== event.page) {
-      this.currentPage = event.page;
-      this.initData(this.max * event.page);
+    if (this.pageOffset !== event.first) {
+      this.initData();
     }
   }
 }

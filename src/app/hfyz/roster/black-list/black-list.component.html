@@ -36,7 +36,7 @@
         <button pButton type="button" label="新增" (click)="add()"></button>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="blackLists">
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="blackLists" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="vehicleNo" header="车牌号"></p-column>
             <p-column field="controlOrg" header="布控单位"></p-column>
             <p-column field="executor" header="布控人"></p-column>
@@ -51,7 +51,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 

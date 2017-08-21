@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class='basic-bottom'>
-                <p-dataTable [emptyMessage]="'暂无数据'" [value]="companyReportList">
+                <p-dataTable [emptyMessage]="'暂无数据'" [value]="companyReportList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst" >
                     <p-column field="companyName" header="企业名称"></p-column>
                     <p-column field="vehicleNetworkAccess" header="车辆入网率"></p-column>
                     <p-column field="vehiclegoLive" header="车辆上线率"></p-column>
@@ -16,7 +16,6 @@
                     <p-column field="checkResponse" header="查岗响应率"></p-column>
                     <p-column field="totalScore" header="总分"></p-column>
                 </p-dataTable>
-                <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
             </div>
         </div>
     </div>

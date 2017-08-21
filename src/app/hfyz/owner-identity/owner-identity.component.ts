@@ -1,9 +1,9 @@
-import {Component, OnInit, Renderer} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {OwnerIdentityService} from './shared/owner-identity.service'
-import {DatePipe} from '@angular/common';
-import {TdLoadingService} from '@covalent/core';
-import {zh} from "../common/shared/zh"
+import { Component, OnInit, Renderer } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
+import { OwnerIdentityService } from './shared/owner-identity.service'
+import { DatePipe } from '@angular/common';
+import { TdLoadingService } from '@covalent/core';
+import { zh } from "../common/shared/zh"
 
 @Component({
     selector: 'app-owner-identity',
@@ -17,9 +17,12 @@ export class OwnerIdentityComponent implements OnInit {
     companyCode: any
     displayDialog: boolean;
     formTitle: string;
-    max: number;
-    total: number;
-    currentPage: number;
+
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
+
     dateBegin: Date;
     dateEnd: Date;
     pageFlag: string; // 页面切换  LIST 列表页 CREATE 新增页 EDIT 修改页 SHOW 详情
@@ -32,7 +35,12 @@ export class OwnerIdentityComponent implements OnInit {
         this.displayDialog = false;
         this.owner = {};
         this.clearForm();
-        this.max = 10;
+
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+
         this.pageFlag = 'LIST';
     }
 
@@ -41,16 +49,17 @@ export class OwnerIdentityComponent implements OnInit {
         this.initData();
     }
 
-    initData(offset = 0) {
+    initData() {
         if (this.validate()) {
             const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
             const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
             this._loadingService.register();
-            this.ownerIdentityService.list(begin, end, this.max, offset, this.ownerName, this.companyCode).subscribe(
+            this.ownerIdentityService.list(begin, end, this.pageMax, this.pageFirst, this.ownerName, this.companyCode).subscribe(
                 res => {
                     this._loadingService.resolve();
                     this.ownerList = res.ownerList.ownerList;
-                    this.total = res.ownerList.total;
+                    this.pageTotal = res.ownerList.total;
+                    this.pageOffset = this.pageFirst;
                 }
             );
         }
@@ -61,6 +70,9 @@ export class OwnerIdentityComponent implements OnInit {
         this.dateEnd = null;
         this.ownerName = '';
         this.companyCode = '';
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.initData();
     }
 
     onView(id) {
@@ -80,9 +92,8 @@ export class OwnerIdentityComponent implements OnInit {
     }
 
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.initData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.initData();
         }
     }
 

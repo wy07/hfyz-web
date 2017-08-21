@@ -1,10 +1,10 @@
-import {PassLinePhysicalBasicService} from './sheard/pass-line-physical-basic.service';
-import {PassLinePhysicalBasicInfo} from './sheard/pass-line-physical-basic-info.model';
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {TdLoadingService} from '@covalent/core';
-import {DatePipe} from '@angular/common';
-import {RegularService} from '../../common/shared/regular.service';
+import { PassLinePhysicalBasicService } from './sheard/pass-line-physical-basic.service';
+import { PassLinePhysicalBasicInfo } from './sheard/pass-line-physical-basic-info.model';
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
+import { TdLoadingService } from '@covalent/core';
+import { DatePipe } from '@angular/common';
+import { RegularService } from '../../common/shared/regular.service';
 
 @Component({
     selector: 'pass-line-physical-basic',
@@ -12,23 +12,26 @@ import {RegularService} from '../../common/shared/regular.service';
     styleUrls: ['./pass-line-physical-basic.component.css']
 })
 export class PassLinePhysicalBasicComponent implements OnInit {
-    max: number;  
-    page: number;  
-    total: number;  
-    pageFlag: string; 
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
+
+    pageFlag: string;
     passLinePhysicalBasicInfo: PassLinePhysicalBasicInfo;
     passLinePhysicalBasicInfos: Array<PassLinePhysicalBasicInfo>;
     lineCode: string;
     lineName: string;
 
     constructor(private _loadingService: TdLoadingService,
-                private _regularService: RegularService,
-                private datePipe: DatePipe,
-                private _passLinePhysicalBasicService: PassLinePhysicalBasicService,
-                private toastr: ToastsManager) {
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        private _regularService: RegularService,
+        private datePipe: DatePipe,
+        private _passLinePhysicalBasicService: PassLinePhysicalBasicService,
+        private toastr: ToastsManager) {
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.lineCode = '';
         this.lineName = '';
         this.pageFlag = 'LIST';
@@ -40,14 +43,15 @@ export class PassLinePhysicalBasicComponent implements OnInit {
         this.loadData();
     }
 
-    loadData(offset = 0) {
+    loadData() {
         this._loadingService.register();
-        this._passLinePhysicalBasicService.search(this.lineCode, this.lineName, this.max, offset).subscribe(
+        this._passLinePhysicalBasicService.search(this.lineCode, this.lineName, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
                     this.passLinePhysicalBasicInfos = res.resultList;
-                    this.total = res.total
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -56,6 +60,8 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     }
 
     search() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData()
     }
 
@@ -69,15 +75,17 @@ export class PassLinePhysicalBasicComponent implements OnInit {
     }
 
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
     reset() {
         this.lineCode = '';
         this.lineName = '';
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.loadData();
     }
 
     switchPage() {

@@ -1,7 +1,7 @@
 <div *ngIf="action==='list'">
     <div class="panel-body">
         <div class='basic-bottom'>
-            <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'">
+            <p-dataTable [value]="workOrderList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst" >
                 <p-column field="sn" header="工单编号" [style]="{'width':'15%'}"></p-column>
                 <p-column field="alarmType" header="报警类型"></p-column>
                 <p-column field="alarmLevel" header="报警等级"></p-column>
@@ -33,7 +33,6 @@
                     </ng-template>
                 </p-column>
             </p-dataTable>
-            <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>0"></p-paginator>
         </div>
     </div>
 </div>

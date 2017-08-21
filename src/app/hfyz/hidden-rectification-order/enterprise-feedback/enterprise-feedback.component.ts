@@ -1,25 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {DatePipe} from '@angular/common';
-import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
-import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
-import {zh} from '../../common/shared/zh';
+import { DatePipe } from '@angular/common';
+import { TdLoadingService } from '@covalent/core';
+import { RegularService } from '../../common/shared/regular.service';
+import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
+import { zh } from '../../common/shared/zh';
 @Component({
   selector: 'app-enterprise-feedback',
   templateUrl: './enterprise-feedback.component.html',
   styleUrls: ['./enterprise-feedback.component.css']
 })
 export class EnterpriseFeedbackComponent implements OnInit {
+  pageMax: number;
+  pageTotal: number;
+  pageFirst: number;
+  pageOffset: number;
+
   hiddenRectificationOrderList: any;
   hiddenRectificationOrder: any;
   edit: boolean;
   hiddenRectificationOrderTitle: string;
   isAdd: boolean;
-  max: number;
-  total: number;
-  currentPage: number;
   inspection: Date;
   dealine: Date;
   reply: Date;
@@ -37,16 +39,19 @@ export class EnterpriseFeedbackComponent implements OnInit {
   listStatus: any;
   zh = zh;
   constructor(
-     private _toastr: ToastsManager
+    private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
-    ) {
+  ) {
     this.edit = false;
     this.hiddenRectificationOrder = {};
     this.clear();
-    this.max = 10;
+    this.pageMax = 10;
+    this.pageTotal = 0;
+    this.pageFirst = 0;
+    this.pageOffset = 0;
     this.company = '';
     this.startDate = '';
     this.endDate = '';
@@ -57,14 +62,14 @@ export class EnterpriseFeedbackComponent implements OnInit {
     this.status = '';
     this.reply = new Date();
     this.statusList = [{ label: '全部', value: '' }, { label: '待反馈', value: '2' },
-      { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
+    { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
   }
 
   ngOnInit() {
     this.initData();
   }
 
-  initData(offset = 0) {
+  initData() {
     if (!this.validation_search()) {
       return false;
     }
@@ -77,19 +82,19 @@ export class EnterpriseFeedbackComponent implements OnInit {
       ed = this._datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed, 'FK', this.listStatus).subscribe(
+    this._hiddenRectificationOrderService.list(this.pageMax, this.pageFirst, this.company, sd, ed, 'FK', this.listStatus).subscribe(
       res => {
         this._loadingService.resolve();
         this.hiddenRectificationOrderList = res.hiddenRectificationOrderList;
-        this.total = res.total;
+        this.pageTotal = res.total;
+        this.pageOffset = this.pageFirst;
       }
     );
   }
 
   paginate(event) {
-    if (this.currentPage !== event.page) {
-      this.currentPage = event.page;
-      this.initData(this.max * event.page);
+    if (this.pageOffset !== event.first) {
+      this.initData();
     }
   }
 
@@ -129,7 +134,7 @@ export class EnterpriseFeedbackComponent implements OnInit {
     const reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
     this._loadingService.register();
     this._hiddenRectificationOrderService.feedback(this.hiddenRectificationOrder.id, reply,
-                                    this.hiddenRectificationOrder.replyDesc).subscribe(
+      this.hiddenRectificationOrder.replyDesc).subscribe(
       res => {
         this._loadingService.resolve();
         this._toastr.success('反馈成功');
@@ -137,7 +142,7 @@ export class EnterpriseFeedbackComponent implements OnInit {
         this.edit = false;
         this.displayDialog = false;
       }
-    );
+      );
   }
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
@@ -164,11 +169,19 @@ export class EnterpriseFeedbackComponent implements OnInit {
     this.hiddenRectificationOrder = {};
   }
 
-  cancel() {
+  onSearch() {
+    this.pageFirst = 0;
+    this.pageOffset = 0;
+    this.initData();
+}
+
+  onReset() {
     this.company = '';
     this.startDate = null;
     this.endDate = null;
     this.listStatus = '';
+    this.pageFirst = 0;
+    this.pageOffset = 0;
     this.initData();
   }
 

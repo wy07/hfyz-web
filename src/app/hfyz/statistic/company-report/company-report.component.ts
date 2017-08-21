@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CompanyReportService} from './company-report.service';
-import {TdLoadingService} from '@covalent/core';
-import {ToastsManager} from 'ng2-toastr';
+import { Component, OnInit } from '@angular/core';
+import { CompanyReportService } from './company-report.service';
+import { TdLoadingService } from '@covalent/core';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
     selector: 'app-company-report',
@@ -9,18 +9,20 @@ import {ToastsManager} from 'ng2-toastr';
     styleUrls: ['./company-report.component.css']
 })
 export class CompanyReportComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     companyReportList: any[];
 
     constructor(private _companyReportService: CompanyReportService,
-                private _loadingService: TdLoadingService,
-                private toastr: ToastsManager) {
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        private _loadingService: TdLoadingService,
+        private toastr: ToastsManager) {
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.companyReportList = [];
     }
 
@@ -30,16 +32,16 @@ export class CompanyReportComponent implements OnInit {
 
     /**
      * 加载表格数据
-     * @param {number} offset
      */
-    loadData(offset = 0) {
+    loadData() {
         this._loadingService.register()
         this._companyReportService.list().subscribe(
             res => {
                 this._loadingService.resolve()
                 if (res.result === 'success') {
-                    this.companyReportList = res.resultList
-                    this.total = res.total
+                    this.companyReportList = res.resultList;
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -51,9 +53,8 @@ export class CompanyReportComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 }

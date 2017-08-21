@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'">
+        <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="vehicleNo" header="车牌号"></p-column>
             <p-column field="ownerName" header="公司"></p-column>
             <p-column field="dangerousName" header="品名"></p-column>
@@ -55,7 +55,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 

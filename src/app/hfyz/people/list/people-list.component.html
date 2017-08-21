@@ -34,13 +34,13 @@
         <div class="row ">
             <div class="col-sm-3 col-sm-offset-9 ">
                 <button type="button" pButton class="search-button" label="检索" (click)="search()"></button>
-                <button type="submit" pButton class="btn btn-primary" label="重置" (click)="cancel()"></button>
+                <button type="submit" pButton class="btn btn-primary" label="重置" (click)="onReset()"></button>
             </div>
         </div>
     </div>
     <!--</div>-->
     <div class='basic-bottom'>
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
             <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
             <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
@@ -55,7 +55,6 @@
                 </ng-template>
             </p-column>
         </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {PeopleService} from '../shared/people.service';
-import {TdLoadingService} from "@covalent/core";
+import { Component, OnInit } from '@angular/core';
+import { PeopleService } from '../shared/people.service';
+import { TdLoadingService } from "@covalent/core";
 
 
 @Component({
@@ -9,9 +9,10 @@ import {TdLoadingService} from "@covalent/core";
     styleUrls: ['./people-list.component.css']
 })
 export class PeopleListComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     peopleList: any[]; // 返回结果集
     peopleName: string; // 搜索条件-姓名
@@ -33,21 +34,22 @@ export class PeopleListComponent implements OnInit {
 
     constructor(private _peopleService: PeopleService
         , private _loadingService: TdLoadingService) {
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.peopleList = [];
         this.peopleName = '';
         this.phoneNo = '';
         this.IDCardNo = '';
         this.types = [
-            {label: '-- 人员类型 --', value: ''},
-            {label: '考核员', value: '考核员'},
-            {label: '教练员', value: '教练员'},
-            {label: '驾驶员', value: '驾驶员'},
-            {label: '押运装卸管理员', value: '押运装卸管理员'},
-            {label: '维修人员', value: '维修人员'},
-            {label: '站场服务人员', value: '站场服务人员'}];
+            { label: '-- 人员类型 --', value: '' },
+            { label: '考核员', value: '考核员' },
+            { label: '教练员', value: '教练员' },
+            { label: '驾驶员', value: '驾驶员' },
+            { label: '押运装卸管理员', value: '押运装卸管理员' },
+            { label: '维修人员', value: '维修人员' },
+            { label: '站场服务人员', value: '站场服务人员' }];
         this.selectedType = '';
 
         this.pageFlag = true;
@@ -68,13 +70,14 @@ export class PeopleListComponent implements OnInit {
      *加载表格数据
      * @param offset 分页offset值
      */
-    loadData(offset = 0) {
+    loadData() {
         this._loadingService.register();
-        this._peopleService.search(this.selectedType, this.peopleName, this.phoneNo, this.IDCardNo, this.max, offset).subscribe(
+        this._peopleService.search(this.selectedType, this.peopleName, this.phoneNo, this.IDCardNo, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.peopleList = res.resultList;
-                this.total = res.total;
+                this.pageTotal = res.total;
+                this.pageOffset = this.pageFirst;
             }
         );
     }
@@ -84,9 +87,8 @@ export class PeopleListComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
@@ -94,14 +96,19 @@ export class PeopleListComponent implements OnInit {
      * 表格按条件搜索
      */
     search() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData();
     }
 
-    cancel() {
+    onReset() {
         this.selectedType = '';
         this.peopleName = '';
         this.phoneNo = '';
         this.IDCardNo = '';
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.loadData();
     }
 
     /**
