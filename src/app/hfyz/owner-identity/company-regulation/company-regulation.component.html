@@ -41,8 +41,8 @@
         <p-column field="regulationName" header="制度名称"></p-column>
         <p-column field="fileName" header="文件名"></p-column>
         <p-column field="fileType" header="文件类型"></p-column>
-        <p-column field="fileSize" header="文件大小（KB）"></p-column>
         <p-column field="dateCreated" header="创建时间"></p-column>
+        <p-column field="fileRealPath" header="文件位置"></p-column>
     </p-dataTable>
     <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </div>
