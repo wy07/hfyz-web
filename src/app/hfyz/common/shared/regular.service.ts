@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
 
 @Injectable()
 export class RegularService {
