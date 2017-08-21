@@ -153,10 +153,10 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
     color: #FFFFFF !important;
 }
 
-.btn {
-    background-color: #006FA7 !important;
-    color: #FFFFFF !important;
-}
+/*.btn {*/
+    /*background-color: #006FA7 !important;*/
+    /*color: #FFFFFF !important;*/
+/*}*/
 
 .progress{
     height: 30px;
