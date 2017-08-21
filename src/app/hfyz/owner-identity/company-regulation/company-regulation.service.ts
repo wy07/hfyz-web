@@ -16,4 +16,7 @@ export class CompanyRegulationService {
             offset: offset
         });
     }
+    save(formData) {
+        return this.restangular.all('company-regulations').customPOST(formData, 'save', {} , { 'Content-Type': undefined });
+    }
 }
