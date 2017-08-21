@@ -1,4 +1,5 @@
-
+<button><span>span</span>
+</button>
 <div class="querys">
     <div class="row form-horizontal">
         <div class="col-sm-10">
@@ -12,7 +13,7 @@
                     <input readonly="true" pInputText placeholder="请选择结束日期..." [(ngModel)]="endDate" (click)="changeEndDate()">
 
                     <div class="child-startDate">
-                        <datepicker *ngIf="showStartDate" [(ngModel)]="sd" [datepickerMode]="date" [maxMode]="date" [minMode]="date" (activeDateChange)="activeDateChange()"></datepicker>
+                        <datepicker *ngIf="showStartDate"   [(ngModel)]="sd" [datepickerMode]="date" [maxMode]="date" [minMode]="date" (activeDateChange)="activeDateChange()"></datepicker>
                     </div>
                     <div class="child-endDate">
                         <datepicker *ngIf="showEndDate" [(ngModel)]="ed" [datepickerMode]="date" [maxMode]="date"
@@ -31,15 +32,14 @@
         </div>
 
         <div class="col-sm-5 col-sm-offset-1">
-            <button pButton label="检索" type="button" (click)="initData()"></button>
-            <button pButton label="重置" type="button" (click)="cancel()"></button>
+            <button pButton label="检索" type="button" (click)="onSearch()"></button>
+            <button pButton label="重置" type="button" (click)="onReset()"></button>
         </div>
     </div>
 </div>
-<p-dataTable [value]="checkStatisticList" [emptyMessage]="'暂无数据'">
+<p-dataTable [value]="checkStatisticList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst" >
     <p-column field="ownerName" header="业户名称"></p-column>
     <p-column field="responsed" header="已应答"></p-column>
     <p-column field="noResponse" header="未应答"></p-column>
     <p-column field="responseRate" header="应答率"></p-column>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
 </p-dataTable>

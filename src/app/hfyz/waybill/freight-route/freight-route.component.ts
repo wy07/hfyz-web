@@ -12,9 +12,10 @@ import { RegularService } from '../../common/shared/regular.service';
     styleUrls: ['./freight-route.component.css']
 })
 export class FreightRouteComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     freightRouter: FreightRouter;
 
@@ -28,9 +29,10 @@ export class FreightRouteComponent implements OnInit {
         private datePipe: DatePipe,
         private toastr: ToastsManager) {
         this.waybillRouteLists = [];
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.pageFlag = 'LIST';
         this.initData();
     }
@@ -49,16 +51,16 @@ export class FreightRouteComponent implements OnInit {
 
     /**
      * 加载表格数据
-     * @param {number} offset
      */
-    loadData(offset = 0) {
+    loadData() {
         this._loadingService.register()
-        this._freightRouteService.getFreightRouterList(this.max, offset).subscribe(
+        this._freightRouteService.getFreightRouterList(this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
                     this.waybillRouteLists = res.resultList
-                    this.total = res.total
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -71,9 +73,8 @@ export class FreightRouteComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
@@ -155,8 +156,7 @@ export class FreightRouteComponent implements OnInit {
 
     showDetail(id) {
         this._loadingService.register();
-        this._freightRouteService.edit(id).subscribe(res => {
-            console.log('===edit===' + JSON.stringify(res));
+        this._freightRouteService.show(id).subscribe(res => {
             this._loadingService.resolve();
             this.freightRouter = res.freightRouter;
             this.pageFlag = 'DETAIL';

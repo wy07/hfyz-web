@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {DatePipe} from '@angular/common';
-import {WhiteListService} from '../white-list/white-list.service';
-import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
-import {zh} from "../../common/shared/zh";
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
+import { DatePipe } from '@angular/common';
+import { WhiteListService } from '../white-list/white-list.service';
+import { TdLoadingService } from '@covalent/core';
+import { RegularService } from '../../common/shared/regular.service';
+import { zh } from "../../common/shared/zh";
 
 @Component({
     selector: 'app-white-list',
@@ -12,9 +12,10 @@ import {zh} from "../../common/shared/zh";
     styleUrls: ['./white-list.component.css']
 })
 export class WhiteListComponent implements OnInit {
-    max: number;   // 表格行数
-    page: number;   // 当前页数
-    total: number;  // 总数
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     vehicleNo: string; // 车辆号牌
 
@@ -27,21 +28,22 @@ export class WhiteListComponent implements OnInit {
     status: any[]; // 布控状态下拉选
     zh = zh;
     constructor(private _whiteListService: WhiteListService,
-                private _loadingService: TdLoadingService,
-                private _regularService: RegularService,
-                private datePipe: DatePipe,
-                private toastr: ToastsManager) {
+        private _loadingService: TdLoadingService,
+        private _regularService: RegularService,
+        private datePipe: DatePipe,
+        private toastr: ToastsManager) {
         this.pageFlag = 'LIST';
-        this.max = 10;
-        this.page = 0;
-        this.total = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
 
         this.vehicleNo = '';
 
         this.whiteLists = [];
         this.whiteList = {};
         this.detail = {};
-        this.status = [{label: '未布控', value: 0}, {label: '布控中', value: 1}, {label: '解除布控', value: 2}]
+        this.status = [{ label: '未布控', value: 0 }, { label: '布控中', value: 1 }, { label: '解除布控', value: 2 }]
 
     }
 
@@ -51,16 +53,16 @@ export class WhiteListComponent implements OnInit {
 
     /**
      * 加载表格数据
-     * @param {number} offset
      */
-    loadData(offset = 0) {
+    loadData() {
         this._loadingService.register()
-        this._whiteListService.search(this.vehicleNo, this.max, offset).subscribe(
+        this._whiteListService.search(this.vehicleNo, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve()
                 if (res.result === 'success') {
-                    this.whiteLists = res.resultList
-                    this.total = res.total
+                    this.whiteLists = res.resultList;
+                    this.pageTotal = res.total;
+                    this.pageOffset = this.pageFirst;
                 } else {
                     this.toastr.error(res.errors)
                 }
@@ -72,6 +74,8 @@ export class WhiteListComponent implements OnInit {
      * 搜索
      */
     search() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData()
     }
 
@@ -185,9 +189,8 @@ export class WhiteListComponent implements OnInit {
      * @param event
      */
     paginate(event) {
-        if (this.page !== event.page) {
-            this.page = event.page;
-            this.loadData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.loadData();
         }
     }
 
@@ -204,6 +207,8 @@ export class WhiteListComponent implements OnInit {
      */
     reset() {
         this.vehicleNo = '';
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.loadData()
     }
 

@@ -24,29 +24,180 @@
             </div>
         </div>
     </div>
-    <p-dataTable [value]="passLinePhysicalInfos" [emptyMessage]="'暂无数据'">
-        <p-column field="lineCode" header="线路编码"></p-column>
-        <p-column field="lineName" header="线路名称"></p-column>
-        <p-column field="businessArea" header="经营区域"></p-column>
-        <p-column field="lineType" header="线路类型"></p-column>
-        <p-column field="startPlace" header="始发地"></p-column>
-        <p-column field="endPlace" header="目的地"></p-column>
-        <p-column field="mainPoint" header="途径主要地点"></p-column>
-        <p-column field="villageLine" header="是否农村客运">
-            <ng-template let-passLineData="rowData" pTemplate="body">
-                <span>{{passLineData.villageLine ? '是':'否'}}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="travelLine" header="是否旅游线路">
-            <ng-template let-passLineData="rowData" pTemplate="body">
-                <span>{{passLineData.travelLine ? '是':'否'}}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="busLine" header="是否公交线路">
-            <ng-template let-passLineData="rowData" pTemplate="body">
-                <span>{{passLineData.busLine ? '是':'否'}}</span>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+
+    <div class="panel-body ">
+        <div class="row">
+            <div class='basic-bottom'>
+                <p-dataTable [value]="passLinePhysicalBasicInfos" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+                    <p-column field="lineCode" header="线路编码"></p-column>
+                    <p-column field="lineName" header="线路名称"></p-column>
+                    <p-column field="businessArea" header="经营区域"></p-column>
+                    <p-column field="lineType" header="线路类型"></p-column>
+                    <p-column field="startPlace" header="始发地"></p-column>
+                    <p-column field="endPlace" header="目的地"></p-column>
+                    <p-column field="mainPoint" header="途径主要地点"></p-column>
+                    <p-column field="villageLine" header="是否农村客运">
+                        <ng-template let-passLineData="rowData" pTemplate="body">
+                            <span>{{passLineData.villageLine ? '是':'否'}}</span>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="travelLine" header="是否旅游线路">
+                        <ng-template let-passLineData="rowData" pTemplate="body">
+                            <span>{{passLineData.travelLine ? '是':'否'}}</span>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="busLine" header="是否公交线路">
+                        <ng-template let-passLineData="rowData" pTemplate="body">
+                            <span>{{passLineData.busLine ? '是':'否'}}</span>
+                        </ng-template>
+                    </p-column>
+                    <p-column field="" header="操作" styleClass=operation-buttons-1>
+                        <ng-template let-data="rowData" pTemplate="body">
+                            <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
+                        </ng-template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default panel-show" *ngIf="(pageFlag=='DETAIL')">
+    <div class="panel-heading">
+        物理路线详情信息
+        <button type="button" class="btn back-btn btn-primary" (click)="switchPage()">返回</button>
+    </div>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路编码：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.lineCode}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.lineName}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">更新时间：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.modifyTime}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">经营区域：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.businessArea}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路类型：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.lineType}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">始发地：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.startPlace}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">目的地：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.endPlace}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">途径主要地点：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.mainPoint}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">起点行政区划代码：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.startAdminDivsionCode}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">起点行政区划名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.startAdminDivsionName}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">终点行政区划代码：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.endAdminDivsionCode}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">终点行政区划名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.endAdminDivsionName}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">线路里程(km)：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.lineMileAge}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">高速里程(km)：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.highwayMileAge}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">占总里程的百分比：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.percentage}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">高速入口：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.highwayEntry}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">高速出口：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.highwayExit}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否高速：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.highway?'是':'否'}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否农村客运：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.villageLine?'是':'否'}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否旅游线路：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.travelLine?'是':'否'}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">是否公交线路：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{passLinePhysicalBasicInfo.busLine?'是':'否'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

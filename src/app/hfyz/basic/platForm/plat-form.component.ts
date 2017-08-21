@@ -5,8 +5,8 @@ import { PlatFormService } from './shared/plat-form.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { DatePipe } from '@angular/common';
 import { EventBuservice } from '../../common/shared/eventbus.service';
-import {TdLoadingService} from '@covalent/core';
-import {zh} from '../../common/shared/zh'
+import { TdLoadingService } from '@covalent/core';
+import { zh } from '../../common/shared/zh'
 
 @Component({
     selector: 'plat-form',
@@ -15,18 +15,21 @@ import {zh} from '../../common/shared/zh'
 })
 
 export class PlatFormComponent implements OnInit {
-  company: string;
-  startDate: any;
-  endDate: any;
-  checkRecordList: any;
-  max: number;
-  total: number;
-  currentPage: number;
-  flag: boolean;
-  maxDate: any;
-  inspectDisplay: boolean;
-  inspectQ: any;
-  zh = zh;
+    company: string;
+    startDate: any;
+    endDate: any;
+    checkRecordList: any;
+
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
+
+    flag: boolean;
+    maxDate: any;
+    inspectDisplay: boolean;
+    inspectQ: any;
+    zh = zh;
 
     constructor(private _toastr: ToastsManager
         , private _regularService: RegularService
@@ -37,8 +40,10 @@ export class PlatFormComponent implements OnInit {
         this.company = (sessionStorage.getItem('companyCode') === 'null') ? '' : sessionStorage.getItem('companyCode');
         this.startDate = '';
         this.endDate = '';
-        this.max = 10;
-        this.total = 0;
+        this.pageMax = 10;
+        this.pageTotal = 0;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.flag = false;
         this.maxDate = new Date();
         this.inspectDisplay = false;
@@ -65,7 +70,7 @@ export class PlatFormComponent implements OnInit {
         return true;
     }
 
-    initData(offset = 0) {
+    initData() {
         if (!this.validation()) {
             return false;
         }
@@ -78,27 +83,35 @@ export class PlatFormComponent implements OnInit {
             ed = this.datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
         }
         this._loadingService.register();
-        this._platFormService.list(this.max, offset, this.company, sd, ed).subscribe(
+        this._platFormService.list(this.pageMax, this.pageFirst, this.company, sd, ed).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.checkRecordList = res.checkResult.checkRecordList;
-                this.total = res.checkResult.total;
+                this.pageTotal = res.checkResult.total;
+                this.pageOffset = this.pageFirst;
             }
         );
     }
 
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.initData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.initData();
         }
     }
 
-    cancel() {
+    onSearch() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.initData();
+    }
+
+    onReset() {
         this.flag = true;
         this.company = '';
         this.startDate = null;
         this.endDate = null;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.initData();
     }
 

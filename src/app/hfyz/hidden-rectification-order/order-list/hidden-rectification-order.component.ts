@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
+import { Component, OnInit } from '@angular/core';
+import { ToastsManager } from 'ng2-toastr';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {DatePipe} from '@angular/common';
-import {TdLoadingService} from '@covalent/core';
-import {RegularService} from '../../common/shared/regular.service';
-import {HiddenRectificationOrderService} from '../shared/hidden-rectification-order.service';
-import {zh} from '../../common/shared/zh';
+import { DatePipe } from '@angular/common';
+import { TdLoadingService } from '@covalent/core';
+import { RegularService } from '../../common/shared/regular.service';
+import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
+import { zh } from '../../common/shared/zh';
 
 @Component({
   selector: 'app-hidden-rectification-order',
@@ -18,9 +18,12 @@ export class HiddenRectificationOrderComponent implements OnInit {
   edit: boolean;
   hiddenRectificationOrderTitle: string;
   isAdd: boolean;
-  max: number;
-  total: number;
-  currentPage: number;
+
+  pageMax: number;
+  pageTotal: number;
+  pageFirst: number;
+  pageOffset: number;
+
   inspection: Date;
   dealine: Date;
   company: string;
@@ -40,17 +43,21 @@ export class HiddenRectificationOrderComponent implements OnInit {
   ownerName: string;
   zh = zh;
   constructor(
-     private _toastr: ToastsManager
+    private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
-    ) {
+  ) {
+    this.pageMax = 10;
+    this.pageTotal = 0;
+    this.pageFirst = 0;
+    this.pageOffset = 0;
+
     this.edit = false;
     this.hiddenRectificationOrder = {};
     this.selectedCompany = {};
     this.clear();
-    this.max = 10;
     this.company = '';
     this.startDate = '';
     this.endDate = '';
@@ -60,15 +67,15 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.disabled = false;
     this.status = '';
     this.statusList = [{ label: '全部', value: '' }, { label: '起草', value: '0' },
-      { label: '待审核', value: '1' }, { label: '待反馈', value: '2' }, { label: '已拒绝', value: '3' },
-      { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
+    { label: '待审核', value: '1' }, { label: '待反馈', value: '2' }, { label: '已拒绝', value: '3' },
+    { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
   }
 
   ngOnInit() {
     this.initData();
   }
 
-  initData(offset = 0) {
+  initData() {
     if (!this.validation_search()) {
       return false;
     }
@@ -81,21 +88,27 @@ export class HiddenRectificationOrderComponent implements OnInit {
       ed = this._datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm');
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.list(this.max, offset, this.company, sd, ed, status, this.listStatus).subscribe(
+    this._hiddenRectificationOrderService.list(this.pageMax, this.pageFirst, this.company, sd, ed, status, this.listStatus).subscribe(
       res => {
         this._loadingService.resolve();
         this.hiddenRectificationOrderList = res.hiddenRectificationOrderList;
-        this.total = res.total;
+        this.pageTotal = res.total;
+        this.pageOffset = this.pageFirst;
       }
     );
   }
 
   paginate(event) {
-    if (this.currentPage !== event.page) {
-      this.currentPage = event.page;
-      this.initData(this.max * event.page);
+    if (this.pageOffset !== event.first) {
+      this.initData();
     }
   }
+
+  onSearch() {
+    this.pageFirst = 0;
+    this.pageOffset = 0;
+    this.initData();
+}
 
   onCreat() {
     this.inspection = null;
@@ -178,8 +191,8 @@ export class HiddenRectificationOrderComponent implements OnInit {
     );
   }
   onSelect(event) {
-      this.hiddenRectificationOrder.companyCode = event.companyCode;
-      this.ownerName = event.ownerName;
+    this.hiddenRectificationOrder.companyCode = event.companyCode;
+    this.ownerName = event.ownerName;
   }
   update() {
     if (this.validation()) {
@@ -239,8 +252,8 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
   validation() {
     if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
-    this._toastr.info('请选择正确的企业名称');
-    return false;
+      this._toastr.info('请选择正确的企业名称');
+      return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.examiner)) {
       this._toastr.info('检查人不能为空');
@@ -286,11 +299,13 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.selectedCompany = {};
   }
 
-  cancel() {
+  onReset() {
     this.company = '';
     this.startDate = null;
     this.endDate = null;
     this.listStatus = '';
+    this.pageFirst = 0;
+    this.pageOffset = 0;
     this.initData();
   }
 

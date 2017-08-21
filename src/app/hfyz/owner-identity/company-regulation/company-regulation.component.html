@@ -3,7 +3,7 @@
         <div class="row form-horizontal">
             <div class="col-sm-5" isCompanyUser>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">企业名称：</label>
+                    <label class="col-sm-4 control-label">企业名称：{{pageTotal}}</label>
                     <div class="col-sm-8">
                         <input class="form-control" [(ngModel)]="ownerName" placeholder="请输入企业名称..."/>
                     </div>
@@ -36,15 +36,16 @@
     <div class="top-buttons">
         <button pButton type="button" label="新增" (click)="onCreate()"></button>
     </div>
-    <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList">
-        <p-column field="ownerName" header="企业名称"></p-column>
-        <p-column field="regulationName" header="制度名称"></p-column>
-        <p-column field="fileName" header="文件名"></p-column>
-        <p-column field="fileType" header="文件类型"></p-column>
-        <p-column field="dateCreated" header="创建时间"></p-column>
-        <p-column field="fileRealPath" header="文件位置"></p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="regulationList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="ownerName" header="企业名称"></p-column>
+            <p-column field="regulationName" header="制度名称"></p-column>
+            <p-column field="fileName" header="文件名"></p-column>
+            <p-column field="fileType" header="文件类型"></p-column>
+            <p-column field="dateCreated" header="创建时间"></p-column>
+            <p-column field="fileRealPath" header="文件位置"></p-column>
+        </p-dataTable>
+    </div>
 </div>
 <div class="row" *ngIf="action=='create'">
     <div class="panel panel-default panel-show">

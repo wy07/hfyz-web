@@ -1,49 +1,46 @@
-<div *ngIf="displayDialog == false">
+<div *ngIf="displayDialog == false" class='basic-bottom'>
     <p-dataTable [value]="configureList" [emptyMessage]="'暂无数据'">
         <p-column field="name" header="名称"></p-column>
         <p-column field="configValue" header="值"></p-column>
         <p-column field="note" header="备注"></p-column>
         <p-column field="" header="操作" styleClass=operation-buttons-1>
             <ng-template let-configure="rowData" pTemplate="body">
-                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance"
-                     (click)="onEdit(configure.id)" tooltip="编辑" placement="bottom"></div>
+                <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(configure.id)" tooltip="编辑" placement="bottom"></div>
             </ng-template>
         </p-column>
     </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)" *ngIf="total>max"></p-paginator>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="displayDialog==true">
     <div class="panel-heading">{{configureTitle}}</div>
     <div class="panel-body ">
         <div class="col-sm-12 form-horizontal">
-                <div class="form-group ">
-                    <label for="name" class="col-sm-3 control-label"><span class="required">*</span>名称：</label>
-                    <div class=" col-sm-6">
-                        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="configure.name">
-                    </div>
+            <div class="form-group ">
+                <label for="name" class="col-sm-3 control-label"><span class="required">*</span>名称：</label>
+                <div class=" col-sm-6">
+                    <input type="text" class="form-control" id="name" name="name" [(ngModel)]="configure.name">
                 </div>
-                <div class="form-group ">
-                    <label for="configValue" class="col-sm-3 control-label"><span class="required">*</span>值：</label>
-                    <div class=" col-sm-6">
-                        <input type="text" class="form-control" id="configValue" name="configValue"
-                               [(ngModel)]="configure.configValue">
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <label for="configValue" class="col-sm-3 control-label">备注：</label>
-                    <div class=" col-sm-6">
-                        <textarea class="form-control" id="note" name="note" [(ngModel)]="configure.note"
-                                  style="resize:none;height:98px;" maxlength="1500"></textarea>
-                    </div>
-                </div>
-                <div class="form-group ">
-                    <div class="col-sm-offset-5 col-sm-10">
-                        <button pButton type="button" icon="fa-check" label="保存" (click)="update()"></button>
-                        <button pButton type="button" icon="fa-close" label="取消" (click)="cancle()"></button>
-                    </div>
-                </div>
-
             </div>
+            <div class="form-group ">
+                <label for="configValue" class="col-sm-3 control-label"><span class="required">*</span>值：</label>
+                <div class=" col-sm-6">
+                    <input type="text" class="form-control" id="configValue" name="configValue" [(ngModel)]="configure.configValue">
+                </div>
+            </div>
+            <div class="form-group ">
+                <label for="configValue" class="col-sm-3 control-label">备注：</label>
+                <div class=" col-sm-6">
+                    <textarea class="form-control" id="note" name="note" [(ngModel)]="configure.note" style="resize:none;height:98px;" maxlength="1500"></textarea>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="col-sm-offset-5 col-sm-10">
+                    <button pButton type="button" icon="fa-check" label="保存" (click)="update()"></button>
+                    <button pButton type="button" icon="fa-close" label="取消" (click)="cancle()"></button>
+                </div>
+            </div>
+
         </div>
+    </div>
 </div>

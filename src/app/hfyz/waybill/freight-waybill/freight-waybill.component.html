@@ -38,29 +38,30 @@
             </div>
         </div>
     </div>
-    <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'">
-        <p-column field="vehicleNo" header="车牌号"></p-column>
-        <p-column field="ownerName" header="公司"></p-column>
-        <p-column field="dangerousName" header="品名"></p-column>
-        <p-column field="dangerousType" header="类别"></p-column>
-        <p-column field="amount" header="数量"></p-column>
-        <p-column field="loadedType" header="装/卸"></p-column>
-        <p-column field="departTime" header="出发时间"></p-column>
-        <p-column field="startCity" header="出发地"></p-column>
-        <p-column field="endCity" header="目的地"></p-column>
-        <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template let-data="rowData" pTemplate="body">
-                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="vehicleNo" header="车牌号"></p-column>
+            <p-column field="ownerName" header="公司"></p-column>
+            <p-column field="dangerousName" header="品名"></p-column>
+            <p-column field="dangerousType" header="类别"></p-column>
+            <p-column field="amount" header="数量"></p-column>
+            <p-column field="loadedType" header="装/卸"></p-column>
+            <p-column field="departTime" header="出发时间"></p-column>
+            <p-column field="startCity" header="出发地"></p-column>
+            <p-column field="endCity" header="目的地"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-1>
+                <ng-template let-data="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="pageFlag=='SHOW'">
     <div class="panel-heading">
         详情
-        <button type="button" class="btn back-btn" (click)="goBack()">返回</button>
+        <button type="button" class="btn back-btn btn-primary" (click)="goBack()">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">
         <div class="col-sm-12 form-horizontal">

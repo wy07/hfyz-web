@@ -35,8 +35,8 @@ export class StatisticService {
     }
 
     // /owner-identitys/appraise-statistic
-    getAppraiseStatistic(ownerName) {
-        return this.restangular.all('owner-identitys').customGET('appraise-statistic', { ownerName: ownerName });
+    getAppraiseStatistic(ownerName, max, offset) {
+        return this.restangular.all('owner-identitys').customGET('appraise-statistic', { ownerName: ownerName, max: max, offset: offset });
     }
 
     getPlatformStatistic() {

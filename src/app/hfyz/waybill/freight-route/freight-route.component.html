@@ -3,22 +3,23 @@
         <button pButton type="button" label="新增" (click)="create()" [hasPermission]="freight_router_manage"></button>
     </div>
     <div class="panel panel-default">
-        <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists">
-            <p-column field="routerName" header="线路名称"></p-column>
-            <p-column field="provenance" header="始发地名称"></p-column>
-            <p-column field="destination" header="目的地名称"></p-column>
-            <p-column field="viaLand" header="途经地名称"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-3>
-                <ng-template let-data="rowData" pTemplate="body">
-                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"
-                        [hasPermission]="freight_router_manage"></div>
-                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id)" tooltip="删除" placement="bottom"
-                        [hasPermission]="freight_router_manage"></div>
-                </ng-template>
-            </p-column>
-        </p-dataTable>
-        <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+        <div class='basic-bottom'>
+            <p-dataTable [emptyMessage]="'暂无数据'" [value]="waybillRouteLists" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+                <p-column field="routerName" header="线路名称"></p-column>
+                <p-column field="provenance" header="始发地名称"></p-column>
+                <p-column field="destination" header="目的地名称"></p-column>
+                <p-column field="viaLand" header="途经地名称"></p-column>
+                <p-column field="" header="操作" styleClass=operation-buttons-3>
+                    <ng-template let-data="rowData" pTemplate="body">
+                        <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
+                        <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"
+                            [hasPermission]="freight_router_manage"></div>
+                        <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id)" tooltip="删除" placement="bottom"
+                            [hasPermission]="freight_router_manage"></div>
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
     </div>
 </div>
 
@@ -126,7 +127,7 @@
 <div class="panel panel-default panel-show" *ngIf="(pageFlag=='DETAIL')">
     <div class="panel-heading">
         详情
-        <button type="button" class="btn back-btn" (click)="pageFlag = 'LIST'">返回</button>
+        <button type="button" class="btn back-btn btn-primary" (click)="pageFlag = 'LIST'">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">
         <div class="col-sm-12 form-horizontal">

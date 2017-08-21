@@ -34,33 +34,34 @@
         <div class="row ">
             <div class="col-sm-3 col-sm-offset-9 ">
                 <button type="button" pButton class="search-button" label="检索" (click)="search()"></button>
-                <button type="submit" pButton class="btn btn-primary" label="重置" (click)="cancel()"></button>
+                <button type="submit" pButton class="btn btn-primary" label="重置" (click)="onReset()"></button>
             </div>
         </div>
     </div>
     <!--</div>-->
-    <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList">
-        <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
-        <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
-        <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
-        <p-column field="birthday" header="出生日期" [style]="{'width':'10%'}"></p-column>
-        <p-column field="nation" header="民族" [style]="{'width':'5%'}"></p-column>
-        <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
-        <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
-        <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
-        <p-column field="" header="操作" styleClass=operation-buttons-1>
-            <ng-template let-a="rowData" pTemplate="body">
-                <div role="button" class="fa fa-list fa-font-size div-distance" (click)="moreInfo(a)" tooltip="详情" placement="bottom"></div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
-    <p-paginator rows="{{max}}" totalRecords="{{total}}" (onPageChange)="paginate($event)"></p-paginator>
+    <div class='basic-bottom'>
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="peopleList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="name" header="姓名" [style]="{'width':'10%'}"></p-column>
+            <p-column field="gender" header="性别" [style]="{'width':'5%'}"></p-column>
+            <p-column field="IDCardNo" header="身份证号码" [style]="{'width':'25%'}"></p-column>
+            <p-column field="birthday" header="出生日期" [style]="{'width':'10%'}"></p-column>
+            <p-column field="nation" header="民族" [style]="{'width':'5%'}"></p-column>
+            <p-column field="nativePlace" header="籍贯" [style]="{'width':'10%'}"></p-column>
+            <p-column field="technologyTitle" header="技术职称" [style]="{'width':'10%'}"></p-column>
+            <p-column field="phoneNo" header="联系电话" [style]="{'width':'15%'}"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-1>
+                <ng-template let-a="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="moreInfo(a)" tooltip="详情" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="!pageFlag">
     <div class="panel-heading">
         {{pageTitle}}
-        <button type="button" class="btn back-btn" (click)="closeDialog()">返回</button>
+        <button type="button" class="btn back-btn btn-primary" (click)="closeDialog()">返回</button>
     </div>
     <div class="panel-body no-padding showDetails">
         <p-tabView>

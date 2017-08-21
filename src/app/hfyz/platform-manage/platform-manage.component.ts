@@ -19,9 +19,10 @@ export class PlatformManageComponent implements OnInit {
 
     formTitle: string;
     isAdd: boolean;
-    max: number;
-    total: number;
-    currentPage: number;
+    pageMax: number;
+    pageTotal: number;
+    pageFirst: number;
+    pageOffset: number;
 
     constructor(private toastr: ToastsManager
         , private platformService: PlatformManageService
@@ -29,7 +30,9 @@ export class PlatformManageComponent implements OnInit {
         , private _loadingService: TdLoadingService) {
         this.platform = {};
         this.clearForm();
-        this.max = 10;
+        this.pageMax = 10;
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.action = 'list';
     }
 
@@ -37,22 +40,22 @@ export class PlatformManageComponent implements OnInit {
         this.initData();
     }
 
-    initData(offset = 0) {
+    initData() {
         this._loadingService.register();
-        this.platformService.list(this.max, offset, this.name, this.code).subscribe(
+        this.platformService.list(this.pageMax, this.pageFirst, this.name, this.code).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.platformList = res.platformList.platformList;
-                this.total = res.platformList.total;
+                this.pageTotal = res.platformList.total;
+                this.pageOffset = this.pageFirst;
             }
         );
     }
 
     // 点击分页按钮
     paginate(event) {
-        if (this.currentPage !== event.page) {
-            this.currentPage = event.page;
-            this.initData(this.max * event.page);
+        if (this.pageOffset !== event.first) {
+            this.initData();
         }
     }
 
@@ -60,6 +63,14 @@ export class PlatformManageComponent implements OnInit {
     onReset() {
         this.name = '';
         this.code = '';
+        this.pageFirst = 0;
+        this.pageOffset = 0;
+        this.initData();
+    }
+
+    onSearch() {
+        this.pageFirst = 0;
+        this.pageOffset = 0;
         this.initData();
     }
 
