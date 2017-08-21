@@ -1,11 +1,11 @@
-import {RegularService} from '../../common/shared/regular.service';
+import { RegularService } from '../../common/shared/regular.service';
 import {
     Component,
     OnInit
 } from '@angular/core';
-import {ToastsManager} from 'ng2-toastr';
-import {TdLoadingService} from "@covalent/core";
-import {PermissionService} from "./permission.service";
+import { ToastsManager } from 'ng2-toastr';
+import { TdLoadingService } from "@covalent/core";
+import { PermissionService } from "./permission.service";
 
 @Component({
     selector: 'permission',
@@ -84,7 +84,7 @@ export class PermissionComponent implements OnInit {
                 category: this.perm.category
                 , name: this.perm.name
                 , code: this.perm.code
-                , httpMethod: this.perm.httpMethod
+                , httpMethod: this.perm.httpMethod ? this.perm.httpMethod : ''
                 , url: this.perm.url
             };
             this._permService.save(params).subscribe(
@@ -104,7 +104,7 @@ export class PermissionComponent implements OnInit {
                 category: this.perm.category
                 , name: this.perm.name
                 , code: this.perm.code
-                , httpMethod: this.perm.httpMethod
+                , httpMethod: this.perm.httpMethod ? this.perm.httpMethod : ''
                 , url: this.perm.url
             };
             console.log(JSON.stringify(this.perm));
