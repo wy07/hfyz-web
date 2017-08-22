@@ -43,7 +43,12 @@
             <p-column field="fileName" header="文件名"></p-column>
             <p-column field="fileType" header="文件类型"></p-column>
             <p-column field="dateCreated" header="创建时间"></p-column>
-            <p-column field="fileRealPath" header="文件位置"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-2>
+                <ng-template let-regulation="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(regulation)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(regulation)" tooltip="删除" placement="bottom"></div>
+                </ng-template>
+            </p-column>
         </p-dataTable>
     </div>
 </div>
@@ -78,6 +83,36 @@
                 <div class="col-md-6 col-md-offset-5">
                     <button type="button" class="btn btn-primary" (click)="onSave()">保存</button>
                     <button type="button" class="btn btn-primary" (click)="return()">返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="action=='update'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{formTitle}}</div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="regulationName" class="col-sm-3 control-label"><span class="required">*</span>制度名称：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="regulationName" name="regulationName" [(ngModel)]="regulation.regulationName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileName" class="col-sm-3 control-label"><span class="required">*</span>文件名：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="fileName" name="fileName" [(ngModel)]="regulation.fileName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-10">
+                            <button pButton type="button" label="保存" (click)="update()"></button>
+                            <button pButton type="button" label="取消" (click)="return()"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
