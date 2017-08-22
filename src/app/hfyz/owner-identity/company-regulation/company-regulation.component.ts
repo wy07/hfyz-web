@@ -148,7 +148,6 @@ export class CompanyRegulationComponent implements OnInit {
                 return;
             }
             this.formData.append('upload', files[0], files[0].fileName);
-            // this.formData.append('regulationName', JSON.stringify(this.regulationName));
         }
     }
 
