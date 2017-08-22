@@ -4,6 +4,8 @@ import { ToastsManager } from 'ng2-toastr';
 import { CompanyRegulationService } from './company-regulation.service';
 import { DatePipe } from '@angular/common';
 import { zh } from '../../common/shared/zh';
+import {RegularService} from '../../common/shared/regular.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'app-company-regulation',
@@ -24,12 +26,15 @@ export class CompanyRegulationComponent implements OnInit {
     regulationList: any[];
     formData: FormData;
     file: boolean;
-    MAXFILESIZE = 5242880;
     fileSize: number;
     zh = zh;
+    formTitle: string;
+    regulation: any;
     constructor(private _regulationService: CompanyRegulationService,
+        private _regularService: RegularService,
+        private _customDialogService: CustomDialogService,
         private _loadingService: TdLoadingService,
-        private toastr: ToastsManager,
+        private _toastr: ToastsManager,
         private datePipe: DatePipe) {
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -43,6 +48,7 @@ export class CompanyRegulationComponent implements OnInit {
         this.upload = [];
         this.regulationList = [];
         this.file = false;
+        this.regulation = {};
     }
 
     ngOnInit() {
@@ -64,7 +70,7 @@ export class CompanyRegulationComponent implements OnInit {
                     this.pageTotal = res.total;
                     this.pageOffset = this.pageFirst;
                 } else {
-                    this.toastr.error(res.errors)
+                    this._toastr.error(res.errors)
                 }
             }
         )
@@ -111,12 +117,12 @@ export class CompanyRegulationComponent implements OnInit {
         if (this.dateBegin && this.dateEnd) {
             if (this.dateBegin > this.dateEnd) {
                 flag = false;
-                this.toastr.error('开始时间不能大于结束时间！');
+                this._toastr.error('开始时间不能大于结束时间！');
             }
         }
         if ((this.dateBegin || this.dateEnd) && !(this.dateBegin && this.dateEnd)) {
             flag = false
-            this.toastr.error('起止时间必须全部填写！')
+            this._toastr.error('起止时间必须全部填写！')
         }
         return flag
     }
@@ -129,51 +135,113 @@ export class CompanyRegulationComponent implements OnInit {
     }
     return() {
         this.action = 'list';
+        this.regulation = {};
     }
     fileChangeEvent(fileInput: any) {
         this.file = false;
-        this.formData = new FormData();
         const files = fileInput.target.files;
         if (files.length > 0) {
+            this.formData = new FormData();
             this.file = true;
             this.fileSize = files[0].size;
-            if (this.fileSize > this.MAXFILESIZE) {
+            if (this.fileSize > this._regulationService.MAXFILESIZE) {
                 return;
             }
-            this.formData.append('upload', files[0], files[0].fileName)
+            this.formData.append('upload', files[0], files[0].fileName);
         }
     }
+
     onSave() {
-        console.log(this.file);
         if (!this.validate_create()) {
             return;
         }
+        this.formData.delete('regulationName');
         this.formData.append('regulationName', JSON.stringify(this.regulationName));
         this._loadingService.register();
         this._regulationService.save(this.formData).subscribe(
             res => {
                 this._loadingService.resolve();
-                if (res.result === 'success') {
-                    this.toastr.info('新增成功');
+                    this._toastr.info('新增成功');
                     this.loadData();
                     this.action = 'list';
                     this.file = false;
-                }
             }
         )
+
+    }
+
+    onEdit(regulation) {
+        this.action = 'update';
+        this.formTitle = '编辑';
+        this.preEdit(regulation.id)
+    }
+
+    preEdit(id) {
+        this._loadingService.register();
+        this._regulationService.edit(id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                this.regulation = res.regulation;
+            }
+        );
+
+    }
+
+    update() {
+        if (!this.validate_update()) {
+            return;
+        }
+        this._loadingService.register();
+        this._regulationService.update(this.regulation.id, this.regulation).subscribe(
+            res => {
+                this._loadingService.resolve();
+                this.action = 'list';
+                this._toastr.success('修改成功');
+                this.loadData()
+            }
+        );
+    }
+
+    onDelete(regulation) {
+        const msg = '确认删除管理制度为【' + regulation.regulationName + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._regulationService.delete(regulation.id).subscribe(
+                    res => {
+                        this._loadingService.resolve();
+                        this.loadData();
+                        this._toastr.info(`成功移除管理制度——` + regulation.regulationName);
+                    }
+                );
+            }
+        })
     }
 
     validate_create() {
         if (!this.regulationName) {
-            this.toastr.error('请输入制度名称！');
+            this._toastr.error('请输入制度名称！');
             return false;
         }
         if (!this.file) {
-            this.toastr.error('请选择一个文件！');
+            this._toastr.error('请选择一个文件！');
             return false;
         }
-        if (this.fileSize > this.MAXFILESIZE) {
-            this.toastr.error('选择的文件过大，请重新选择！');
+        if (this.fileSize > this._regulationService.MAXFILESIZE) {
+            this._toastr.error('选择的文件过大，请重新选择！');
+            return false;
+        }
+        return true;
+    }
+
+    validate_update() {
+        if (this._regularService.isBlank(this.regulation.regulationName)) {
+            this._toastr.error('请输入制度名称！');
+            return false;
+        }
+        if (this._regularService.isBlank(this.regulation.fileName)) {
+            this._toastr.error('请输入文件名称！');
             return false;
         }
         return true;
