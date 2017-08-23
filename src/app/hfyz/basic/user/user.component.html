@@ -52,30 +52,33 @@
                         </div>
                     </div>
 
-
-                    <div class="form-group">
-                        <label for="httpMethod" class="col-sm-3 control-label">部门：</label>
+                    <div class="form-group" isAdmin>
+                        <label for="httpMethod" class="col-sm-3 control-label"><span class="required">*</span>部门：</label>
                         <div class="col-sm-6">
-                            <select [(ngModel)]="user.orgId" class="form-control" id="httpMethod">
+                            <select [(ngModel)]="user.orgId" class="form-control" id="httpMethod" (change)="onChange()">
                                 <option *ngFor="let item of orgList" [ngValue]="item.value">{{item.label}}</option>
                             </select>
                         </div>
                     </div>
 
-
-                    <div class="form-group">
-                        <label for="companyCode" class="col-sm-3 control-label">业户组织机构代码：</label>
+                    <div class="form-group" isAdmin *ngIf="disabled">
+                        <label class="col-sm-3 control-label">业户名称：</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="companyCode" name="companyCode" [(ngModel)]="user.companyCode">
-                            <p class="form-control-static">若为业户用户，请指定【业户组织机构代码】</p>
-
+                            <p-autoComplete name="enterpirse" [(ngModel)]="selectedCompany" [suggestions]="filteredEnterpirses" (onSelect)="onSelect($event)"
+                                            field="info" (completeMethod)="filteredEnterpirse($event)" [size]="30" [minLength]="1" [delay]="500"
+                                            [inputStyle]="{'width':'100%'}" [style]="{'width':'100%'}">
+                                <ng-template let-enterpirse pTemplate="item">
+                                    {{enterpirse.ownerName}}
+                                </ng-template>
+                            </p-autoComplete>
+                            <p class="form-control-static required">若为业户用户，请指定【业户名称】</p>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-offset-5 col-sm-10">
                             <button pButton type="button" label="保存" (click)="isAdd?save():update()"></button>
-                            <button pButton type="button" label="取消" (click)="action='list'"></button>
+                            <button pButton type="button" label="取消" (click)="cancel()"></button>
                         </div>
                     </div>
                 </div>
