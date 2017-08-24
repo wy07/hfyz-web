@@ -3,11 +3,15 @@ export class FreightWaybill {
     constructor(
         public id: string,
         public vehicleNo: string, // 车牌号
+        public licenseNo: string, // 挂车车牌号
         public frameNo: string, // 车架号
+        public carPlateColor: String, // 车辆颜色
+        public carType: String, // 车辆类型
+        public carSize: String, // 车辆尺寸
         public companyCode: string, // 业户编码
         public ownerName: string, // 业户名称
         public dangerousName: string, // 危险品名称
-        public dangerousType: string, // 危险品分类
+        public dangerousType: {id: '', name: ''}, // 危险品分类
         public ratifiedPayload: string, // 核定载重质量,kg
         public emergencyPlan: string, // 应急预案
         public price: string, // 运输价格 元/车
@@ -17,8 +21,8 @@ export class FreightWaybill {
         public amount: string, // 装载量
         public mile: string, // 运输距离
         public departTime: string, // 运输出场时间
-        public driverName: string, // 驾驶员姓名
-        public idCardNo: string, // 驾驶员身份证号
+        public driver: {name: '', wokeLicenseNo: '', phone: ''}, // 运输出场时间
+        public supercargo: {name: '', wokeLicenseNo: '', phone: ''}, // 押运员姓名
         public consignCompany: string, // 托运单位
         public backTime: string, // 托运会回场时间
         public departArea: string,  // 出发地

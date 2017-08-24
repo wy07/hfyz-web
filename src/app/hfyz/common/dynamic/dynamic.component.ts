@@ -1,71 +1,74 @@
+import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
-import {PassLineBusinessBasicComponent} from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
-import {FreightRouteComponent} from './../../waybill/freight-route/freight-route.component';
-import {PassLinePhysicalBasicComponent} from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
-import {MapSignComponent} from '../../basic/mapSign/map-sign.component';
-import {WarningComponent} from '../../warning/warning.component';
-import {PeopleListComponent} from '../../people/list/people-list.component';
-import {PlatFormComponent} from '../../basic/platForm/plat-form.component';
-import {ChangePwdComponent} from '../../basic/user/changePwd/change-pwd.component';
-import {CarListComponent} from '../../car/list/car-list.component';
-import {NullMapComponent} from '../../map/nullMap/null-map.component';
-import {MapComponent} from '../../map/map/map.component';
-import {PlatformManageComponent} from '../../platform-manage/platform-manage.component';
-import {LogManageComponent} from '../../log-manage/log-manage.component';
-import {InfoListComponent} from '../../info-manage/info-list/info-list.component';
-import {InfoCheckComponent} from '../../info-manage/info-check/info-check.component';
-import {InfoPublishComponent} from '../../info-manage/info-publish/info-publish.component';
-import {OrganizationComponent} from '../../basic/organization/organization.component';
-import {HomeComponent} from '../../home/home.component';
-import {SystemCodeComponent} from '../../basic/systemCode/system-code.component';
-import {MenuComponent} from '../../basic/menu/menu.component';
-import {UserComponent} from '../../basic/user/user.component';
-import {RoleComponent} from '../../basic/role/role.component';
-import {OwnerIdentityComponent} from '../../owner-identity/owner-identity.component';
-import {ConfigureComponent} from '../../basic/configure/configure.component';
+import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
+import { FreightRouteComponent } from './../../waybill/freight-route/freight-route.component';
+import { PassLinePhysicalBasicComponent } from './../../waybill/pass-line-physical-basic/pass-line-physical-basic.component';
+import { MapSignComponent } from '../../basic/mapSign/map-sign.component';
+import { WarningComponent } from '../../warning/warning.component';
+import { PeopleListComponent } from '../../people/list/people-list.component';
+import { PlatFormComponent } from '../../basic/platForm/plat-form.component';
+import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
+import { CarListComponent } from '../../car/list/car-list.component';
+import { NullMapComponent } from '../../map/nullMap/null-map.component';
+import { MapComponent } from '../../map/map/map.component';
+import { PlatformManageComponent } from '../../platform-manage/platform-manage.component';
+import { LogManageComponent } from '../../log-manage/log-manage.component';
+import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
+import { InfoCheckComponent } from '../../info-manage/info-check/info-check.component';
+import { InfoPublishComponent } from '../../info-manage/info-publish/info-publish.component';
+import { OrganizationComponent } from '../../basic/organization/organization.component';
+import { HomeComponent } from '../../home/home.component';
+import { SystemCodeComponent } from '../../basic/systemCode/system-code.component';
+import { MenuComponent } from '../../basic/menu/menu.component';
+import { UserComponent } from '../../basic/user/user.component';
+import { RoleComponent } from '../../basic/role/role.component';
+import { OwnerIdentityComponent } from '../../owner-identity/owner-identity.component';
+import { ConfigureComponent } from '../../basic/configure/configure.component';
 import {
     Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector,
     ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, ApplicationInitStatus,
     ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
-import {components} from './components';
-import {MapService} from '../../map/shared/map.service';
-import {WorkOrderComponent} from '../../work-order/list/work-order.component';
-import {BlackListComponent} from '../../roster/black-list/black-list.component';
-import {WhiteListComponent} from '../../roster/white-list/white-list.component';
-import {PendingWorkOrderComponent} from '../../work-order/pending/pending-work-order.component';
-import {HiddenRectificationOrderComponent} from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
-import {OrderExamineComponent} from '../../hidden-rectification-order/order-examine/order-examine.component';
-import {EnterpriseFeedbackComponent} from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
-import {PermissionComponent} from '../../basic/permission/permission.component';
-import {FeedbackWorkOrderComponent} from '../../work-order/feedback/feedback-work-order.component';
-import {FreightWaybillComponent} from '../../waybill/freight-waybill/freight-waybill.component';
-import {CheckStatisticComponent} from '../../statistic/check-statistic/check-statistic.component';
-import {PassengerStatisticComponent} from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
-import {TravelStatisticComponent} from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
-import {CompanyReportComponent} from '../../statistic/company-report/company-report.component';
-import {DangerousStatisticComponent} from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
-import {WorkOrderStatisticComponent} from '../../statistic/work-order-statistic/work-order-statistic.component';
-import {CarBasicStatisticsComponent} from '../../statistic/car-basic-statistics/car-basic-statistics.component';
-import {CompanyRegulationComponent} from '../../owner-identity/company-regulation/company-regulation.component';
+import { components } from './components';
+import { MapService } from '../../map/shared/map.service';
+import { WorkOrderComponent } from '../../work-order/list/work-order.component';
+import { BlackListComponent } from '../../roster/black-list/black-list.component';
+import { WhiteListComponent } from '../../roster/white-list/white-list.component';
+import { PendingWorkOrderComponent } from '../../work-order/pending/pending-work-order.component';
+import { HiddenRectificationOrderComponent } from '../../hidden-rectification-order/order-list/hidden-rectification-order.component';
+import { OrderExamineComponent } from '../../hidden-rectification-order/order-examine/order-examine.component';
+import { EnterpriseFeedbackComponent } from '../../hidden-rectification-order/enterprise-feedback/enterprise-feedback.component';
+import { PermissionComponent } from '../../basic/permission/permission.component';
+import { FeedbackWorkOrderComponent } from '../../work-order/feedback/feedback-work-order.component';
+import { FreightWaybillComponent } from '../../waybill/freight-waybill/freight-waybill.component';
+import { CheckStatisticComponent } from '../../statistic/check-statistic/check-statistic.component';
+import { PassengerStatisticComponent } from '../../statistic/car-statistic/passenger-statistic/passenger-statistic.component';
+import { TravelStatisticComponent } from '../../statistic/car-statistic/travel-statistic/travel-statistic.component';
+import { CompanyReportComponent } from '../../statistic/company-report/company-report.component';
+import { DangerousStatisticComponent } from '../../statistic/car-statistic/dangerous-statistic/dangerous-statistic.component';
+import { WorkOrderStatisticComponent } from '../../statistic/work-order-statistic/work-order-statistic.component';
+import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
+import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 
 
 
 @Component({
-  selector: 'dynamic-container',
-  // entryComponents: Object.keys(components).map(key => components[key]),
-  entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
-                    InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-                    MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
-                    WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
-                    WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
-                    PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
-                    FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
-                    FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
-                    PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
-                    AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent],
+    selector: 'dynamic-container',
+    // entryComponents: Object.keys(components).map(key => components[key]),
+    entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
+        InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
+        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+        WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
+        WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
+        PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
+        FeedbackWorkOrderComponent, FreightWaybillComponent, TravelStatisticComponent,
+        FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
+        PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
+        AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
+        WorkOrderFlowComponent
+    ],
 
     template: `
     <ng-template #container></ng-template>
@@ -87,7 +90,7 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
 })
 
 export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
-    @ViewChild('container', {read: ViewContainerRef})
+    @ViewChild('container', { read: ViewContainerRef })
     container: ViewContainerRef;
     @Input() componentName;
     @Input() inputs: any;

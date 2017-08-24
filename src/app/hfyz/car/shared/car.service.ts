@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Restangular} from 'ngx-restangular';
+import { Injectable } from '@angular/core';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class CarService {
@@ -20,8 +20,8 @@ export class CarService {
         });
     }
 
-    getCompanyCars(companyCode){
-        return this.restangular.one('companys',companyCode).customGET('cars')
+    getCompanyCars(companyCode) {
+        return this.restangular.one('companys', companyCode).customGET('cars')
     }
 
     detail(id) {
