@@ -7,11 +7,11 @@ import { PassLinePhysicalBasicComponent } from './pass-line-physical-basic/pass-
 
 import { FreightRouteService } from './freight-route/sheard/freight-route.service';
 import { FreightRouteComponent } from './freight-route/freight-route.component';
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FreightWaybillComponent} from './freight-waybill/freight-waybill.component';
-import {CalendarModule, DataTableModule, DialogModule, DropdownModule, PaginatorModule} from 'primeng/primeng';
-import {FormsModule} from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FreightWaybillComponent } from './freight-waybill/freight-waybill.component';
+import { CalendarModule, DataTableModule, DialogModule, DropdownModule, PaginatorModule, TriStateCheckboxModule } from 'primeng/primeng';
+import { FormsModule } from '@angular/forms';
 import { WuCitySelectModule } from 'ngx-select-city';
 import { TooltipModule } from 'ngx-bootstrap';
 
@@ -38,7 +38,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         FreightWaybillService,
         FreightRouteService,
         PassLineBusinessBasicService,
-        PassLinePhysicalBasicService
+        PassLinePhysicalBasicService,
+        DatePipe
     ]
 })
 export class WaybillModule {
