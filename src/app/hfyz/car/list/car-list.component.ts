@@ -11,7 +11,8 @@ import { zh } from '../../common/shared/zh';
 
 @Component({
     selector: 'car-list',
-    templateUrl: 'car-list.component.html'
+    templateUrl: 'car-list.component.html',
+    styleUrls: ['car-list.component.css']
 })
 
 export class CarListComponent implements OnInit {
@@ -27,11 +28,13 @@ export class CarListComponent implements OnInit {
     dateBegin: Date;
     dateEnd: Date;
     layoutComponent: any;
-
+    action: string;
     zh = zh;
-    constructor(private toastr: ToastsManager
+    car: any;
+    warningList: any;
+    constructor(private _toastr: ToastsManager
         , private regularService: RegularService
-        , private carService: CarService
+        , private _carService: CarService
         , private _loadingService: TdLoadingService
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
@@ -45,6 +48,7 @@ export class CarListComponent implements OnInit {
         this.licenseNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.action = 'list';
         this.businessTypes = [{ label: '全部', value: '' }, { label: '班线客车', value: '班线客车' },
         { label: '旅游包车', value: '旅游包车' }, { label: '危险品运输车', value: '危险品运输车' }]
         this.businessType = '';
@@ -79,7 +83,7 @@ export class CarListComponent implements OnInit {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register();
-        this.carService.search(begin, end, this.businessType, this.licenseNo, this.pageMax, this.pageFirst).subscribe(
+        this._carService.search(begin, end, this.businessType, this.licenseNo, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.cars = res.carList;
@@ -135,6 +139,25 @@ export class CarListComponent implements OnInit {
         this.layoutComponent.addTab(menu);
     }
 
+    showDetail(car) {
+        this.action = 'detail';
+        this._carService.detail(car.id)
+        this._loadingService.register();
+        this._carService.detail(car.id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    console.log('====res====' + JSON.stringify(res));
+                    this.car = res.car;
+                    this.warningList = res.warningResult.warningList
+                    console.log('====waringList====' + JSON.stringify(this.warningList));
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
     /**
      * 搜索参数验证
      */
@@ -143,13 +166,17 @@ export class CarListComponent implements OnInit {
         if (this.dateBegin && this.dateEnd) {
             if (this.dateBegin > this.dateEnd) {
                 flag = false;
-                this.toastr.error('开始时间不能大于结束时间！');
+                this._toastr.error('开始时间不能大于结束时间！');
             }
         }
         if ((this.dateBegin || this.dateEnd) && !(this.dateBegin && this.dateEnd)) {
             flag = false
-            this.toastr.error('起止时间必须全部填写！')
+            this._toastr.error('起止时间必须全部填写！')
         }
         return flag
+    }
+
+    return() {
+        this.action = 'list';
     }
 }

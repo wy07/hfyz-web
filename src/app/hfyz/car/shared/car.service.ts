@@ -23,4 +23,8 @@ export class CarService {
     getCompanyCars(companyCode){
         return this.restangular.one('companys',companyCode).customGET('cars')
     }
+
+    detail(id) {
+        return this.restangular.one('cars', id).customGET('detail');
+    }
 }
