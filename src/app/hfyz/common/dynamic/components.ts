@@ -1,3 +1,4 @@
+import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
 import { PassLineBusinessBasicComponent } from './../../waybill/pass-line-business-basic/pass-line-business-basic.component';
@@ -93,5 +94,6 @@ export const components = {
     platformStatisticComponent: PlatformStatisticComponent,
     travelStatistic: TravelStatisticComponent,
     dangerousStatistic: DangerousStatisticComponent,
-    passengerStatistic: PassengerStatisticComponent
+    passengerStatistic: PassengerStatisticComponent,
+    workOrderFlow: WorkOrderFlowComponent
 };
