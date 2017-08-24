@@ -37,9 +37,9 @@ export class FreightWaybillComponent implements OnInit {
     showViaLand: boolean;
     btnType: boolean;
     constructor(private _loadingService: TdLoadingService,
-        private datePipe: DatePipe,
         private _freightWaybillService: FreightWaybillService,
         private _customDialogService: CustomDialogService,
+        private _regularService: RegularService,
         private _datePipe: DatePipe,
         private toastr: ToastsManager) {
         this.pageMax = 10;
@@ -85,8 +85,8 @@ export class FreightWaybillComponent implements OnInit {
      * @param {number} offset
      */
     loadData() {
-        const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
-        const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
+        const begin = this.dateBegin ? this._datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
+        const end = this.dateEnd ? this._datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
         this._loadingService.register();
         this._freightWaybillService.search(this.vehicleNo, this.ownerName, begin, end, this.pageMax, this.pageFirst).subscribe(
             res => {
@@ -246,28 +246,32 @@ export class FreightWaybillComponent implements OnInit {
     }
 
     save() {
-        this.freightWaybill.routerName = this.viaLandList.find(obj => obj.viaLand === this.freightWaybill.viaLand).routerName
-        this._loadingService.register();
-        this._freightWaybillService.save(this.freightWaybill).subscribe(res => {
-            this._loadingService.resolve();
-            this.toastr.info('新增成功.')
-            this.goBack();
-        })
+        if (this.validationData()) {
+            this.freightWaybill.routerName = this.viaLandList.find(obj => obj.viaLand === this.freightWaybill.viaLand).routerName
+            this._loadingService.register();
+            this._freightWaybillService.save(this.freightWaybill).subscribe(res => {
+                this._loadingService.resolve();
+                this.toastr.info('新增成功.')
+                this.goBack();
+            })
+        }
     }
 
     edit(id) {
-        this._loadingService.register();
-        this._freightWaybillService.edit(id).subscribe(res => {
-            this._loadingService.resolve();
-            this.freightWaybill = res.freightWaybill;
-            this.getViaLand(res.freightWaybill.routerName);
-            this.freightWaybill.routerName = res.freightWaybill.routerName
-            this.btnType = false;
-            this.freightWaybill.driver = this.driversList.find(obj => obj.name === this.freightWaybill.driver.name)
-            this.freightWaybill.supercargo = this.managersList.find(obj => obj.name === this.freightWaybill.supercargo.name)
-            this.freightWaybill.dangerousType = this.dangerousTypeList.find(obj => obj.id === this.freightWaybill.dangerousType.id)
-            this.pageFlag = 'CREATE'
-        })
+        if (this.validationData()) {
+            this._loadingService.register();
+            this._freightWaybillService.edit(id).subscribe(res => {
+                this._loadingService.resolve();
+                this.freightWaybill = res.freightWaybill;
+                this.getViaLand(res.freightWaybill.routerName);
+                this.freightWaybill.routerName = res.freightWaybill.routerName
+                this.btnType = false;
+                this.freightWaybill.driver = this.driversList.find(obj => obj.name === this.freightWaybill.driver.name)
+                this.freightWaybill.supercargo = this.managersList.find(obj => obj.name === this.freightWaybill.supercargo.name)
+                this.freightWaybill.dangerousType = this.dangerousTypeList.find(obj => obj.id === this.freightWaybill.dangerousType.id)
+                this.pageFlag = 'CREATE'
+            })
+        }
     }
 
     update() {
@@ -294,5 +298,33 @@ export class FreightWaybillComponent implements OnInit {
                 })
             }
         })
+    }
+
+    validationData() {
+        if (this._regularService.isBlank(this.freightWaybill.vehicleNo)) {
+            this.toastr.error('车牌号不能为空.');
+            return false
+        }
+        if (this._regularService.isBlank(this.freightWaybill.driver.name)) {
+            this.toastr.error('驾驶员信息不能为空.');
+            return false
+        }
+        if (this._regularService.isBlank(this.freightWaybill.supercargo.name)) {
+            this.toastr.error('押运员信息不能为空.');
+            return false
+        }
+        if (this._regularService.isBlank(this.freightWaybill.departArea)) {
+            this.toastr.error('出发的不能为空.');
+            return false
+        }
+        if (this._regularService.isBlank(this.freightWaybill.arriveArea)) {
+            this.toastr.error('目的地不能为空.');
+            return false
+        }
+        if (this._regularService.isBlank(this.freightWaybill.viaLand)) {
+            this.toastr.error('途径地不能为空.');
+            return false
+        }
+        return true
     }
 }
