@@ -1,0 +1,181 @@
+<div class='basic-bottom' *ngIf="action==='list'">
+    <div class="top-buttons">
+        <button class="btn btn-primary" type="button" (click)="onCreate()">新增</button>
+    </div>
+    <p-dataTable [value]="flowList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true"
+        (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+        <p-column field="alarmType" header="告警类型"></p-column>
+        <p-column field="flowVersion" header="版本"></p-column>
+        <p-column field="enabled" header="是否生效">
+            <ng-template let-flow="rowData" pTemplate="body">
+                <span>{{flow.enabled?'生效':'无效'}}</span>
+            </ng-template>
+        </p-column>
+        <p-column field="dateCreated" header="创建时间"></p-column>
+        <p-column field="lastUpdated" header="更新时间"></p-column>
+        <p-column field="" header="操作" styleClass=operation-buttons-3>
+            <ng-template let-node="rowData" pTemplate="body">
+                <span role="button" class="fa fa-list fa-font-size div-distance" (click)="onShow(node.id)" tooltip="详情" placement="bottom"></span>
+                <span role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(node.id)" tooltip="编辑" placement="bottom"></span>
+                <span role="button" class="fa fa-bolt fa-font-size div-distance" (click)="onEffect(node.id)" tooltip="生效" placement="bottom"
+                    *ngIf="!node.enabled"> </span>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>
+<div *ngIf="action==='update'">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{formTitle}}</div>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><span class="required">*</span>报警类型：</label>
+                        <div class="col-sm-6">
+                            <select [(ngModel)]="workOrderFlow.alarmType" class="form-control">
+                                <option *ngFor="let item of alarmTypes" [ngValue]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label"><span class="required">*</span>审批流程：</label>
+                        <div class="col-sm-9">
+                            <div class="row" *ngFor="let item of examineFlows; index as i">
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" [(ngModel)]="examineFlows[i].name">
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="examineFlows[i].org" class="form-control">
+                                        <option *ngFor="let item of orgs" [ngValue]="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="examineFlows[i].role" class="form-control">
+                                        <option *ngFor="let item of getRoles(examineFlows[i].org)" [ngValue]="item.authority">{{item.name}}</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span role="button" class="btn btn-primary fa fa-minus" (click)="removeExamineFlow(i)"></span>
+                                </div>
+                            </div>
+                            <span role="button" class="btn btn-primary fa fa-plus" (click)="addExamineFlow()"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label"><span class="required">*</span>反馈流程：</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" [(ngModel)]="feedbackFlow.name">
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="feedbackFlow.org" class="form-control">
+                                        <option *ngFor="let item of orgs" [ngValue]="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="feedbackFlow.role" class="form-control">
+                                        <option *ngFor="let item of getRoles(feedbackFlow.org)" [ngValue]="item.authority">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label"><span class="required">*</span>研判流程：</label>
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" [(ngModel)]="judgeFlow.name">
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="judgeFlow.org" class="form-control">
+                                        <option *ngFor="let item of orgs" [ngValue]="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select [(ngModel)]="judgeFlow.role" class="form-control">
+                                        <option *ngFor="let item of getRoles(judgeFlow.org)" [ngValue]="item.authority">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-5 col-sm-10">
+                        <button type="button" class="btn btn-primary" (click)="isAdd?onSave():onUpdate()">保存</button>
+                        <button type="button" class="btn btn-primary" (click)="action='list'">取消</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default panel-show" *ngIf="action==='show'">
+    <div class="panel-heading">
+        详情
+        <button type="button" class="btn back-btn btn-primary" (click)="action='list'">返回</button>
+    </div>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">报警类型：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{details.alarmType}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">版本：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{details.flowVersion}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">生效：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{details.enabled?'是':'否'}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">创建时间：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{details.dateCreated}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">更新时间：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{details.lastUpdated}}</p>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">工作流：</label>
+                </div>
+                <div class="col-sm-10 col-sm-offset-1">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">名称</th>
+                                <th class="text-center">动作</th>
+                                <th class="text-center">部门</th>
+                                <th class="text-center">角色</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of details.flows">
+                                <td>{{item.name}}</td>
+                                <td>{{item.action}}</td>
+                                <td>{{item.org}}</td>
+                                <td>{{item.role}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
