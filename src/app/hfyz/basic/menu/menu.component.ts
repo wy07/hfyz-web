@@ -3,7 +3,7 @@ import { Component, OnInit} from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { TreeNode } from 'primeng/components/common/api';
 import { RegularService } from '../../common/shared/regular.service';
-import {TdLoadingService} from "@covalent/core";
+import {TdLoadingService} from '@covalent/core';
 @Component({
     selector: 'app-menu',
     templateUrl: 'menu.component.html',
