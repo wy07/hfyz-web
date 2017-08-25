@@ -44,6 +44,7 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
 
 export const components = {
     role: RoleComponent,
@@ -59,7 +60,7 @@ export const components = {
     infoList: InfoListComponent,
     operationLog: LogManageComponent,
     platformManage: PlatformManageComponent,
-    realTimeMap: MapComponent,
+    realTimeMap: CarRealTimeMapComponent,
     realTimeMonitorMap: MapComponent,
     historyMap: MapComponent,
     otherMap: MapComponent,

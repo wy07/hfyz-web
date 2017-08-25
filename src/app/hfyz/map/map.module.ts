@@ -31,7 +31,7 @@ import {TabsModule, AccordionModule} from 'ngx-bootstrap';
         CustomDirectiveModule,
         CommonModule
     ],
-    exports: [],
+    exports: [MapTabsBarComponent],
     providers: [
         MapService,
         DatePipe

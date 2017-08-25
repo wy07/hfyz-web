@@ -62,7 +62,7 @@ export class LayoutComponent implements OnInit {
 
     public addTab(menu): Promise<any> {
         return new Promise(resolve => {
-            const mapMenus = ['realTimeMap', 'historyMap', 'otherMap', 'realTimeMonitorMap'];
+            const mapMenus = [ 'historyMap', 'otherMap', 'realTimeMonitorMap'];
             this.initMap = false;
             if (mapMenus.find(x => x === menu.code) === undefined) {
                 this.activeTab(menu);
