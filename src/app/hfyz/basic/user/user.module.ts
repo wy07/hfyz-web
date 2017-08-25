@@ -7,7 +7,10 @@ import {BrowserModule} from '@angular/platform-browser';
 import {UserService} from './user.service';
 import {UserComponent} from './user.component';
 import {NgModule} from '@angular/core';
-import {DataTableModule, DialogModule, ListboxModule, ButtonModule, PaginatorModule} from 'primeng/primeng';
+import {
+    DataTableModule, DialogModule, ListboxModule, ButtonModule, PaginatorModule,
+    AutoCompleteModule
+} from 'primeng/primeng';
 import {ChangePwdComponent} from './changePwd/change-pwd.component';
 import { TooltipModule } from 'ngx-bootstrap';
 @NgModule({
@@ -28,7 +31,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         RoleModule,
         PaginatorModule,
         TooltipModule,
-        CustomDirectiveModule
+        CustomDirectiveModule,
+        AutoCompleteModule
     ],
     exports: [],
     providers: [

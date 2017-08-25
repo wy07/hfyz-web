@@ -28,6 +28,10 @@ export class UserService {
         return this.restangular.one('sysusers', id).customPOST(formData);
     }
 
+    companyList(enterpirse) {
+        return this.restangular.all('sysusers').customGET('company-list', {enterpirse: enterpirse});
+    }
+
     resetPassword(id) {
         return this.restangular.one('sysusers', id).customPOST({}, 'reset-password');
     }

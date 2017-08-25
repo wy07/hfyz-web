@@ -36,6 +36,12 @@ export class UserComponent implements OnInit {
     orgList: SelectItem[];
     currentUserId: number
     currentRoleString: string
+    selectedCompany: any;
+    enterpirse: string;
+    filteredEnterpirses: any[];
+    ownerName: string;
+    isAdmin: boolean;
+    disabled: boolean;
 
     constructor(private _renderer: Renderer
         , private _router: Router
@@ -53,13 +59,15 @@ export class UserComponent implements OnInit {
         this.currentPage = 0;
         this.totalUsers = 0;
         this.user = {};
+        this.selectedCompany = {};
 
-
+        this.disabled = false;
         this.displayDialog = false;
         // this.layoutComponent = this.inj.get(LayoutComponent);
         this.currentUserId = this._authService.getCurrentUser('id');
         this.currentRoleString = this._authService.getCurrentUser('roleId');
         this.user = {id: '', operator: this.currentUserId};
+        this.isAdmin = sessionStorage.getItem('orgId') === 'null';
     }
 
     ngOnInit() {
@@ -74,11 +82,13 @@ export class UserComponent implements OnInit {
                 this._loadingService.resolve();
                 this.userList = res.userList;
                 this.totalUsers = res.totalUsers;
+                this.disabled = false;
             }
         );
     }
 
     onEdit(user) {
+        this.selectedCompany = {};
         this.action = 'update';
         this.isAdd = false;
         this.formTitle = '编辑';
@@ -87,8 +97,14 @@ export class UserComponent implements OnInit {
             res => {
                 console.log(JSON.stringify(res))
                 this.user = res.user;
+                this.selectedCompany.info = res.user.enterpirse;
+                this.ownerName = res.user.enterpirse;
+                this.user.companyCode = res.user.companyCode;
                 this.roleList = res.roleList;
                 this.orgList = res.orgList;
+                if (this.user.orgId === 78) {
+                    this.disabled = true;
+                }
             }
         );
     }
@@ -103,6 +119,7 @@ export class UserComponent implements OnInit {
                 this.isAdd = true;
                 this.action = 'update';
                 this.user = {};
+                this.selectedCompany = {};
             }
         );
     }
@@ -117,13 +134,36 @@ export class UserComponent implements OnInit {
                     this.initData();
                 }
             );
-
         }
+    }
+
+    filteredEnterpirse(event) {
+        const query = event.query.trim();
+        if (this._regularService.isBlank(query)) {
+            return false;
+        }
+
+        this._userService.companyList(query).subscribe(
+            res => {
+                this.filteredEnterpirses = res.companyList;
+                for (const item of this.filteredEnterpirses) {
+                    item.info = `${item.ownerName}`;
+                }
+            }
+        );
+    }
+
+    onSelect(event) {
+        this.user.companyCode = event.companyCode;
+        this.ownerName = event.ownerName;
     }
 
     update() {
         if (this.validate()) {
-            console.log(this.user.roles)
+            if (this._regularService.isBlank(this.selectedCompany.info)) {
+                this.user.companyCode = null;
+                this.user.enterpirse = null;
+            }
             this._userService.update(this.user.id, this.user).subscribe(
                 res => {
                     this.action = 'list';
@@ -135,7 +175,14 @@ export class UserComponent implements OnInit {
         }
 
     }
-
+    onChange() {
+        if (this.user.orgId === 78) {
+            this.disabled = true;
+        }else {
+            this.disabled = false;
+            this.selectedCompany = {};
+        }
+    }
     onDelete(user) {
         if (confirm('确认移除用户——' + user.name + '？')) {
             this._userService.delete(user.id).subscribe(
@@ -165,21 +212,38 @@ export class UserComponent implements OnInit {
         }
     }
 
+    cancel() {
+        this.action = 'list';
+        this.disabled = false;
+    }
+
     validate() {
-        let result = true
         if (this._regularService.isBlank(this.user.name)) {
             this._toastr.error('名称不能为空');
-            result = false;
+            return false;
         }
         if (this._regularService.isBlank(this.user.roles)) {
             this._toastr.error('角色不能为空');
-            result = false;
+            return false;
         }
         if (this._regularService.isBlank(this.user.username)) {
-            this._toastr.error(' 账号不能为空');
-            result = false;
+            this._toastr.error('账号不能为空');
+            return false;
         }
-
-        return result;
+        if (this.isAdmin && this._regularService.isBlank(this.user.orgId)) {
+            this._toastr.error('部门不能为空');
+            return false;
+        }
+        if (this.isAdmin && this.user.orgId === 78 && this._regularService.isBlank(this.user.companyCode)) {
+            this._toastr.error('请选择业户名称');
+            return false;
+        }
+        if (this.isAdmin && this.user.orgId === 78 && !this._regularService.isBlank(this.selectedCompany)) {
+            if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
+                this._toastr.error('请选择正确的业户名称');
+                return false;
+            }
+        }
+        return true;
     }
 }

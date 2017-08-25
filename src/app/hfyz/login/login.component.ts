@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('password', this.loginForm.value.password);
                 sessionStorage.setItem('companyCode', res.companyCode);
                 sessionStorage.setItem('companyName', res.companyName);
+                sessionStorage.setItem('orgId', res.orgId);
                 sessionStorage.setItem('token', res.token);
 
                 this.eventBuservice.notify.emit({type: 'inspect', companyCode: res.companyCode});
