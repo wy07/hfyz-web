@@ -1,4 +1,3 @@
-
 <div *ngIf="pageFlag == 'LIST'">
     <div class="querys">
         <div class="row form-horizontal">
@@ -23,11 +22,13 @@
                     <label class="col-sm-4 control-label">出发时间：</label>
                     <div class="col-sm-8 calendar-group">
                         <div class="cgl">
-                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
+                            <p-calendar [(ngModel)]="dateBegin" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span inputStyleClass=calendar
+                                [locale]="zh"></p-calendar>
                         </div>
                         <div class="cgm">-</div>
                         <div class="cgr">
-                            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" [showIcon]="true" styleClass=calendar-span inputStyleClass=calendar [locale]="zh"></p-calendar>
+                            <p-calendar [showTime]="true" [(ngModel)]="dateEnd" dateFormat="yy-mm-dd" [showIcon]="true" styleClass=calendar-span inputStyleClass=calendar
+                                [locale]="zh"></p-calendar>
                         </div>
                     </div>
                 </div>
@@ -38,20 +39,26 @@
             </div>
         </div>
     </div>
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="add()"></button>
+    </div>
     <div class='basic-bottom'>
-        <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+        <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true"
+            (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="vehicleNo" header="车牌号"></p-column>
             <p-column field="ownerName" header="公司"></p-column>
             <p-column field="dangerousName" header="品名"></p-column>
             <p-column field="dangerousType" header="类别"></p-column>
             <p-column field="amount" header="数量"></p-column>
-            <p-column field="loadedType" header="装/卸"></p-column>
+            <p-column field="loadedType" header="装载/卸载"></p-column>
             <p-column field="departTime" header="出发时间"></p-column>
             <p-column field="startCity" header="出发地"></p-column>
             <p-column field="endCity" header="目的地"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-1>
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-data="rowData" pTemplate="body">
                     <div role="button" class="fa fa-list fa-font-size div-distance" (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id, data.vehicleNo)" tooltip="删除" placement="bottom"></div>
                 </ng-template>
             </p-column>
         </p-dataTable>
@@ -104,7 +111,7 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">危险品分类：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.dangerousType}}</p>
+                        <p class="form-control-static">{{freightWaybill.dangerousType.name}}</p>
                     </div>
                 </div>
 
@@ -132,7 +139,7 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">是否经营性运输：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.operatedType}}</p>
+                        <p class="form-control-static">{{freightWaybill.operatedType?'是':'否'}}</p>
                     </div>
                 </div>
 
@@ -174,14 +181,42 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">驾驶员姓名：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.driverName}}</p>
+                        <p class="form-control-static">{{freightWaybill.driver.name}}</p>
                     </div>
                 </div>
 
                 <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">驾驶员身份证号：</label>
+                    <label class="col-sm-5 control-label">驾驶员从业资格证号：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.idCardNo}}</p>
+                        <p class="form-control-static">{{freightWaybill.driver.wokeLicenseNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">驾驶员联系电话：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.driver.phone}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">押运员姓名：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.supercargo.name}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">押运员从业资格证号：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.supercargo.wokeLicenseNo}}</p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">押运员联系电话：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.supercargo.phone}}</p>
                     </div>
                 </div>
 
@@ -202,17 +237,338 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">出发地：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.startProvince}}/{{freightWaybill.startCity}}/{{freightWaybill.startDistrict}}</p>
+                        <p class="form-control-static">{{freightWaybill.departArea}}</p>
                     </div>
                 </div>
 
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">目的地：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.endProvince}}/{{freightWaybill.endCity}}/{{freightWaybill.endDistrict}}</p>
+                        <p class="form-control-static">{{freightWaybill.arriveArea}}</p>
                     </div>
                 </div>
 
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">途径地：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{freightWaybill.viaLand}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default freight-waybill" *ngIf="pageFlag=='CREATE'">
+    <div class="panel-heading">
+        新增
+    </div>
+    <div class="panel-body no-padding">
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>车辆号牌：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.vehicleNo" (change)='changeCar()' class="form-control">
+                        <option value="">请选择车辆牌号</option>
+                        <option *ngFor="let item of carList" [value]="item.licenseNo">
+                            {{item.licenseNo}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>业户名称：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill.ownerName?true:false}}' [(ngModel)]="freightWaybill.ownerName">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>车架号：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.frameNo">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>车牌颜色：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill.carPlateColor?true:false}}' [(ngModel)]="freightWaybill.carPlateColor">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>挂车车牌号：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill.licenseNo?true:false}}' [(ngModel)]="freightWaybill.licenseNo">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>车辆类型：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill.carType?true:false}}' [(ngModel)]="freightWaybill.carType">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>车辆尺寸：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill.carSize?true:false}}' [(ngModel)]="freightWaybill.carSize">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>危险品名称：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.dangerousName">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>危险品分类：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.dangerousType" class="form-control">
+                        <option value="{{freightWaybill.dangerousType}}">请选择危险品分类</option>
+                        <option *ngFor="let item of dangerousTypeList" [ngValue]="item">
+                            {{item.name}}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>核定载重质量：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.ratifiedPayload">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-12">
+            <div class="form-group">
+                <label class="col-xs-2 control-label text-right"><span class="required">*</span>应急处置方案：</label>
+                <div class="col-xs-10">
+                    <textarea rows="5" cols="50" class="form-control" placeholder="输入应急处置方案" style="resize:none;width:90%" [(ngModel)]="freightWaybill.emergencyPlan"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>运输价格：</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.price">
+                </div>
+                <div class="col-xs-4 checkbox">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="freightWaybill.operatedType"> 是否经营性运输
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>装载/卸载：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.loadedType" class="form-control">
+                        <option *ngFor="let item of ['装载','卸载']" [value]="item">
+                            {{item}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>是否满载：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.fullLoaded" class="form-control">
+                        <option *ngFor="let item of ['是','否']" [value]="item">
+                            {{item}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>装载量：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.amount">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>运输距离：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.mile">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>运输出场时间：</label>
+                <div class="col-xs-6 ">
+                    <p-calendar [(ngModel)]="freightWaybill.departTime" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span
+                        inputStyleClass=calendar [locale]="zh"></p-calendar>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>驾驶员姓名：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.driver" class="form-control">
+                        <option value="">请选择驾驶员</option>
+                        <option *ngFor="let item of driversList" [ngValue]="item">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>押运员姓名：</label>
+                <div class="col-xs-6 ">
+                    <select [(ngModel)]="freightWaybill.supercargo" class="form-control">
+                        <option value="">请选择押运员</option>
+                        <option *ngFor="let item of managersList" [ngValue]="item">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>驾驶员从业资格证号：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.driver?.wokeLicenseNo?true:false}}' [(ngModel)]="freightWaybill.driver.wokeLicenseNo">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>押运员从业资格证号：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.supercargo?.wokeLicenseNo?true:false}}' [(ngModel)]="freightWaybill.supercargo.wokeLicenseNo">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>驾驶员联系电话：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.driver?.phone?true:false}}' [(ngModel)]="freightWaybill.driver.phone">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>押运员联系电话：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.supercargo?.phone?true:false}}' [(ngModel)]="freightWaybill.supercargo.phone">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>托运单位：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" [(ngModel)]="freightWaybill.consignCompany">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>运输回场时间：</label>
+                <div class="col-xs-6 ">
+                    <p-calendar [(ngModel)]="freightWaybill.backTime" [showIcon]="true" [showTime]="true" dateFormat="yy-mm-dd" styleClass=calendar-span
+                        inputStyleClass=calendar [locale]="zh"></p-calendar>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>始发地：</label>
+                <div class="col-xs-6 ">
+                    <app-wu-city-select [selected]="freightWaybill.departArea" (result)="selectCity($event, 'departArea')"></app-wu-city-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>目的地：</label>
+                <div class="col-xs-6 ">
+                    <app-wu-city-select [selected]="freightWaybill.arriveArea" (result)="selectCity($event, 'arriveArea')"></app-wu-city-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-horizontal col-md-12" *ngIf="viaLandList.length > 0;else viaLandContent">
+            <div class="form-group">
+                <label class="col-xs-2 control-label text-right"><span class="required">*</span>途径地：</label>
+                <div class="col-xs-8" style="margin-top: 7px;" *ngFor="let item of viaLandList">
+                    <input type="radio" name="optionsRadios" [(ngModel)]="freightWaybill.viaLand" value="{{item.viaLand}}" [checked]="freightWaybill.viaLand == item.viaLand">                    {{item.viaLand}}
+                </div>
+            </div>
+        </div>
+
+        <ng-template #viaLandContent>
+            <div class="form-horizontal col-md-12">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label text-right"><span class="required">*</span>途径地：</label>
+                    <div class="col-xs-8" style="margin-top: 7px;">
+                        <span>当前路线不存在，请在危货路线中添加。</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="btnType?save():update()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="goBack()">取消</button>
             </div>
         </div>
     </div>
