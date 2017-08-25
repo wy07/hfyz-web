@@ -27,4 +27,12 @@ export class CarService {
     detail(id) {
         return this.restangular.one('cars', id).customGET('detail');
     }
+
+    getWarning(id, max, offset) {
+        return this.restangular.one('cars', id).customGET('get-warning', {max: max, offset: offset});
+    }
+
+    getHistory(id) {
+        return this.restangular.one('cars', id).customGET('get-history');
+    }
 }

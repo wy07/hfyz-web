@@ -21,6 +21,11 @@ export class CarListComponent implements OnInit {
     pageFirst: number;
     pageOffset: number;
 
+    pageMaxWarning: number;
+    pageTotalWarning: number;
+    pageFirstWarning: number;
+    pageOffsetWarning: number;
+
     cars: any[];
     businessTypes: any[];
     businessType: string;
@@ -32,6 +37,7 @@ export class CarListComponent implements OnInit {
     zh = zh;
     car: any;
     warningList: any;
+    historyList: any;
     constructor(private _toastr: ToastsManager
         , private regularService: RegularService
         , private _carService: CarService
@@ -49,10 +55,16 @@ export class CarListComponent implements OnInit {
         this.dateBegin = null;
         this.dateEnd = null;
         this.action = 'list';
+        this.car = {};
         this.businessTypes = [{ label: '全部', value: '' }, { label: '班线客车', value: '班线客车' },
         { label: '旅游包车', value: '旅游包车' }, { label: '危险品运输车', value: '危险品运输车' }]
         this.businessType = '';
         this.layoutComponent = this.inj.get(LayoutComponent);
+
+        this.pageMaxWarning = 10;
+        this.pageTotalWarning = 0;
+        this.pageFirstWarning = 0;
+        this.pageOffsetWarning = 0;
     }
 
     ngOnInit() {
@@ -99,6 +111,12 @@ export class CarListComponent implements OnInit {
         }
     }
 
+    paginateWarning(event) {
+        if (this.pageOffsetWarning !== event.first) {
+            this.getWarning(this.car.id);
+        }
+    }
+
     showRealTimeMap(item) {
         // this.mapComponent.registerHandler(item.frameNo);
         // this.mapComponent.test();
@@ -140,17 +158,45 @@ export class CarListComponent implements OnInit {
     }
 
     showDetail(car) {
+        this.getWarning(car.id);
+        this.getHistory(car.id);
         this.action = 'detail';
-        this._carService.detail(car.id)
         this._loadingService.register();
         this._carService.detail(car.id).subscribe(
             res => {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
-                    console.log('====res====' + JSON.stringify(res));
                     this.car = res.car;
-                    this.warningList = res.warningResult.warningList
-                    console.log('====waringList====' + JSON.stringify(this.warningList));
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
+    getWarning(id) {
+        this._loadingService.register();
+        this._carService.getWarning(id, this.pageMaxWarning, this.pageFirstWarning).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    this.warningList = res.warningList;
+                    this.pageTotalWarning = res.total;
+                    this.pageOffsetWarning = this.pageFirstWarning;
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
+    getHistory(id) {
+        this._loadingService.register();
+        this._carService.getHistory(id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    this.historyList = res.historyList;
                 } else {
                     this._toastr.error('获取数据失败');
                 }
@@ -177,6 +223,8 @@ export class CarListComponent implements OnInit {
     }
 
     return() {
+        this.pageOffsetWarning = 0;
+        this.pageFirstWarning = 0;
         this.action = 'list';
     }
 }

@@ -63,204 +63,220 @@
 </div>
 
 <div class="panel panel-default panel-show" *ngIf="(action=='detail')">
-    <div class="panel-heading">
-        详情
-        <button type="button" class="btn back-btn btn-primary" (click)="return()">返回</button>
-    </div>
-    <div class="panel-body no-padding showDetails">
-        <div class="col-sm-12 form-horizontal">
-            <div class="row">
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车牌号：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.licenseNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车架号：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.frameNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车牌颜色：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carPlateColor}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">厂牌：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.brand}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">型号：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.model}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车辆类型：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carType}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">客车等级：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.passengerLevel}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车身颜色：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carColor}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">发动机号：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.engNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车辆识别VIP码：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carIdentityCode}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">核定载客位：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.seatNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车辆（挂车）吨位：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carTonnage}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车辆箱位：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carBoxNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">罐体容积：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.volume}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">燃料类型：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.fuelType}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">发动机功率：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.engPower}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">出厂日期：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.leaveFactoryTime}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">购车日期：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.buyCarTime}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">落户日期：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.settleTime}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">更新时间：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.modifyTime}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车辆照片：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.picture}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">轴距：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.wheelbase}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车长：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carLength}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车高：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carHeight}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车宽：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carWidth}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">车轴数：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.carSmokeNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">后轴钢板弹簧片数：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.leafSpringNo}}</p>
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-5 control-label">准牵引总质量：</label>
-                    <div class="col-sm-7">
-                        <p class="form-control-static">{{car.tractionTonnage}}</p>
-                    </div>
-                </div>
-                <div class="panel-body">
+    <button type="button" class="btn back-btn btn-primary btn-position" (click)="return()">返回</button>
+    <p-tabView>
+        <p-tabPanel header="详情">
+            <div class="panel-body no-padding showDetails">
+                <div class="col-sm-12 form-horizontal">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel-default panel-show info-center">
-                                <div class="panel-heading">
-                                    报警信息
-                                </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车牌号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.licenseNo}}</p>
                             </div>
-                            <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'">
-                                <p-column field="frameNo" header="车架号"></p-column>
-                                <p-column field="carLicenseNo" header="车牌号"></p-column>
-                                <p-column field="carColor" header="车辆颜色"></p-column>
-                                <p-column field="warningSource" header="报警信息来源"></p-column>
-                                <p-column field="warningType" header="报警类型"></p-column>
-                                <p-column field="warningTime" header="报警时间"></p-column>
-                                <p-column field="warningTimes" header="报警次数"></p-column>
-                            </p-dataTable>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车架号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.frameNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车牌颜色：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carPlateColor}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">厂牌：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.brand}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">型号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.model}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车辆类型：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">客车等级：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.passengerLevel}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车身颜色：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carColor}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发动机号：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.engNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车辆识别VIP码：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carIdentityCode}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">核定载客位：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.seatNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车辆（挂车）吨位：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carTonnage}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车辆箱位：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carBoxNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">罐体容积：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.volume}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">燃料类型：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.fuelType}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">发动机功率：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.engPower}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">出厂日期：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.leaveFactoryTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">购车日期：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.buyCarTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">落户日期：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.settleTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">更新时间：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.modifyTime}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车辆照片：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.picture}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">轴距：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.wheelbase}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车长：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carLength}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车高：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carHeight}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车宽：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carWidth}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">车轴数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.carSmokeNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">后轴钢板弹簧片数：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.leafSpringNo}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="col-sm-5 control-label">准牵引总质量：</label>
+                            <div class="col-sm-7">
+                                <p class="form-control-static">{{car.tractionTonnage}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </p-tabPanel>
+        <p-tabPanel header="历史报警信息">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-dataTable [value]="warningList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMaxWarning" [totalRecords]="pageTotalWarning" [paginator]="true" (onLazyLoad)="paginateWarning($event)" [(first)]="pageFirstWarning">
+                            <p-column field="frameNo" header="车架号"></p-column>
+                            <p-column field="carLicenseNo" header="车牌号"></p-column>
+                            <p-column field="carColor" header="车辆颜色"></p-column>
+                            <p-column field="warningSource" header="报警信息来源"></p-column>
+                            <p-column field="warningType" header="报警类型"></p-column>
+                            <p-column field="warningTime" header="报警时间"></p-column>
+                            <p-column field="warningTimes" header="报警次数"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="历史位置信息">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-dataTable styleClass="datatable-emptymessage" [value]="historyList" [emptyMessage]="'暂无数据'">
+                            <p-column field="licenseNo" header="车牌号"></p-column>
+                            <p-column field="carColor" header="车辆颜色"></p-column>
+                            <p-column field="point" header="经纬度"></p-column>
+                            <p-column field="speed" header="速度"></p-column>
+                            <p-column field="totalMileage" header="总里程数"></p-column>
+                            <p-column field="recSpeed" header="行驶记录速度"></p-column>
+                            <p-column field="direction" header="方向"></p-column>
+                            <p-column field="altitude" header="海拔高度"></p-column>
+                            <p-column field="vehicleState" header="车辆状态"></p-column>
+                            <p-column field="refreshTime" header="更新时间"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
 </div>
-
-

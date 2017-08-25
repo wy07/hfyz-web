@@ -1,3 +1,5 @@
-.info-center {
-    text-align: center;
+.btn-position {
+    position: relative;
+    right:15px;
+    top: 3px;
 }
