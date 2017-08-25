@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
     ownerName: string;
     isAdmin: boolean;
     disabled: boolean;
-
+    org: any;
     constructor(private _renderer: Renderer
         , private _router: Router
         , private _activatedRoute: ActivatedRoute
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
         this.totalUsers = 0;
         this.user = {};
         this.selectedCompany = {};
-
+        this.org = {};
         this.disabled = false;
         this.displayDialog = false;
         // this.layoutComponent = this.inj.get(LayoutComponent);
@@ -88,6 +88,7 @@ export class UserComponent implements OnInit {
     }
 
     onEdit(user) {
+        this.org = {};
         this.selectedCompany = {};
         this.action = 'update';
         this.isAdd = false;
@@ -102,7 +103,13 @@ export class UserComponent implements OnInit {
                 this.user.companyCode = res.user.companyCode;
                 this.roleList = res.roleList;
                 this.orgList = res.orgList;
-                if (this.user.orgId === 78) {
+                let i = this.orgList.length;
+                while (i--) {
+                    if (this.orgList[i].value === this.user.orgId) {
+                        this.org = this.orgList[i];
+                    }
+                }
+                if (this.user.orgCode === '24') {
                     this.disabled = true;
                 }
             }
@@ -126,7 +133,10 @@ export class UserComponent implements OnInit {
 
     save() {
         if (this.validate()) {
-            this.user.org = {id: this.user.orgId};
+            if (this.org) {
+                this.user.orgId = this.org.value;
+                this.user.org = {id: this.user.orgId};
+            }
             this._userService.save(this.user).subscribe(
                 res => {
                     this.action = 'list';
@@ -164,6 +174,10 @@ export class UserComponent implements OnInit {
                 this.user.companyCode = null;
                 this.user.enterpirse = null;
             }
+            if (this.org) {
+                this.user.orgId = this.org.value;
+                this.user.org = {id: this.user.orgId};
+            }
             this._userService.update(this.user.id, this.user).subscribe(
                 res => {
                     this.action = 'list';
@@ -176,7 +190,7 @@ export class UserComponent implements OnInit {
 
     }
     onChange() {
-        if (this.user.orgId === 78) {
+        if (this.org.code === '24') {
             this.disabled = true;
         }else {
             this.disabled = false;
@@ -230,15 +244,15 @@ export class UserComponent implements OnInit {
             this._toastr.error('账号不能为空');
             return false;
         }
-        if (this.isAdmin && this._regularService.isBlank(this.user.orgId)) {
+        if (this.isAdmin && this._regularService.isBlank(this.org)) {
             this._toastr.error('部门不能为空');
             return false;
         }
-        if (this.isAdmin && this.user.orgId === 78 && this._regularService.isBlank(this.user.companyCode)) {
+        if (this.isAdmin && this.org.code === '24' && this._regularService.isBlank(this.user.companyCode)) {
             this._toastr.error('请选择业户名称');
             return false;
         }
-        if (this.isAdmin && this.user.orgId === 78 && !this._regularService.isBlank(this.selectedCompany)) {
+        if (this.isAdmin && this.org.code === '24' && !this._regularService.isBlank(this.selectedCompany)) {
             if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
                 this._toastr.error('请选择正确的业户名称');
                 return false;
