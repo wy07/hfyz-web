@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {MapSignService} from './shared/map-sign.service';
 import DateTimeFormat = Intl.DateTimeFormat;
-import {TdLoadingService} from "@covalent/core";
+import {TdLoadingService} from '@covalent/core';
 
 @Component({
     selector: 'map-sign',

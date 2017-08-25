@@ -57,10 +57,8 @@
             <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-data="rowData" pTemplate="body">
                     <div role="button" class="fa fa-list fa-font-size div-distance" (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"
-                        [hasPermission]="freight_router_manage"></div>
-                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id, data.vehicleNo)" tooltip="删除" placement="bottom"
-                        [hasPermission]="freight_router_manage"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id, data.vehicleNo)" tooltip="删除" placement="bottom"></div>
                 </ng-template>
             </p-column>
         </p-dataTable>
@@ -477,7 +475,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label text-right"><span class="required">*</span>驾驶员从业资格证号：</label>
                 <div class="col-xs-6 ">
-                    <input type="text" class="form-control" disabled='{{freightWaybill.driver.workLicenseNo?true:false}}' [(ngModel)]="freightWaybill.driver.workLicenseNo">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.driver?.wokeLicenseNo?true:false}}' [(ngModel)]="freightWaybill.driver.wokeLicenseNo">
                 </div>
             </div>
         </div>
@@ -486,7 +484,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label text-right"><span class="required">*</span>押运员从业资格证号：</label>
                 <div class="col-xs-6 ">
-                    <input type="text" class="form-control" disabled='{{freightWaybill.supercargo.workLicenseNo?true:false}}' [(ngModel)]="freightWaybill.supercargo.workLicenseNo">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.supercargo?.wokeLicenseNo?true:false}}' [(ngModel)]="freightWaybill.supercargo.wokeLicenseNo">
                 </div>
             </div>
         </div>
@@ -495,7 +493,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label text-right"><span class="required">*</span>驾驶员联系电话：</label>
                 <div class="col-xs-6 ">
-                    <input type="text" class="form-control" disabled='{{freightWaybill.driver.phoneNo?true:false}}' [(ngModel)]="freightWaybill.driver.phoneNo">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.driver?.phone?true:false}}' [(ngModel)]="freightWaybill.driver.phone">
                 </div>
             </div>
         </div>
@@ -504,7 +502,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label text-right"><span class="required">*</span>押运员联系电话：</label>
                 <div class="col-xs-6 ">
-                    <input type="text" class="form-control" disabled='{{freightWaybill.supercargo.phoneNo?true:false}}' [(ngModel)]="freightWaybill.supercargo.phoneNo">
+                    <input type="text" class="form-control" disabled='{{freightWaybill?.supercargo?.phone?true:false}}' [(ngModel)]="freightWaybill.supercargo.phone">
                 </div>
             </div>
         </div>
@@ -566,13 +564,12 @@
             </div>
         </ng-template>
     </div>
-</div>
-
-<div class="panel-footer">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-5">
-            <button type="button" class="btn btn-primary" (click)="btnType?save():update()">确定</button>
-            <button type="button" class="btn btn-primary" (click)="goBack()">取消</button>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="btnType?save():update()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="goBack()">取消</button>
+            </div>
         </div>
     </div>
 </div>

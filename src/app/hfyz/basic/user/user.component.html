@@ -55,8 +55,8 @@
                     <div class="form-group" isAdmin>
                         <label for="httpMethod" class="col-sm-3 control-label"><span class="required">*</span>部门：</label>
                         <div class="col-sm-6">
-                            <select [(ngModel)]="user.orgId" class="form-control" id="httpMethod" (change)="onChange()">
-                                <option *ngFor="let item of orgList" [ngValue]="item.value">{{item.label}}</option>
+                            <select [(ngModel)]="org" class="form-control" id="httpMethod" (change)="onChange()">
+                                <option *ngFor="let item of orgList" [ngValue]="item">{{item.label}}</option>
                             </select>
                         </div>
                     </div>

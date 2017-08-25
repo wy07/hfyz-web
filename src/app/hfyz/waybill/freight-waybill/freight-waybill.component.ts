@@ -34,7 +34,6 @@ export class FreightWaybillComponent implements OnInit {
     driversList = [];
     managersList = [];
     viaLandList = [];
-    showViaLand: boolean;
     btnType: boolean;
     constructor(private _loadingService: TdLoadingService,
         private _freightWaybillService: FreightWaybillService,
@@ -57,7 +56,6 @@ export class FreightWaybillComponent implements OnInit {
         this.driversList = [];
         this.managersList = [];
         this.dangerousTypeList = [];
-        this.showViaLand = false;
         this.viaLandList = [];
         this.btnType = true;
         this.initData();
@@ -228,7 +226,6 @@ export class FreightWaybillComponent implements OnInit {
         if (this.freightWaybill.arriveArea && this.freightWaybill.departArea
             && (area.arriveArea !== this.freightWaybill.arriveArea
                 || area.departArea !== this.freightWaybill.departArea)) {
-            this.showViaLand = true;
             this.freightWaybill.routerName = routerName ? routerName : '';
             area = { arriveArea: this.freightWaybill.arriveArea, departArea: this.freightWaybill.departArea }
             this._freightWaybillService.setArea(area);
@@ -258,31 +255,31 @@ export class FreightWaybillComponent implements OnInit {
     }
 
     edit(id) {
-        if (this.validationData()) {
-            this._loadingService.register();
-            this._freightWaybillService.edit(id).subscribe(res => {
-                this._loadingService.resolve();
-                this.freightWaybill = res.freightWaybill;
-                this.getViaLand(res.freightWaybill.routerName);
-                this.freightWaybill.routerName = res.freightWaybill.routerName
-                this.btnType = false;
-                this.freightWaybill.driver = this.driversList.find(obj => obj.name === this.freightWaybill.driver.name)
-                this.freightWaybill.supercargo = this.managersList.find(obj => obj.name === this.freightWaybill.supercargo.name)
-                this.freightWaybill.dangerousType = this.dangerousTypeList.find(obj => obj.id === this.freightWaybill.dangerousType.id)
-                this.pageFlag = 'CREATE'
-            })
-        }
+        this._loadingService.register();
+        this._freightWaybillService.edit(id).subscribe(res => {
+            this._loadingService.resolve();
+            this.freightWaybill = res.freightWaybill;
+            this.getViaLand(res.freightWaybill.routerName);
+            this.freightWaybill.routerName = res.freightWaybill.routerName
+            this.btnType = false;
+            this.freightWaybill.driver = this.driversList.find(obj => obj.name === this.freightWaybill.driver.name)
+            this.freightWaybill.supercargo = this.managersList.find(obj => obj.name === this.freightWaybill.supercargo.name)
+            this.freightWaybill.dangerousType = this.dangerousTypeList.find(obj => obj.id === this.freightWaybill.dangerousType.id)
+            this.pageFlag = 'CREATE'
+        })
     }
 
     update() {
-        this._loadingService.register();
-        this.freightWaybill.departTime = this._datePipe.transform(this.freightWaybill.departTime, 'yyyy-MM-dd HH:mm');
-        this.freightWaybill.backTime = this._datePipe.transform(this.freightWaybill.backTime, 'yyyy-MM-dd HH:mm');
-        this._freightWaybillService.update(this.freightWaybill).subscribe(res => {
-            this._loadingService.resolve();
-            this.toastr.info('修改成功.')
-            this.goBack();
-        })
+        if (this.validationData()) {
+            this._loadingService.register();
+            this.freightWaybill.departTime = this._datePipe.transform(this.freightWaybill.departTime, 'yyyy-MM-dd HH:mm');
+            this.freightWaybill.backTime = this._datePipe.transform(this.freightWaybill.backTime, 'yyyy-MM-dd HH:mm');
+            this._freightWaybillService.update(this.freightWaybill).subscribe(res => {
+                this._loadingService.resolve();
+                this.toastr.info('修改成功.')
+                this.goBack();
+            })
+        }
     }
 
     delete(id, vehicleNo) {
