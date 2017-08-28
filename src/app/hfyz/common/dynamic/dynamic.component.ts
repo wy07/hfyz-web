@@ -1,3 +1,4 @@
+import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -68,7 +69,7 @@ import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-m
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, CarRealTimeMapComponent
+        WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent
     ],
 
     template: `

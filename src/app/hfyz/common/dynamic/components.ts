@@ -1,3 +1,4 @@
+import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -62,7 +63,7 @@ export const components = {
     platformManage: PlatformManageComponent,
     realTimeMap: CarRealTimeMapComponent,
     realTimeMonitorMap: MapComponent,
-    historyMap: MapComponent,
+    historyMap: CarHistoryMapComponent,
     otherMap: MapComponent,
     nullMap: NullMapComponent,
     carList: CarListComponent,
