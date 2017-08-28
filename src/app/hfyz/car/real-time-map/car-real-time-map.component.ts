@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MapService } from './../../map/shared/map.service';
+import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { zh } from './../../common/shared/zh';
 import { ToastsManager } from 'ng2-toastr';
 import { RegularService } from '../../common/shared/regular.service';
 import { SelectItem } from 'primeng/components/common/selectitem';
@@ -34,9 +36,12 @@ export class CarRealTimeMapComponent implements OnInit {
   cars: SelectItem[];
   selectCars: any[];
 
-  currentRealTimeAccordion: string;
+  currentAccordion: string;
   companyName: string;
 
+
+  licenseNo: string;
+  realTimeGnssData: GnssData;
 
   lng: number;
   lat: number;
@@ -46,16 +51,21 @@ export class CarRealTimeMapComponent implements OnInit {
     , private datePipe: DatePipe
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
-    , private _carService: CarService) {
+    , private _carService: CarService
+    , private _mapService: MapService) {
     this.lng = 117.126826;
     this.lat = 31.852467;
-    this.currentRealTimeAccordion = 'multipleCar';
     this.companys = [];
     this.carsGroupByCompany = {};
     this.cars = [];
     this.selectCars = [];
     this.multipleCarPoints = {};
     this.companyName = sessionStorage.getItem('companyName');
+
+    this.licenseNo = '';
+    this.realTimeGnssData = null;
+
+    this.onAccordion('multipleCar');
   }
 
   ngOnInit() {
@@ -64,8 +74,8 @@ export class CarRealTimeMapComponent implements OnInit {
   }
 
 
-  onRealTimeAccordion(currentAccordion) {
-    this.currentRealTimeAccordion = currentAccordion;
+  onAccordion(currentAccordion) {
+    this.currentAccordion = currentAccordion;
 
     if (currentAccordion === 'multipleCar') {
       if (this.companys.length === 0) {
@@ -89,20 +99,19 @@ export class CarRealTimeMapComponent implements OnInit {
   companySelectChange(event) {
     this.cars = [];
     if (this._regularService.isBlank(event.value)) {
-      this.cars = [];
+      this._toastr.error('请选择企业！');
       return
     }
 
     if (this.carsGroupByCompany.hasOwnProperty(event.value)) {
-
       for (const item of this.carsGroupByCompany[event.value]) {
         this.cars.push({ label: `${item.licenseNo}(${item.carPlateColor})`, value: item.licenseNo });
       }
     } else {
       this.getCompanyCars(event.value)
     }
-
   }
+
   getCompanyCars(companyCode) {
     this._carService.getCompanyCars(companyCode).subscribe(
       res => {
@@ -122,16 +131,13 @@ export class CarRealTimeMapComponent implements OnInit {
 
   carSelectChange(event, item) {
     const carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
-    if (!event.target.checked) {
-      if (carIndex > -1) {
-        this.realTimeDataTOP10 = this.realTimeDataTOP10.filter(res => res.plateNo !== item.value);
-        this.realTimeDataAlarmTOP10 = this.realTimeDataAlarmTOP10.filter(res => res.plateNo !== item.value);
-        this._eventBuservice.unregisterHandler(item.value);
-        this.removeMultipleCarPoint(item.value);
-        this.selectCars.splice(carIndex, 1);
-      }
+    if (!event.target.checked && carIndex > -1) {
+      this.realTimeDataTOP10 = this.realTimeDataTOP10.filter(res => res.plateNo !== item.value);
+      this.realTimeDataAlarmTOP10 = this.realTimeDataAlarmTOP10.filter(res => res.plateNo !== item.value);
+      this._eventBuservice.unregisterHandler(item.value);
+      this.removeMultipleCarPoint(item.value);
+      this.selectCars.splice(carIndex, 1);
     }
-
     if (carIndex < 0) {
       this.addCar(item, true);
     }
@@ -223,6 +229,96 @@ export class CarRealTimeMapComponent implements OnInit {
     if (this.multipleCarPoints[carNo]) {
       this.realTimeMaplet.removeOverlay(this.multipleCarPoints[carNo])
     }
+  }
+
+
+  getRealTimeMap() {
+    this.clearCompanysAndCars();
+    this._eventBuservice.closeEventBus();
+    if (this.licenseNo) {
+      this.realTimeDataTOP10 = this._mapService.getHistoryData(this.licenseNo);
+      this.realTimeDataAlarmTOP10 = this._mapService.getHistoryAlarmData(this.licenseNo);
+      this.getDataTOP10(this.realTimeDataTOP10);
+      this.registerHandler();
+    } else {
+      this._toastr.error('请输入车牌号');
+    }
+  }
+
+  getDataTOP10(list) {
+    if (list.length > 0) {
+      const data = {
+        'msg': {
+          'dateStr': list[0].dateStr,
+          'plateColor': list[0].plateColor,
+          'plateNo': this.licenseNo,
+          'posEncrypt': list[0].posEncrypt,
+          'geoPoint': list[0].geoPoint,
+          'gpsSpeed': list[0].gpsSpeed,
+          'totalMileage': list[0].totalMileage,
+          'recSpeed': list[0].recSpeed,
+          'direction': list[0].direction,
+          'altitude': list[0].altitude,
+          'vehicleState': list[0].vehicleState,
+          'alarmState': list[0].alarmState
+        }
+      };
+      this.getRealTimeGnssDataByEventBus(data, 'histroyData');
+    }
+  }
+
+  getRealTimeGnssDataByEventBus(data, type) {
+    this.realTimeGnssData = {
+      'dateStr': data.msg.dateStr,
+      'plateColor': data.msg.plateColor,
+      'plateNo': this.licenseNo,
+      'posEncrypt': data.msg.posEncrypt,
+      'geoPoint': data.msg.geoPoint,
+      'gpsSpeed': data.msg.gpsSpeed,
+      'totalMileage': data.msg.totalMileage,
+      'recSpeed': data.msg.recSpeed,
+      'direction': data.msg.direction,
+      'altitude': data.msg.altitude,
+      'vehicleState': data.msg.vehicleState,
+      'alarmState': data.msg.alarmState
+    };
+    console.log('=====this.realTimeGnssData======' + JSON.stringify(this.realTimeGnssData));
+    if (type !== 'histroyData') {
+      this.processingDataList(this.realTimeDataTOP10, this.realTimeGnssData)
+    }
+    this.addSingleCarPoint(this.realTimeGnssData.geoPoint,
+      GnssData.getRealTimeInfo(this.realTimeGnssData),
+      this.realTimeGnssData.direction);
+  }
+
+
+  addSingleCarPoint(geoPoint, info, direction) {
+    const point = new MPoint(geoPoint);
+    const marker = new MMarker(
+      point,
+      new MIcon('<img class="con" id="icon_realTime" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48),
+      new MInfoWindow('详细信息', info)
+    );
+    this.realTimeMaplet.addOverlay(marker);
+    marker.openInfoWindow();
+    mianMapObject.setDirection('icon_realTime', direction);
+  }
+
+
+  processingDataList(list: any[], data) {
+    if (list.length > 9) {
+      list.splice(0, 1);
+      list.push(data);
+    } else {
+      list.push(data);
+    }
+  }
+
+  registerHandler() {
+    const $this = this;
+    this._eventBuservice.carRealTimeRegisterHandler(this.licenseNo, res => {
+      $this.getRealTimeGnssDataByEventBus(res, 'realTimeData');
+    })
   }
 
 }

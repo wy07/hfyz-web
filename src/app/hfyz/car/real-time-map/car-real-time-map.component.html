@@ -1,7 +1,7 @@
 <div class="myMap row main-content">
   <div class="col-sm-3" autoHeight [ratio]="100" [offset]="-150" style="overflow: auto">
     <accordion [closeOthers]="true">
-      <accordion-group heading="多车监控" panelClass='custom-accordion' (click)="onRealTimeAccordion('multipleCar')" [isOpen]="currentRealTimeAccordion==='multipleCar'">
+      <accordion-group heading="多车监控" panelClass='custom-accordion' (click)="onAccordion('multipleCar')" [isOpen]="currentAccordion==='multipleCar'">
         <div class="row">
           <div class="col-sm-12">
             <p-dropdown isCompanyUser [options]="companys" [(ngModel)]="company" [style]="{'width':'100%'}" filter="filter" (onChange)="companySelectChange($event)"
@@ -16,7 +16,6 @@
             </div>
             <div class="cars-checkbox-box">
               <h4 *ngIf="cars.length<=0" class="text-center">暂无车辆</h4>
-
               <div class="checkbox" *ngFor="let item of cars">
                 <label>
                     <input type="checkbox" value="{{item.value}}" (click)="carSelectChange($event,item)" [checked]="carSelected(item.value)">
@@ -35,12 +34,11 @@
           </div>
         </div>
       </accordion-group>
-      <accordion-group heading="车牌查询" panelClass='custom-accordion' (click)="onRealTimeAccordion('singleCar')" [isOpen]="currentRealTimeAccordion==='singleCar'">
+      <accordion-group heading="车牌查询" panelClass='custom-accordion' (click)="onAccordion('singleCar')" [isOpen]="currentAccordion==='singleCar'">
         <div class="row">
           <div class="col-sm-12">
             <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="realTimeMapFrameNo" id="realTimeMapFrameNo" placeholder="请输入要查询的车牌号"
-              />
+              <input type="text" class="form-control" [(ngModel)]="licenseNo" id="licenseNo" placeholder="请输入要查询的车牌号" />
               <span class=" input-group-addon " role="button" (click)="getRealTimeMap()">查询</span>
             </div>
           </div>
