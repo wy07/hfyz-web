@@ -1,3 +1,4 @@
+import { CarMonitorMapComponent } from './monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './history-map/car-history-map.component';
 import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { CarRealTimeMapComponent } from './real-time-map/car-real-time-map.component';
@@ -23,7 +24,8 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
     declarations: [
         CarListComponent,
         CarRealTimeMapComponent,
-        CarHistoryMapComponent
+        CarHistoryMapComponent,
+        CarMonitorMapComponent
     ],
     imports: [
         BrowserModule,

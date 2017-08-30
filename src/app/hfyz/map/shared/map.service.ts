@@ -53,4 +53,13 @@ export class MapService {
         }
         return alarms
     }
+
+    processingDataList(list: any[], data) {
+        if (list.length > 9) {
+          list.splice(0, 1);
+          list.push(data);
+        } else {
+          list.push(data);
+        }
+      }
 };
