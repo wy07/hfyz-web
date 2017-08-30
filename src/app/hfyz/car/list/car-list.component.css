@@ -1,0 +1,12 @@
+.position {
+    position: relative;
+}
+
+.btn-position {
+    position: absolute;
+    right: 15px;
+    top: 2px;
+}
+.no-padding {
+    padding: 0;
+}

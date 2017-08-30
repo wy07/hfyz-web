@@ -6,6 +6,7 @@ import { PermissionDirective } from './directive/permission.directive';
 import { NgModule } from '@angular/core';
 import { EventBuservice } from './shared/eventbus.service';
 import { AutoHeightDirective } from './directive/autoHeight.directive';
+import {AdminDirective} from './directive/admin.directive';
 
 @NgModule({
     imports: [
@@ -14,12 +15,14 @@ import { AutoHeightDirective } from './directive/autoHeight.directive';
     declarations: [
         PermissionDirective,
         AutoHeightDirective,
-        CompanyUserDirective
+        CompanyUserDirective,
+        AdminDirective
     ],
     exports: [
         PermissionDirective,
         AutoHeightDirective,
-        CompanyUserDirective
+        CompanyUserDirective,
+        AdminDirective
     ],
     providers: [
         RegularService,
