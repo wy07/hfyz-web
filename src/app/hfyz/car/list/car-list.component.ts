@@ -11,7 +11,8 @@ import { zh } from '../../common/shared/zh';
 
 @Component({
     selector: 'car-list',
-    templateUrl: 'car-list.component.html'
+    templateUrl: 'car-list.component.html',
+    styleUrls: ['car-list.component.css']
 })
 
 export class CarListComponent implements OnInit {
@@ -20,6 +21,11 @@ export class CarListComponent implements OnInit {
     pageFirst: number;
     pageOffset: number;
 
+    pageMaxWarning: number;
+    pageTotalWarning: number;
+    pageFirstWarning: number;
+    pageOffsetWarning: number;
+
     cars: any[];
     businessTypes: any[];
     businessType: string;
@@ -27,11 +33,14 @@ export class CarListComponent implements OnInit {
     dateBegin: Date;
     dateEnd: Date;
     layoutComponent: any;
-
+    action: string;
     zh = zh;
-    constructor(private toastr: ToastsManager
+    car: any;
+    warningList: any;
+    historyList: any;
+    constructor(private _toastr: ToastsManager
         , private regularService: RegularService
-        , private carService: CarService
+        , private _carService: CarService
         , private _loadingService: TdLoadingService
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
@@ -45,10 +54,17 @@ export class CarListComponent implements OnInit {
         this.licenseNo = '';
         this.dateBegin = null;
         this.dateEnd = null;
+        this.action = 'list';
+        this.car = {};
         this.businessTypes = [{ label: '全部', value: '' }, { label: '班线客车', value: '班线客车' },
         { label: '旅游包车', value: '旅游包车' }, { label: '危险品运输车', value: '危险品运输车' }]
         this.businessType = '';
         this.layoutComponent = this.inj.get(LayoutComponent);
+
+        this.pageMaxWarning = 10;
+        this.pageTotalWarning = 0;
+        this.pageFirstWarning = 0;
+        this.pageOffsetWarning = 0;
     }
 
     ngOnInit() {
@@ -79,7 +95,7 @@ export class CarListComponent implements OnInit {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register();
-        this.carService.search(begin, end, this.businessType, this.licenseNo, this.pageMax, this.pageFirst).subscribe(
+        this._carService.search(begin, end, this.businessType, this.licenseNo, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.cars = res.carList;
@@ -92,6 +108,12 @@ export class CarListComponent implements OnInit {
     paginate(event) {
         if (this.pageOffset !== event.first) {
             this.loadData();
+        }
+    }
+
+    paginateWarning(event) {
+        if (this.pageOffsetWarning !== event.first) {
+            this.getWarning(this.car.id);
         }
     }
 
@@ -135,6 +157,53 @@ export class CarListComponent implements OnInit {
         this.layoutComponent.addTab(menu);
     }
 
+    showDetail(car) {
+        this.getWarning(car.id);
+        this.getHistory(car.id);
+        this.action = 'detail';
+        this._loadingService.register();
+        this._carService.detail(car.id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    this.car = res.car;
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
+    getWarning(id) {
+        this._loadingService.register();
+        this._carService.getWarning(id, this.pageMaxWarning, this.pageFirstWarning).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    this.warningList = res.warningList;
+                    this.pageTotalWarning = res.total;
+                    this.pageOffsetWarning = this.pageFirstWarning;
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
+    getHistory(id) {
+        this._loadingService.register();
+        this._carService.getHistory(id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (res.result === 'success') {
+                    this.historyList = res.historyList;
+                } else {
+                    this._toastr.error('获取数据失败');
+                }
+            }
+        );
+    }
+
     /**
      * 搜索参数验证
      */
@@ -143,13 +212,19 @@ export class CarListComponent implements OnInit {
         if (this.dateBegin && this.dateEnd) {
             if (this.dateBegin > this.dateEnd) {
                 flag = false;
-                this.toastr.error('开始时间不能大于结束时间！');
+                this._toastr.error('开始时间不能大于结束时间！');
             }
         }
         if ((this.dateBegin || this.dateEnd) && !(this.dateBegin && this.dateEnd)) {
             flag = false
-            this.toastr.error('起止时间必须全部填写！')
+            this._toastr.error('起止时间必须全部填写！')
         }
         return flag
+    }
+
+    return() {
+        this.pageOffsetWarning = 0;
+        this.pageFirstWarning = 0;
+        this.action = 'list';
     }
 }

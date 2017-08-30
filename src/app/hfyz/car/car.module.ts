@@ -7,7 +7,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {
     DataTableModule, ChartModule, PanelModule, DropdownModule, SplitButtonModule, PaginatorModule,
-    CalendarModule
+    CalendarModule, TabViewModule
 } from 'primeng/primeng';
 import {CarListComponent} from './list/car-list.component';
 import {CarService} from './shared/car.service';
@@ -31,7 +31,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         PaginatorModule,
         MapModule,
         CalendarModule,
-        TooltipModule
+        TooltipModule,
+        TabViewModule
     ],
     exports: [],
     providers: [
