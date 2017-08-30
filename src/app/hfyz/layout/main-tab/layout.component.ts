@@ -204,8 +204,12 @@ export class LayoutComponent implements OnInit {
         let index = 0;
         if (tab === undefined) {
             let inputs = null;
-            if (menu.parameter !== undefined) {
-                inputs = menu.parameter;
+            console.log('=======menu======' + JSON.stringify(menu));
+            // if (menu.parameter !== undefined) {
+            //     inputs = menu.parameter;
+            // }
+            if (menu.inputs !== undefined) {
+                inputs = menu.inputs;
             }
             index = this.tabs.length;
 
@@ -217,7 +221,8 @@ export class LayoutComponent implements OnInit {
                 , disabled: false
                 , index: index
                 , code: menu.code
-                , inputs: JSON.parse(inputs)
+                // , inputs: JSON.parse(inputs)
+                , inputs: inputs
                 , hasMap: false
                 , initMap: false
             });

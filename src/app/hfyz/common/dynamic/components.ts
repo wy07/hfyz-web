@@ -44,6 +44,7 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+import {InfoCenterComponent} from '../../info-center/info-center.component';
 
 export const components = {
     role: RoleComponent,
@@ -95,5 +96,6 @@ export const components = {
     travelStatistic: TravelStatisticComponent,
     dangerousStatistic: DangerousStatisticComponent,
     passengerStatistic: PassengerStatisticComponent,
-    workOrderFlow: WorkOrderFlowComponent
+    workOrderFlow: WorkOrderFlowComponent,
+    infoCenter: InfoCenterComponent
 };

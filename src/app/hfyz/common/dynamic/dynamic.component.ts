@@ -51,6 +51,7 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+import {InfoCenterComponent} from '../../info-center/info-center.component';
 
 
 
@@ -67,7 +68,7 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent
+        WorkOrderFlowComponent, InfoCenterComponent
     ],
 
     template: `

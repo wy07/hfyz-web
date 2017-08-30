@@ -1,0 +1,32 @@
+<p-tabView>
+    <p-tabPanel header="工单">
+        <div class="panel panel-default panel-show">
+            <div class="panel-body no-padding">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p-dataTable [value]="list" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMaxOrder" [totalRecords]="pageTotalOrder" [paginator]="true" (onLazyLoad)="paginateOrder($event)" [(first)]="pageFirstOrder">
+                            <p-column field="isRead" header="状态" styleClass=operation-buttons-1>
+                                <ng-template let-order="rowData" pTemplate="body">
+                                    <span>{{order.isRead? '已读':'未读'}}</span>
+                                </ng-template>
+                            </p-column>
+                            <p-column field="title" header="标题"></p-column>
+                            <p-column field="dateCreated" header="生成日期"></p-column>
+                            <p-column field="" header="操作" styleClass=operation-buttons-1>
+                                <ng-template let-order="rowData" pTemplate="body">
+                                <div role="button" class="fa fa-list fa-font-size div-distance" tooltip="详情" (click)="click(order)" placement="bottom"></div>
+                                </ng-template>
+                            </p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="隐患整改单">
+
+    </p-tabPanel>
+    <p-tabPanel header="电子路单">
+
+    </p-tabPanel>
+</p-tabView>

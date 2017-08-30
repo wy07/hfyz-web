@@ -22,10 +22,10 @@
       <ul class="nav navbar-nav navbar-right u-navigation-ul" >
           <li style="font-size: 18px;"><a>你好，{{currentUser}} ！</a></li>
           <li *ngFor="let menu of topbarMenu" class="{{menu.style}}">
-              <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null" >{{menu.name}}
+              <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null">{{menu.name}}
+                  <i [ngClass]="{'message':menu.code == 'infoCenter' && isShow == true}"></i>
                 <b *ngIf="menu.children!==undefined" class="caret"></b>
               </a>
-
               <ul class="hoverdown-menu" *ngIf="menu.children!==undefined">
                   <ng-template ngFor let-childmenu [ngForOf]="menu.children" >
                       <li *ngIf="childmenu.name!='divider' ; else elseBlock">
