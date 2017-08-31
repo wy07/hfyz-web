@@ -1,4 +1,4 @@
-import {DynamicComponent} from '../../common/dynamic/dynamic.component';
+import { DynamicComponent } from '../../common/dynamic/dynamic.component';
 import {
     Component,
     OnInit,
@@ -8,8 +8,8 @@ import {
     ChangeDetectionStrategy,
     QueryList
 } from '@angular/core';
-import {TabView} from 'primeng/primeng';
-import {MapService} from '../../map/shared/map.service';
+import { TabView } from 'primeng/primeng';
+import { MapService } from '../../map/shared/map.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +31,7 @@ export class LayoutComponent implements OnInit {
 
     constructor(private mapService: MapService) {
         this.initMap = false;
-        this.tabs=[{
+        this.tabs = [{
             header: '首页',
             selected: true,
             closable: false,
@@ -174,7 +174,7 @@ export class LayoutComponent implements OnInit {
 
     private getInputs(inputs, code) {
         if (!inputs) {
-            return {code: code}
+            return { code: code }
         }
         if (!inputs.hasOwnProperty('code')) {
             inputs.code = code;
@@ -249,12 +249,12 @@ export class LayoutComponent implements OnInit {
 
 
     closeAll() {
-        for(let i=this.tabs.length-1;i>0;i--){
-            if(this.tabs[i].code=='home'){
+        for (let i = this.tabs.length - 1; i > 0; i--) {
+            if (this.tabs[i].code === 'home') {
                 continue;
             }
-            if(this.tabs[i].initMap===true){
-                this.tabs[i].disabled=true;
+            if (this.tabs[i].initMap === true) {
+                this.tabs[i].disabled = true;
                 continue
             }
             this.tabs.splice(i, 1);
