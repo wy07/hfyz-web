@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -25,8 +26,8 @@ declare var MInfoWindow: any;
 export class CarMonitorMapComponent implements OnInit {
   licenseNo: string;
   realTimeMonitorGnssData: GnssData;
-  realTimeTOP10 = [];
-  alarmTOP10 = [];
+  historyLocations = [];
+  warnings = [];
   maplet: any;
 
   constructor(private _toastr: ToastsManager
@@ -35,7 +36,8 @@ export class CarMonitorMapComponent implements OnInit {
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService) {
+    , private _mapService: MapService
+    , private _loadingService: TdLoadingService) {
     this.licenseNo = '';
     this.realTimeMonitorGnssData = null;
   }
@@ -47,61 +49,67 @@ export class CarMonitorMapComponent implements OnInit {
 
   search() {
     this._eventBuservice.closeEventBus();
-    if (this.licenseNo) {
-      this.realTimeTOP10 = this._mapService.getHistoryData(this.licenseNo);
-      this.alarmTOP10 = this._mapService.getHistoryAlarmData(this.licenseNo);
-      this.getDataTOP10(this.realTimeTOP10);
-      this.registerHandler();
-    } else {
+    if (!this.licenseNo) {
       this._toastr.error('请输入车牌号');
+      return false;
     }
+
+    this._loadingService.register();
+    this._carService.getWarningAndHistorys(this.licenseNo, 10).subscribe(
+      res => {
+        this._loadingService.resolve();
+        this.historyLocations = res.historyLocations;
+        this.warnings = res.warnings;
+        this.initCar(this.historyLocations);
+        this.registerHandler();
+      }
+    );
   }
 
-  getDataTOP10(list) {
+  initCar(list) {
     if (list.length > 0) {
       const data = {
-        'msg': {
-          'dateStr': list[0].dateStr,
-          'plateColor': list[0].plateColor,
-          'plateNo': this.licenseNo,
-          'posEncrypt': list[0].posEncrypt,
-          'geoPoint': list[0].geoPoint,
-          'gpsSpeed': list[0].gpsSpeed,
-          'totalMileage': list[0].totalMileage,
-          'recSpeed': list[0].recSpeed,
-          'direction': list[0].direction,
-          'altitude': list[0].altitude,
-          'vehicleState': list[0].vehicleState,
-          'alarmState': list[0].alarmState
-        }
+        'dateStr': list[0].dateStr,
+        'plateColor': list[0].plateColor,
+        'plateNo': list[0].plateNo,
+        'posEncrypt': list[0].posEncrypt,
+        'geoPoint': list[0].geoPoint,
+        'gpsSpeed': list[0].gpsSpeed,
+        'totalMileage': list[0].totalMileage,
+        'recSpeed': list[0].recSpeed,
+        'direction': list[0].direction,
+        'altitude': list[0].altitude,
+        'vehicleState': list[0].vehicleState,
+        'alarmState': list[0].alarmState
       };
-      this.getRealTimeMonitorGnssData(data);
+      this.getRealTimeMonitorGnssData(data, 'histroyData');
     }
   }
 
-  getRealTimeMonitorGnssData(data) {
+  getRealTimeMonitorGnssData(data, type) {
     this.realTimeMonitorGnssData = {
-      'dateStr': data.msg.dateStr,
-      'plateColor': data.msg.plateColor,
-      'plateNo': this.licenseNo,
-      'posEncrypt': data.msg.posEncrypt,
-      'geoPoint': data.msg.geoPoint,
-      'gpsSpeed': data.msg.gpsSpeed,
-      'totalMileage': data.msg.totalMileage,
-      'recSpeed': data.msg.recSpeed,
-      'direction': data.msg.direction,
-      'altitude': data.msg.altitude,
-      'vehicleState': data.msg.vehicleState,
-      'alarmState': data.msg.alarmState
+      'dateStr': data.dateStr,
+      'plateColor': data.plateColor,
+      'plateNo': data.plateNo,
+      'posEncrypt': data.posEncrypt,
+      'geoPoint': data.geoPoint,
+      'gpsSpeed': data.gpsSpeed,
+      'totalMileage': data.totalMileage,
+      'recSpeed': data.recSpeed,
+      'direction': data.direction,
+      'altitude': data.altitude,
+      'vehicleState': data.vehicleState,
+      'alarmState': data.alarmState
     };
-
-    this._mapService.processingDataList(this.realTimeTOP10, this.realTimeMonitorGnssData)
-    this.addSingleCarPoint(this.realTimeMonitorGnssData.geoPoint,
+    if (type !== 'histroyData') {
+      this._mapService.processingDataList(this.historyLocations, this.realTimeMonitorGnssData)
+    }
+    this.addPoint(this.realTimeMonitorGnssData.geoPoint,
       GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),
       this.realTimeMonitorGnssData.direction);
   }
 
-  addSingleCarPoint(geoPoint, info, direction) {
+  addPoint(geoPoint, info, direction) {
     const point = new MPoint(geoPoint);
     const marker = new MMarker(
       point,
@@ -117,8 +125,7 @@ export class CarMonitorMapComponent implements OnInit {
   registerHandler() {
     const $this = this;
     this._eventBuservice.carRealTimeRegisterHandler(this.licenseNo, res => {
-      $this.getRealTimeMonitorGnssData(res);
+      $this.getRealTimeMonitorGnssData(res.msg, 'realTimeData');
     })
   }
-
 }

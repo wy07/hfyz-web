@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -24,8 +25,8 @@ declare var MInfoWindow: any;
   styleUrls: ['./car-real-time-map.component.css']
 })
 export class CarRealTimeMapComponent implements OnInit {
-  realTimeDataTOP10 = [];
-  realTimeDataAlarmTOP10 = [];
+  historyLocations = [];
+  warnings = [];
 
   companys: SelectItem[];
   company: string;
@@ -52,7 +53,8 @@ export class CarRealTimeMapComponent implements OnInit {
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService) {
+    , private _mapService: MapService
+    , private _loadingService: TdLoadingService) {
     this.lng = 117.126826;
     this.lat = 31.852467;
     this.companys = [];
@@ -132,8 +134,8 @@ export class CarRealTimeMapComponent implements OnInit {
   carSelectChange(event, item) {
     const carIndex = this.selectCars.findIndex(x => x.value === event.target.value);
     if (!event.target.checked && carIndex > -1) {
-      this.realTimeDataTOP10 = this.realTimeDataTOP10.filter(res => res.plateNo !== item.value);
-      this.realTimeDataAlarmTOP10 = this.realTimeDataAlarmTOP10.filter(res => res.plateNo !== item.value);
+      this.historyLocations = this.historyLocations.filter(res => res.plateNo !== item.value);
+      this.warnings = this.warnings.filter(res => res.plateNo !== item.value);
       this._eventBuservice.unregisterHandler(item.value);
       this.removeMultipleCarPoint(item.value);
       this.selectCars.splice(carIndex, 1);
@@ -147,28 +149,42 @@ export class CarRealTimeMapComponent implements OnInit {
     if (isPush) {
       this.selectCars.push(item);
     }
-    this.lng += 0.001;
-    this.lat += 0.001;
-    const point: any = {
-      dateStr: this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-      plateColor: 1,
-      plateNo: item.value,
-      posEncrypt: 0,
-      geoPoint: `${this.lng},${this.lat}`,
-      gpsSpeed: '60',
-      totalMileage: 1,
-      recSpeed: 60,
-      direction: 100,
-      altitude: 0,
-      vehicleState: 3,
-      alarmState: 1
-    }
-    this.realTimeDataTOP10.push(point)
-    mianMapObject.resetCenter(this.realTimeMaplet, this.lng, this.lat)
-    this.addMultipleCarPoint(`${this.lng},${this.lat}`,
-      item.value,
-      GnssData.getRealTimeInfo(point),
-      23);
+
+
+    this._loadingService.register();
+    this._carService.getWarningAndHistorys(item.value, 1).subscribe(
+      res => {
+        this._loadingService.resolve();
+        if (res.warnings.length > 0) {
+          this.warnings.push(res.warnings[0])
+        }
+        if (res.historyLocations.length > 0) {
+          const location = res.historyLocations[0];
+          this.historyLocations.push(location);
+          const pointData = {
+            'dateStr': location.dateStr,
+            'plateColor': location.plateColor,
+            'plateNo': location.plateNo,
+            'posEncrypt': location.posEncrypt,
+            'geoPoint': location.geoPoint,
+            'gpsSpeed': location.gpsSpeed,
+            'totalMileage': location.totalMileage,
+            'recSpeed': location.recSpeed,
+            'direction': location.direction,
+            'altitude': location.altitude,
+            'vehicleState': location.vehicleState,
+            'alarmState': location.alarmState
+          };
+          const val = pointData.geoPoint.split(',');
+          mianMapObject.resetCenter(this.realTimeMaplet, val[0], val[1]);
+          this.addMultipleCarPoint(pointData.geoPoint,
+            item.value,
+            GnssData.getRealTimeInfo(pointData),
+            pointData.direction);
+        }
+        this.registerHandler();
+      }
+    );
   }
 
   addMultipleCarPoint(geoPoint, carNo, info, direction) {
@@ -207,15 +223,15 @@ export class CarRealTimeMapComponent implements OnInit {
     this.carsGroupByCompany = {};
     this.cars = [];
     this.selectCars = [];
-    this.realTimeDataTOP10 = [];
-    this.realTimeDataAlarmTOP10 = [];
+    this.historyLocations = [];
+    this.warnings = [];
     // mianMapObject.clean();
   }
 
   clearListAndFrameNo() {
     this._eventBuservice.closeEventBus();
-    this.realTimeDataTOP10 = [];
-    this.realTimeDataAlarmTOP10 = [];
+    this.historyLocations = [];
+    this.warnings = [];
     // mianMapObject.clean();
   }
 
@@ -235,33 +251,38 @@ export class CarRealTimeMapComponent implements OnInit {
   getRealTimeMap() {
     this.clearCompanysAndCars();
     this._eventBuservice.closeEventBus();
-    if (this.licenseNo) {
-      this.realTimeDataTOP10 = this._mapService.getHistoryData(this.licenseNo);
-      this.realTimeDataAlarmTOP10 = this._mapService.getHistoryAlarmData(this.licenseNo);
-      this.getDataTOP10(this.realTimeDataTOP10);
-      this.registerHandler();
-    } else {
+
+    if (!this.licenseNo) {
       this._toastr.error('请输入车牌号');
+      return false;
     }
+    this._loadingService.register();
+    this._carService.getWarningAndHistorys(this.licenseNo, 10).subscribe(
+      res => {
+        this._loadingService.resolve();
+        this.historyLocations = res.historyLocations;
+        this.warnings = res.warnings;
+        this.initCar(this.historyLocations);
+        this.registerHandler();
+      }
+    );
   }
 
-  getDataTOP10(list) {
+  initCar(list) {
     if (list.length > 0) {
       const data = {
-        'msg': {
-          'dateStr': list[0].dateStr,
-          'plateColor': list[0].plateColor,
-          'plateNo': this.licenseNo,
-          'posEncrypt': list[0].posEncrypt,
-          'geoPoint': list[0].geoPoint,
-          'gpsSpeed': list[0].gpsSpeed,
-          'totalMileage': list[0].totalMileage,
-          'recSpeed': list[0].recSpeed,
-          'direction': list[0].direction,
-          'altitude': list[0].altitude,
-          'vehicleState': list[0].vehicleState,
-          'alarmState': list[0].alarmState
-        }
+        'dateStr': list[0].dateStr,
+        'plateColor': list[0].plateColor,
+        'plateNo': list[0].plateNo,
+        'posEncrypt': list[0].posEncrypt,
+        'geoPoint': list[0].geoPoint,
+        'gpsSpeed': list[0].gpsSpeed,
+        'totalMileage': list[0].totalMileage,
+        'recSpeed': list[0].recSpeed,
+        'direction': list[0].direction,
+        'altitude': list[0].altitude,
+        'vehicleState': list[0].vehicleState,
+        'alarmState': list[0].alarmState
       };
       this.getRealTimeGnssDataByEventBus(data, 'histroyData');
     }
@@ -269,22 +290,21 @@ export class CarRealTimeMapComponent implements OnInit {
 
   getRealTimeGnssDataByEventBus(data, type) {
     this.realTimeGnssData = {
-      'dateStr': data.msg.dateStr,
-      'plateColor': data.msg.plateColor,
-      'plateNo': this.licenseNo,
-      'posEncrypt': data.msg.posEncrypt,
-      'geoPoint': data.msg.geoPoint,
-      'gpsSpeed': data.msg.gpsSpeed,
-      'totalMileage': data.msg.totalMileage,
-      'recSpeed': data.msg.recSpeed,
-      'direction': data.msg.direction,
-      'altitude': data.msg.altitude,
-      'vehicleState': data.msg.vehicleState,
-      'alarmState': data.msg.alarmState
+      'dateStr': data.dateStr,
+      'plateColor': data.plateColor,
+      'plateNo': data.plateNo,
+      'posEncrypt': data.posEncrypt,
+      'geoPoint': data.geoPoint,
+      'gpsSpeed': data.gpsSpeed,
+      'totalMileage': data.totalMileage,
+      'recSpeed': data.recSpeed,
+      'direction': data.direction,
+      'altitude': data.altitude,
+      'vehicleState': data.vehicleState,
+      'alarmState': data.alarmState
     };
-    console.log('=====this.realTimeGnssData======' + JSON.stringify(this.realTimeGnssData));
     if (type !== 'histroyData') {
-      this.processingDataList(this.realTimeDataTOP10, this.realTimeGnssData)
+      this._mapService.processingDataList(this.historyLocations, this.realTimeGnssData);
     }
     this.addSingleCarPoint(this.realTimeGnssData.geoPoint,
       GnssData.getRealTimeInfo(this.realTimeGnssData),
@@ -304,20 +324,10 @@ export class CarRealTimeMapComponent implements OnInit {
     mianMapObject.setDirection('icon_realTime', direction);
   }
 
-
-  processingDataList(list: any[], data) {
-    if (list.length > 9) {
-      list.splice(0, 1);
-      list.push(data);
-    } else {
-      list.push(data);
-    }
-  }
-
   registerHandler() {
     const $this = this;
     this._eventBuservice.carRealTimeRegisterHandler(this.licenseNo, res => {
-      $this.getRealTimeGnssDataByEventBus(res, 'realTimeData');
+      $this.getRealTimeGnssDataByEventBus(res.msg, 'realTimeData');
     })
   }
 

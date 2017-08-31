@@ -29,10 +29,18 @@ export class CarService {
     }
 
     getWarning(id, max, offset) {
-        return this.restangular.one('cars', id).customGET('get-warning', {max: max, offset: offset});
+        return this.restangular.one('cars', id).customGET('get-warning', { max: max, offset: offset });
     }
 
     getHistory(id) {
         return this.restangular.one('cars', id).customGET('get-history');
+    }
+
+    getWarningAndHistorys(licenseNo, max) {
+        return this.restangular.all('cars').customGET('warning-and-historys', { licenseNo: licenseNo, max: max })
+    }
+
+    getHistoryInfo(licenseNo, startDate, endDate) {
+        return this.restangular.all('cars').customGET('history-info', { licenseNo: licenseNo, startDate: startDate, endDate: endDate })
     }
 }

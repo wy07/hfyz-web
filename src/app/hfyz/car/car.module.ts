@@ -11,11 +11,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {
     DataTableModule, ChartModule, PanelModule, DropdownModule, SplitButtonModule, PaginatorModule,
-<<<<<<< HEAD
-    CalendarModule, MultiSelectModule, ListboxModule
-=======
-    CalendarModule, TabViewModule
->>>>>>> cdb9459d268a336e0b718a2a0c7d5ef3bd09c56c
+    CalendarModule, MultiSelectModule, ListboxModule, TabViewModule
+
 } from 'primeng/primeng';
 
 import { DatePipe, CommonModule } from '@angular/common';
@@ -46,17 +43,14 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
         MapModule,
         CalendarModule,
         TooltipModule,
-<<<<<<< HEAD
         MultiSelectModule,
         ListboxModule,
         CustomDirectiveModule,
         CommonModule,
         TabsModule.forRoot(),
         AccordionModule.forRoot(),
-        MapModule
-=======
+        MapModule,
         TabViewModule
->>>>>>> cdb9459d268a336e0b718a2a0c7d5ef3bd09c56c
     ],
     exports: [],
     providers: [

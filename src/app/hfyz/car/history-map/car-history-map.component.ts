@@ -1,3 +1,4 @@
+import { TdLoadingService } from '@covalent/core';
 import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -23,8 +24,8 @@ declare var MInfoWindow: any;
   styleUrls: ['./car-history-map.component.css']
 })
 export class CarHistoryMapComponent implements OnInit {
-  realTimeDataTOP10 = [];
-  realTimeDataAlarmTOP10 = [];
+  historyLocations = [];
+  warnings = [];
 
   licenseNo: string;
   startDate: any;
@@ -32,9 +33,6 @@ export class CarHistoryMapComponent implements OnInit {
   zh = zh;
 
   maplet: any;
-  points: any[];
-
-
 
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
@@ -42,155 +40,12 @@ export class CarHistoryMapComponent implements OnInit {
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService) {
+    , private _mapService: MapService
+    , private _loadingService: TdLoadingService) {
     this.licenseNo = '';
     const current: any = new Date();
     this.startDate = null;
     this.endDate = null;
-    this.points = [{
-      'dateStr': '2017-06-30 07:36:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.35566,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 350,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:37:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.35666,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 320,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:38:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.35766,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 0,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 1
-    }, {
-      'dateStr': '2017-06-30 07:39:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.35816,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 10,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 1
-    }, {
-      'dateStr': '2017-06-30 07:40:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.35966,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 30,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:41:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.36166,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 100,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:42:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.36267,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 350,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:43:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.36467,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 350,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:44:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.36568,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 350,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:45:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.36667,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 350,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 0
-    }, {
-      'dateStr': '2017-06-30 07:46:11',
-      'plateColor': 2,
-      'plateNo': '皖A35898',
-      'posEncrypt': 0,
-      'geoPoint': '116.37168,39.93218',
-      'gpsSpeed': 60,
-      'totalMileage': 1,
-      'recSpeed': 60,
-      'direction': 100,
-      'altitude': 0,
-      'vehicleState': 3,
-      'alarmState': 1
-    }];
   }
 
   ngOnInit() {
@@ -199,16 +54,25 @@ export class CarHistoryMapComponent implements OnInit {
   }
 
   search() {
-    if (this.validate()) {
-      this.realTimeDataTOP10 = this._mapService.getHistoryData(this.licenseNo);
-      this.realTimeDataAlarmTOP10 = this._mapService.getHistoryAlarmData(this.licenseNo);
-      this.showPath();
+    if (!this.validate()) {
+      return false;
     }
+    this._loadingService.register();
+    this._carService.getHistoryInfo(this.licenseNo
+      , this.datePipe.transform(this.startDate, 'yyyy-MM-dd HH:mm')
+      , this.datePipe.transform(this.endDate, 'yyyy-MM-dd HH:mm')).subscribe(
+      res => {
+        this._loadingService.resolve();
+        this.historyLocations = res.historyLocations;
+        this.warnings = res.warnings;
+        this.showPath();
+      }
+      );
   }
 
   showPath() {
-    for (let i = 0; i < this.points.length; i++) {
-      const pointData = this.points[i];
+    for (let i = 0; i < this.historyLocations.length; i++) {
+      const pointData = this.historyLocations[i];
       const point = new MPoint(pointData.geoPoint);
       const marker = new MMarker(
         point,
