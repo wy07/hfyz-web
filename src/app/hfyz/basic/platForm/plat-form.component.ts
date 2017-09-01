@@ -143,7 +143,7 @@ export class PlatFormComponent implements OnInit {
             , companyCode: this.inspectQ.companyCode
             , operator: 1
         };
-        this.eventBuservice.inspectSend(address, data, res => {
+        this.eventBuservice.inspectSend('inspect',address, data, res => {
             if (res.result === 'success') {
                 $this._toastr.info('生成查岗成功');
                 $this.inspectDisplay = false;

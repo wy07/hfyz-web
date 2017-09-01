@@ -44,8 +44,7 @@ export class CarRealTimeMapComponent implements OnInit {
   licenseNo: string;
   realTimeGnssData: GnssData;
 
-  lng: number;
-  lat: number;
+  eventBus: any;
 
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
@@ -55,8 +54,6 @@ export class CarRealTimeMapComponent implements OnInit {
     , private _carService: CarService
     , private _mapService: MapService
     , private _loadingService: TdLoadingService) {
-    this.lng = 117.126826;
-    this.lat = 31.852467;
     this.companys = [];
     this.carsGroupByCompany = {};
     this.cars = [];
@@ -77,8 +74,10 @@ export class CarRealTimeMapComponent implements OnInit {
 
 
   onAccordion(currentAccordion) {
+    if (this.currentAccordion !== currentAccordion) {
+      this.clearCompanysAndCars();
+    }
     this.currentAccordion = currentAccordion;
-
     if (currentAccordion === 'multipleCar') {
       if (this.companys.length === 0) {
         this.getCompanys();
@@ -125,9 +124,6 @@ export class CarRealTimeMapComponent implements OnInit {
   }
 
   carSelected(licenseNo) {
-    if (this.selectCars.length === 0) {
-      this.clearListAndFrameNo();
-    }
     return this.selectCars.findIndex(x => x.value === licenseNo) > -1;
   }
 
@@ -136,7 +132,10 @@ export class CarRealTimeMapComponent implements OnInit {
     if (!event.target.checked && carIndex > -1) {
       this.historyLocations = this.historyLocations.filter(res => res.plateNo !== item.value);
       this.warnings = this.warnings.filter(res => res.plateNo !== item.value);
-      this._eventBuservice.unregisterHandler(item.value);
+      const $this = this;
+      this._eventBuservice.unregisterHandler('realTime', item.value, res => {
+        $this.getMultipleRealTimeGnssDataByEventBus(res.msg, 'realTimeData');
+      });
       this.removeMultipleCarPoint(item.value);
       this.selectCars.splice(carIndex, 1);
     }
@@ -149,8 +148,6 @@ export class CarRealTimeMapComponent implements OnInit {
     if (isPush) {
       this.selectCars.push(item);
     }
-
-
     this._loadingService.register();
     this._carService.getWarningAndHistorys(item.value, 1).subscribe(
       res => {
@@ -182,7 +179,7 @@ export class CarRealTimeMapComponent implements OnInit {
             GnssData.getRealTimeInfo(pointData),
             pointData.direction);
         }
-        this.registerHandler();
+        this.registerMultipleHandler(item.value);
       }
     );
   }
@@ -217,22 +214,17 @@ export class CarRealTimeMapComponent implements OnInit {
   }
 
   clearCompanysAndCars() {
-    this._eventBuservice.closeEventBus();
-    this.companys = [];
+    if (this.realTimeMaplet) {
+      this.realTimeMaplet.clearOverlays(true);
+    }
+    this._eventBuservice.closeEventBus('realTime');
+    // this.companys = [];
     this.company = '';
-    this.carsGroupByCompany = {};
+    // this.carsGroupByCompany = {};
     this.cars = [];
     this.selectCars = [];
     this.historyLocations = [];
     this.warnings = [];
-    // mianMapObject.clean();
-  }
-
-  clearListAndFrameNo() {
-    this._eventBuservice.closeEventBus();
-    this.historyLocations = [];
-    this.warnings = [];
-    // mianMapObject.clean();
   }
 
   showMultipleCarPoint(carNo) {
@@ -250,7 +242,6 @@ export class CarRealTimeMapComponent implements OnInit {
 
   getRealTimeMap() {
     this.clearCompanysAndCars();
-    this._eventBuservice.closeEventBus();
 
     if (!this.licenseNo) {
       this._toastr.error('请输入车牌号');
@@ -313,6 +304,7 @@ export class CarRealTimeMapComponent implements OnInit {
 
 
   addSingleCarPoint(geoPoint, info, direction) {
+    this.realTimeMaplet.clearOverlays(true);
     const point = new MPoint(geoPoint);
     const marker = new MMarker(
       point,
@@ -326,9 +318,41 @@ export class CarRealTimeMapComponent implements OnInit {
 
   registerHandler() {
     const $this = this;
-    this._eventBuservice.carRealTimeRegisterHandler(this.licenseNo, res => {
+    this._eventBuservice.carRealTimeRegisterHandler('realTime', this.licenseNo, res => {
       $this.getRealTimeGnssDataByEventBus(res.msg, 'realTimeData');
     })
+  }
+
+  registerMultipleHandler(licenseNo) {
+    const $this = this;
+    this._eventBuservice.carRealTimeRegisterHandler('realTime', licenseNo, res => {
+      $this.getMultipleRealTimeGnssDataByEventBus(res.msg, 'realTimeData');
+    })
+  }
+
+  getMultipleRealTimeGnssDataByEventBus(data, type) {
+    const pointData = {
+      'dateStr': data.dateStr,
+      'plateColor': data.plateColor,
+      'plateNo': data.plateNo,
+      'posEncrypt': data.posEncrypt,
+      'geoPoint': data.geoPoint,
+      'gpsSpeed': data.gpsSpeed,
+      'totalMileage': data.totalMileage,
+      'recSpeed': data.recSpeed,
+      'direction': data.direction,
+      'altitude': data.altitude,
+      'vehicleState': data.vehicleState,
+      'alarmState': data.alarmState
+    };
+    if (type !== 'histroyData') {
+      this._mapService.processingDataList(this.historyLocations, pointData);
+    }
+
+    this.addMultipleCarPoint(pointData.geoPoint,
+      pointData.plateNo,
+      GnssData.getRealTimeInfo(pointData),
+      pointData.direction);
   }
 
 }

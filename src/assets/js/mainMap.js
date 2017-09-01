@@ -18,7 +18,15 @@ var mianMapObject = (function () {
         resetCenter: function (obj, lng, lat) {
             obj.centerAndZoom(new MPoint(lng, lat), 12)
         },
+        clean: function (obj) {
+            if (obj) {
+                console.log("in  clean");
+                obj.clearOverlays(false);
+            }
+        },
         setDirection:function (key,direction){
+            console.log(new Date())
+            console.log(key+":"+direction)
             var $icon = $('#'+key);
             $icon.css('transform', 'rotate(' + direction + 'deg)');//设置车辆方向
             $icon.css('-ms-transform', 'rotate(' + direction + 'deg)');

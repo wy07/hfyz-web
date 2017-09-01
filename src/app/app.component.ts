@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
         this.eventBuservice.notify.subscribe((inputs: any) => {
             console.log(JSON.stringify(inputs));
             if (inputs.type === 'inspect') {
-                this.eventBuservice.inspectRegisterHandler(inputs.companyCode, res => {
+                this.eventBuservice.inspectRegisterHandler('inspect', inputs.companyCode, res => {
                     clearInterval($this.timer);
                     $this.displayDialog = true;
                     $this.inspectInfo = res;

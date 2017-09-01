@@ -48,7 +48,7 @@ export class CarMonitorMapComponent implements OnInit {
   }
 
   search() {
-    this._eventBuservice.closeEventBus();
+    this._eventBuservice.closeEventBus('monitor');
     if (!this.licenseNo) {
       this._toastr.error('请输入车牌号');
       return false;
@@ -124,7 +124,7 @@ export class CarMonitorMapComponent implements OnInit {
 
   registerHandler() {
     const $this = this;
-    this._eventBuservice.carRealTimeRegisterHandler(this.licenseNo, res => {
+    this._eventBuservice.carRealTimeRegisterHandler('monitor', this.licenseNo, res => {
       $this.getRealTimeMonitorGnssData(res.msg, 'realTimeData');
     })
   }
