@@ -1,3 +1,4 @@
+import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -95,5 +96,6 @@ export const components = {
     travelStatistic: TravelStatisticComponent,
     dangerousStatistic: DangerousStatisticComponent,
     passengerStatistic: PassengerStatisticComponent,
-    workOrderFlow: WorkOrderFlowComponent
+    workOrderFlow: WorkOrderFlowComponent,
+    emergencyPlan: EmergencyPlanComponent
 };

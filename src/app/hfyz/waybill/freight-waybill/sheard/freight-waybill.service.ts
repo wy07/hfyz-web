@@ -59,4 +59,8 @@ export class FreightWaybillService {
     delete(id) {
         return this.restangular.one('freight-waybills', id).customDELETE('delete', {});
     }
+
+    getEmergencyPlanByDangerousType(dangerousTypeId) {
+        return this.restangular.one('emergency-plans', dangerousTypeId).customGET('get-emergency-plan-by-dangerous-type')
+    }
 }
