@@ -31,6 +31,22 @@ export class EventBuservice {
         }
     }
 
+    unregisterHandler(key, code) {
+        const address = 'hfyz.data.' + code;
+
+        console.log("-----in unregisterHandler");
+
+        if (typeof (this.eventBus[key]) !== 'undefined' || this.eventBus[key]) {
+            console.log("-----in 1");
+            if (this.eventBus[key].readyState() === vertx.EventBus.OPEN) {
+                console.log("-----in 2");
+                this.eventBus[key].unregisterHandler(address);
+            }
+        }
+    }
+
+    
+
     inspectRegisterHandler(key, code, callback) {
         const address = 'inspect.response.' + code;
         if (typeof (this.eventBus[key]) === 'undefined' || !this.eventBus[key]) {
@@ -60,17 +76,7 @@ export class EventBuservice {
         }
     }
 
-    unregisterHandler(key, code, callback?) {
-        const address = 'hfyz.data.' + code;
 
-        console.log()
-
-        if (typeof (this.eventBus[key]) !== 'undefined' || this.eventBus[key]) {
-            if (this.eventBus[key].readyState() === vertx.EventBus.OPEN) {
-                this.eventBus[key].unregisterHandler(address, callback);
-            }
-        }
-    }
 
     closeEventBus(key) {
         if (typeof (this.eventBus[key]) !== 'undefined' && this.eventBus[key] && this.eventBus[key].readyState() === vertx.EventBus.OPEN) {

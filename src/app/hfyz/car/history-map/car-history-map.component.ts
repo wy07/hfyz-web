@@ -17,6 +17,9 @@ declare var MPoint: any;
 declare var MMarker: any;
 declare var MIcon: any;
 declare var MInfoWindow: any;
+declare var MBrush: any;
+declare var MPolyline: any;
+
 
 @Component({
   selector: 'app-car-history-map',
@@ -34,6 +37,14 @@ export class CarHistoryMapComponent implements OnInit {
 
   maplet: any;
 
+  playIndex: number;
+  playTimer: any;
+  playPoints: any[];
+  palyerAction: string;
+
+  carMarker: any;
+  playline: any;
+
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
     , private datePipe: DatePipe
@@ -46,6 +57,9 @@ export class CarHistoryMapComponent implements OnInit {
     const current: any = new Date();
     this.startDate = null;
     this.endDate = null;
+    this.playIndex = -1;
+    this.playPoints = [];
+    this.palyerAction = '';
   }
 
   ngOnInit() {
@@ -85,6 +99,71 @@ export class CarHistoryMapComponent implements OnInit {
         mianMapObject.resetCenter(this.maplet, val[0], val[1])
       }
     }
+  }
+
+  start() {
+    this.playIndex = 0;
+    this.palyerAction = 'start';
+    this.play();
+  }
+
+  goOn() {
+    this.palyerAction = 'goOn';
+    this.play();
+  }
+
+  play() {
+    this.playTimerHandler();
+    this.playTimer = setInterval(() => {
+      this.playTimerHandler();
+    }, 1000);
+  }
+
+  playTimerHandler() {
+    if (this.playIndex >= this.historyLocations.length) {
+      clearInterval(this.playTimer)
+      return;
+    }
+
+    if (this.carMarker) {
+      this.maplet.removeOverlay(this.carMarker);
+    }
+    if (this.playline) {
+      this.maplet.removeOverlay(this.playline);
+    }
+
+    const pointData = this.historyLocations[this.playIndex];
+    this.playIndex += 1;
+
+    const point = new MPoint(pointData.geoPoint);
+    this.carMarker = new MMarker(
+      point,
+      new MIcon('<img class="con" id="icon_realTimeMonitor" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48)
+    );
+    this.maplet.addOverlay(this.carMarker);
+    mianMapObject.setDirection('icon_realTimeMonitor', pointData.direction);
+
+
+    this.playPoints.push(point);
+    if (this.playPoints.length > 1) {
+      const brush = new MBrush('#3287ff', 8);
+      brush.transparency = 70;
+      this.playline = new MPolyline(this.playPoints, brush, null);
+      this.maplet.addOverlay(this.playline);
+    }
+  }
+
+  suspend() {
+    this.palyerAction = 'suspend';
+    clearInterval(this.playTimer);
+  }
+
+  replay() {
+    this.palyerAction = 'replay';
+    clearInterval(this.playTimer);
+    this.playPoints = [];
+    this.playIndex = 0;
+    this.play();
   }
 
   validate() {

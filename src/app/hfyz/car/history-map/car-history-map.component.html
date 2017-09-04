@@ -1,4 +1,4 @@
-<div class="myMap row main-content">
+<div class="row">
   <div class="form-horizontal">
     <div class="col-sm-5">
       <div class="form-group">
@@ -29,9 +29,17 @@
       <!-- <button type="button" class="btn btn-primary" (click)="reset()">重置</button> -->
     </div>
   </div>
-
-  <div class="col-sm-12" autoHeight [ratio]="100" [offset]="-150">
-    <div id="historyMap" class='mapSize'></div>
-  </div>
+</div>
+<div class="row">
+    <div class="playBtns" >
+        <span role="button" class="fa fa-play-circle-o fa-font-size div-distance" (click)="start()" *ngIf="this.palyerAction===''" tooltip="播放" placement="bottom" ></span>
+        <span role="button" class="fa fa-play-circle-o fa-font-size div-distance" (click)="goOn()" *ngIf="this.palyerAction==='suspend'" tooltip="继续" placement="bottom" ></span>
+        <span role="button" class="fa  fa-pause-circle-o fa-font-size div-distance" (click)="suspend()" *ngIf="this.palyerAction==='start'||this.palyerAction==='replay'||this.palyerAction==='goOn'" tooltip="暂停" placement="bottom" ></span>
+        <span role="button" class="fa fa-refresh fa-font-size div-distance" (click)="replay()" *ngIf="this.palyerAction!=''" tooltip="重播" placement="bottom" ></span>
+    </div>
+  
+    <div class="col-sm-12" autoHeight [ratio]="100" [offset]="-150">
+      <div id="historyMap" class='mapSize'></div>
+    </div>
 </div>
 <map-tabs-bar [type]="'historyMap'" [historyDataTOP10]='historyLocations' [alarmDataTOP10]='warnings'></map-tabs-bar>

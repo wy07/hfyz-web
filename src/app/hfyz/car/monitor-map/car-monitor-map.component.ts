@@ -110,6 +110,7 @@ export class CarMonitorMapComponent implements OnInit {
   }
 
   addPoint(geoPoint, info, direction) {
+    this.maplet.clearOverlays(true);
     const point = new MPoint(geoPoint);
     const marker = new MMarker(
       point,
@@ -119,13 +120,13 @@ export class CarMonitorMapComponent implements OnInit {
     this.maplet.addOverlay(marker);
     marker.openInfoWindow();
     mianMapObject.showMonitorContent();
-    mianMapObject.setDirection('icon_realTime', direction);
+    setTimeout(mianMapObject.setDirection('icon_realTimeMonitor', direction), 1000);
   }
 
   registerHandler() {
     const $this = this;
     this._eventBuservice.carRealTimeRegisterHandler('monitor', this.licenseNo, res => {
-      $this.getRealTimeMonitorGnssData(res.msg, 'realTimeData');
+      $this.getRealTimeMonitorGnssData(res.msg, 'realTimeMonitorData');
     })
   }
 }

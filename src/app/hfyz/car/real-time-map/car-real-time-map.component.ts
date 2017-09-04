@@ -17,7 +17,6 @@ declare var MPoint: any;
 declare var MMarker: any;
 declare var MIcon: any;
 declare var MInfoWindow: any;
-// declare var realTimeMaplet: any;
 
 @Component({
   selector: 'app-car-real-time-map',
@@ -31,7 +30,7 @@ export class CarRealTimeMapComponent implements OnInit {
   companys: SelectItem[];
   company: string;
   carsGroupByCompany: any;
-  realTimeMaplet: any;
+  maplet: any;
   multipleCarPoints: any;
 
   cars: SelectItem[];
@@ -45,6 +44,7 @@ export class CarRealTimeMapComponent implements OnInit {
   realTimeGnssData: GnssData;
 
   eventBus: any;
+  
 
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
@@ -68,8 +68,8 @@ export class CarRealTimeMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.realTimeMaplet = new Maplet('realTimeMap')
-    mianMapObject.initMap(this.realTimeMaplet, 'realTimeMap');
+    this.maplet = new Maplet('realTimeMap')
+    mianMapObject.initMap(this.maplet, 'realTimeMap');
   }
 
 
@@ -132,10 +132,6 @@ export class CarRealTimeMapComponent implements OnInit {
     if (!event.target.checked && carIndex > -1) {
       this.historyLocations = this.historyLocations.filter(res => res.plateNo !== item.value);
       this.warnings = this.warnings.filter(res => res.plateNo !== item.value);
-      const $this = this;
-      this._eventBuservice.unregisterHandler('realTime', item.value, res => {
-        $this.getMultipleRealTimeGnssDataByEventBus(res.msg, 'realTimeData');
-      });
       this.removeMultipleCarPoint(item.value);
       this.selectCars.splice(carIndex, 1);
     }
@@ -173,7 +169,7 @@ export class CarRealTimeMapComponent implements OnInit {
             'alarmState': location.alarmState
           };
           const val = pointData.geoPoint.split(',');
-          mianMapObject.resetCenter(this.realTimeMaplet, val[0], val[1]);
+          mianMapObject.resetCenter(this.maplet, val[0], val[1]);
           this.addMultipleCarPoint(pointData.geoPoint,
             item.value,
             GnssData.getRealTimeInfo(pointData),
@@ -186,7 +182,7 @@ export class CarRealTimeMapComponent implements OnInit {
 
   addMultipleCarPoint(geoPoint, carNo, info, direction) {
     if (this.multipleCarPoints[carNo]) {
-      this.realTimeMaplet.removeOverlay(this.multipleCarPoints[carNo])
+      this.maplet.removeOverlay(this.multipleCarPoints[carNo])
     }
     const point = new MPoint(geoPoint);
     const marker = new MMarker(
@@ -196,9 +192,9 @@ export class CarRealTimeMapComponent implements OnInit {
         , 24, 48),
       new MInfoWindow('详细信息', info)
     );
-    this.realTimeMaplet.addOverlay(marker);
+    this.maplet.addOverlay(marker);
     this.multipleCarPoints[carNo] = marker;
-    mianMapObject.setDirection(`icon_combine_${carNo}`, direction);
+    setTimeout(mianMapObject.setDirection(`icon_combine_${carNo}`, direction), 1000);
   }
 
   removeCar(licenseNo) {
@@ -214,8 +210,8 @@ export class CarRealTimeMapComponent implements OnInit {
   }
 
   clearCompanysAndCars() {
-    if (this.realTimeMaplet) {
-      this.realTimeMaplet.clearOverlays(true);
+    if (this.maplet) {
+      this.maplet.clearOverlays(true);
     }
     this._eventBuservice.closeEventBus('realTime');
     // this.companys = [];
@@ -229,13 +225,15 @@ export class CarRealTimeMapComponent implements OnInit {
 
   showMultipleCarPoint(carNo) {
     if (this.multipleCarPoints[carNo]) {
-      this.realTimeMaplet.centerAndZoom(this.multipleCarPoints[carNo].pt, 12);
+      this.maplet.centerAndZoom(this.multipleCarPoints[carNo].pt, 12);
       this.multipleCarPoints[carNo].openInfoWindow();
     }
   }
   removeMultipleCarPoint(carNo) {
+    const $this = this;
+    this._eventBuservice.unregisterHandler('realTime', carNo);
     if (this.multipleCarPoints[carNo]) {
-      this.realTimeMaplet.removeOverlay(this.multipleCarPoints[carNo])
+      this.maplet.removeOverlay(this.multipleCarPoints[carNo])
     }
   }
 
@@ -304,16 +302,16 @@ export class CarRealTimeMapComponent implements OnInit {
 
 
   addSingleCarPoint(geoPoint, info, direction) {
-    this.realTimeMaplet.clearOverlays(true);
+    this.maplet.clearOverlays(true);
     const point = new MPoint(geoPoint);
     const marker = new MMarker(
       point,
       new MIcon('<img class="con" id="icon_realTime" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48),
       new MInfoWindow('详细信息', info)
     );
-    this.realTimeMaplet.addOverlay(marker);
+    this.maplet.addOverlay(marker);
     marker.openInfoWindow();
-    mianMapObject.setDirection('icon_realTime', direction);
+    setTimeout(mianMapObject.setDirection('icon_realTime', direction), 1000);
   }
 
   registerHandler() {
