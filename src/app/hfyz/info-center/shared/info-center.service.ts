@@ -6,8 +6,8 @@ export class InfoCenterService {
     constructor(public restangular: Restangular) {
     }
 
-    list(max, offset, type) {
-        return this.restangular.all('in-boxs').customGET('list', {max: max, offset: offset, type: type});
+    list(max, offset) {
+        return this.restangular.all('in-boxs').customGET('list', {max: max, offset: offset});
     }
 
     changeState(id) {

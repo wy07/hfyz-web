@@ -1,3 +1,30 @@
-.no-padding {
-    padding: 0;
+.red-point{
+    position: relative;
+}
+
+.red-point::before{
+    content: " ";
+    border: 4px solid red;/*设置红色*/
+    border-radius:4px;/*设置圆角*/
+    position: absolute;
+    vertical-align: middle;
+}
+
+.center {
+    text-align: center;
+}
+
+.change-color{
+    color: #7a7a7a;
+}
+
+tr td {
+    height: 40px;
+}
+
+.overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 1000px;
 }

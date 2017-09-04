@@ -1,32 +1,30 @@
-<p-tabView>
-    <p-tabPanel header="工单">
-        <div class="panel panel-default panel-show">
-            <div class="panel-body no-padding">
-                <div class="row">
-                    <div class="col-md-12">
-                        <p-dataTable [value]="list" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMaxOrder" [totalRecords]="pageTotalOrder" [paginator]="true" (onLazyLoad)="paginateOrder($event)" [(first)]="pageFirstOrder">
-                            <p-column field="isRead" header="状态" styleClass=operation-buttons-1>
-                                <ng-template let-order="rowData" pTemplate="body">
-                                    <span>{{order.isRead? '已读':'未读'}}</span>
-                                </ng-template>
-                            </p-column>
-                            <p-column field="title" header="标题"></p-column>
-                            <p-column field="dateCreated" header="生成日期"></p-column>
-                            <p-column field="" header="操作" styleClass=operation-buttons-1>
-                                <ng-template let-order="rowData" pTemplate="body">
-                                <div role="button" class="fa fa-list fa-font-size div-distance" tooltip="详情" (click)="click(order)" placement="bottom"></div>
-                                </ng-template>
-                            </p-column>
-                        </p-dataTable>
-                    </div>
-                </div>
+<div class="panel panel-default panel-show panel-info">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12" *ngIf="list.length>0">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>消息类型</th>
+                        <th class="overflow">内容</th>
+                        <th>提示时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let info of list">
+                        <td><p [ngClass]="{'red-point': !info.isRead}"></p></td>
+                        <td [ngClass]="{'change-color':info.isRead == true}">{{info.sourceType}}</td>
+                        <td class="overflow"><p class="overflow" title="{{info.title}}"><a [ngClass]="{'change-color':info.isRead == true}"(click)="click(info)" href="javascript:;">{{info.title}}</a></p></td>
+                        <td [ngClass]="{'change-color':info.isRead == true}">{{info.dateCreated}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p-paginator styleClass=no-border rows={{max}} totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+            <div *ngIf="list.length<=0" class="center">
+                暂无消息
             </div>
         </div>
-    </p-tabPanel>
-    <p-tabPanel header="隐患整改单">
-
-    </p-tabPanel>
-    <p-tabPanel header="电子路单">
-
-    </p-tabPanel>
-</p-tabView>
+    </div>
+</div>

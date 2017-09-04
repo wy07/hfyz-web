@@ -40,6 +40,7 @@ export class OrderExamineComponent implements OnInit {
   statusList: any[];
   listStatus: any;
   zh = zh;
+  timer: any;
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -65,6 +66,19 @@ export class OrderExamineComponent implements OnInit {
     this.approveTime = new Date();
     this.statusList = [{ label: '全部', value: '' }, { label: '待审核', value: '1' },
     { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
+
+      this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
+          clearTimeout(this.timer);
+          if (inputs.action === inputs.actualAction) {
+              if (inputs.action === 'DSH' || inputs.action === 'DYR') {
+                  this.onEdit(inputs.sourceId);
+              }else {
+                  this.preEdit(inputs.sourceId);
+              }
+          }else {
+              this.preEdit(inputs.sourceId);
+          }
+      });
   }
 
   ngOnInit() {
@@ -117,12 +131,12 @@ export class OrderExamineComponent implements OnInit {
     this.displayDialog = false;
   }
 
-  onEdit(hiddenDanger) {
+  onEdit(id) {
     this.approveTime = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '审核';
     this.edit = true;
-    this.preEdit(hiddenDanger.id);
+    this.preEdit(id);
   }
 
   getReviewAndApprovalList(id) {

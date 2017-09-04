@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {TabView} from 'primeng/primeng';
 import {MapService} from '../../map/shared/map.service';
+import {WorkOrderService} from '../../work-order/shared/work-order.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,9 +28,9 @@ export class LayoutComponent implements OnInit {
     @ViewChildren(DynamicComponent) dynamicContainers: QueryList<DynamicComponent>;
 
     initMap: boolean;
-
-
-    constructor(private mapService: MapService) {
+    infoType: string;
+    constructor(private mapService: MapService
+        , private workOrderService: WorkOrderService) {
         this.initMap = false;
         this.tabs=[{
             header: '首页',
@@ -64,9 +65,16 @@ export class LayoutComponent implements OnInit {
         return new Promise(resolve => {
             const mapMenus = ['realTimeMap', 'historyMap', 'otherMap', 'realTimeMonitorMap'];
             this.initMap = false;
+
             if (mapMenus.find(x => x === menu.code) === undefined) {
+                if (menu.infoType) {
+                    this.infoType = menu.infoType;
+                }else {
+                    this.infoType = '';
+                }
                 this.activeTab(menu);
                 resolve('success')
+
             } else {
                 const menuInputs = this.getInputs(menu.inputs, menu.code);
                 if (menuInputs.id) {
@@ -203,11 +211,8 @@ export class LayoutComponent implements OnInit {
         const tab = this.tabs.find(x => x.header === menu.name);
         let index = 0;
         if (tab === undefined) {
-            let inputs = null;
+            let inputs = '';
             console.log('=======menu======' + JSON.stringify(menu));
-            // if (menu.parameter !== undefined) {
-            //     inputs = menu.parameter;
-            // }
             if (menu.inputs !== undefined) {
                 inputs = menu.inputs;
             }
@@ -221,7 +226,6 @@ export class LayoutComponent implements OnInit {
                 , disabled: false
                 , index: index
                 , code: menu.code
-                // , inputs: JSON.parse(inputs)
                 , inputs: inputs
                 , hasMap: false
                 , initMap: false

@@ -22,7 +22,7 @@ export class FeedbackWorkOrderComponent implements OnInit {
     workOrder: any;
 
     note: string;
-
+    timer: any;
     constructor(private _workOrderService: WorkOrderService
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
@@ -35,6 +35,13 @@ export class FeedbackWorkOrderComponent implements OnInit {
         this.action = 'list';
 
         this.workOrder = {};
+
+        this._workOrderService.change.subscribe((inputs: any) => {
+            clearTimeout(this.timer);
+            if (inputs.action === 'FK' && inputs.action === inputs.actualAction) {
+                this.onFeedback(inputs.sourceId);
+            }
+        });
     }
 
     ngOnInit() {

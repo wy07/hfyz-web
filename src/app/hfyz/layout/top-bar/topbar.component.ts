@@ -5,7 +5,9 @@ import {AuthService} from './../../security/auth.service';
 import {Component, OnInit, Injector} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgRadio} from 'ng-radio';
-import {InfoCenterComponent} from '../../info-center/info-center.component';
+import {LayoutService} from '../shared/layout.service';
+import {TdLoadingService} from '@covalent/core';
+
 @Component({
     selector: 'u-topbar',
     templateUrl: 'topbar.component.html',
@@ -19,14 +21,15 @@ export class TopBarComponent implements OnInit {
     layoutComponent: any;
     currentUser: string;
     isShow: boolean;
-    infoCenterComponent: any;
+    infoList: any;
     constructor(private _router: Router
         , private _authService: AuthService
         , private _configService: ConfigService
         , private radio: NgRadio
-        , private inj: Injector) {
+        , private inj: Injector
+        , private _layoutService: LayoutService
+        , private _loadingService: TdLoadingService) {
         this.layoutComponent = this.inj.get(LayoutComponent);
-        // this.infoCenterComponent = this.inj.get(InfoCenterComponent);
         radio.on('TOP_BAR').subscribe((topbarMenu) => {
             this.topbarMenu = topbarMenu;
         });
@@ -37,10 +40,29 @@ export class TopBarComponent implements OnInit {
         this.currentUser = sessionStorage.getItem('username');//this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
-        // this.isShow = true;
-        // this.infoCenterComponent.initData();
+        this.getInfo();
+        this.isShowPoint();
     }
 
+    getInfo() {
+        this._layoutService.list().subscribe(
+            res => {
+                this.infoList = res.list;
+                let i = this.infoList.length
+                while (i--) {
+                    if (this.infoList[i].isRead === false) {
+                        this.isShow = true;
+                    }
+                }
+            }
+        );
+    }
+
+    isShowPoint() {
+        setInterval(() => {
+         this.getInfo();
+        }, 5000 * 60);
+    }
     toRouter(routerLink) {
         console.log('====toRouter=====' + routerLink);
         if (routerLink.indexOf('root') === -1) {

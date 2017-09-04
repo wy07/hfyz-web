@@ -1,12 +1,6 @@
-import { CustomDirectiveModule } from './../common/custom-directive.module';
 import {NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
-import {
-    DataTableModule,
-    ButtonModule,
-    PaginatorModule,
-    DialogModule, CalendarModule, TabViewModule,
-} from 'primeng/primeng';
+import { PaginatorModule } from 'primeng/primeng';
 import {CommonModule} from '@angular/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -26,14 +20,8 @@ import {InfoCenterComponent} from './info-center.component';
         ReactiveFormsModule,
         BrowserAnimationsModule,
         CommonModule,
-        DataTableModule,
-        ButtonModule,
         PaginatorModule,
-        DialogModule,
-        CalendarModule,
-        TooltipModule,
-        CustomDirectiveModule,
-        TabViewModule
+        TooltipModule
     ],
     exports: [],
     providers: [

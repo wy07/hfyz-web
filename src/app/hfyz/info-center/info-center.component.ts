@@ -11,21 +11,17 @@ import {LayoutComponent} from '../layout/main-tab/layout.component';
 export class InfoCenterComponent implements OnInit {
     list: any[];
     layoutComponent: any;
-    pageMaxOrder: number;
-    pageTotalOrder: number;
-    pageFirstOrder: number;
-    pageOffsetOrder: number;
 
+    max: number;
+    total: number;
+    currentPage: number;
     constructor(private _infoCenterService: InfoCenterService
         , private _loadingService: TdLoadingService
         , private inj: Injector) {
 
         this.layoutComponent = this.inj.get(LayoutComponent);
-
-        this.pageMaxOrder = 10;
-        this.pageTotalOrder = 0;
-        this.pageFirstOrder = 0;
-        this.pageOffsetOrder = 0;
+        this.max = 12;
+        this.list = [];
     }
 
 
@@ -33,45 +29,61 @@ export class InfoCenterComponent implements OnInit {
         this.initData();
     }
 
-    initData() {
-            this._loadingService.register();
-            this._infoCenterService.list(this.pageMaxOrder, this.pageFirstOrder, 'GD').subscribe(
-                res => {
-                    this._loadingService.resolve();
-                    this.list = res.list;
-                    this.pageTotalOrder = res.total;
-                    this.pageOffsetOrder = this.pageFirstOrder;
-                }
-            );
-    }
-
-    click(order) {
+    initData(offset = 0) {
         this._loadingService.register();
-        this._infoCenterService.changeState(order.id).subscribe(
+        this._infoCenterService.list(this.max, offset).subscribe(
             res => {
                 this._loadingService.resolve();
-                console.log('=====sourceId=====' + order.sourceId);
-                console.log('=====action=====' + order.action);
-                let code = '';
-                if (order.action === 'YP') {
-                    code = 'pendingWorkOrder';
+                this.list = res.list;
+                this.total = res.total;
+            }
+        );
+    }
+
+    click(info) {
+        let code = '';
+        let menu = {};
+        this._loadingService.register();
+        this._infoCenterService.changeState(info.id).subscribe(
+            res => {
+                this._loadingService.resolve();
+                if (info.sourceType === '工单') {
+                    if (info.action === info.actualAction) {
+                        if (info.action === 'YP' || info.action === 'SP') {
+                            code = 'pendingWorkOrder';
+                        }
+                        if (info.action === 'FK') {
+                            code = 'feedbackWorkOrder';
+                        }
+                    }else {
+                        code = 'workOrder';
+                    }
+                    menu = {
+                        name: '工单处理', code: code, infoType: 'workOrder',
+                        inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
+                    };
                 }
-                if (order.action === 'FK') {
-                    code = 'feedbackWorkOrder';
+                if (info.sourceType === '隐患整改单') {
+                    if (info.action === 'DSH' || info.action === 'DYR' || info.action === 'YJJ') {
+                        code = 'orderExamine';
+                    }
+                    if (info.action === 'DFK' || info.action === 'HG' || info.action === 'BHG') {
+                        code = 'enterpriseFeedback';
+                    }
+                    menu = {
+                        name: '工单处理', code: code, infoType: 'hiddenDangerOrder',
+                        inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
+                    };
                 }
-                if (order.action === '') {
-                    code = 'workOrder';
-                }
-                const menu = {
-                    name: '工单处理', code: code, inputs: {sourceId: order.sourceId, action: order.action}
-                };
                 this.layoutComponent.addTab(menu);
             }
         );
     }
-    paginateOrder(event) {
-        if (this.pageOffsetOrder !== event.first) {
-            this.initData();
+
+    paginate(event) {
+        if (this.currentPage !== event.page) {
+            this.currentPage = event.page;
+            this.initData(event.page * this.max);
         }
     }
 }
