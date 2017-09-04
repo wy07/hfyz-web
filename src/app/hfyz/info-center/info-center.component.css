@@ -4,8 +4,8 @@
 
 .red-point::before{
     content: " ";
-    border: 4px solid red;/*设置红色*/
-    border-radius:4px;/*设置圆角*/
+    border: 4px solid red;
+    border-radius:4px;
     position: absolute;
     vertical-align: middle;
 }

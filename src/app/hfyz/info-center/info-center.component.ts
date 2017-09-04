@@ -59,7 +59,7 @@ export class InfoCenterComponent implements OnInit {
                         code = 'workOrder';
                     }
                     menu = {
-                        name: '工单处理', code: code, infoType: 'workOrder',
+                        name: '消息处理', code: code, infoType: 'workOrder',
                         inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
                     };
                 }
@@ -71,7 +71,7 @@ export class InfoCenterComponent implements OnInit {
                         code = 'enterpriseFeedback';
                     }
                     menu = {
-                        name: '工单处理', code: code, infoType: 'hiddenDangerOrder',
+                        name: '消息处理', code: code, infoType: 'hiddenDangerOrder',
                         inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
                     };
                 }
