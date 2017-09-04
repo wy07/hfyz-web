@@ -1,51 +1,36 @@
-<div *ngIf="sidebarMenu!==undefined" class="layout-sidebar" style="overflow: visible;">
-    <div class="layout-tabmenu">
-        <ul class="layout-tabmenu-nav">
-          <ng-template ngFor let-menu [ngForOf]="sidebarMenu" >
-            <li [ngClass]="(menu.code!==undefined && menu.code==activeMenu)?'active-item':''" >
-                 <div [hasPermission]="menu.permission_code" id ="{{menu.code}}">
-                    <a   class="tabmenuitem-link"  href="#" (click)="menu.code.indexOf('root')==-1?addTab(menu):showContent($event,menu)">
-                        <i class="fa {{menu.icon}}"></i>
-                        <span class="layout-tabmenu-title">{{menu.name}}</span>
-                    </a>
-                    <div class="layout-tabmenu-tooltip">
-                        <div class="layout-tabmenu-tooltip-arrow"></div>
-                        <div class="layout-tabmenu-tooltip-text">{{menu.name}}</div>
-                    </div>
-                </div>
-            </li>
-          </ng-template>
-        </ul>
-        <div class="layout-tabmenu-contents" >
-            <div class="layout-tabmenu-content" id="{{childrenMenuCode}}" >
-                <div class="layout-submenu-title clearfix">
-                    <span>{{contentLabel}}</span>
-                    <a class="menu-button"  (click)="hideContent($event)" >
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </div>
-                <div class="layout-submenu-content" style="overflow-x:hidden">
-                    <div class="nano has-scrollbar">
-                        <div class="nano-content menu-scroll-content" tabindex="0" style="margin-right: -20px;">
-                        <ul  class="navigation-menu" >
-                            <ng-template ngFor let-childmenu [ngForOf]="menuChildren" >
-                            <div [hasPermission]="childmenu.permission_code">
-                                <li  *ngIf="childmenu.name!='divider' ; else elseBlock">
-                                    <a (click)="addTab(childmenu)"  href="#" >
-                                        <i class="fa fa-fw {{childmenu.icon}}"></i>
-                                        <span>{{childmenu.name}}</span>
-                                    </a>
-                                </li>
-
-                                <ng-template #elseBlock>
-                                    <li class="hoverdown-divider"></li>
-                                </ng-template>
-                            </div>
-                            </ng-template>
-                        </ul>
+<div class="layout-menu-wrapper">
+    <div class="nano">
+        <div class="nano-content sidebar-scroll-content">
+            <div class="layout-menu-container">
+                <!-- <div class="mobile-search">
+                    <i class="fa fa-fw fa-search topbar-search-icon"></i>
+                    <input class="topbar-search" placeholder="Type your search here" type="text">
+                </div> -->
+                <ul class="layout-menu ng-tns-c1-0" root="true" visible="true">
+                    <li class="ng-tns-c1-0" *ngFor="let item of sidebarMenu" [ngClass]="{'active-menuitem': item.hasChildren}" [hasPermission]="item.permission_code">
+                        <a class="ng-tns-c1-0" (click)="item.code.indexOf('root')==-1?addTab(item):showChildren($event,item)">
+                            <i class="ng-tns-c1-0 fa fa-fw {{item.icon}}"></i>
+                            <span class="ng-tns-c1-0" style="cursor: pointer;">{{item.name}}</span>
+                            <i class="fa fa-fw ng-tns-c1-0" [ngClass]="{'fa-angle-down': item?.children}"></i>
+                        </a>
+                        <div class="layout-menu-tooltip">
+                            <div class="layout-menu-tooltip-arrow"></div>
+                            <div class="layout-menu-tooltip-text">{{item.name}}</div>
                         </div>
-                    </div>
-                 </div>
+                        <ul *ngIf="item?.children" class="ng-tns-c1-1 ng-tns-c1-0 ng-trigger ng-trigger-children" [ngClass]="{'hideChildrenItem': !item.hasChildren}">
+                            <li class="ng-tns-c1-1" *ngFor="let childrenItem of item.children" [hasPermission]="childrenItem.permission_code">
+                                <a class="ng-tns-c1-1" tabindex="-1" (click)="addTab(childrenItem)">
+                                    <i class="ng-tns-c1-1 fa fa-fw {{childrenItem.icon}}"></i>
+                                    <span class="ng-tns-c1-1" style="cursor: pointer;">{{childrenItem.name}}</span>
+                                </a>
+                                <div class="layout-menu-tooltip">
+                                    <div class="layout-menu-tooltip-arrow"></div>
+                                    <div class="layout-menu-tooltip-text">{{childrenItem.name}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

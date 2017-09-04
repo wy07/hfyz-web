@@ -36,8 +36,7 @@ export class TopBarComponent implements OnInit {
     };
 
     ngOnInit() {
-
-        this.currentUser = sessionStorage.getItem('username');//this._authService.getCurrentUser('name')
+        this.currentUser = sessionStorage.getItem('username'); // this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
         this.getInfo();
@@ -71,6 +70,7 @@ export class TopBarComponent implements OnInit {
             } else {
                 let path = routerLink;
                 if (path === 'logout') {
+                    this._configService.load();
                     this._authService.logout();
                     path = 'login';
                 }
