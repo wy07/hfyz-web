@@ -62,6 +62,7 @@ export class TopBarComponent implements OnInit {
          this.getInfo();
         }, 5000 * 60);
     }
+
     toRouter(routerLink) {
         console.log('====toRouter=====' + routerLink);
         if (routerLink.indexOf('root') === -1) {
