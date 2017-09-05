@@ -1,5 +1,5 @@
+import { AppEventEmittersService } from './../../common/shared/app-event-emitters.service';
 import { TdLoadingService } from '@covalent/core';
-import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { zh } from './../../common/shared/zh';
@@ -23,7 +23,7 @@ declare var MInfoWindow: any;
   templateUrl: './car-real-time-map.component.html',
   styleUrls: ['./car-real-time-map.component.css']
 })
-export class CarRealTimeMapComponent implements OnInit {
+export class CarRealTimeMapComponent implements OnInit, OnDestroy {
   historyLocations = [];
   warnings = [];
 
@@ -44,7 +44,7 @@ export class CarRealTimeMapComponent implements OnInit {
   realTimeGnssData: GnssData;
 
   eventBus: any;
-  
+  subscription: any;
 
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
@@ -52,8 +52,8 @@ export class CarRealTimeMapComponent implements OnInit {
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService
-    , private _loadingService: TdLoadingService) {
+    , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService) {
     this.companys = [];
     this.carsGroupByCompany = {};
     this.cars = [];
@@ -65,6 +65,18 @@ export class CarRealTimeMapComponent implements OnInit {
     this.realTimeGnssData = null;
 
     this.onAccordion('multipleCar');
+
+    this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+      if (inputs.code === 'realTimeMap') {
+        if (inputs.currentRealTimeAccordion === 'singleCar') {
+          this.currentAccordion = 'singleCar';
+          if (inputs.licenseNo) {
+            this.licenseNo = inputs.licenseNo;
+            this.getRealTimeMap();
+          }
+        }
+      }
+    })
   }
 
   ngOnInit() {
@@ -75,6 +87,7 @@ export class CarRealTimeMapComponent implements OnInit {
 
   onAccordion(currentAccordion) {
     if (this.currentAccordion !== currentAccordion) {
+      this.licenseNo = '';
       this.clearCompanysAndCars();
     }
     this.currentAccordion = currentAccordion;
@@ -293,7 +306,7 @@ export class CarRealTimeMapComponent implements OnInit {
       'alarmState': data.alarmState
     };
     if (type !== 'histroyData') {
-      this._mapService.processingDataList(this.historyLocations, this.realTimeGnssData);
+      this._carService.processingDataList(this.historyLocations, this.realTimeGnssData);
     }
     this.addSingleCarPoint(this.realTimeGnssData.geoPoint,
       GnssData.getRealTimeInfo(this.realTimeGnssData),
@@ -344,7 +357,7 @@ export class CarRealTimeMapComponent implements OnInit {
       'alarmState': data.alarmState
     };
     if (type !== 'histroyData') {
-      this._mapService.processingDataList(this.historyLocations, pointData);
+      this._carService.processingDataList(this.historyLocations, pointData);
     }
 
     this.addMultipleCarPoint(pointData.geoPoint,
@@ -353,4 +366,9 @@ export class CarRealTimeMapComponent implements OnInit {
       pointData.direction);
   }
 
+
+  ngOnDestroy() {
+    this._eventBuservice.closeEventBus('realTime');
+    this.subscription.unsubscribe();
+  }
 }

@@ -1,3 +1,4 @@
+import { AppEventEmittersService } from './../shared/app-event-emitters.service';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
@@ -12,8 +13,6 @@ import { PeopleListComponent } from '../../people/list/people-list.component';
 import { PlatFormComponent } from '../../basic/platForm/plat-form.component';
 import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
 import { CarListComponent } from '../../car/list/car-list.component';
-import { NullMapComponent } from '../../map/nullMap/null-map.component';
-import { MapComponent } from '../../map/map/map.component';
 import { PlatformManageComponent } from '../../platform-manage/platform-manage.component';
 import { LogManageComponent } from '../../log-manage/log-manage.component';
 import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
@@ -33,7 +32,6 @@ import {
     ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
 import { components } from './components';
-import { MapService } from '../../map/shared/map.service';
 import { WorkOrderComponent } from '../../work-order/list/work-order.component';
 import { BlackListComponent } from '../../roster/black-list/black-list.component';
 import { WhiteListComponent } from '../../roster/white-list/white-list.component';
@@ -62,7 +60,7 @@ import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-m
     // entryComponents: Object.keys(components).map(key => components[key]),
     entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
         InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+        CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
         PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
@@ -98,7 +96,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     @Input() componentName;
     @Input() inputs: any;
     @Input() tab: any;
-    @Input() initMap: boolean;
     loaded: boolean;
     compRef: ComponentRef<any>;
 
@@ -117,7 +114,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     constructor(private resolver: ComponentFactoryResolver
         , private initStatus: ApplicationInitStatus
         , private appRef: ApplicationRef
-        , private mapService: MapService) {
+        , private _appEmitterService: AppEventEmittersService) {
         // this.loadComponent()
     }
 
@@ -126,15 +123,10 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
 
     getaComponentName() {
-        if (this.tab.hasMap && !this.tab.initMap) {
-            return 'nullMap';
-        } else {
-            return this.tab.code;
-        }
+        return this.tab.code;
     }
 
     loadComponent() {
-
         console.log('======loadComponent:')
         const factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
@@ -165,26 +157,16 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
         // detectChanges
 
-        if (this.componentName !== 'nullMap') {
-            setInterval(() => {
-                component.changeDetectorRef.markForCheck();
-            }, 50);
-        }
-
-
+        setInterval(() => {
+            component.changeDetectorRef.markForCheck();
+        }, 500);
         this.loaded = true;
         this.compRef = component;
 
-        if (!this.inputs) {
-            this.inputs = {};
+        if (this.inputs) {
+            console.log("======DynamicComponent " + JSON.stringify(this.inputs))
+            this._appEmitterService.tabChange.emit(this.inputs);
         }
-
-
-        if (this.initMap) {
-            this.mapService.change.emit(this.inputs);
-        }
-
-
     }
 
     ngAfterContentInit() {
@@ -192,7 +174,10 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     }
 
     ngOnDestroy() {
+
         console.log(` === ===${this.componentName} === == ngOnDestroy === === === === = `);
+        console.log(this.compRef)
+
         if (this.compRef) {
             this.compRef.destroy();
         }

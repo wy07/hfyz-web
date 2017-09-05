@@ -1,5 +1,5 @@
+import { AppEventEmittersService } from './../../common/shared/app-event-emitters.service';
 import { TdLoadingService } from '@covalent/core';
-import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { zh } from './../../common/shared/zh';
@@ -26,7 +26,7 @@ declare var MPolyline: any;
   templateUrl: './car-history-map.component.html',
   styleUrls: ['./car-history-map.component.css']
 })
-export class CarHistoryMapComponent implements OnInit {
+export class CarHistoryMapComponent implements OnInit, OnDestroy {
   historyLocations = [];
   warnings = [];
 
@@ -45,14 +45,15 @@ export class CarHistoryMapComponent implements OnInit {
   carMarker: any;
   playline: any;
 
+  subscription: any;
+
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
     , private datePipe: DatePipe
-    , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService
-    , private _loadingService: TdLoadingService) {
+    , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService) {
     this.licenseNo = '';
     const current: any = new Date();
     this.startDate = null;
@@ -60,6 +61,16 @@ export class CarHistoryMapComponent implements OnInit {
     this.playIndex = -1;
     this.playPoints = [];
     this.palyerAction = '';
+
+    this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+      if (inputs.code === 'historyMap' && inputs.licenseNo) {
+        this.licenseNo = inputs.licenseNo;
+        this.endDate = new Date();
+        this.startDate = new Date();
+        this.startDate.setHours(new Date().getHours() - 1);
+        this.search();
+      }
+    })
   }
 
   ngOnInit() {
@@ -85,6 +96,9 @@ export class CarHistoryMapComponent implements OnInit {
   }
 
   showPath() {
+    this.palyerAction = '';
+    this.maplet.clearOverlays(true);
+    console.log(this.historyLocations)
     for (let i = 0; i < this.historyLocations.length; i++) {
       const pointData = this.historyLocations[i];
       const point = new MPoint(pointData.geoPoint);
@@ -188,4 +202,8 @@ export class CarHistoryMapComponent implements OnInit {
     return true
   }
 
+  ngOnDestroy() {
+    clearInterval(this.playTimer)
+    this.subscription.unsubscribe();
+  }
 }

@@ -1,5 +1,5 @@
+import { AppEventEmittersService } from './../../common/shared/app-event-emitters.service';
 import { TdLoadingService } from '@covalent/core';
-import { MapService } from './../../map/shared/map.service';
 import { Component, OnInit, OnDestroy, ElementRef, Renderer } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { zh } from './../../common/shared/zh';
@@ -23,12 +23,13 @@ declare var MInfoWindow: any;
   templateUrl: './car-monitor-map.component.html',
   styleUrls: ['./car-monitor-map.component.css']
 })
-export class CarMonitorMapComponent implements OnInit {
+export class CarMonitorMapComponent implements OnInit, OnDestroy {
   licenseNo: string;
   realTimeMonitorGnssData: GnssData;
   historyLocations = [];
   warnings = [];
   maplet: any;
+  subscription: any;
 
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
@@ -36,10 +37,19 @@ export class CarMonitorMapComponent implements OnInit {
     , private _eventBuservice: EventBuservice
     , private _ownerService: OwnerIdentityService
     , private _carService: CarService
-    , private _mapService: MapService
-    , private _loadingService: TdLoadingService) {
+    , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService) {
     this.licenseNo = '';
     this.realTimeMonitorGnssData = null;
+
+    this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+      console.log("----in CarMonitorMapComponent tabChange")
+      console.log(JSON.stringify(inputs))
+      if (inputs.code === 'realTimeMonitorMap' && inputs.licenseNo) {
+        this.licenseNo = inputs.licenseNo;
+        this.search();
+      }
+    })
   }
 
   ngOnInit() {
@@ -102,7 +112,7 @@ export class CarMonitorMapComponent implements OnInit {
       'alarmState': data.alarmState
     };
     if (type !== 'histroyData') {
-      this._mapService.processingDataList(this.historyLocations, this.realTimeMonitorGnssData)
+      this._carService.processingDataList(this.historyLocations, this.realTimeMonitorGnssData)
     }
     this.addPoint(this.realTimeMonitorGnssData.geoPoint,
       GnssData.getRealTimeMonitorInfo(this.realTimeMonitorGnssData),
@@ -128,5 +138,9 @@ export class CarMonitorMapComponent implements OnInit {
     this._eventBuservice.carRealTimeRegisterHandler('monitor', this.licenseNo, res => {
       $this.getRealTimeMonitorGnssData(res.msg, 'realTimeMonitorData');
     })
+  }
+  ngOnDestroy() {
+    this._eventBuservice.closeEventBus('monitor');
+    this.subscription.unsubscribe();
   }
 }

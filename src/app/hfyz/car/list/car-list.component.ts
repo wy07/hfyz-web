@@ -1,3 +1,4 @@
+import { ConfigService } from './../../config/config.service';
 import { NgRadio } from 'ng-radio';
 import { EventBuservice } from './../../common/shared/eventbus.service';
 import { TdLoadingService } from '@covalent/core';
@@ -45,7 +46,8 @@ export class CarListComponent implements OnInit {
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
         , private radio: NgRadio
-        , private inj: Injector) {
+        , private inj: Injector
+        , private _configService: ConfigService) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -118,43 +120,18 @@ export class CarListComponent implements OnInit {
     }
 
     showRealTimeMap(item) {
-        // this.mapComponent.registerHandler(item.frameNo);
-        // this.mapComponent.test();
-        const $this = this;
-        const menu = {
-            name: '实时状态',
-            icon: 'fa-map',
-            code: 'realTimeMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo, currentRealTimeAccordion: 'singleCar' }
-        };
-        this.layoutComponent.addTab(menu);
-        // .then(res => {
-        //     console.log('======showRealTimeMap=====')
-        //     let intervalId = setInterval(() => {
-        //         console.log('======showRealTimeMap==setInterval===')
-        //         $this.radio.cast('realTime:open',item.frameNo);
-        //     }, 2000);
-        // });
+        this.layoutComponent.toTab(this._configService.menus['realTimeMap']
+            , { licenseNo: item.licenseNo, currentRealTimeAccordion: 'singleCar' });
     }
 
     showRealTimeMonitorMap(item) {
-        const menu = {
-            name: '实时监控',
-            icon: 'fa-map',
-            code: 'realTimeMonitorMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo }
-        };
-        this.layoutComponent.addTab(menu);
+        this.layoutComponent.toTab(this._configService.menus['realTimeMonitorMap']
+            , { licenseNo: item.licenseNo});
     }
 
     showHistoryMapp(item) {
-        const menu = {
-            name: '历史轨迹',
-            icon: 'fa-map',
-            code: 'historyMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo }
-        };
-        this.layoutComponent.addTab(menu);
+        this.layoutComponent.toTab(this._configService.menus['historyMap']
+        , { licenseNo: item.licenseNo});
     }
 
     showDetail(car) {

@@ -1,9 +1,8 @@
+import { MapTabsBarComponent } from './shared/map-tab-bar/map-tabs-bar.component';
 import { CarMonitorMapComponent } from './monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './history-map/car-history-map.component';
 import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { CarRealTimeMapComponent } from './real-time-map/car-real-time-map.component';
-import { MapComponent } from './../map/map/map.component';
-import { MapModule } from './../map/map.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +25,8 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
         CarListComponent,
         CarRealTimeMapComponent,
         CarHistoryMapComponent,
-        CarMonitorMapComponent
+        CarMonitorMapComponent,
+        MapTabsBarComponent
     ],
     imports: [
         BrowserModule,
@@ -40,7 +40,6 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
         DropdownModule,
         SplitButtonModule,
         PaginatorModule,
-        MapModule,
         CalendarModule,
         TooltipModule,
         MultiSelectModule,
@@ -49,10 +48,9 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
         CommonModule,
         TabsModule.forRoot(),
         AccordionModule.forRoot(),
-        MapModule,
         TabViewModule
     ],
-    exports: [],
+    exports: [MapTabsBarComponent],
     providers: [
         CarService,
         DatePipe
