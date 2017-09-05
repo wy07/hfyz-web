@@ -22,9 +22,6 @@ export class ConfigService {
         console.log('######');
         console.log(config);
         this.config = config;
-
-        console.log(this.config.SIDE_BAR)
-
         for (const level1 of this.config.SIDE_BAR) {
           if (level1.children) {
             for (const level2 of level1.children) {
@@ -62,7 +59,6 @@ export class ConfigService {
     this.config.ROLE_RIGHTS = ROLE_RIGHTS;
   }
   getConfiguration(): Configuration {
-    console.log("------in getConfiguration")
     if (this.config.ROLE_RIGHTS == null) {
       this.config.ROLE_RIGHTS = this._authService.getCurrentUser('roleRights');
     }

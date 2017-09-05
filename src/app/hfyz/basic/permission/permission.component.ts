@@ -107,7 +107,6 @@ export class PermissionComponent implements OnInit {
                 , httpMethod: this.perm.httpMethod ? this.perm.httpMethod : ''
                 , url: this.perm.url
             };
-            console.log(JSON.stringify(this.perm));
             this._permService.update(this.perm.id, params).subscribe(
                 res => {
                     this.action = 'list';

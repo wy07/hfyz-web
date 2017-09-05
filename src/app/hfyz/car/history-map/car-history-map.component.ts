@@ -98,7 +98,6 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
   showPath() {
     this.palyerAction = '';
     this.maplet.clearOverlays(true);
-    console.log(this.historyLocations)
     for (let i = 0; i < this.historyLocations.length; i++) {
       const pointData = this.historyLocations[i];
       const point = new MPoint(pointData.geoPoint);

@@ -33,19 +33,13 @@ export class EventBuservice {
 
     unregisterHandler(key, code) {
         const address = 'hfyz.data.' + code;
-
-        console.log("-----in unregisterHandler");
-
         if (typeof (this.eventBus[key]) !== 'undefined' || this.eventBus[key]) {
-            console.log("-----in 1");
             if (this.eventBus[key].readyState() === vertx.EventBus.OPEN) {
-                console.log("-----in 2");
                 this.eventBus[key].unregisterHandler(address);
             }
         }
     }
 
-    
 
     inspectRegisterHandler(key, code, callback) {
         const address = 'inspect.response.' + code;
@@ -84,29 +78,4 @@ export class EventBuservice {
         }
         this.eventBus[key] = null;
     }
-
-    //  eventBus(){
-    //   console.log("====eventBus")
-    //   if(this.eb==null){
-    //     console.log("====new eventBus")
-    //     this.eb = new EventBus('http://127.0.0.1:8001/eventbus',{});
-    //   }
-    //    console.log("====return eventBus")
-    //    this.eb.onopen=function(){
-    //      console.log("====open")
-    //      this.eb.registerHandler("test.hello", function(err, res) {
-    //        console.log("test.hello====callback")
-    //        console.log(JSON.stringify(res))
-    //      });
-    //
-    //      this.eb.registerHandler("inspect.response.0001", function(err, res) {
-    //        console.log("inspect.response.0001====callback");
-    //        console.log(res)
-    //        console.log(JSON.stringify(res))
-    //      });
-    //    };
-    //   return this.eb;
-    // }
-
-
 }

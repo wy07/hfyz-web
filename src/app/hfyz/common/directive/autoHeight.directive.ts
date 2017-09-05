@@ -21,7 +21,6 @@ export class AutoHeightDirective implements OnInit, AfterViewChecked {
     ngAfterViewChecked() {
         const oldHeight = sessionStorage.getItem('winowHeight')
         if (oldHeight !== window.innerHeight.toString()) {
-            console.log('=====in====ngAfterViewChecked==')
             const winowHeight = window.innerHeight;
             sessionStorage.setItem('winowHeight', winowHeight.toString());
             const headerHeight = 100;

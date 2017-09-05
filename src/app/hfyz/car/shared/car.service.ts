@@ -48,7 +48,6 @@ export class CarService {
 
 
     getHistoryData(plateNo) {
-        console.log('====plateNo===' + plateNo)
         const points = [];
         const num = 10;
         let dateTime = new Date().getTime();

@@ -25,7 +25,6 @@ export class OrganizationComponent implements OnInit {
         this._orgService.list().subscribe(
             res => {
                 this._loadingService.resolve();
-                console.log(res.orgList);
                 this.orgList = res.orgList;
             }
         );

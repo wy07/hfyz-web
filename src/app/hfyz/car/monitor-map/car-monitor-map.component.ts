@@ -43,8 +43,6 @@ export class CarMonitorMapComponent implements OnInit, OnDestroy {
     this.realTimeMonitorGnssData = null;
 
     this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
-      console.log("----in CarMonitorMapComponent tabChange")
-      console.log(JSON.stringify(inputs))
       if (inputs.code === 'realTimeMonitorMap' && inputs.licenseNo) {
         this.licenseNo = inputs.licenseNo;
         this.search();

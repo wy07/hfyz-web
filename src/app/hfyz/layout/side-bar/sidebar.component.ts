@@ -26,13 +26,11 @@ export class SideBarComponent implements OnInit {
         , private inj: Injector) {
         this.layoutComponent = this.inj.get(LayoutComponent);
         radio.on('SIDE_BAR').subscribe((sidebarMenu) => {
-            console.log("!!! SideBarComponent subscribe")
             this.sidebarMenu = sidebarMenu
         });
     };
 
     ngOnInit() {
-        console.log("!!! SideBarComponent SIDE_BAR")        
         this.sidebarMenu = this._configService.getConfiguration().SIDE_BAR;
     }
 

@@ -48,7 +48,6 @@ export class PlatFormComponent implements OnInit {
         this.maxDate = new Date();
         this.inspectDisplay = false;
         this.inspectQ = {};
-        console.log('=====companyCode===' + sessionStorage.getItem('companyCode'))
     }
 
     ngOnInit() {

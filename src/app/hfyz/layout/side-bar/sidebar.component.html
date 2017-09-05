@@ -19,7 +19,6 @@
                         </div>
                         <ul *ngIf="item?.children" class="ng-tns-c1-1 ng-tns-c1-0 ng-trigger ng-trigger-children" [ngClass]="{'hideChildrenItem': !item.hasChildren}">
                             <li class="ng-tns-c1-1" *ngFor="let childrenItem of item.children" [hasPermission]="childrenItem.permission_code">
-                                =={{childrenItem.inputs}}==
                                 <a class="ng-tns-c1-1" tabindex="-1" (click)="addTab(childrenItem)">
                                     <i class="ng-tns-c1-1 fa fa-fw {{childrenItem.icon}}"></i>
                                     <span class="ng-tns-c1-1" style="cursor: pointer;">{{childrenItem.name}}</span>

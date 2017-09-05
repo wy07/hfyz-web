@@ -127,7 +127,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     }
 
     loadComponent() {
-        console.log('======loadComponent:')
         const factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
 
@@ -164,7 +163,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
         this.compRef = component;
 
         if (this.inputs) {
-            console.log("======DynamicComponent " + JSON.stringify(this.inputs))
             this._appEmitterService.tabChange.emit(this.inputs);
         }
     }
@@ -174,10 +172,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     }
 
     ngOnDestroy() {
-
-        console.log(` === ===${this.componentName} === == ngOnDestroy === === === === = `);
-        console.log(this.compRef)
-
         if (this.compRef) {
             this.compRef.destroy();
         }
