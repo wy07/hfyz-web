@@ -54,40 +54,20 @@ export class PassengerStatisticComponent implements OnInit {
     this.initData();
   }
   showOnline(passenger) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-bus', code: 'carList', inputs: {
-        ownerName: passenger.ownerName
-        , type: 'passenger', status: 'online'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: passenger.ownerName, type: 'passenger', status: 'online' });
   }
   showOnlineing(passenger) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: passenger.ownerName
-        , type: 'passenger', status: 'onlineing'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: passenger.ownerName, type: 'passenger', status: 'onlineing' });
   }
   showCrossCar(passenger) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: passenger.ownerName
-        , type: 'passenger', status: 'crossCar'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: passenger.ownerName, type: 'passenger', status: 'crossCar' });
   }
   showWarning(passenger) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: passenger.ownerName
-        , type: 'passenger', status: 'waring'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: passenger.ownerName, type: 'passenger', status: 'waring' });
   }
   onReset() {
     this.company = '';

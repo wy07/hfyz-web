@@ -80,6 +80,40 @@ export class LayoutComponent implements OnInit {
         })
     }
 
+    public addOrReloadTab(menu): Promise<any> {
+        return new Promise(resolve => {
+            if (menu.inputs) {
+                const menuInputs = this.getInputs(menu.inputs, menu.code);
+                this._appEmitterService.tabChange.emit(menuInputs);
+            }
+            const currenttab = this.tabs.find(x => x.header === menu.name);
+            const tabIndex = this.tabs.findIndex(x => x.header === menu.name);
+
+            const tab = {
+                header: menu.name
+                , icon: menu.icon
+                , selected: false
+                , closable: true
+                , disabled: false
+                , index: 1
+                , code: menu.code
+                , inputs: menu.inputs ? menu.inputs : {}
+                , hasMap: false
+            }
+
+            if (currenttab === undefined) {
+                tab.index = this.tabs.length;
+                this.tabs.push(tab);
+            } else {
+                tab.index = tabIndex + 1;
+                this.tabs.splice(tabIndex, 1);
+                this.tabs.splice(tabIndex, 0, tab);
+            }
+            this.selectTab(menu.code);
+            resolve('success');
+        })
+    }
+
     private getInputs(inputs, code) {
         if (!inputs) {
             return { code: code }
@@ -138,6 +172,5 @@ export class LayoutComponent implements OnInit {
     }
 
     handleChange(event) {
-
     }
 }
