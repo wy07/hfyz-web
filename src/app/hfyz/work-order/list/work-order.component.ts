@@ -41,7 +41,6 @@ export class WorkOrderComponent implements OnInit {
   status: string
 
   workOrderRecords: any[];
-  timer: any;
   constructor(private _workOrderService: WorkOrderService
     , private _toastr: ToastsManager
     , private _loadingService: TdLoadingService
@@ -56,7 +55,6 @@ export class WorkOrderComponent implements OnInit {
     this.workOrderRecords = [];
 
       this._workOrderService.change.subscribe((inputs: any) => {
-          clearTimeout(this.timer);
           this.preEdit(inputs.sourceId);
       });
   }

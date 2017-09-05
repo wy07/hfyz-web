@@ -18,7 +18,6 @@ export class PendingWorkOrderComponent implements OnInit {
 
     workOrderList: any;
     action: string;
-    timer: any;
     workOrder: any;
     workOrderRecords: any[];
 
@@ -39,7 +38,6 @@ export class PendingWorkOrderComponent implements OnInit {
         this.workOrder = {};
 
         this._workOrderService.change.subscribe((inputs: any) => {
-            clearTimeout(this.timer);
             if (inputs.action === 'SP' && inputs.action === inputs.actualAction) {
                 this.onExamine(inputs.sourceId);
             }

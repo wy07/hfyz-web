@@ -40,7 +40,6 @@ export class OrderExamineComponent implements OnInit {
   statusList: any[];
   listStatus: any;
   zh = zh;
-  timer: any;
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -68,7 +67,6 @@ export class OrderExamineComponent implements OnInit {
     { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
 
       this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
-          clearTimeout(this.timer);
           if (inputs.action === inputs.actualAction) {
               if (inputs.action === 'DSH' || inputs.action === 'DYR') {
                   this.onEdit(inputs.sourceId);

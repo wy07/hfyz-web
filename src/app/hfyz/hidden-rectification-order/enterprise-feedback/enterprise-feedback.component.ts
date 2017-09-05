@@ -38,7 +38,6 @@ export class EnterpriseFeedbackComponent implements OnInit {
   statusList: any[];
   listStatus: any;
   zh = zh;
-  timer: any;
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -66,12 +65,11 @@ export class EnterpriseFeedbackComponent implements OnInit {
     { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
 
       this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
-          clearTimeout(this.timer);
-              if (inputs.action === 'DFK' && inputs.action === inputs.actualAction) {
-                  this.onEdit(inputs.sourceId);
-              }else {
-                  this.preEdit(inputs.sourceId);
-              }
+          if (inputs.action === 'DFK' && inputs.action === inputs.actualAction) {
+              this.onEdit(inputs.sourceId);
+          }else {
+              this.preEdit(inputs.sourceId);
+          }
       });
   }
 
