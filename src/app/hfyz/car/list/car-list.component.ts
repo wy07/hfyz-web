@@ -1,4 +1,3 @@
-import { ConfigService } from './../../config/config.service';
 import { NgRadio } from 'ng-radio';
 import { EventBuservice } from './../../common/shared/eventbus.service';
 import { TdLoadingService } from '@covalent/core';
@@ -46,8 +45,7 @@ export class CarListComponent implements OnInit {
         , private eventBuservice: EventBuservice
         , private datePipe: DatePipe
         , private radio: NgRadio
-        , private inj: Injector
-        , private _configService: ConfigService) {
+        , private inj: Injector) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -120,17 +118,17 @@ export class CarListComponent implements OnInit {
     }
 
     showRealTimeMap(item) {
-        this.layoutComponent.toTab(this._configService.menus['realTimeMap']
+        this.layoutComponent.toTab('realTimeMap'
             , { licenseNo: item.licenseNo, currentRealTimeAccordion: 'singleCar' });
     }
 
     showRealTimeMonitorMap(item) {
-        this.layoutComponent.toTab(this._configService.menus['realTimeMonitorMap']
+        this.layoutComponent.toTab('realTimeMonitorMap'
             , { licenseNo: item.licenseNo});
     }
 
     showHistoryMapp(item) {
-        this.layoutComponent.toTab(this._configService.menus['historyMap']
+        this.layoutComponent.toTab('historyMap'
         , { licenseNo: item.licenseNo});
     }
 

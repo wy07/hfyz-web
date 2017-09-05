@@ -1,3 +1,4 @@
+import { ConfigService } from './../../config/config.service';
 import { AppEventEmittersService } from './../../common/shared/app-event-emitters.service';
 import { DynamicComponent } from '../../common/dynamic/dynamic.component';
 import {
@@ -27,7 +28,8 @@ export class LayoutComponent implements OnInit {
     @ViewChildren(DynamicComponent) dynamicContainers: QueryList<DynamicComponent>;
 
     infoType: string;
-    constructor(private _appEmitterService: AppEventEmittersService) {
+    constructor(private _appEmitterService: AppEventEmittersService
+        , private _configService: ConfigService) {
         this.tabs = [{
             header: '首页',
             selected: true,
@@ -50,7 +52,8 @@ export class LayoutComponent implements OnInit {
         this.selectTab('home');
     }
 
-    public toTab(menu, inputs): Promise<any> {
+    public toTab(menuCode, inputs): Promise<any> {
+        const menu = this._configService.menus[menuCode];
         return new Promise(resolve => {
             if (inputs) {
                 const menuInputs = this.getInputs(inputs, menu.code);
