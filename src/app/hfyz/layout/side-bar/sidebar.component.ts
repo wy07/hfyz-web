@@ -35,7 +35,7 @@ export class SideBarComponent implements OnInit {
     }
 
     addTab(menu) {
-        this.layoutComponent.addTab(menu);
+        this.layoutComponent.addOrReloadTab(menu);
     }
 
     showChildren(event: any, menu) {

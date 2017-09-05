@@ -54,40 +54,20 @@ export class TravelStatisticComponent implements OnInit {
     this.initData();
   }
   showOnline(travel) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: travel.ownerName
-        , type: 'travel', status: 'online'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: travel.ownerName, type: 'travel', status: 'online' });
   }
   showOnlineing(travel) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: travel.ownerName
-        , type: 'travel', status: 'onlineing'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+    , { ownerName: travel.ownerName, type: 'travel', status: 'onlineing' });
   }
   showCrossCar(travel) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: travel.ownerName
-        , type: 'travel', status: 'crossCar'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+      , { ownerName: travel.ownerName, type: 'travel', status: 'crossCar' });
   }
   showWarning(travel) {
-    const menu = {
-      name: '车辆信息', icon: 'fa-car', code: 'carList', inputs: {
-        ownerName: travel.ownerName
-        , type: 'travel', status: 'waring'
-      }
-    };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('carList'
+      , { ownerName: travel.ownerName, type: 'travel', status: 'waring' });
   }
   onReset() {
     this.company = '';
