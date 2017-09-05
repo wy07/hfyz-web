@@ -63,6 +63,14 @@ export class EnterpriseFeedbackComponent implements OnInit {
     this.reply = new Date();
     this.statusList = [{ label: '全部', value: '' }, { label: '待反馈', value: '2' },
     { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
+
+      this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
+          if (inputs.action === 'DFK' && inputs.action === inputs.actualAction) {
+              this.onEdit(inputs.sourceId);
+          }else {
+              this.preEdit(inputs.sourceId);
+          }
+      });
   }
 
   ngOnInit() {
@@ -98,13 +106,13 @@ export class EnterpriseFeedbackComponent implements OnInit {
     }
   }
 
-  onEdit(hiddenDanger) {
+  onEdit(id) {
     this.reply = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '反馈';
     this.isAdd = false;
     this.edit = true;
-    this.preEdit(hiddenDanger.id);
+    this.preEdit(id);
   }
 
   preEdit(id) {

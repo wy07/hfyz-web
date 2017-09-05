@@ -52,6 +52,9 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+import {InfoCenterComponent} from '../../info-center/info-center.component';
+import {WorkOrderService} from '../../work-order/shared/work-order.service';
+import {HiddenRectificationOrderService} from '../../hidden-rectification-order/shared/hidden-rectification-order.service';
 
 
 @Component({
@@ -67,7 +70,7 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, EmergencyPlanComponent
+        WorkOrderFlowComponent, InfoCenterComponent, EmergencyPlanComponent
     ],
 
     template: `
@@ -96,6 +99,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     @Input() inputs: any;
     @Input() tab: any;
     @Input() initMap: boolean;
+    @Input() infoType: string;
     loaded: boolean;
     compRef: ComponentRef<any>;
 
@@ -114,7 +118,9 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     constructor(private resolver: ComponentFactoryResolver
         , private initStatus: ApplicationInitStatus
         , private appRef: ApplicationRef
-        , private mapService: MapService) {
+        , private mapService: MapService
+        , private workorderService: WorkOrderService
+        , private hiddenRectificationOrderService: HiddenRectificationOrderService) {
         // this.loadComponent()
     }
 
@@ -175,13 +181,15 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
         if (!this.inputs) {
             this.inputs = {};
         }
-
-
         if (this.initMap) {
             this.mapService.change.emit(this.inputs);
         }
-
-
+        if (this.infoType === 'workOrder') {
+            this.workorderService.change.emit(this.inputs);
+        }
+        if (this.infoType === 'hiddenDangerOrder') {
+            this.hiddenRectificationOrderService.change.emit(this.inputs);
+        }
     }
 
     ngAfterContentInit() {

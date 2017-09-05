@@ -1,9 +1,12 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Restangular} from 'ngx-restangular';
 
 @Injectable()
 export class HiddenRectificationOrderService {
+  change: EventEmitter<any>;
+
   constructor(public restangular: Restangular) {
+      this.change = new EventEmitter();
   }
 
   list(max, offset, company, sd, ed, status, listStatus) {

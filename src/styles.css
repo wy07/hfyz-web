@@ -332,3 +332,7 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 .freight-waybill .wu-city-select {
     margin: 0 -0.75rem;
 }
+
+.panel-info .no-border{
+    border: 0;
+}

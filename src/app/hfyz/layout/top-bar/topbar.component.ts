@@ -5,6 +5,9 @@ import {AuthService} from './../../security/auth.service';
 import {Component, OnInit, Injector} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgRadio} from 'ng-radio';
+import {LayoutService} from '../shared/layout.service';
+import {TdLoadingService} from '@covalent/core';
+
 @Component({
     selector: 'u-topbar',
     templateUrl: 'topbar.component.html',
@@ -17,12 +20,15 @@ export class TopBarComponent implements OnInit {
     appbrand: string;
     layoutComponent: any;
     currentUser: string;
-
+    isShow: boolean;
+    infoList: any;
     constructor(private _router: Router
         , private _authService: AuthService
         , private _configService: ConfigService
         , private radio: NgRadio
-        , private inj: Injector) {
+        , private inj: Injector
+        , private _layoutService: LayoutService
+        , private _loadingService: TdLoadingService) {
         this.layoutComponent = this.inj.get(LayoutComponent);
         radio.on('TOP_BAR').subscribe((topbarMenu) => {
             this.topbarMenu = topbarMenu;
@@ -33,6 +39,28 @@ export class TopBarComponent implements OnInit {
         this.currentUser = sessionStorage.getItem('username'); // this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
+        this.getInfo();
+        this.isShowPoint();
+    }
+
+    getInfo() {
+        this._layoutService.list().subscribe(
+            res => {
+                this.infoList = res.list;
+                let i = this.infoList.length
+                while (i--) {
+                    if (this.infoList[i].isRead === false) {
+                        this.isShow = true;
+                    }
+                }
+            }
+        );
+    }
+
+    isShowPoint() {
+        setInterval(() => {
+         this.getInfo();
+        }, 5000 * 60);
     }
 
     toRouter(routerLink) {
@@ -51,6 +79,11 @@ export class TopBarComponent implements OnInit {
                     this.addTab(path);
                     return
                 }
+                if (path === 'infoCenter') {
+                    this.isShow = false;
+                    this.addTab(path);
+                    return
+                }
                 this._router.navigate([path]);
             }
 
@@ -58,8 +91,15 @@ export class TopBarComponent implements OnInit {
     }
 
     addTab(path) {
+        let name = '';
+        let i = this.topbarMenu.length;
+        while (i--) {
+           if (path === this.topbarMenu[i].code) {
+              name = this.topbarMenu[i].name;
+           }
+        }
         const menu = {};
-        menu['name'] = '修改密码';
+        menu['name'] = name;
         menu['code'] = path;
         menu['selected'] = true;
         menu['closable'] = true;
