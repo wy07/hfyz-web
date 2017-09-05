@@ -1,5 +1,6 @@
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
+import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -45,6 +46,7 @@ import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistic
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
+import {InfoCenterComponent} from '../../info-center/info-center.component';
 
 export const components = {
     role: RoleComponent,
@@ -94,5 +96,7 @@ export const components = {
     travelStatistic: TravelStatisticComponent,
     dangerousStatistic: DangerousStatisticComponent,
     passengerStatistic: PassengerStatisticComponent,
-    workOrderFlow: WorkOrderFlowComponent
+    workOrderFlow: WorkOrderFlowComponent,
+    infoCenter: InfoCenterComponent,
+    emergencyPlan: EmergencyPlanComponent
 };

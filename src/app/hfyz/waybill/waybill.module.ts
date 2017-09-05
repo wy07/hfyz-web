@@ -1,3 +1,4 @@
+import { EmergencyPlanComponent } from './emergency-plan/emergency-plan.component';
 import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { FreightWaybillService } from './freight-waybill/sheard/freight-waybill.service';
 import { PassLineBusinessBasicService } from './pass-line-business-basic/sheard/pass-line-business-basic.service';
@@ -32,7 +33,8 @@ import { TooltipModule } from 'ngx-bootstrap';
         FreightWaybillComponent,
         FreightRouteComponent,
         PassLineBusinessBasicComponent,
-        PassLinePhysicalBasicComponent
+        PassLinePhysicalBasicComponent,
+        EmergencyPlanComponent
     ],
     providers: [
         FreightWaybillService,

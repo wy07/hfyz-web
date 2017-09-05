@@ -16,7 +16,7 @@ a {
 
 .layout-menu-wrapper {
     position: fixed;
-    top: 70px;
+    top: 60px;
     height: 100%;
     width: 240px;
     border-right: solid 1px #dee4e9;
@@ -123,6 +123,16 @@ li {
 
 .layout-menu-wrapper .layout-menu li > a.active-menuitem-routerlink {
     color: #3984b8;
+}
+
+.layout-wrapper .layout-menu-wrapper .layout-menu li > a {
+    position: relative;
+    color: #7d8286;
+    text-decoration: none;
+    padding: 10px 16px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 13px;
 }
 
 .layout-menu-wrapper .layout-menu li > a {

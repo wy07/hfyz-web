@@ -1,6 +1,7 @@
 import { AppEventEmittersService } from './../shared/app-event-emitters.service';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
+import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -52,8 +53,9 @@ import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistic
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
-
-
+import { InfoCenterComponent } from '../../info-center/info-center.component';
+import { WorkOrderService } from '../../work-order/shared/work-order.service';
+import { HiddenRectificationOrderService } from '../../hidden-rectification-order/shared/hidden-rectification-order.service';
 
 @Component({
     selector: 'dynamic-container',
@@ -68,7 +70,8 @@ import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-m
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent
+        WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent, InfoCenterComponent,
+        EmergencyPlanComponent
     ],
 
     template: `
@@ -96,6 +99,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     @Input() componentName;
     @Input() inputs: any;
     @Input() tab: any;
+    @Input() infoType: string;
     loaded: boolean;
     compRef: ComponentRef<any>;
 
@@ -114,8 +118,9 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     constructor(private resolver: ComponentFactoryResolver
         , private initStatus: ApplicationInitStatus
         , private appRef: ApplicationRef
-        , private _appEmitterService: AppEventEmittersService) {
-        // this.loadComponent()
+        , private _appEmitterService: AppEventEmittersService
+        , private workorderService: WorkOrderService
+        , private hiddenRectificationOrderService: HiddenRectificationOrderService) {
     }
 
     ngOnInit() {
@@ -164,6 +169,13 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
         if (this.inputs) {
             this._appEmitterService.tabChange.emit(this.inputs);
+        }
+
+        if (this.infoType === 'workOrder') {
+            this.workorderService.change.emit(this.inputs);
+        }
+        if (this.infoType === 'hiddenDangerOrder') {
+            this.hiddenRectificationOrderService.change.emit(this.inputs);
         }
     }
 

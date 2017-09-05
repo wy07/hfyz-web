@@ -42,6 +42,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   selectedCompany: any;
   ownerName: string;
   zh = zh;
+
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService

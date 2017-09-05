@@ -41,8 +41,6 @@ export class WorkOrderComponent implements OnInit {
   status: string
 
   workOrderRecords: any[];
-
-
   constructor(private _workOrderService: WorkOrderService
     , private _toastr: ToastsManager
     , private _loadingService: TdLoadingService
@@ -55,6 +53,10 @@ export class WorkOrderComponent implements OnInit {
     this.isDetails = false;
     this.workOrder = {};
     this.workOrderRecords = [];
+
+      this._workOrderService.change.subscribe((inputs: any) => {
+          this.preEdit(inputs.sourceId);
+      });
   }
 
   ngOnInit() {

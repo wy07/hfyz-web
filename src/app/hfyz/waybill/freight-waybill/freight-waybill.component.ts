@@ -34,6 +34,7 @@ export class FreightWaybillComponent implements OnInit {
     driversList = [];
     managersList = [];
     viaLandList = [];
+    emergencyPlanList = [];
     btnType: boolean;
     constructor(private _loadingService: TdLoadingService,
         private _freightWaybillService: FreightWaybillService,
@@ -57,6 +58,7 @@ export class FreightWaybillComponent implements OnInit {
         this.managersList = [];
         this.dangerousTypeList = [];
         this.viaLandList = [];
+        this.emergencyPlanList = [];
         this.btnType = true;
         this.initData();
     }
@@ -64,12 +66,13 @@ export class FreightWaybillComponent implements OnInit {
     initData() {
         this.freightWaybill = {
             id: '', vehicleNo: '', frameNo: '', licenseNo: '', companyCode: sessionStorage.getItem('companyCode'), ownerName: '',
-            dangerousType: { id: '', name: '' }, ratifiedPayload: '', emergencyPlan: '', price: '', operatedType: '', loadedType: '装载',
+            dangerousType: { id: '', name: '' }, ratifiedPayload: '', emergencyPlan: { id: '', name: '', describe: '' }, price: '',
             mile: '', departTime: '', consignCompany: '', backTime: '', departArea: '', arriveArea: '', fullLoaded: '否', amount: '',
             status: '', startProvince: '', startCity: '', startCityCode: '', startDistrict: '', startDistrictCode: '', routerName: '',
             endProvince: '', endProvinceCode: '', endCity: '', endCityCode: '', endDistrict: '', endDistrictCode: '', viaLand: '',
             provenance: '', destination: '', startProvinceCode: '', carPlateColor: '', carType: '', carSize: '', dangerousName: '',
-            driver: { name: '', wokeLicenseNo: '', phone: '' }, supercargo: { name: '', wokeLicenseNo: '', phone: '' }
+            driver: { name: '', wokeLicenseNo: '', phone: '' }, supercargo: { name: '', wokeLicenseNo: '', phone: '' }, operatedType: '',
+            loadedType: '装载'
         }
     }
 
@@ -156,7 +159,6 @@ export class FreightWaybillComponent implements OnInit {
         this._loadingService.register();
         this._freightWaybillService.show(id).subscribe(res => {
             this._loadingService.resolve();
-            console.log('=====res====' + JSON.stringify(res))
             this.freightWaybill = res.freightWaybill
             this.pageFlag = 'SHOW';
         })
@@ -171,6 +173,21 @@ export class FreightWaybillComponent implements OnInit {
         this.pageFlag = 'LIST';
     }
 
+    changeDangerousType(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            if (this.freightWaybill.dangerousType.id) {
+                this._freightWaybillService.getEmergencyPlanByDangerousType(this.freightWaybill.dangerousType.id).subscribe(res => {
+                    this.emergencyPlanList = res.emergencyPlanList
+                    resolve()
+                })
+            } else {
+                this.emergencyPlanList = [];
+                this.freightWaybill.emergencyPlan = {id: '', name: '', describe: ''}
+                resolve()
+            }
+        })
+    }
+
     getCarVehicleNos() {
         this._loadingService.register();
         this._freightWaybillService.getCompanyDangerousCarsInfo(this.freightWaybill.companyCode).subscribe(res => {
@@ -178,7 +195,6 @@ export class FreightWaybillComponent implements OnInit {
             this.carList = res.cars
             this.dangerousTypeList = res.dangerousTypeList;
             this.driversList = res.driversList;
-            console.log('====driversList===' + JSON.stringify(this.driversList));
             this.managersList = res.managersList;
         })
     }
@@ -191,6 +207,7 @@ export class FreightWaybillComponent implements OnInit {
             this.freightWaybill.carPlateColor = res.carInfo.carPlateColor;
             this.freightWaybill.carType = res.carInfo.carType;
             this.freightWaybill.carSize = res.carInfo.carSize;
+            this.freightWaybill.licenseNo = this.freightWaybill.vehicleNo;
         })
     }
 
@@ -257,14 +274,17 @@ export class FreightWaybillComponent implements OnInit {
     edit(id) {
         this._loadingService.register();
         this._freightWaybillService.edit(id).subscribe(res => {
-            this._loadingService.resolve();
             this.freightWaybill = res.freightWaybill;
             this.getViaLand(res.freightWaybill.routerName);
             this.freightWaybill.routerName = res.freightWaybill.routerName
-            this.btnType = false;
             this.freightWaybill.driver = this.driversList.find(obj => obj.name === this.freightWaybill.driver.name)
             this.freightWaybill.supercargo = this.managersList.find(obj => obj.name === this.freightWaybill.supercargo.name)
             this.freightWaybill.dangerousType = this.dangerousTypeList.find(obj => obj.id === this.freightWaybill.dangerousType.id)
+            this.btnType = false;
+            this.changeDangerousType().then(cg => {
+                this._loadingService.resolve();
+                this.freightWaybill.emergencyPlan = this.emergencyPlanList.find(obj => obj.id === this.freightWaybill.emergencyPlan.id);
+            })
             this.pageFlag = 'CREATE'
         })
     }

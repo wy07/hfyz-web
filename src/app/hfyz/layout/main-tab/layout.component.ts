@@ -26,6 +26,7 @@ export class LayoutComponent implements OnInit {
     @ViewChild(TabView) tabroot: TabView;
     @ViewChildren(DynamicComponent) dynamicContainers: QueryList<DynamicComponent>;
 
+    infoType: string;
     constructor(private _appEmitterService: AppEventEmittersService) {
         this.tabs = [{
             header: '首页',
@@ -65,6 +66,11 @@ export class LayoutComponent implements OnInit {
             if (menu.inputs) {
                 const menuInputs = this.getInputs(menu.inputs, menu.code);
                 this._appEmitterService.tabChange.emit(menuInputs);
+            }
+            if (menu.infoType) {
+                this.infoType = menu.infoType;
+            } else {
+                this.infoType = '';
             }
             this.activeTab(menu, menu.inputs);
             resolve('success');
