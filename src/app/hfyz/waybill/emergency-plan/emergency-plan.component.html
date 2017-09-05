@@ -1,3 +1,71 @@
-<p>
-  emergency-plan works!
-</p>
+<div *ngIf="pageFlag=='LIST'">
+    <div class="querys">
+        <div class="row form-horizontal">
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">危险品类型：</label>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
+            </div>
+        </div>
+    </div>
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="onCreate()"></button>
+    </div>
+    <div class='basic-bottom'>
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="emergencyPlanList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="name" header="应急预案名称"></p-column>
+            <p-column field="dangerousType" header="危险品运输类型"></p-column>
+            <p-column field="describe" header="描述"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
+                <ng-template let-data="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="update(data.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id)" tooltip="删除" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="pageFlag=='ADD'">
+    <div class="panel-heading">
+        新增
+    </div>
+    <div class="panel-body no-padding">
+        <div class="form-horizontal col-md-12">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>应急预案名称：</label>
+                <div class="col-xs-6 ">
+                    <input type="text" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>危险品运输类型：</label>
+                <div class=" col-sm-6 ">
+                    <p-dropdown [options]="dangerousTypes" placeholder="-请选择类别-"></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>描述：</label>
+                <div class=" col-sm-6 ">
+                    <input class="form-control" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="submitAdd()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="switchPage()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

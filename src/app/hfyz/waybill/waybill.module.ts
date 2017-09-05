@@ -15,6 +15,7 @@ import { CalendarModule, DataTableModule, DialogModule, DropdownModule, Paginato
 import { FormsModule } from '@angular/forms';
 import { WuCitySelectModule } from 'ngx-select-city';
 import { TooltipModule } from 'ngx-bootstrap';
+import {EmergencyPlanService} from './emergency-plan/sheard/emergency-plan.service';
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import { TooltipModule } from 'ngx-bootstrap';
         FreightRouteService,
         PassLineBusinessBasicService,
         PassLinePhysicalBasicService,
+        EmergencyPlanService,
         DatePipe
     ]
 })
