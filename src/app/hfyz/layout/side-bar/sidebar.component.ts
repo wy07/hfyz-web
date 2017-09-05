@@ -39,6 +39,10 @@ export class SideBarComponent implements OnInit {
     }
 
     showChildren(event: any, menu) {
+        const openMenu = this.sidebarMenu.find(obj => obj.hasChildren);
+        if (openMenu && openMenu !== menu) {
+            openMenu.hasChildren = false;
+        }
         menu.hasChildren = !menu.hasChildren;
     }
 }

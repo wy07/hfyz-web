@@ -11,6 +11,8 @@
 /.idea
 .project
 .classpath
+.history
+.vscode
 .c9/
 *.launch
 .settings/

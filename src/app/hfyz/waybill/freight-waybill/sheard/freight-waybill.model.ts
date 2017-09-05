@@ -13,7 +13,7 @@ export class FreightWaybill {
         public dangerousName: string, // 危险品名称
         public dangerousType: {id: '', name: ''}, // 危险品分类
         public ratifiedPayload: string, // 核定载重质量,kg
-        public emergencyPlan: string, // 应急预案
+        public emergencyPlan: {id: '', name: '', describe: ''}, // 应急预案
         public price: string, // 运输价格 元/车
         public operatedType: string, // 是否经营性运输
         public loadedType: string, // 装载or卸载
