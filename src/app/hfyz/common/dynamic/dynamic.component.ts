@@ -1,3 +1,4 @@
+import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
 import { AlarmInfoStatisticComponent } from './../../statistic/alarm-info-statistic/alarm-info-statistic.component';
@@ -53,8 +54,7 @@ import { CompanyRegulationComponent } from '../../owner-identity/company-regulat
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 import {InfoCenterComponent} from '../../info-center/info-center.component';
 import {WorkOrderService} from '../../work-order/shared/work-order.service';
-import {HiddenRectificationOrderService} from "../../hidden-rectification-order/shared/hidden-rectification-order.service";
-
+import {HiddenRectificationOrderService} from '../../hidden-rectification-order/shared/hidden-rectification-order.service';
 
 
 @Component({
@@ -70,7 +70,7 @@ import {HiddenRectificationOrderService} from "../../hidden-rectification-order/
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, InfoCenterComponent
+        WorkOrderFlowComponent, InfoCenterComponent, EmergencyPlanComponent
     ],
 
     template: `
@@ -169,7 +169,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
         // detectChanges
 
         if (this.componentName !== 'nullMap') {
-            console.log('=====this.componentName====' + this.componentName);
             setInterval(() => {
                 component.changeDetectorRef.markForCheck();
             }, 50);

@@ -70,6 +70,8 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
     display: block;
 }
 .hoverdown-menu{
+    width: 106px;
+    margin-right: -1px;
     position: absolute;
     top: 100%;
     display: none;
