@@ -143,7 +143,6 @@ export class RoleComponent implements OnInit {
         this.assignRoleId = roleId;
         this._roleService.preAssignPerm(roleId).subscribe(
             res => {
-                console.log(JSON.stringify(res))
                 this.action = 'assign';
                 this.permList = res.perms;
                 this.selectedPerms = [];

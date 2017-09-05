@@ -1,3 +1,5 @@
+import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
+import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
@@ -16,9 +18,7 @@ import { HomeComponent } from './../../home/home.component';
 import { InfoPublishComponent } from '../../info-manage/info-publish/info-publish.component';
 import { InfoCheckComponent } from '../../info-manage/info-check/info-check.component';
 import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
-import { NullMapComponent } from '../../map/nullMap/null-map.component';
 import { CarListComponent } from '../../car/list/car-list.component';
-import { MapComponent } from '../../map/map/map.component';
 import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
 import { PlatFormComponent } from '../../basic/platForm/plat-form.component';
 import { PlatformManageComponent } from '../../platform-manage/platform-manage.component';
@@ -45,6 +45,7 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
+import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
 import {InfoCenterComponent} from '../../info-center/info-center.component';
 
 export const components = {
@@ -61,11 +62,9 @@ export const components = {
     infoList: InfoListComponent,
     operationLog: LogManageComponent,
     platformManage: PlatformManageComponent,
-    realTimeMap: MapComponent,
-    realTimeMonitorMap: MapComponent,
-    historyMap: MapComponent,
-    otherMap: MapComponent,
-    nullMap: NullMapComponent,
+    realTimeMap: CarRealTimeMapComponent,
+    realTimeMonitorMap: CarMonitorMapComponent,
+    historyMap: CarHistoryMapComponent,
     carList: CarListComponent,
     changepwd: ChangePwdComponent,
     ownerCheckRecord: PlatFormComponent,
