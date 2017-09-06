@@ -38,12 +38,12 @@ export class TopBarComponent implements OnInit {
         this.currentUser = sessionStorage.getItem('username'); // this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
-        this.isShow();
+        this.unreadMessage();
         this.isShowPoint();
     }
 
-    isShow() {
-        this._layoutService.isShow().subscribe(
+    unreadMessage() {
+        this._layoutService.unreadMessage().subscribe(
             res => {
                 if (res.isShow === true) {
                     this.showPoint = true;
@@ -54,7 +54,7 @@ export class TopBarComponent implements OnInit {
 
     isShowPoint() {
         setInterval(() => {
-         this.isShow();
+         this.unreadMessage();
         }, 5000 * 60);
     }
 
