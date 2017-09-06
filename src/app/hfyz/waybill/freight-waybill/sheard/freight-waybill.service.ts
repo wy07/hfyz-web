@@ -16,12 +16,13 @@ export class FreightWaybillService {
         return this.area;
     }
 
-    search(vehicleNo, ownerName, dateBegin, dateEnd, max, offset) {
+    search(vehicleNo, ownerName, dateBegin, dateEnd, max, offset, status?) {
         return this.restangular.all('freight-waybills').customGET('search', {
             vehicleNo: vehicleNo,
             ownerName: ownerName,
             dateBegin: dateBegin,
             dateEnd: dateEnd,
+            status: status,
             max: max,
             offset: offset
         })
@@ -62,5 +63,9 @@ export class FreightWaybillService {
 
     getEmergencyPlanByDangerousType(dangerousTypeId) {
         return this.restangular.one('emergency-plans', dangerousTypeId).customGET('get-emergency-plan-by-dangerous-type')
+    }
+
+    submit(id) {
+        return this.restangular.one('freight-waybills', id).customPOST({}, 'submit');
     }
 }

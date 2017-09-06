@@ -1,3 +1,4 @@
+import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
 import { AppEventEmittersService } from './../shared/app-event-emitters.service';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
@@ -71,7 +72,7 @@ import { HiddenRectificationOrderService } from '../../hidden-rectification-orde
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
         WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent, InfoCenterComponent,
-        EmergencyPlanComponent
+        EmergencyPlanComponent, FreightWaybillApproveComponent
     ],
 
     template: `

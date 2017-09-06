@@ -6,5 +6,6 @@ const data = {
     , MAP_SIGN_TYPE: '路标类型'
     , ALARM_TYPE: '告警类型'
     , DANGEROUS_TYPE: '危险货物类型'
+    , SYSTEM_TYPE: '制度类型'
 };
 export const SYSTEM_CODE_TYPES: any = data;

@@ -88,8 +88,8 @@ export class WarningComponent implements OnInit {
   }
 
   showRealTimeMap(item) {
-    const menu = { name: '实时状态', icon: 'fa-map', code: 'realTimeMap', inputs: { frameNo: item.carLicenseNo, id: item.frameNo } };
-    this.layoutComponent.addTab(menu);
+    this.layoutComponent.toTab('realTimeMap'
+    , { licenseNo: item.carLicenseNo, currentRealTimeAccordion: 'singleCar' });
   }
 
   onSearch() {

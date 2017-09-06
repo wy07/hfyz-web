@@ -1,3 +1,5 @@
+import { FreightWaybillApproveService } from './freight-waybill-approve/sheard/freight-waybill-approve.service';
+import { FreightWaybillApproveComponent } from './freight-waybill-approve/freight-waybill-approve.component';
 import { EmergencyPlanComponent } from './emergency-plan/emergency-plan.component';
 import { CustomDirectiveModule } from './../common/custom-directive.module';
 import { FreightWaybillService } from './freight-waybill/sheard/freight-waybill.service';
@@ -34,13 +36,15 @@ import { TooltipModule } from 'ngx-bootstrap';
         FreightRouteComponent,
         PassLineBusinessBasicComponent,
         PassLinePhysicalBasicComponent,
-        EmergencyPlanComponent
+        EmergencyPlanComponent,
+        FreightWaybillApproveComponent
     ],
     providers: [
         FreightWaybillService,
         FreightRouteService,
         PassLineBusinessBasicService,
         PassLinePhysicalBasicService,
+        FreightWaybillApproveService,
         DatePipe
     ]
 })

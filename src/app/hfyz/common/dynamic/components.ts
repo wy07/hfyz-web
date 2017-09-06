@@ -1,3 +1,4 @@
+import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
@@ -98,5 +99,6 @@ export const components = {
     passengerStatistic: PassengerStatisticComponent,
     workOrderFlow: WorkOrderFlowComponent,
     infoCenter: InfoCenterComponent,
-    emergencyPlan: EmergencyPlanComponent
+    emergencyPlan: EmergencyPlanComponent,
+    freightWaybillApprove: FreightWaybillApproveComponent,
 };
