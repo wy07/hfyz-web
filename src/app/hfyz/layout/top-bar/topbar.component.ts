@@ -20,8 +20,7 @@ export class TopBarComponent implements OnInit {
     appbrand: string;
     layoutComponent: any;
     currentUser: string;
-    isShow: boolean;
-    infoList: any;
+    showPoint: boolean;
     constructor(private _router: Router
         , private _authService: AuthService
         , private _configService: ConfigService
@@ -39,19 +38,15 @@ export class TopBarComponent implements OnInit {
         this.currentUser = sessionStorage.getItem('username'); // this._authService.getCurrentUser('name')
         this.topbarMenu = this._configService.getConfiguration().TOP_BAR;
         this.appbrand = environment.appbrand;
-        this.getInfo();
+        this.isShow();
         this.isShowPoint();
     }
 
-    getInfo() {
-        this._layoutService.list().subscribe(
+    isShow() {
+        this._layoutService.isShow().subscribe(
             res => {
-                this.infoList = res.list;
-                let i = this.infoList.length
-                while (i--) {
-                    if (this.infoList[i].isRead === false) {
-                        this.isShow = true;
-                    }
+                if (res.isShow === true) {
+                    this.showPoint = true;
                 }
             }
         );
@@ -59,7 +54,7 @@ export class TopBarComponent implements OnInit {
 
     isShowPoint() {
         setInterval(() => {
-         this.getInfo();
+         this.isShow();
         }, 5000 * 60);
     }
 
@@ -80,7 +75,7 @@ export class TopBarComponent implements OnInit {
                     return
                 }
                 if (path === 'infoCenter') {
-                    this.isShow = false;
+                    this.showPoint = false;
                     this.addTab(path);
                     return
                 }

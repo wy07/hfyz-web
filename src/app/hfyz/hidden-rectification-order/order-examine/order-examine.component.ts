@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { DatePipe } from '@angular/common';
@@ -6,12 +6,13 @@ import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 @Component({
   selector: 'app-order-examine',
   templateUrl: './order-examine.component.html',
   styleUrls: ['./order-examine.component.css']
 })
-export class OrderExamineComponent implements OnInit {
+export class OrderExamineComponent implements OnInit, OnDestroy {
   pageMax: number;
   pageTotal: number;
   pageFirst: number;
@@ -40,12 +41,14 @@ export class OrderExamineComponent implements OnInit {
   statusList: any[];
   listStatus: any;
   zh = zh;
+  subscription: any;
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService
   ) {
     this.pageMax = 10;
     this.pageTotal = 0;
@@ -66,15 +69,9 @@ export class OrderExamineComponent implements OnInit {
     this.statusList = [{ label: '全部', value: '' }, { label: '待审核', value: '1' },
     { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
 
-      this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
-          if (inputs.action === inputs.actualAction) {
-              if (inputs.action === 'DSH' || inputs.action === 'DYR') {
-                  this.onEdit(inputs.sourceId);
-              }else {
-                  this.preEdit(inputs.sourceId);
-              }
-          }else {
-              this.preEdit(inputs.sourceId);
+      this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+          if (inputs.action === 'DSH' || inputs.action === 'DYR') {
+              this.onEdit(inputs.sourceId, inputs.action);
           }
       });
   }
@@ -129,12 +126,12 @@ export class OrderExamineComponent implements OnInit {
     this.displayDialog = false;
   }
 
-  onEdit(id) {
+  onEdit(id, action = null) {
     this.approveTime = new Date();
     this.clear();
-    this.hiddenRectificationOrderTitle = '审核';
+    this.hiddenRectificationOrderTitle = '审核/确认';
     this.edit = true;
-    this.preEdit(id);
+    this.preEdit(id, action);
   }
 
   getReviewAndApprovalList(id) {
@@ -144,13 +141,13 @@ export class OrderExamineComponent implements OnInit {
       }
     );
   }
-  preEdit(id) {
+  preEdit(id, action = '') {
     if (this.edit === false) {
       this.isDetails = true;
       this.hiddenRectificationOrderTitle = '详情';
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.edit(id).subscribe(
+    this._hiddenRectificationOrderService.edit(id, action).subscribe(
       res => {
         this._loadingService.resolve();
         if (res.result === 'success') {
@@ -163,6 +160,12 @@ export class OrderExamineComponent implements OnInit {
         } else {
           this._toastr.error('获取数据失败');
         }
+      },
+      err => {
+         this.isDetails = false;
+         this.edit = false;
+         this._loadingService.resolve();
+         this.initData();
       }
     );
     this.getReviewAndApprovalList(id);
@@ -227,7 +230,7 @@ export class OrderExamineComponent implements OnInit {
     this.initData();
   }
 
-  return() {
+  back() {
     this.isDetails = false;
     this.edit = false;
   }
@@ -240,5 +243,9 @@ export class OrderExamineComponent implements OnInit {
     if (this.validation()) {
       this.displayDialog = true;
     }
+  }
+
+  ngOnDestroy() {
+     this.subscription.unsubscribe();
   }
 }

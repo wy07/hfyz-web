@@ -42,40 +42,30 @@ export class InfoCenterComponent implements OnInit {
 
     click(info) {
         let code = '';
-        let menu = {};
+        let inputs = {};
         this._loadingService.register();
         this._infoCenterService.changeState(info.id).subscribe(
             res => {
                 this._loadingService.resolve();
                 if (info.sourceType === '工单') {
-                    if (info.action === info.actualAction) {
-                        if (info.action === 'YP' || info.action === 'SP') {
+                        if (info.action === 'DYP' || info.action === 'DSH') {
                             code = 'pendingWorkOrder';
-                        }
-                        if (info.action === 'FK') {
+                        }else if (info.action === 'DFK') {
                             code = 'feedbackWorkOrder';
-                        }
-                    }else {
+                        } else {
                         code = 'workOrder';
                     }
-                    menu = {
-                        name: '消息处理', code: code, infoType: 'workOrder',
-                        inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
-                    };
-                }
-                if (info.sourceType === '隐患整改单') {
+                    inputs = {sourceId: info.sourceId, action: info.action };
+                }else if (info.sourceType === '隐患整改单') {
                     if (info.action === 'DSH' || info.action === 'DYR' || info.action === 'YJJ') {
                         code = 'orderExamine';
                     }
                     if (info.action === 'DFK' || info.action === 'HG' || info.action === 'BHG') {
                         code = 'enterpriseFeedback';
                     }
-                    menu = {
-                        name: '消息处理', code: code, infoType: 'hiddenDangerOrder',
-                        inputs: {sourceId: info.sourceId, action: info.action, actualAction: info.actualAction}
-                    };
+                    inputs = {sourceId: info.sourceId, action: info.action };
                 }
-                this.layoutComponent.addTab(menu);
+                this.layoutComponent.toTab(code, inputs);
             }
         );
     }

@@ -18,8 +18,8 @@ export class HiddenRectificationOrderService {
     return this.restangular.one('hidden-rectification-orders', id).customDELETE('delete', {});
   }
 
-  edit(id) {
-    return this.restangular.one('hidden-rectification-orders', id).customGET('edit');
+  edit(id, action = '') {
+    return this.restangular.one('hidden-rectification-orders', id).customGET('edit', {action: action});
   }
 
   save(hiddenRectificationOrder) {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WorkOrderService } from '../shared/work-order.service';
 import { TdLoadingService } from "@covalent/core";
 import { RegularService } from "../../common/shared/regular.service";
 import { ToastsManager } from "ng2-toastr";
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 
 @Component({
     selector: 'feedback-work-order',
@@ -10,7 +11,7 @@ import { ToastsManager } from "ng2-toastr";
     styleUrls: ['feedback-work-order.component.css']
 })
 
-export class FeedbackWorkOrderComponent implements OnInit {
+export class FeedbackWorkOrderComponent implements OnInit, OnDestroy {
     pageMax: number;
     pageTotal: number;
     pageFirst: number;
@@ -18,14 +19,14 @@ export class FeedbackWorkOrderComponent implements OnInit {
 
     workOrderList: any;
     action: string;
-
     workOrder: any;
-
     note: string;
+    subscription: any;
     constructor(private _workOrderService: WorkOrderService
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
-        , private _toastr: ToastsManager) {
+        , private _toastr: ToastsManager
+        , private _appEmitterService: AppEventEmittersService) {
         this.workOrderList = [];
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -35,8 +36,8 @@ export class FeedbackWorkOrderComponent implements OnInit {
 
         this.workOrder = {};
 
-        this._workOrderService.change.subscribe((inputs: any) => {
-            if (inputs.action === 'FK' && inputs.action === inputs.actualAction) {
+        this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+            if (inputs.action === 'DFK') {
                 this.onFeedback(inputs.sourceId);
             }
         });
@@ -90,5 +91,9 @@ export class FeedbackWorkOrderComponent implements OnInit {
                 this.initData();
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

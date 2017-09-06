@@ -53,10 +53,6 @@ export class WorkOrderComponent implements OnInit {
     this.isDetails = false;
     this.workOrder = {};
     this.workOrderRecords = [];
-
-      this._workOrderService.change.subscribe((inputs: any) => {
-          this.preEdit(inputs.sourceId);
-      });
   }
 
   ngOnInit() {
@@ -89,7 +85,7 @@ export class WorkOrderComponent implements OnInit {
     );
   }
 
-  return() {
+  back() {
     this.isDetails = false;
   }
 
