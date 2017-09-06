@@ -50,14 +50,14 @@ export function RestangularConfigFactory(RestangularProvider, router, http, toas
                 res => responseHandler(res),
                 err => {
                     router.navigate(['/login']);
-                }
-                );
+                });
             return false; // error handled
         } else if (response.status === 500 || response.status === 400) {
             if (response.data.errors) {
                 loadingResolve();
                 console.log(response.data.errors[0]);
                 toastr.error(response.data.errors[0]);
+                return true
             }
         } else if (response.status === 403) {
             if (response.data.errors) {
