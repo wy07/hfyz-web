@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { DatePipe } from '@angular/common';
@@ -6,12 +6,13 @@ import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 @Component({
   selector: 'app-enterprise-feedback',
   templateUrl: './enterprise-feedback.component.html',
   styleUrls: ['./enterprise-feedback.component.css']
 })
-export class EnterpriseFeedbackComponent implements OnInit {
+export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
   pageMax: number;
   pageTotal: number;
   pageFirst: number;
@@ -38,12 +39,14 @@ export class EnterpriseFeedbackComponent implements OnInit {
   statusList: any[];
   listStatus: any;
   zh = zh;
+  subscription: any;
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService
   ) {
     this.edit = false;
     this.hiddenRectificationOrder = {};
@@ -64,11 +67,13 @@ export class EnterpriseFeedbackComponent implements OnInit {
     this.statusList = [{ label: '全部', value: '' }, { label: '待反馈', value: '2' },
     { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
 
-      this._hiddenRectificationOrderService.change.subscribe((inputs: any) => {
-          if (inputs.action === 'DFK' && inputs.action === inputs.actualAction) {
-              this.onEdit(inputs.sourceId);
-          }else {
-              this.preEdit(inputs.sourceId);
+      this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+          if (inputs.code === 'enterpriseFeedback') {
+              if (inputs.action === 'DFK') {
+                 this.onEdit(inputs.sourceId, inputs.action);
+              }else if (inputs.action === 'HG' || inputs.action === 'BHG') {
+                  this.preEdit(inputs.sourceId)
+              }
           }
       });
   }
@@ -106,22 +111,22 @@ export class EnterpriseFeedbackComponent implements OnInit {
     }
   }
 
-  onEdit(id) {
+  onEdit(id, action = '') {
     this.reply = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '反馈';
     this.isAdd = false;
     this.edit = true;
-    this.preEdit(id);
+    this.preEdit(id, action);
   }
 
-  preEdit(id) {
+  preEdit(id, action = '') {
     if (this.edit === false) {
       this.isDetails = true;
       this.hiddenRectificationOrderTitle = '详情';
     }
     this._loadingService.register();
-    this._hiddenRectificationOrderService.edit(id).subscribe(
+    this._hiddenRectificationOrderService.edit(id, action).subscribe(
       res => {
         this._loadingService.resolve();
         if (res.result === 'success') {
@@ -134,6 +139,12 @@ export class EnterpriseFeedbackComponent implements OnInit {
         } else {
           this._toastr.error('获取数据失败');
         }
+      },
+      err => {
+        this.isDetails = false;
+        this.edit = false;
+        this._loadingService.resolve();
+        this.initData();
       }
     );
   }
@@ -193,7 +204,7 @@ export class EnterpriseFeedbackComponent implements OnInit {
     this.initData();
   }
 
-  return() {
+  back() {
     this.isDetails = false;
     this.edit = false;
   }
@@ -206,5 +217,9 @@ export class EnterpriseFeedbackComponent implements OnInit {
     if (this.validation()) {
       this.displayDialog = true;
     }
+  }
+
+  ngOnDestroy() {
+     this.subscription.unsubscribe();
   }
 }

@@ -7,7 +7,7 @@
         [lazy]="false">
         <p-tabPanel *ngFor="let tabitem of tabs" header="{{tabitem.header}}" leftIcon="{{tabitem.icon}}" [closable]="tabitem.closable"
           [headerStyleClass]="tabitem.disabled?'hidden':'show'" [selected]="tabitem.selected">
-          <dynamic-container [infoType]="infoType" [tab]="tabitem" [componentName]="getComponentName(tabitem)" [inputs]="tabitem.inputs"></dynamic-container>
+          <dynamic-container [tab]="tabitem" [componentName]="getComponentName(tabitem)" [inputs]="tabitem.inputs"></dynamic-container>
         </p-tabPanel>
       </p-tabView>
     </div>
