@@ -96,7 +96,6 @@ export class UserComponent implements OnInit {
 
         this._userService.edit(user.id).subscribe(
             res => {
-                console.log(JSON.stringify(res))
                 this.user = res.user;
                 this.selectedCompany.info = res.user.enterpirse;
                 this.ownerName = res.user.enterpirse;

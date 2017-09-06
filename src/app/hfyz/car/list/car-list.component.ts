@@ -118,43 +118,18 @@ export class CarListComponent implements OnInit {
     }
 
     showRealTimeMap(item) {
-        // this.mapComponent.registerHandler(item.frameNo);
-        // this.mapComponent.test();
-        const $this = this;
-        const menu = {
-            name: '实时状态',
-            icon: 'fa-map',
-            code: 'realTimeMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo, currentRealTimeAccordion: 'singleCar' }
-        };
-        this.layoutComponent.addTab(menu);
-        // .then(res => {
-        //     console.log('======showRealTimeMap=====')
-        //     let intervalId = setInterval(() => {
-        //         console.log('======showRealTimeMap==setInterval===')
-        //         $this.radio.cast('realTime:open',item.frameNo);
-        //     }, 2000);
-        // });
+        this.layoutComponent.toTab('realTimeMap'
+            , { licenseNo: item.licenseNo, currentRealTimeAccordion: 'singleCar' });
     }
 
     showRealTimeMonitorMap(item) {
-        const menu = {
-            name: '实时监控',
-            icon: 'fa-map',
-            code: 'realTimeMonitorMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo }
-        };
-        this.layoutComponent.addTab(menu);
+        this.layoutComponent.toTab('realTimeMonitorMap'
+            , { licenseNo: item.licenseNo});
     }
 
     showHistoryMapp(item) {
-        const menu = {
-            name: '历史轨迹',
-            icon: 'fa-map',
-            code: 'historyMap',
-            inputs: { frameNo: item.licenseNo, id: item.frameNo }
-        };
-        this.layoutComponent.addTab(menu);
+        this.layoutComponent.toTab('historyMap'
+        , { licenseNo: item.licenseNo});
     }
 
     showDetail(car) {

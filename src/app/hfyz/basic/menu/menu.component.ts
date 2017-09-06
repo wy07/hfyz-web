@@ -79,7 +79,6 @@ export class MenuComponent implements OnInit {
         this.menuService.edit(id).subscribe(
             res => {
                 if (res.result === 'success') {
-                    console.log(JSON.stringify(res.menu))
                     this.menu = res.menu;
                     if (res.parent) {
                         this.parent = res.parent;

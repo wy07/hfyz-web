@@ -310,7 +310,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.initData();
   }
 
-  return() {
+  back() {
     this.isDetails = false;
     this.edit = false;
   }

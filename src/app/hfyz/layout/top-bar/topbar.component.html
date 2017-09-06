@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-default navbar-fixed-top u-navigation" style="z-index:1" >
+<nav class="navbar navbar-default navbar-fixed-top u-navigation" style="z-index:10000" >
   <div class="container-fluid" style="padding-left:0px">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" >
@@ -23,7 +23,7 @@
           <li style="font-size: 18px;"><a>你好，{{currentUser}} ！</a></li>
           <li *ngFor="let menu of topbarMenu" class="{{menu.style}}">
               <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null">{{menu.name}}
-                  <i [ngClass]="{'message':menu.code == 'infoCenter' && isShow == true}"></i>
+                  <i [ngClass]="{'message':menu.code == 'infoCenter' && showPoint == true}"></i>
                 <b *ngIf="menu.children!==undefined" class="caret"></b>
               </a>
               <ul class="hoverdown-menu" *ngIf="menu.children!==undefined">

@@ -2,3 +2,8 @@
   text-align: center;
   color: #777777;
 }
+
+.mapSize{
+  width: 100%;
+  height: 500px;
+}

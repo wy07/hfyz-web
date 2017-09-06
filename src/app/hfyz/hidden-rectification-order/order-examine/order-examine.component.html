@@ -52,11 +52,11 @@
                     <p-column field="status" header="状态"></p-column>
                     <p-column field="" header="操作" styleClass=operation-buttons-3>
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
-                            <div role="button" class="fa fa-list-alt fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id)" tooltip="审核"
+                            <div role="button" class="fa fa-list-alt fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id, 'DSH')" tooltip="审核"
                                 placement="bottom" *ngIf="hiddenRectificationOrder.status=='待审核'"></div>
                             <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
                                 placement="bottom"></div>
-                            <div role="button" class="fa fa-check fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id)" tooltip="确认"
+                            <div role="button" class="fa fa-check fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id, 'DYR')" tooltip="确认"
                                 placement="bottom" *ngIf="hiddenRectificationOrder.status=='待确认'"></div>
                         </ng-template>
                     </p-column>
@@ -183,7 +183,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-5">
                     <button type="button" class="btn btn-primary" (click)="onSaveNew()">提交</button>
-                    <button type="button" class="btn btn-primary" (click)="return()">返回</button>
+                    <button type="button" class="btn btn-primary" (click)="back()">返回</button>
                 </div>
             </div>
         </div>
@@ -200,7 +200,7 @@
     <div class="panel panel-default panel-show">
         <div class="panel-heading">
             {{hiddenRectificationOrderTitle}}
-            <button type="button" class="btn back-btn btn-primary" (click)="return()">返回</button>
+            <button type="button" class="btn back-btn btn-primary" (click)="back()">返回</button>
         </div>
         <div class="panel-body no-padding showDetails">
             <div class="col-sm-12 form-horizontal ">

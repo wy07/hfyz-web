@@ -1,0 +1,19 @@
+<div class="myMap row main-content">
+  <div class="form-horizontal">
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label for="licenseNo" class="col-sm-4 control-label">车牌号：</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" name="licenseNo" [(ngModel)]="licenseNo" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+    </div>
+  </div>
+  <div class="col-sm-12" autoHeight [ratio]="100" [offset]="-150">
+    <div id="monitorMap" class='mapSize'></div>
+  </div>
+</div>
+<map-tabs-bar [type]="'realTimeMonitorMap'" [historyDataTOP10]='historyLocations' [alarmDataTOP10]='warnings'></map-tabs-bar>

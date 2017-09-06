@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { CustomDirectiveModule } from './hfyz/common/custom-directive.module';
-import {MapModule} from './hfyz/map/map.module';
 import {InfoManageModule} from './hfyz/info-manage/info-manage.module';
 import {SideBarComponent} from './hfyz/layout/side-bar/sidebar.component';
 import {TopBarComponent} from './hfyz/layout/top-bar/topbar.component';
@@ -78,7 +77,6 @@ export function ConfigLoader(configService: ConfigService) {
         BasicModule,
         LoginModule,
         InfoManageModule,
-        MapModule,
         BlockUIModule,
         PlatformManageModule,
         CarModule,

@@ -20,7 +20,6 @@ import { CheckStatisticComponent } from './check-statistic/check-statistic.compo
 import { StatisticService } from './shared/statistic.service';
 import { DatepickerModule, ProgressbarModule } from 'ngx-bootstrap';
 import { PassengerStatisticComponent } from './car-statistic/passenger-statistic/passenger-statistic.component';
-import { MapModule } from '../map/map.module';
 import { TravelStatisticComponent } from './car-statistic/travel-statistic/travel-statistic.component';
 import { DangerousStatisticComponent } from './car-statistic/dangerous-statistic/dangerous-statistic.component';
 import { CompanyReportComponent } from './company-report/company-report.component';
@@ -57,7 +56,6 @@ import { PlatformStatisticComponent } from './platform-statistic/platform-statis
         RadioButtonModule,
         InputTextModule,
         DatepickerModule.forRoot(),
-        MapModule,
         ChartModule,
         AngularEchartsModule,
         ProgressbarModule.forRoot(),
