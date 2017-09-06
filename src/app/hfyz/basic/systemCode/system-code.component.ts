@@ -4,7 +4,7 @@ import {RegularService} from '../../common/shared/regular.service';
 import {Component, OnInit} from '@angular/core';
 import {TreeNode} from 'primeng/components/common/api';
 import {ToastsManager} from 'ng2-toastr';
-import {TdLoadingService} from "@covalent/core";
+import {TdLoadingService} from '@covalent/core';
 @Component({
     selector: 'system-code',
     templateUrl: 'system-code.component.html',

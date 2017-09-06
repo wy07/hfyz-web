@@ -1,3 +1,4 @@
+import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
 import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
@@ -67,7 +68,7 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, EmergencyPlanComponent
+        WorkOrderFlowComponent, EmergencyPlanComponent, FreightWaybillApproveComponent
     ],
 
     template: `

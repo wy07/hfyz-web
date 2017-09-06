@@ -85,22 +85,26 @@ export class FreightWaybillComponent implements OnInit {
      * 加载表格数据
      * @param {number} offset
      */
-    loadData() {
-        const begin = this.dateBegin ? this._datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
-        const end = this.dateEnd ? this._datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
-        this._loadingService.register();
-        this._freightWaybillService.search(this.vehicleNo, this.ownerName, begin, end, this.pageMax, this.pageFirst).subscribe(
-            res => {
-                this._loadingService.resolve();
-                if (res.result === 'success') {
-                    this.waybillList = res.resultList;
-                    this.pageTotal = res.total;
-                    this.pageOffset = this.pageFirst;
-                } else {
-                    this.toastr.error(res.errors)
+    loadData(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const begin = this.dateBegin ? this._datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
+            const end = this.dateEnd ? this._datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
+            this._loadingService.register();
+            this._freightWaybillService.search(this.vehicleNo, this.ownerName, begin, end, this.pageMax, this.pageFirst).subscribe(
+                res => {
+                    this._loadingService.resolve();
+                    if (res.result === 'success') {
+                        this.waybillList = res.resultList;
+                        this.pageTotal = res.total;
+                        this.pageOffset = this.pageFirst;
+                        resolve('success');
+                    } else {
+                        this.toastr.error(res.errors)
+                        reject('error');
+                    }
                 }
-            }
-        )
+            )
+        })
     }
 
     /**
@@ -343,5 +347,15 @@ export class FreightWaybillComponent implements OnInit {
             return false
         }
         return true
+    }
+
+    submit(id) {
+        this._loadingService.register();
+        this._freightWaybillService.submit(id).subscribe(res => {
+            this.loadData().then(obj => {
+                this._loadingService.resolve();
+                this.toastr.info('提交审核成功.')
+            })
+        })
     }
 }
