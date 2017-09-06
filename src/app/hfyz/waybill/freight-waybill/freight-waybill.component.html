@@ -54,11 +54,21 @@
             <p-column field="departTime" header="出发时间"></p-column>
             <p-column field="startCity" header="出发地"></p-column>
             <p-column field="endCity" header="目的地"></p-column>
-            <p-column field="" header="操作" styleClass=operation-buttons-3>
+            <p-column field="status" header="状态">
+                <ng-template let-data="rowData" pTemplate="body">
+                    <span *ngIf="data.status === 'CG'">未审核</span>
+                    <span *ngIf="data.status === 'SHZ'">审核中</span>
+                    <span *ngIf="data.status === 'YJJ'">审核拒绝</span>
+                    <span *ngIf="data.status === 'YJS'">审核通过</span>
+                </ng-template>
+            </p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-4>
                 <ng-template let-data="rowData" pTemplate="body">
                     <div role="button" class="fa fa-list fa-font-size div-distance" (click)="show(data.id)" tooltip="详情" placement="bottom"></div>
                     <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"></div>
                     <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id, data.vehicleNo)" tooltip="删除" placement="bottom"></div>
+                    <div role="button" class="fa fa-check-square-o fa-font-size div-distance" (click)="submit(data.id)" tooltip="提交" placement="bottom"
+                        *ngIf="data.status=='CG' || data.status=='YJJ'"></div>
                 </ng-template>
             </p-column>
         </p-dataTable>
@@ -125,7 +135,7 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">应急预案：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightWaybill.emergencyPlan}}</p>
+                        <p class="form-control-static">{{freightWaybill.emergencyPlan.describe}}</p>
                     </div>
                 </div>
 
@@ -262,7 +272,7 @@
 
 <div class="panel panel-default freight-waybill" *ngIf="pageFlag=='CREATE'">
     <div class="panel-heading">
-        新增
+        {{btnType?'新增':'编辑'}}
     </div>
     <div class="panel-body no-padding">
         <div class="form-horizontal col-md-6">
@@ -383,7 +393,8 @@
             <div class="form-group">
                 <label class="col-xs-2 control-label text-right"><span class="required">*</span>应急处置方案详情：</label>
                 <div class="col-xs-10">
-                    <textarea rows="5" cols="50" class="form-control" disabled='true' placeholder="输入应急处置方案详情" style="resize:none;width:90%" [(ngModel)]="freightWaybill.emergencyPlan.describe"></textarea>
+                    <textarea rows="5" cols="50" class="form-control" disabled='true' placeholder="输入应急处置方案详情" style="resize:none;width:90%"
+                        [(ngModel)]="freightWaybill.emergencyPlan.describe"></textarea>
                 </div>
             </div>
         </div>

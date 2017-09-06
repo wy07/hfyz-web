@@ -20,6 +20,7 @@ export class CompanyRegulationComponent implements OnInit {
     pageOffset: number;
     ownerName: string; // 搜索条件-业户名称
     regulationName: string;
+    systemType = {id: '', name: ''};
     dateBegin: Date; // 搜索条件-起始时间
     dateEnd: Date; // 搜索条件-结束时间
     upload: any[];
@@ -30,6 +31,7 @@ export class CompanyRegulationComponent implements OnInit {
     zh = zh;
     formTitle: string;
     regulation: any;
+    systemTypeList: any;
     constructor(private _regulationService: CompanyRegulationService,
         private _regularService: RegularService,
         private _customDialogService: CustomDialogService,
@@ -49,10 +51,20 @@ export class CompanyRegulationComponent implements OnInit {
         this.regulationList = [];
         this.file = false;
         this.regulation = {};
+        this.systemTypeList = [];
     }
 
     ngOnInit() {
-        this.loadData()
+        this.getSystemTypeList();
+        this.loadData();
+    }
+
+    getSystemTypeList() {
+        this._loadingService.register();
+        this._regulationService.getSystemTypeList().subscribe(res => {
+            this._loadingService.resolve();
+            this.systemTypeList = res.systemTypeList;
+        })
     }
 
     /**
@@ -62,7 +74,7 @@ export class CompanyRegulationComponent implements OnInit {
         const begin = this.dateBegin ? this.datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : ''
         const end = this.dateEnd ? this.datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : ''
         this._loadingService.register()
-        this._regulationService.search(this.ownerName, begin, end, this.pageMax, this.pageFirst).subscribe(
+        this._regulationService.search(this.ownerName, begin, end, this.systemType.id, this.pageMax, this.pageFirst).subscribe(
             res => {
                 this._loadingService.resolve()
                 if (res.result === 'success') {
@@ -102,6 +114,7 @@ export class CompanyRegulationComponent implements OnInit {
      */
     reset() {
         this.ownerName = '';
+        this.systemType = {id: '', name: ''};
         this.dateBegin = null;
         this.dateEnd = null;
         this.pageFirst = 0;
@@ -130,13 +143,17 @@ export class CompanyRegulationComponent implements OnInit {
     onCreate() {
         this.action = 'create';
         this.regulationName = '';
+        this.systemType = {id: '', name: ''};
         this.file = false;
         this.formData = new FormData();
     }
+
     return() {
         this.action = 'list';
         this.regulation = {};
+        this.systemType = {id: '', name: ''};
     }
+
     fileChangeEvent(fileInput: any) {
         this.file = false;
         const files = fileInput.target.files;
@@ -156,12 +173,15 @@ export class CompanyRegulationComponent implements OnInit {
             return;
         }
         this.formData.delete('regulationName');
+        this.formData.delete('systemTypeId');
         this.formData.append('regulationName', JSON.stringify(this.regulationName));
+        this.formData.append('systemTypeId', JSON.stringify(this.systemType.id));
         this._loadingService.register();
         this._regulationService.save(this.formData).subscribe(
             res => {
                 this._loadingService.resolve();
                     this._toastr.info('新增成功');
+                    this.systemType = {id: '', name: ''};
                     this.loadData();
                     this.action = 'list';
                     this.file = false;
@@ -182,6 +202,8 @@ export class CompanyRegulationComponent implements OnInit {
             res => {
                 this._loadingService.resolve();
                 this.regulation = res.regulation;
+                this.systemType = this.systemTypeList.find(obj => obj.id === res.regulation.systemTypeId)
+                console.log('==systemType====' + JSON.stringify(this.systemType));
             }
         );
 
@@ -192,10 +214,12 @@ export class CompanyRegulationComponent implements OnInit {
             return;
         }
         this._loadingService.register();
+        this.regulation.systemTypeId = this.systemType.id
         this._regulationService.update(this.regulation.id, this.regulation).subscribe(
             res => {
                 this._loadingService.resolve();
                 this.action = 'list';
+                this.systemType = {id: '', name: ''};
                 this._toastr.success('修改成功');
                 this.loadData()
             }
