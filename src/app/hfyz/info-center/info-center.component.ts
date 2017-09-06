@@ -47,7 +47,7 @@ export class InfoCenterComponent implements OnInit {
         this._infoCenterService.changeState(info.id).subscribe(
             res => {
                 this._loadingService.resolve();
-                if (info.sourceType === '工单') {
+                if (info.sourceType === 'GD') {
                     if (info.action === 'DYP' || info.action === 'DSH') {
                         code = 'pendingWorkOrder';
                     }else if (info.action === 'DFK') {
@@ -55,16 +55,23 @@ export class InfoCenterComponent implements OnInit {
                     }else if (info.action === 'YWC') {
                         code = 'workOrder';
                     }
-                    inputs = {sourceId: info.sourceId, action: info.action };
-                }else if (info.sourceType === '隐患整改单') {
+
+                }else if (info.sourceType === 'YHZGD') {
                     if (info.action === 'DSH' || info.action === 'DYR' || info.action === 'YJJ') {
                         code = 'orderExamine';
-                    }
-                    if (info.action === 'DFK' || info.action === 'HG' || info.action === 'BHG') {
+                    }else if (info.action === 'DFK' || info.action === 'HG' || info.action === 'BHG') {
                         code = 'enterpriseFeedback';
                     }
-                    inputs = {sourceId: info.sourceId, action: info.action };
+
+                }else if (info.sourceType === 'DZLD') {
+                    if (info.action === 'SHZ') {
+                        code = 'freightWaybillApprove';
+                    }else if (info.action === 'YJJ' || info.action === 'YJS') {
+                        code = 'freightWaybill';
+                    }
                 }
+
+                inputs = {sourceId: info.sourceId, action: info.action};
                 this.layoutComponent.toTab(code, inputs);
             }
         );
