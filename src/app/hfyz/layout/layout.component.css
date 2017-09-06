@@ -33,6 +33,7 @@
     position:fixed;
     bottom:0px;
     left:0px;
+    z-index: 6666
 }
 .u-footer > a {
     color:white;
