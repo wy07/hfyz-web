@@ -1,0 +1,6 @@
+.mapSize {
+    width: 97% !important;
+    height: 100%!important;
+    /*height: calc(100% - 200px);*/
+    /*margin-left: 20px;*/
+}

@@ -1,0 +1,30 @@
+<div class="panel panel-default panel-show panel-info">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12" *ngIf="list.length>0">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>消息类型</th>
+                        <th class="overflow">内容</th>
+                        <th>提示时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let info of list">
+                        <td><p [ngClass]="{'red-point': !info.isRead}"></p></td>
+                        <td [ngClass]="{'change-color':info.isRead == true}">{{info.sourceType}}</td>
+                        <td class="overflow"><p class="overflow" title="{{info.title}}"><a [ngClass]="{'change-color':info.isRead == true}"(click)="click(info)" href="javascript:;">{{info.title}}</a></p></td>
+                        <td [ngClass]="{'change-color':info.isRead == true}">{{info.dateCreated}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p-paginator styleClass=no-border rows={{max}} totalRecords={{total}} (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+            <div *ngIf="list.length<=0" class="center">
+                暂无消息
+            </div>
+        </div>
+    </div>
+</div>

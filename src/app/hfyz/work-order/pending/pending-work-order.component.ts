@@ -18,13 +18,11 @@ export class PendingWorkOrderComponent implements OnInit {
 
     workOrderList: any;
     action: string;
-
     workOrder: any;
     workOrderRecords: any[];
 
     examineNote: string;
     judgeNote: string;
-
     constructor(private _workOrderService: WorkOrderService
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
@@ -38,6 +36,15 @@ export class PendingWorkOrderComponent implements OnInit {
 
         this.workOrderRecords = [];
         this.workOrder = {};
+
+        this._workOrderService.change.subscribe((inputs: any) => {
+            if (inputs.action === 'SP' && inputs.action === inputs.actualAction) {
+                this.onExamine(inputs.sourceId);
+            }
+            if (inputs.action === 'YP' && inputs.action === inputs.actualAction) {
+                this.onJudge(inputs.sourceId);
+            }
+        });
     }
 
     ngOnInit() {

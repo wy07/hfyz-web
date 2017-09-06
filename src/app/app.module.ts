@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { CustomDirectiveModule } from './hfyz/common/custom-directive.module';
-import {MapModule} from './hfyz/map/map.module';
 import {InfoManageModule} from './hfyz/info-manage/info-manage.module';
 import {SideBarComponent} from './hfyz/layout/side-bar/sidebar.component';
 import {TopBarComponent} from './hfyz/layout/top-bar/topbar.component';
@@ -45,6 +44,8 @@ import { StatisticModule } from './hfyz/statistic/statistic.module';
 import {RosterModule} from './hfyz/roster/roster.module';
 import {WaybillModule} from './hfyz/waybill/waybill.module';
 import {TooltipModule} from 'ngx-bootstrap';
+import {InfoCenterModule} from './hfyz/info-center/info-center.module';
+import {LayoutService} from './hfyz/layout/shared/layout.service';
 export function ConfigLoader(configService: ConfigService) {
     // Note: this factory need to return a function (that return a promise)
     return () => configService.load();
@@ -76,7 +77,6 @@ export function ConfigLoader(configService: ConfigService) {
         BasicModule,
         LoginModule,
         InfoManageModule,
-        MapModule,
         BlockUIModule,
         PlatformManageModule,
         CarModule,
@@ -93,7 +93,8 @@ export function ConfigLoader(configService: ConfigService) {
         StatisticModule,
         WaybillModule,
         TooltipModule.forRoot(),
-        CommonModule
+        CommonModule,
+        InfoCenterModule
     ],
     /*providers: [ConfigService,
      {
@@ -114,7 +115,8 @@ export function ConfigLoader(configService: ConfigService) {
         , AdminService
         , NgRadio
         , ChangePwdService
-        , PlatFormService],
+        , PlatFormService
+        , LayoutService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

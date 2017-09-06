@@ -60,12 +60,10 @@ export class SystemCodeComponent implements OnInit {
     }
 
     formatSystemCodeTypes(types) {
-        console.log(JSON.stringify(types));
         this.systemCodeTypes = [];
         for (const type of types) {
             this.systemCodeTypes.push({label: SYSTEM_CODE_TYPES[type], value: type});
         }
-        console.log(JSON.stringify(this.systemCodeTypes));
     }
 
 

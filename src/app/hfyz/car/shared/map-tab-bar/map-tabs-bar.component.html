@@ -1,5 +1,5 @@
 <div class="line"></div>
- <div class="map-footer" [ngClass]="{'showHeight':isShow,'hideHeight':!isShow}" id="mapFooter">
+<div class="map-footer" [ngClass]="{'showHeight':isShow,'hideHeight':!isShow}" id="mapFooter">
     <!-- <div class="pull-right" style="padding:10px" (click)='showTab()'>{{!isShow?'显示':'隐藏'}}</div> -->
     <tabset>
         <tab heading="{{type === 'historyMap'?'历史数据':'实时数据'}}">
@@ -50,17 +50,17 @@
                         <thead>
                             <tr>
                                 <th>车牌号码</th>
-                                <th>告警类型</th>
-                                <th>告警级别</th>
-                                <th>告警时间</th>
+                                <th>车辆颜色</th>
+                                <th>报警类型</th>
+                                <th>报警时间</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of alarmDataTOP10">
-                                <td>{{item.plateNo}}</td>
-                                <td>{{item.alarmType}}</td>
-                                <td>{{item.alarmLevel}}</td>
-                                <td>{{item.dateStr}}</td>
+                                <td>{{item.carLicenseNo}}</td>
+                                <td>{{item.carColor}}</td>
+                                <td>{{item.warningType}}</td>
+                                <td>{{item.warningTime}}</td>
                             </tr>
                         </tbody>
                     </table>

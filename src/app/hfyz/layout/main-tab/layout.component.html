@@ -2,12 +2,13 @@
 <u-sidebar [activeMenu]="activeMenu"></u-sidebar>
 <div class="u-content ">
   <div class="ui-g">
-    <div class="ui-g-12" >
-      <p-tabView #tabroot  [style]="{'width':'100%'}" [controlClose]="true" (onClose)="onCloseTab($event)" (onChange)="handleChange($event)" [lazy]="false">
-          <p-tabPanel *ngFor="let tabitem of tabs" header="{{tabitem.header}}" leftIcon="{{tabitem.icon}}"
-                      [closable]="tabitem.closable" [headerStyleClass]="tabitem.disabled?'hidden':'show'" [selected]="tabitem.selected" >
-            <dynamic-container [tab]="tabitem" [initMap]="initMap"   [componentName]="getComponentName(tabitem)" [inputs]="tabitem.inputs" ></dynamic-container>
-          </p-tabPanel>
+    <div class="ui-g-12">
+      <p-tabView #tabroot [style]="{'width':'100%'}" [controlClose]="true" (onClose)="onCloseTab($event)" (onChange)="handleChange($event)"
+        [lazy]="false">
+        <p-tabPanel *ngFor="let tabitem of tabs" header="{{tabitem.header}}" leftIcon="{{tabitem.icon}}" [closable]="tabitem.closable"
+          [headerStyleClass]="tabitem.disabled?'hidden':'show'" [selected]="tabitem.selected">
+          <dynamic-container [infoType]="infoType" [tab]="tabitem" [componentName]="getComponentName(tabitem)" [inputs]="tabitem.inputs"></dynamic-container>
+        </p-tabPanel>
       </p-tabView>
     </div>
   </div>

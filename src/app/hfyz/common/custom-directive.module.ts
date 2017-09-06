@@ -6,7 +6,8 @@ import { PermissionDirective } from './directive/permission.directive';
 import { NgModule } from '@angular/core';
 import { EventBuservice } from './shared/eventbus.service';
 import { AutoHeightDirective } from './directive/autoHeight.directive';
-import {AdminDirective} from './directive/admin.directive';
+import { AdminDirective } from './directive/admin.directive';
+import { AppEventEmittersService } from './shared/app-event-emitters.service';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import {AdminDirective} from './directive/admin.directive';
     providers: [
         RegularService,
         EventBuservice,
-        CustomDialogService
+        CustomDialogService,
+        AppEventEmittersService
     ]
 })
 export class CustomDirectiveModule {

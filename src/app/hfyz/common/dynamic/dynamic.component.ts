@@ -1,4 +1,7 @@
 import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
+import { AppEventEmittersService } from './../shared/app-event-emitters.service';
+import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
+import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
 import { EmergencyPlanComponent } from './../../waybill/emergency-plan/emergency-plan.component';
 import { WorkOrderFlowComponent } from './../../work-order/flow/work-order-flow.component';
 import { OwnerIdentityStatisticComponent } from './../../statistic/owner-identity-statistic/owner-identity-statistic.component';
@@ -12,8 +15,6 @@ import { PeopleListComponent } from '../../people/list/people-list.component';
 import { PlatFormComponent } from '../../basic/platForm/plat-form.component';
 import { ChangePwdComponent } from '../../basic/user/changePwd/change-pwd.component';
 import { CarListComponent } from '../../car/list/car-list.component';
-import { NullMapComponent } from '../../map/nullMap/null-map.component';
-import { MapComponent } from '../../map/map/map.component';
 import { PlatformManageComponent } from '../../platform-manage/platform-manage.component';
 import { LogManageComponent } from '../../log-manage/log-manage.component';
 import { InfoListComponent } from '../../info-manage/info-list/info-list.component';
@@ -33,7 +34,6 @@ import {
     ApplicationRef, AfterContentInit, AfterViewInit
 } from '@angular/core';
 import { components } from './components';
-import { MapService } from '../../map/shared/map.service';
 import { WorkOrderComponent } from '../../work-order/list/work-order.component';
 import { BlackListComponent } from '../../roster/black-list/black-list.component';
 import { WhiteListComponent } from '../../roster/white-list/white-list.component';
@@ -53,14 +53,17 @@ import { WorkOrderStatisticComponent } from '../../statistic/work-order-statisti
 import { CarBasicStatisticsComponent } from '../../statistic/car-basic-statistics/car-basic-statistics.component';
 import { CompanyRegulationComponent } from '../../owner-identity/company-regulation/company-regulation.component';
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
-
+import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
+import { InfoCenterComponent } from '../../info-center/info-center.component';
+import { WorkOrderService } from '../../work-order/shared/work-order.service';
+import { HiddenRectificationOrderService } from '../../hidden-rectification-order/shared/hidden-rectification-order.service';
 
 @Component({
     selector: 'dynamic-container',
     // entryComponents: Object.keys(components).map(key => components[key]),
     entryComponents: [HomeComponent, RoleComponent, UserComponent, MenuComponent, SystemCodeComponent, OrganizationComponent,
         InfoPublishComponent, InfoCheckComponent, InfoListComponent, LogManageComponent, PlatformManageComponent,
-        MapComponent, NullMapComponent, CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
+        CarListComponent, ChangePwdComponent, PlatFormComponent, PeopleListComponent,
         WarningComponent, MapSignComponent, ConfigureComponent, HiddenRectificationOrderComponent, OwnerIdentityComponent,
         WorkOrderComponent, BlackListComponent, WhiteListComponent, OrderExamineComponent, EnterpriseFeedbackComponent,
         PermissionComponent, CheckStatisticComponent, PassengerStatisticComponent, PendingWorkOrderComponent,
@@ -68,7 +71,8 @@ import { PlatformStatisticComponent } from '../../statistic/platform-statistic/p
         FreightRouteComponent, PassLineBusinessBasicComponent, CompanyReportComponent, DangerousStatisticComponent,
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
-        WorkOrderFlowComponent, EmergencyPlanComponent, FreightWaybillApproveComponent
+        WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent, InfoCenterComponent,
+        EmergencyPlanComponent, FreightWaybillApproveComponent
     ],
 
     template: `
@@ -96,7 +100,7 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     @Input() componentName;
     @Input() inputs: any;
     @Input() tab: any;
-    @Input() initMap: boolean;
+    @Input() infoType: string;
     loaded: boolean;
     compRef: ComponentRef<any>;
 
@@ -115,8 +119,9 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     constructor(private resolver: ComponentFactoryResolver
         , private initStatus: ApplicationInitStatus
         , private appRef: ApplicationRef
-        , private mapService: MapService) {
-        // this.loadComponent()
+        , private _appEmitterService: AppEventEmittersService
+        , private workorderService: WorkOrderService
+        , private hiddenRectificationOrderService: HiddenRectificationOrderService) {
     }
 
     ngOnInit() {
@@ -124,16 +129,10 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
 
     getaComponentName() {
-        if (this.tab.hasMap && !this.tab.initMap) {
-            return 'nullMap';
-        } else {
-            return this.tab.code;
-        }
+        return this.tab.code;
     }
 
     loadComponent() {
-
-        console.log('======loadComponent:')
         const factory = this.resolver.resolveComponentFactory(components[this.getaComponentName()]);
 
 
@@ -163,26 +162,22 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
         // detectChanges
 
-        if (this.componentName !== 'nullMap') {
-            setInterval(() => {
-                component.changeDetectorRef.markForCheck();
-            }, 50);
-        }
-
-
+        setInterval(() => {
+            component.changeDetectorRef.markForCheck();
+        }, 500);
         this.loaded = true;
         this.compRef = component;
 
-        if (!this.inputs) {
-            this.inputs = {};
+        if (this.inputs) {
+            this._appEmitterService.tabChange.emit(this.inputs);
         }
 
-
-        if (this.initMap) {
-            this.mapService.change.emit(this.inputs);
+        if (this.infoType === 'workOrder') {
+            this.workorderService.change.emit(this.inputs);
         }
-
-
+        if (this.infoType === 'hiddenDangerOrder') {
+            this.hiddenRectificationOrderService.change.emit(this.inputs);
+        }
     }
 
     ngAfterContentInit() {
@@ -190,7 +185,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     }
 
     ngOnDestroy() {
-        console.log(` === ===${this.componentName} === == ngOnDestroy === === === === = `);
         if (this.compRef) {
             this.compRef.destroy();
         }
