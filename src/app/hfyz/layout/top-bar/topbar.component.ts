@@ -45,7 +45,7 @@ export class TopBarComponent implements OnInit {
     unreadMessage() {
         this._layoutService.unreadMessage().subscribe(
             res => {
-                if (res.isShow === true) {
+                if (res.unreadMessageCount > 0) {
                     this.showPoint = true;
                 }
             }

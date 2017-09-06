@@ -37,7 +37,7 @@ export class FeedbackWorkOrderComponent implements OnInit, OnDestroy {
         this.workOrder = {};
 
         this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
-            if (inputs.action === 'DFK') {
+            if (inputs.code === 'feedbackWorkOrder' && inputs.action === 'DFK') {
                 this.onFeedback(inputs.sourceId);
             }
         });

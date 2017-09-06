@@ -70,9 +70,13 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
     { label: '待反馈', value: '2' }, { label: '待确认', value: '4' }]
 
       this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
-          if (inputs.action === 'DSH' || inputs.action === 'DYR') {
-              this.onEdit(inputs.sourceId, inputs.action);
-          }
+        if (inputs.code === 'orderExamine') {
+            if (inputs.action === 'DSH' || inputs.action === 'DYR') {
+                this.onEdit(inputs.sourceId, inputs.action);
+            } else if (inputs.action === 'YJJ') {
+                this.preEdit(inputs.sourceId)
+            }
+        }
       });
   }
 
@@ -126,7 +130,7 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
     this.displayDialog = false;
   }
 
-  onEdit(id, action = null) {
+  onEdit(id, action = '') {
     this.approveTime = new Date();
     this.clear();
     this.hiddenRectificationOrderTitle = '审核/确认';

@@ -41,11 +41,12 @@ export class PendingWorkOrderComponent implements OnInit, OnDestroy {
         this.workOrder = {};
 
         this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
-            if (inputs.action === 'DSH') {
-                this.onExamine(inputs.sourceId);
-            }
-            if (inputs.action === 'DYP') {
-                this.onJudge(inputs.sourceId);
+            if (inputs.code === 'pendingWorkOrder') {
+                if (inputs.action === 'DSH') {
+                    this.onExamine(inputs.sourceId);
+                }else if (inputs.action === 'DYP') {
+                    this.onJudge(inputs.sourceId);
+                }
             }
         });
     }

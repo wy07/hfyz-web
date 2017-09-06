@@ -68,8 +68,12 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
     { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
 
       this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
-          if (inputs.action === 'DFK') {
-              this.onEdit(inputs.sourceId, inputs.action);
+          if (inputs.code === 'enterpriseFeedback') {
+              if (inputs.action === 'DFK') {
+                 this.onEdit(inputs.sourceId, inputs.action);
+              }else if (inputs.action === 'HG' || inputs.action === 'BHG') {
+                  this.preEdit(inputs.sourceId)
+              }
           }
       });
   }
@@ -116,7 +120,7 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
     this.preEdit(id, action);
   }
 
-  preEdit(id, action) {
+  preEdit(id, action = '') {
     if (this.edit === false) {
       this.isDetails = true;
       this.hiddenRectificationOrderTitle = '详情';

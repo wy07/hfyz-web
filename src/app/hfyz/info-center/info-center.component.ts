@@ -48,11 +48,11 @@ export class InfoCenterComponent implements OnInit {
             res => {
                 this._loadingService.resolve();
                 if (info.sourceType === '工单') {
-                        if (info.action === 'DYP' || info.action === 'DSH') {
-                            code = 'pendingWorkOrder';
-                        }else if (info.action === 'DFK') {
-                            code = 'feedbackWorkOrder';
-                        } else {
+                    if (info.action === 'DYP' || info.action === 'DSH') {
+                        code = 'pendingWorkOrder';
+                    }else if (info.action === 'DFK') {
+                        code = 'feedbackWorkOrder';
+                    }else if (info.action === 'YWC') {
                         code = 'workOrder';
                     }
                     inputs = {sourceId: info.sourceId, action: info.action };
