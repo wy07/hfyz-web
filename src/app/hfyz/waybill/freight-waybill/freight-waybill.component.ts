@@ -1,19 +1,20 @@
 import { CustomDialogService } from './../../common/shared/custom-dialog.service';
 import { FreightWaybillService } from './sheard/freight-waybill.service';
 import { FreightWaybill } from './sheard/freight-waybill.model';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ToastsManager } from 'ng2-toastr';
 import { TdLoadingService } from '@covalent/core';
 import { DatePipe } from '@angular/common';
 import { RegularService } from '../../common/shared/regular.service';
 import { zh } from '../../common/shared/zh';
+import {AppEventEmittersService} from "../../common/shared/app-event-emitters.service";
 
 @Component({
     selector: 'app-freight-waybill',
     templateUrl: './freight-waybill.component.html',
     styleUrls: ['./freight-waybill.component.css']
 })
-export class FreightWaybillComponent implements OnInit {
+export class FreightWaybillComponent implements OnInit, OnDestroy {
     pageMax: number;
     pageTotal: number;
     pageFirst: number;
@@ -36,12 +37,15 @@ export class FreightWaybillComponent implements OnInit {
     viaLandList = [];
     emergencyPlanList = [];
     btnType: boolean;
+    subscription: any;
+
     constructor(private _loadingService: TdLoadingService,
         private _freightWaybillService: FreightWaybillService,
         private _customDialogService: CustomDialogService,
         private _regularService: RegularService,
         private _datePipe: DatePipe,
-        private toastr: ToastsManager) {
+        private toastr: ToastsManager,
+        private _appEmitterService: AppEventEmittersService) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -61,6 +65,12 @@ export class FreightWaybillComponent implements OnInit {
         this.emergencyPlanList = [];
         this.btnType = true;
         this.initData();
+
+        this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+            if (inputs.code === 'freightWaybill') {
+                this.show(inputs.sourceId);
+            }
+        });
     }
 
     initData() {
@@ -357,5 +367,9 @@ export class FreightWaybillComponent implements OnInit {
                 this.toastr.info('提交审核成功.')
             })
         })
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

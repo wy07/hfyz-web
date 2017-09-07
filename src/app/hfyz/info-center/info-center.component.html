@@ -14,7 +14,9 @@
                     <tbody>
                     <tr *ngFor="let info of list">
                         <td><p [ngClass]="{'red-point': !info.isRead}"></p></td>
-                        <td [ngClass]="{'change-color':info.isRead == true}">{{info.sourceType}}</td>
+                        <td [ngClass]="{'change-color':info.isRead == true}" *ngIf="info.sourceType=== 'GD'">工单</td>
+                        <td [ngClass]="{'change-color':info.isRead == true}" *ngIf="info.sourceType=== 'YHZGD'">隐患整改单</td>
+                        <td [ngClass]="{'change-color':info.isRead == true}" *ngIf="info.sourceType=== 'DZLD'">电子路单</td>
                         <td class="overflow"><p class="overflow" title="{{info.title}}"><a [ngClass]="{'change-color':info.isRead == true}"(click)="click(info)" href="javascript:;">{{info.title}}</a></p></td>
                         <td [ngClass]="{'change-color':info.isRead == true}">{{info.dateCreated}}</td>
                     </tr>

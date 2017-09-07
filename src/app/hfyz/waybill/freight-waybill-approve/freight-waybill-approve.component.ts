@@ -8,14 +8,15 @@ import { RegularService } from './../../common/shared/regular.service';
 import { CustomDialogService } from './../../common/shared/custom-dialog.service';
 import { TdLoadingService } from '@covalent/core';
 import { zh } from './../../common/shared/zh';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 
 @Component({
     selector: 'app-freight-waybill-approve',
     templateUrl: './freight-waybill-approve.component.html',
     styleUrls: ['./freight-waybill-approve.component.css']
 })
-export class FreightWaybillApproveComponent implements OnInit {
+export class FreightWaybillApproveComponent implements OnInit, OnDestroy {
     pageMax: number;
     pageTotal: number;
     pageFirst: number;
@@ -33,6 +34,7 @@ export class FreightWaybillApproveComponent implements OnInit {
     waybillList: Array<FreightWaybill>; // 表格数据
     freightWaybill: FreightWaybill;
     freightWaybillApprove: FreightWaybillApprove;
+    subscription: any;
 
     constructor(private _loadingService: TdLoadingService,
         private _freightWaybillService: FreightWaybillService,
@@ -40,7 +42,8 @@ export class FreightWaybillApproveComponent implements OnInit {
         private _customDialogService: CustomDialogService,
         private _regularService: RegularService,
         private _datePipe: DatePipe,
-        private toastr: ToastsManager) {
+        private toastr: ToastsManager,
+        private _appEmitterService: AppEventEmittersService) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -53,6 +56,12 @@ export class FreightWaybillApproveComponent implements OnInit {
         this.detailFlag = false;
         this.status = 'SHZ'
         this.pageFlag = 'LIST';
+
+        this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+            if (inputs.code === 'freightWaybillApprove' && inputs.action === 'SHZ') {
+                this.show(inputs.sourceId, inputs.action);
+            }
+        });
     }
 
     ngOnInit() {
@@ -150,12 +159,15 @@ export class FreightWaybillApproveComponent implements OnInit {
         return flag
     }
 
-    show(id) {
+    show(id, action = '') {
         this._loadingService.register();
-        this._freightWaybillService.show(id).subscribe(res => {
+        this._freightWaybillService.show(id, action).subscribe(res => {
             this._loadingService.resolve();
             this.freightWaybill = res.freightWaybill
             this.pageFlag = 'SHOW';
+        },
+        err => {
+            this._loadingService.resolve();
         })
     }
 
@@ -175,5 +187,9 @@ export class FreightWaybillApproveComponent implements OnInit {
         this.pageOffset = 0;
         this.pageFlag = 'LIST';
         this.loadData();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
