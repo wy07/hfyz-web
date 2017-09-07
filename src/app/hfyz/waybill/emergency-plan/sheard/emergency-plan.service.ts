@@ -15,24 +15,20 @@ export class EmergencyPlanService {
     return this.restangular.all('system-codes').customGET('get-dangerous-type-list');
   }
 
-  // save(freightRouter) {
-  //     return this.restangular.one('freight-routers').customPOST(freightRouter, 'save');
-  // }
+  save(emergencyPlan) {
+      return this.restangular.one('emergency-plans').customPOST(emergencyPlan, 'save');
+  }
 
-  // delete(id) {
-  //   return this.restangular.one('freight-routers', id).customDELETE('delete', {});
-  // }
-  //
-  // show(id) {
-  //   return this.restangular.one('freight-routers', id).customGET('show');
-  // }
-  //
-  // edit(id) {
-  //   return this.restangular.one('freight-routers', id).customGET('edit');
-  // }
-  //
-  // update(freightRouter) {
-  //   return this.restangular.one('freight-routers', freightRouter.id).customPOST(freightRouter, 'update');
-  // }
+  delete(id) {
+    return this.restangular.one('emergency-plans', id).customDELETE('delete', {});
+  }
+
+  edit(id) {
+    return this.restangular.one('emergency-plans', id).customGET('edit');
+  }
+
+  update(emergencyPlan) {
+    return this.restangular.one('emergency-plans', emergencyPlan.id).customPOST(emergencyPlan, 'update');
+  }
 
 }
