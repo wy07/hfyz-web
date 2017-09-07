@@ -1,3 +1,4 @@
+import { ElectricFenceComponent } from './../../basic/electric-fence/electric-fence.component';
 import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
 import { AppEventEmittersService } from './../shared/app-event-emitters.service';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
@@ -72,7 +73,7 @@ import { HiddenRectificationOrderService } from '../../hidden-rectification-orde
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
         WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent, InfoCenterComponent,
-        EmergencyPlanComponent, FreightWaybillApproveComponent
+        EmergencyPlanComponent, FreightWaybillApproveComponent, ElectricFenceComponent
     ],
 
     template: `
