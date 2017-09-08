@@ -3,11 +3,12 @@
         <div class="nano-content sidebar-scroll-content">
             <div class="layout-menu-container">
                 <!-- <div class="mobile-search">
-                    <i class="fa fa-fw fa-search topbar-search-icon"></i>
-                    <input class="topbar-search" placeholder="Type your search here" type="text">
-                </div> -->
+                        <i class="fa fa-fw fa-search topbar-search-icon"></i>
+                        <input class="topbar-search" placeholder="Type your search here" type="text">
+                    </div> -->
                 <ul class="layout-menu ng-tns-c1-0" root="true" visible="true">
-                    <li class="ng-tns-c1-0" *ngFor="let item of sidebarMenu" [ngClass]="{'active-menuitem': item.hasChildren}" [hasPermission]="item.permission_code">
+                    <li class="sidebarMenu" *ngFor="let item of sidebarMenu" style='margin:0 10px;' [ngClass]="{'active-menuitem': item.hasChildren}"
+                        [hasPermission]="item.permission_code">
                         <a class="ng-tns-c1-0" (click)="item.code.indexOf('root')==-1?addTab(item):showChildren($event,item)">
                             <i class="ng-tns-c1-0 fa fa-fw {{item.icon}}"></i>
                             <span class="ng-tns-c1-0" style="cursor: pointer;">{{item.name}}</span>
@@ -18,7 +19,7 @@
                             <div class="layout-menu-tooltip-text">{{item.name}}</div>
                         </div>
                         <ul *ngIf="item?.children" class="ng-tns-c1-1 ng-tns-c1-0 ng-trigger ng-trigger-children" [ngClass]="{'hideChildrenItem': !item.hasChildren}">
-                            <li class="ng-tns-c1-1" *ngFor="let childrenItem of item.children" [hasPermission]="childrenItem.permission_code">
+                            <li class="childrenSidebarMenu" *ngFor="let childrenItem of item.children" [hasPermission]="childrenItem.permission_code">
                                 <a class="ng-tns-c1-1" tabindex="-1" (click)="addTab(childrenItem)">
                                     <i class="ng-tns-c1-1 fa fa-fw {{childrenItem.icon}}"></i>
                                     <span class="ng-tns-c1-1" style="cursor: pointer;">{{childrenItem.name}}</span>

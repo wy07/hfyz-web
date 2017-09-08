@@ -20,7 +20,7 @@ a {
     height: 100%;
     width: 240px;
     border-right: solid 1px #dee4e9;
-    background-color: #ffffff;
+    background-color: rgb(240,239,243);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -59,6 +59,24 @@ a {
     margin: 0;
     padding: 0 0 120px 0;
     box-sizing: border-box;
+}
+
+.layout-menu-wrapper .layout-menu  li{
+    border-bottom: 1px solid rgb(205,206,209);
+    /* border-top: 1px solid rgb(205,206,209); */
+}
+
+.layout-menu-wrapper .layout-menu .sidebarMenu:first-child{
+    margin-top: 15px !important;
+    border-top: 1px solid rgb(205,206,209);
+}
+
+.layout-menu-wrapper .layout-menu .sidebarMenu .childrenSidebarMenu:first-child{
+    border-top: 1px solid rgb(205,206,209);
+}
+
+.layout-menu-wrapper .layout-menu .sidebarMenu .childrenSidebarMenu:last-child{
+    border-bottom: 0;
 }
 
 ul, menu, dir {
