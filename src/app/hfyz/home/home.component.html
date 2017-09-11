@@ -41,7 +41,7 @@
         </div>
 
     </div>
-    <div class="row height60" style="padding-top:20px">
+    <div class="row height60" style="padding-top:10px;">
         <div class="col-sm-12 height100">
             <div class="car-basic-statistics-title">
                 统计分析
@@ -49,20 +49,19 @@
             <div class="input-group">
                 <span class="input-group-addon">统计年份：</span>
                 <select [(ngModel)]="year" class="form-control" style="width: 200px;margin: auto" (change)="getCarHistoryStatistic()">
-                    <option *ngFor="let item of years" [ngValue]="item">{{item}}</option>
-                </select>
+                        <option *ngFor="let item of years" [ngValue]="item">{{item}}</option>
+                    </select>
             </div>
             <div class="col-sm-12 height100">
                 <div echarts theme="macarons" [options]="historyOption" [dataset]="historyDataset" class="history-chart"></div>
             </div>
         </div>
-
     </div>
 </div>
 
 
 <div *ngIf="selectedTab==='tab2'" autoHeight [ratio]="100" [offset]="-200">
-    <div class="row border-b tab2-top height100">
+    <div class="row border-b tab2-top height100" style='margin: 0 -8px;'>
         <div class="col-sm-3 height100">
             <div class="row border-b border-r height50">
                 <h3>数据比率：</h3>
@@ -81,8 +80,8 @@
                 <div class="col-sm-4">
                     <div class="radio" *ngFor="let item of carPieChartRates">
                         <label>
-                            <input type="radio" name="carPieChartRadio" [(ngModel)]="currentCarPieChartRate" [value]="item.code" (click)="onChangeCarPieChartRadio(item.code)"/> {{item.name}}
-                        </label>
+                                <input type="radio" name="carPieChartRadio" [(ngModel)]="currentCarPieChartRate" [value]="item.code" (click)="onChangeCarPieChartRadio(item.code)"/> {{item.name}}
+                            </label>
                     </div>
                 </div>
                 <div class="col-sm-8 height100">
