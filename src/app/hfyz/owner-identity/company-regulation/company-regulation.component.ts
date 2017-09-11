@@ -148,7 +148,7 @@ export class CompanyRegulationComponent implements OnInit {
         this.formData = new FormData();
     }
 
-    return() {
+    back() {
         this.action = 'list';
         this.regulation = {};
         this.systemType = {id: '', name: ''};

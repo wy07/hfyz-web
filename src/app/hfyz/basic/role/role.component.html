@@ -10,12 +10,12 @@
             <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-role="rowData" pTemplate="body">
                     <div *ngIf="role.authority!='ROLE_ROOT'">
-                        <div role="button" class="fa fa-user-o fa-font-size div-distance" [hasPermission]="'organization_manage'" (click)="onAssign(role.id)"
-                            tooltip="权限分配" placement="bottom"></div>
                         <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" [hasPermission]="'organization_manage'" (click)="onEdit(role)"
                             tooltip="编辑" placement="bottom"></div>
                         <div role="button" class="fa fa-times fa-font-size div-distance" [hasPermission]="'organization_manage'" (click)="onDelete(role)"
                             tooltip="删除" placement="bottom"></div>
+                        <div role="button" class="fa fa-user-o fa-font-size div-distance" [hasPermission]="'organization_manage'" (click)="onAssign(role.id)"
+                             tooltip="权限分配" placement="bottom"></div>
                     </div>
                 </ng-template>
             </p-column>
