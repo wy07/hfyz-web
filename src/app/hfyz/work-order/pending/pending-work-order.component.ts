@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WorkOrderService } from '../shared/work-order.service';
 import { TdLoadingService } from "@covalent/core";
 import { RegularService } from "../../common/shared/regular.service";
 import { ToastsManager } from "ng2-toastr";
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 
 @Component({
     selector: 'pending-work-order',
@@ -10,7 +11,7 @@ import { ToastsManager } from "ng2-toastr";
     styleUrls: ['pending-work-order.component.css']
 })
 
-export class PendingWorkOrderComponent implements OnInit {
+export class PendingWorkOrderComponent implements OnInit, OnDestroy {
     pageMax: number;
     pageTotal: number;
     pageFirst: number;
@@ -23,10 +24,12 @@ export class PendingWorkOrderComponent implements OnInit {
 
     examineNote: string;
     judgeNote: string;
+    subscription: any;
     constructor(private _workOrderService: WorkOrderService
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
-        , private _toastr: ToastsManager) {
+        , private _toastr: ToastsManager
+        , private _appEmitterService: AppEventEmittersService) {
         this.workOrderList = [];
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -37,12 +40,13 @@ export class PendingWorkOrderComponent implements OnInit {
         this.workOrderRecords = [];
         this.workOrder = {};
 
-        this._workOrderService.change.subscribe((inputs: any) => {
-            if (inputs.action === 'SP' && inputs.action === inputs.actualAction) {
-                this.onExamine(inputs.sourceId);
-            }
-            if (inputs.action === 'YP' && inputs.action === inputs.actualAction) {
-                this.onJudge(inputs.sourceId);
+        this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+            if (inputs.code === 'pendingWorkOrder') {
+                if (inputs.action === 'DSH') {
+                    this.onExamine(inputs.sourceId);
+                }else if (inputs.action === 'DYP') {
+                    this.onJudge(inputs.sourceId);
+                }
             }
         });
     }
@@ -125,5 +129,9 @@ export class PendingWorkOrderComponent implements OnInit {
                 this.initData();
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

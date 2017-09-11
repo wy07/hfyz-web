@@ -101,7 +101,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
     @Input() componentName;
     @Input() inputs: any;
     @Input() tab: any;
-    @Input() infoType: string;
     loaded: boolean;
     compRef: ComponentRef<any>;
 
@@ -171,13 +170,6 @@ export class DynamicComponent implements OnDestroy, OnInit, AfterContentInit {
 
         if (this.inputs) {
             this._appEmitterService.tabChange.emit(this.inputs);
-        }
-
-        if (this.infoType === 'workOrder') {
-            this.workorderService.change.emit(this.inputs);
-        }
-        if (this.infoType === 'hiddenDangerOrder') {
-            this.hiddenRectificationOrderService.change.emit(this.inputs);
         }
     }
 

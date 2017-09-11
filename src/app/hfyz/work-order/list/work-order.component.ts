@@ -1,8 +1,8 @@
 import { TdLoadingService } from '@covalent/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WorkOrderService } from '../shared/work-order.service';
 import { ToastsManager } from 'ng2-toastr';
-
+import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
 
 @Component({
   selector: 'work-order',
@@ -10,7 +10,7 @@ import { ToastsManager } from 'ng2-toastr';
   styleUrls: ['work-order.component.css']
 })
 
-export class WorkOrderComponent implements OnInit {
+export class WorkOrderComponent implements OnInit, OnDestroy {
   pageMax: number;
   pageTotal: number;
   pageFirst: number;
@@ -41,9 +41,11 @@ export class WorkOrderComponent implements OnInit {
   status: string
 
   workOrderRecords: any[];
+  subscription: any;
   constructor(private _workOrderService: WorkOrderService
     , private _toastr: ToastsManager
     , private _loadingService: TdLoadingService
+    , private _appEmitterService: AppEventEmittersService
   ) {
     this.workOrderList = [];
     this.pageMax = 10;
@@ -54,8 +56,10 @@ export class WorkOrderComponent implements OnInit {
     this.workOrder = {};
     this.workOrderRecords = [];
 
-      this._workOrderService.change.subscribe((inputs: any) => {
-          this.preEdit(inputs.sourceId);
+      this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
+          if (inputs.code === 'workOrder' && inputs.action === 'YWC') {
+              this.preEdit(inputs.sourceId);
+          }
       });
   }
 
@@ -89,7 +93,7 @@ export class WorkOrderComponent implements OnInit {
     );
   }
 
-  return() {
+  back() {
     this.isDetails = false;
   }
 
@@ -97,5 +101,9 @@ export class WorkOrderComponent implements OnInit {
     if (this.pageOffset !== event.first) {
       this.initData();
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

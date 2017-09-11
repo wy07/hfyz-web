@@ -25,15 +25,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-sm-5">
-                <div class="form-group">
-                    <label class="col-sm-4 control-label">业户名称：</label>
-                    <div class="col-sm-8">
-                        <input class="form-control" [(ngModel)]="company" name="company" placeholder="请输入业户名称..." />
-                    </div>
-                </div>
-            </div> -->
-
             <div class="col-sm-2">
                 <button type="button" class="btn btn-primary" (click)="onSearch()">检索</button>
                 <button type="button" class="btn btn-primary" (click)="onReset()">重置</button>
@@ -150,7 +141,7 @@
             <div class="row">
                 <div class="col-md-6 col-md-offset-5">
                     <button type="button" class="btn btn-primary" (click)="onSaveNew()">反馈</button>
-                    <button type="button" class="btn btn-primary" (click)="return()">返回</button>
+                    <button type="button" class="btn btn-primary" (click)="back()">返回</button>
                 </div>
             </div>
         </div>
@@ -168,7 +159,7 @@
     <div class="panel panel-default panel-show">
         <div class="panel-heading">
             {{hiddenRectificationOrderTitle}}
-            <button type="button" class="btn back-btn btn-primary" (click)="return()">返回</button>
+            <button type="button" class="btn back-btn btn-primary" (click)="back()">返回</button>
         </div>
         <div class="panel-body no-padding showDetails">
             <div class="col-sm-12 form-horizontal ">

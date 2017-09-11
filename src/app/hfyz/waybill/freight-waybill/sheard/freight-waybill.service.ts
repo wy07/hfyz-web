@@ -28,8 +28,8 @@ export class FreightWaybillService {
         })
     }
 
-    show(id) {
-        return this.restangular.one('freight-waybills', id).customGET('show', {})
+    show(id, action = '') {
+        return this.restangular.one('freight-waybills', id).customGET('show', {action: action})
     }
 
     getCompanyDangerousCarsInfo(companyCode) {

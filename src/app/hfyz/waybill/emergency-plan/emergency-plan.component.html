@@ -1,3 +1,89 @@
-<p>
-  emergency-plan works!
-</p>
+<div *ngIf="pageFlag=='LIST'">
+    <div class="top-buttons">
+        <button pButton type="button" label="新增" (click)="onCreate()"></button>
+    </div>
+    <div class='basic-bottom'>
+        <p-dataTable [emptyMessage]="'暂无数据'" [value]="emergencyPlanList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="name" header="应急预案名称"></p-column>
+            <p-column field="dangerousType" header="危险品运输类型"></p-column>
+            <p-column field="describe" header="描述"></p-column>
+            <p-column field="" header="操作" styleClass=operation-buttons-3>
+                <ng-template let-emergencyPlan="rowData" pTemplate="body">
+                    <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(emergencyPlan.id)" tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(emergencyPlan.id)" tooltip="编辑" placement="bottom"></div>
+                    <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(emergencyPlan)" tooltip="删除" placement="bottom"></div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="pageFlag=='ADD' || pageFlag=='EDIT'">
+    <div class="panel-heading">
+        {{title}}
+    </div>
+    <div class="panel-body no-padding">
+        <div class="form-horizontal col-md-12">
+            <div class="form-group">
+                <label class="col-xs-4 control-label text-right"><span class="required">*</span>应急预案名称：</label>
+                <div class="col-sm-4 ">
+                    <input type="text" class="form-control" [(ngModel)]="emergencyPlan.name" name="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>危险品运输类型：</label>
+                <div class=" col-sm-4 ">
+                    <p-dropdown [options]="dangerousTypes" [(ngModel)]="emergencyPlan.dangerousTypeId" placeholder="请选择" [style]="{'width':'100%'}" styleClass=p-dropdown-form-control></p-dropdown>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>描述：</label>
+                <div class=" col-sm-4 ">
+                    <textarea rows="5" cols="50" maxlength="200" style="resize:none;width:100%"class="form-control"  [(ngModel)]="emergencyPlan.describe" name="describe"></textarea>
+                    <p class="warnning">(最大长度：200字符)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="button" class="btn btn-primary" (click)="pageFlag=='ADD'?onSubmit():onUpdate()">确定</button>
+                <button type="button" class="btn btn-primary" (click)="onCancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default panel-show" *ngIf="pageFlag=='DETAIL'">
+    <div class="panel-heading">
+        详情
+        <button type="button" class="btn back-btn btn-primary" (click)="onBack()">返回</button>
+    </div>
+    <div class="panel-body no-padding showDetails">
+        <div class="col-sm-12 form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">应急预案名称：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{emergencyPlan.name}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">危险品运输类型：</label>
+                    <div class="col-sm-7">
+                        <p class="form-control-static">{{emergencyPlan.dangerousTypeName}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label class="col-sm-2 control-label" style="width: 13.7%">描述：</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">{{emergencyPlan.describe}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
