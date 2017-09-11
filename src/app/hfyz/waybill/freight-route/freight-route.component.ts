@@ -5,6 +5,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { TdLoadingService } from '@covalent/core';
 import { DatePipe } from '@angular/common';
 import { RegularService } from '../../common/shared/regular.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'freight-route',
@@ -27,7 +28,8 @@ export class FreightRouteComponent implements OnInit {
         private _regularService: RegularService,
         private _freightRouteService: FreightRouteService,
         private datePipe: DatePipe,
-        private toastr: ToastsManager) {
+        private toastr: ToastsManager,
+        private _customDialogService: CustomDialogService) {
         this.waybillRouteLists = [];
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -94,14 +96,21 @@ export class FreightRouteComponent implements OnInit {
         });
     }
 
-    delete(id) {
-        this._loadingService.register();
-        this._freightRouteService.delete(id).subscribe(res => {
-            this._loadingService.resolve();
-            if (res.result === 'success') {
-                this.switchPage();
+    delete(data) {
+        const msg = '确认删除危货路线为【' + data.routerName + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._freightRouteService.delete(data.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this.toastr.info('删除成功');
+                    if (res.result === 'success') {
+                        this.switchPage();
+                    }
+                })
             }
-        });
+        })
     }
 
     edit(id) {

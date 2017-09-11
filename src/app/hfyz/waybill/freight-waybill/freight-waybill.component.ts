@@ -317,7 +317,7 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
     }
 
     delete(id, vehicleNo) {
-        const msg = '确认删除车牌号【' + vehicleNo + '】的电子路单信息信息吗？';
+        const msg = '确认删除车牌号为【' + vehicleNo + '】的记录吗？';
         const title = '删除';
         this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
             if (accept) {

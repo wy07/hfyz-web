@@ -11,6 +11,7 @@ import {UserService} from '../../basic/user/user.service';
 import {DatePipe} from '@angular/common';
 import {TdLoadingService} from "@covalent/core";
 import {zh} from "../../common/shared/zh";
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'info-publish',
@@ -51,7 +52,8 @@ export class InfoPublishComponent implements OnInit {
         , private _regularService: RegularService
         , private datePipe: DatePipe
         , private _authService: AuthService
-        , private _loadingService: TdLoadingService) {
+        , private _loadingService: TdLoadingService
+        , private _customDialogService: CustomDialogService) {
         console.log('========InfoPublishComponent==========');
         this.displayDialog = false;
 
@@ -224,14 +226,18 @@ export class InfoPublishComponent implements OnInit {
     }
 
     onDelete(infoaudit) {
-        if(confirm("确认删除——"+infoaudit.title+"吗？")){
-            this.infoPublishService.delete(infoaudit.id).subscribe(
-                res => {
+        const msg = '确认删除信息为【' + infoaudit.title + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this.infoPublishService.delete(infoaudit.id).subscribe(res => {
+                    this._loadingService.resolve();
                     this.initData()
-                    this._toastr.info(`成功移除信息`);
-                }
-            );
-        }
+                    this._toastr.info('删除成功');
+                })
+            }
+        })
     }
 
     validate() {

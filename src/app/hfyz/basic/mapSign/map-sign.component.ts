@@ -4,6 +4,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { MapSignService } from './shared/map-sign.service';
 import DateTimeFormat = Intl.DateTimeFormat;
 import { TdLoadingService } from '@covalent/core';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 declare var Maplet: any;
 declare var mianMapObject: any;
@@ -42,7 +43,8 @@ export class MapSignComponent implements OnInit {
     constructor(private _toastr: ToastsManager
         , private _mapSignService: MapSignService
         , private _loadingService: TdLoadingService
-        , private _regularService: RegularService) {
+        , private _regularService: RegularService
+        , private _customDialogService: CustomDialogService) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -76,14 +78,18 @@ export class MapSignComponent implements OnInit {
     }
 
     delete(mapSign) {
-        if (confirm('确认删除"' + mapSign.name + '"路标？')) {
-            this._mapSignService.delete(mapSign.id).subscribe(
-                res => {
+        const msg = '确认删除路标为【' + mapSign.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._mapSignService.delete(mapSign.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.info('删除成功');
                     this.initData();
-                    this._toastr.info(`删除成功`);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
     changeDisplay(mapSign) {

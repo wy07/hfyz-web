@@ -6,6 +6,7 @@ import {
 import { ToastsManager } from 'ng2-toastr';
 import { TdLoadingService } from "@covalent/core";
 import { PermissionService } from "./permission.service";
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'permission',
@@ -29,7 +30,8 @@ export class PermissionComponent implements OnInit {
     constructor(private _toastr: ToastsManager
         , private _permService: PermissionService
         , private _loadingService: TdLoadingService
-        , private _regularService: RegularService) {
+        , private _regularService: RegularService
+        , private _customDialogService: CustomDialogService) {
 
         this.action = 'list';
         this.max = 10;
@@ -119,14 +121,18 @@ export class PermissionComponent implements OnInit {
     }
 
     onDelete(perm) {
-        if (confirm('确认移除权限——' + perm.name + '？')) {
-            this._permService.delete(perm.id).subscribe(
-                res => {
+        const msg = '确认删除权限为【' + perm.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._permService.delete(perm.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.info('删除成功');
                     this.initData();
-                    this._toastr.info(`成功移除权限——` + perm.name);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
 

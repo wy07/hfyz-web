@@ -236,7 +236,7 @@ export class CompanyRegulationComponent implements OnInit {
                     res => {
                         this._loadingService.resolve();
                         this.loadData();
-                        this._toastr.info(`成功移除管理制度——` + regulation.regulationName);
+                        this._toastr.info(`删除成功`);
                     }
                 );
             }

@@ -14,7 +14,7 @@
                         <div role="button" class="fa fa-list fa-font-size div-distance" (click)="showDetail(data.id)" tooltip="详情" placement="bottom"></div>
                         <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="edit(data.id)" tooltip="编辑" placement="bottom"
                             [hasPermission]="freight_router_manage"></div>
-                        <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data.id)" tooltip="删除" placement="bottom"
+                        <div role="button" class="fa fa-times fa-font-size div-distance" (click)="delete(data)" tooltip="删除" placement="bottom"
                             [hasPermission]="freight_router_manage"></div>
                     </ng-template>
                 </p-column>
