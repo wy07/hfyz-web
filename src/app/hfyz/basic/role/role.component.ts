@@ -9,6 +9,7 @@ import { TreeNode } from 'primeng/components/common/api';
 import { RoleService } from './role.service';
 import { SelectItem } from 'primeng/primeng';
 import { TdLoadingService } from "@covalent/core";
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 @Component({
     selector: 'role',
     templateUrl: 'role.component.html',
@@ -40,7 +41,8 @@ export class RoleComponent implements OnInit {
         , private _roleService: RoleService
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
-        , private _authService: AuthService) {
+        , private _authService: AuthService
+        , private _customDialogService: CustomDialogService) {
 
         this.action = 'list';
         this.max = 10;
@@ -129,14 +131,18 @@ export class RoleComponent implements OnInit {
     }
 
     onDelete(role) {
-        if (confirm('确认移除角色——' + role.name + '？')) {
-            this._roleService.delete(role.id).subscribe(
-                res => {
+        const msg = '确认删除角色为【' + role.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._roleService.delete(role.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.info('删除成功');
                     this.initData()
-                    this._toastr.info(`成功移除角色——` + role.name);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
     onAssign(roleId) {

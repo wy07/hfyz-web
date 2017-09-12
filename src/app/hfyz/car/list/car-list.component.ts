@@ -197,7 +197,7 @@ export class CarListComponent implements OnInit {
         return flag
     }
 
-    return() {
+    back() {
         this.pageOffsetWarning = 0;
         this.pageFirstWarning = 0;
         this.action = 'list';

@@ -5,6 +5,7 @@ import { WhiteListService } from '../white-list/white-list.service';
 import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { zh } from "../../common/shared/zh";
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'app-white-list',
@@ -31,7 +32,8 @@ export class WhiteListComponent implements OnInit {
         private _loadingService: TdLoadingService,
         private _regularService: RegularService,
         private datePipe: DatePipe,
-        private toastr: ToastsManager) {
+        private toastr: ToastsManager,
+        private _customDialogService: CustomDialogService) {
         this.pageFlag = 'LIST';
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -102,18 +104,24 @@ export class WhiteListComponent implements OnInit {
      * @param vehicleNo 车牌号
      */
     delete(id, vehicleNo) {
-        if (confirm('确认删除车牌号【' + vehicleNo + '】的黑名单信息吗？')) {
-            this._whiteListService.delete(id).subscribe(
-                res => {
-                    if (res.result === 'success') {
-                        this.toastr.success('删除成功！')
-                        this.search()
-                    } else {
-                        this.toastr.error('删除失败！')
+        const msg = '确认删除车牌号为【' + vehicleNo + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._whiteListService.delete(id).subscribe(
+                    res => {
+                        this._loadingService.resolve();
+                        if (res.result === 'success') {
+                            this.toastr.info('删除成功')
+                            this.search()
+                        } else {
+                            this.toastr.error('删除失败')
+                        }
                     }
-                }
-            )
-        }
+                )
+            }
+        })
     }
 
     /**

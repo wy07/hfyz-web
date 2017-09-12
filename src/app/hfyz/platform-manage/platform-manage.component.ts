@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PlatformManageService } from './shared/platform-manage.service';
 import { RegularService } from './../common/shared/regular.service';
 import { ToastsManager } from 'ng2-toastr';
-import { TdLoadingService } from "@covalent/core";
+import { TdLoadingService } from '@covalent/core';
+import { CustomDialogService } from '../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'app-platform-manage',
@@ -27,7 +28,8 @@ export class PlatformManageComponent implements OnInit {
     constructor(private toastr: ToastsManager
         , private platformService: PlatformManageService
         , private regularService: RegularService
-        , private _loadingService: TdLoadingService) {
+        , private _loadingService: TdLoadingService
+        , private _customDialogService: CustomDialogService) {
         this.platform = {};
         this.clearForm();
         this.pageMax = 10;
@@ -172,14 +174,18 @@ export class PlatformManageComponent implements OnInit {
 
     // 删除
     onDelete(platform) {
-        if (confirm('确认移除"' + platform.name + '"平台？')) {
-            this.platformService.delete(platform.id).subscribe(
-                res => {
+        const msg = '确认删除平台为【' + platform.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this.platformService.delete(platform.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this.toastr.info('删除成功')
                     this.initData();
-                    this.toastr.info(`移除数据成功`);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
     // 返回

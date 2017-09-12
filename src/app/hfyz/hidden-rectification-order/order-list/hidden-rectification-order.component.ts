@@ -6,6 +6,7 @@ import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
+import {CustomDialogService} from "../../common/shared/custom-dialog.service";
 
 @Component({
   selector: 'app-hidden-rectification-order',
@@ -49,6 +50,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
+    , private _customDialogService: CustomDialogService
   ) {
     this.pageMax = 10;
     this.pageTotal = 0;
@@ -214,16 +216,20 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
 
   onDelete(hiddenRectificationOrder) {
-    if (confirm('确认移除编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
-      this._loadingService.register();
-      this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
-        res => {
-          this._loadingService.resolve();
-          this.initData();
-          this._toastr.info('移除数据成功');
-        }
-      );
-    }
+      const msg = '确认删除隐患整改单号为【' + hiddenRectificationOrder.billNo + '】的记录吗？';
+      const title = '删除';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
+                  res => {
+                      this._loadingService.resolve();
+                      this._toastr.info('删除成功');
+                      this.initData();
+                  }
+              )
+          }
+      })
   }
   commit(hiddenRectificationOrder) {
     if (confirm('确认提交编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {

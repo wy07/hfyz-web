@@ -43,10 +43,10 @@
                     <p-column field="status" header="状态"></p-column>
                     <p-column field="" header="操作" styleClass=operation-buttons-2>
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
+                            <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
+                                 placement="bottom"></div>
                             <div role="button" class="fa fa-file-text-o fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id)" tooltip="反馈"
                                 placement="bottom" *ngIf="hiddenRectificationOrder.status=='待反馈'"></div>
-                            <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
-                                placement="bottom"></div>
                         </ng-template>
                     </p-column>
                 </p-dataTable>
