@@ -61,23 +61,29 @@ a {
     box-sizing: border-box;
 }
 
-.layout-menu-wrapper .layout-menu  li{
+.layout-menu-wrapper .layout-menu .sidebarMenu{
     border-bottom: 1px solid rgb(205,206,209);
     /* border-top: 1px solid rgb(205,206,209); */
 }
 
 .layout-menu-wrapper .layout-menu .sidebarMenu:first-child{
-    margin-top: 15px !important;
+    /* margin-top: 15px !important; */
     border-top: 1px solid rgb(205,206,209);
 }
 
 .layout-menu-wrapper .layout-menu .sidebarMenu .childrenSidebarMenu:first-child{
-    border-top: 1px solid rgb(205,206,209);
+    /* border-top: 1px solid rgb(205,206,209); */
 }
 
 .layout-menu-wrapper .layout-menu .sidebarMenu .childrenSidebarMenu:last-child{
     border-bottom: 0;
 }
+
+.layout-menu-wrapper .layout-menu .sidebarMenu .ng-trigger-children {
+    background-color: #fff;
+}
+
+
 
 ul, menu, dir {
     display: block;

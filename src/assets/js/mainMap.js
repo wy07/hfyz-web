@@ -18,6 +18,9 @@ var mianMapObject = (function () {
         resetCenter: function (obj, lng, lat) {
             obj.centerAndZoom(new MPoint(lng, lat), 12)
         },
+        resetCenterAndScope: function (obj, lng, lat, scope) {
+            obj.centerAndZoom(new MPoint(lng, lat), scope)
+        },
         clean: function (obj) {
             if (obj) {
                 console.log("in  clean");
