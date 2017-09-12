@@ -1,0 +1,12 @@
+.hiddenAdd{
+    display: none;
+}
+
+.showAdd{
+    display: block;
+}
+
+.mapSize {
+    width: 97% !important;
+    height: 100%!important;
+}
