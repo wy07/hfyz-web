@@ -1,3 +1,4 @@
+import { ElectricFenceService } from './shead/electric-fence.service';
 import { ElectricFenceComponent } from './electric-fence.component';
 import { CustomDirectiveModule } from './../../common/custom-directive.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +38,7 @@ import { TooltipModule } from 'ngx-bootstrap';
     ],
     providers: [
       DatePipe,
+      ElectricFenceService
     ]
 })
 export class ElectricFenceModule { };
