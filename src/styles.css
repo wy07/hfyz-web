@@ -336,3 +336,29 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 .panel-info .no-border{
     border: 0;
 }
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #337ab7;
+    border: 1px solid #2e6da4;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.file input {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}

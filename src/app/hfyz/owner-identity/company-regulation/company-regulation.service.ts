@@ -5,8 +5,10 @@ import { Restangular } from 'ngx-restangular';
 export class CompanyRegulationService {
 
     MAXFILESIZE: number;
+    MINFILESIZE: number;
     constructor(public restangular: Restangular) {
         this.MAXFILESIZE = 5242880;
+        this.MINFILESIZE = 0;
     }
 
     search(ownerName, dateBegin, dateEnd, systemTypeId, max, offset) {
