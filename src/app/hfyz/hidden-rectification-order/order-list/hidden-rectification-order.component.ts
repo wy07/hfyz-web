@@ -46,7 +46,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
   formData: FormData;
   file: boolean;
   fileSize: number;
-  
+
   constructor(
     private _toastr: ToastsManager
     , private _hiddenRectificationOrderService: HiddenRectificationOrderService
@@ -72,7 +72,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.displayDialog = false;
     this.disabled = false;
     this.status = '';
-    this.upload = false;
     this.statusList = [{ label: '全部', value: '' }, { label: '起草', value: '0' },
     { label: '待审核', value: '1' }, { label: '待反馈', value: '2' }, { label: '已拒绝', value: '3' },
     { label: '待确认', value: '4' }, { label: '合格', value: '5' }, { label: '不合格', value: '6' }];
@@ -238,7 +237,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
           this.initData();
           this.edit = false;
           this.formData = null;
-          this.upload = false;
         }
       );
     }
@@ -362,7 +360,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
   back() {
     this.isDetails = false;
     this.edit = false;
-    this.upload = false;
   }
 
   onCancel() {
