@@ -148,6 +148,27 @@
                         <textarea class="form-control fix" id="proPosal" name="proPosal" [(ngModel)]="hiddenRectificationOrder.proPosal" maxlength="1500"></textarea>
                     </div>
                 </div>
+                <div class="form-group col-sm-12" *ngIf="isAdd==true">
+                    <label class="col-sm-4 control-label" style="width: 16.3%"><span
+                        class="notNull">*</span>上传附件：</label>
+                    <div class="col-sm-6">
+                        {{hiddenRectificationOrder.fileName}}
+                        <a href="javascript:;" class="file">上传文件
+                            <input type="file" id="file" name="file" (change)="fileChangeEvent($event)">
+                        </a>
+                        <span class="warnning">(文件大小不超过5M)</span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="isAdd==false">
+                    <label class="col-sm-4 control-label" style="width: 16.3%">附件：</label>
+                    <div class="col-sm-6">
+                        {{hiddenRectificationOrder.fileName || '无'}}
+                        <a href="javascript:;" class="file">重新上传
+                            <input type="file" id="newFile" name="newFile" (change)="fileChangeEvent($event)">
+                        </a>
+                        <span class="warnning">(文件大小不超过5M)</span>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="panel-footer">
@@ -223,6 +244,12 @@
                         <label class="col-sm-5 control-label">检查内容：</label>
                         <div class="col-sm-7">
                             <p class="form-control-static">{{hiddenRectificationOrder.insDesc}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">附件：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.fileName || '无'}}</p>
                         </div>
                     </div>
                     <div class="form-group col-sm-12">

@@ -95,8 +95,11 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label"><span class="notNull">*</span>请选择：</label>
-                    <div class="col-sm-2">
-                        <input type="file" id="file" name="file" (change)="fileChangeEvent($event)">
+                    <div class="col-sm-6">
+                        {{fileName}}
+                        <a href="javascript:;" class="file">上传文件
+                            <input type="file" id="newFile" name="newFile" (change)="fileChangeEvent($event)">
+                        </a>
                         <span class="notNull">(文件大小不超过5M)</span>
                     </div>
                 </div>
