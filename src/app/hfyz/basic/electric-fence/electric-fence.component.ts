@@ -122,19 +122,19 @@ export class ElectricFenceComponent implements OnInit {
         this._electricFenceService.save(this.electricFenceName, this.coordinates).subscribe(res => {
             this._loadingService.resolve();
             this.goBack();
-            this._toastr.info('电子围栏添加成功.');
+            this._toastr.success('保存成功！');
         })
     }
 
     delete(data) {
-        const msg = '确认删除路标为【' + data.name + '】的记录吗？';
+        const msg = '确认删除电子围栏为【' + data.name + '】的记录吗？';
         const title = '删除';
         this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
             if (accept) {
                 this._loadingService.register();
                 this._electricFenceService.delete(data.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                     this.initData();
                 })
             }
@@ -204,7 +204,7 @@ export class ElectricFenceComponent implements OnInit {
         this._electricFenceService.update(this.electricFenceId, this.electricFenceName, this.coordinates).subscribe(res => {
             this._loadingService.resolve();
             this.goBack();
-            this._toastr.info('电子围栏修改成功.');
+            this._toastr.success('修改成功！');
         })
     }
 

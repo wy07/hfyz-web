@@ -84,7 +84,7 @@ export class RoleComponent implements OnInit {
                     this.role = res.role;
                     this.orgList = res.orgList;
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );
@@ -108,7 +108,7 @@ export class RoleComponent implements OnInit {
             this._roleService.save(this.role).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                     this.initData();
                 }
             );
@@ -122,7 +122,7 @@ export class RoleComponent implements OnInit {
             this._roleService.update(this.role.id, this.role).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('修改成功');
+                    this._toastr.success('修改成功！');
                     this.initData()
                 }
             );
@@ -138,7 +138,7 @@ export class RoleComponent implements OnInit {
                 this._loadingService.register();
                 this._roleService.delete(role.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                     this.initData()
                 })
             }
@@ -181,25 +181,31 @@ export class RoleComponent implements OnInit {
                 }
 
             }
-            this._roleService.savePermission(this.assignRoleId, permissions).subscribe(
-                res => {
-                    this.action = 'list';
-                    this.initData();
-                    this._toastr.info(`权限分配成功！`);
+            const msg = '确认分配该权限？';
+            const title = '提示';
+            this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+                if (accept) {
+                    this._loadingService.register();
+                    this._roleService.savePermission(this.assignRoleId, permissions).subscribe(res => {
+                        this._loadingService.resolve();
+                        this._toastr.success('分配成功！');
+                        this.action = 'list';
+                        this.initData();
+                    })
                 }
-            );
+            })
         }
 
     }
 
     validate() {
         if (this._regularService.isBlank(this.role.name)) {
-            this._toastr.error('名称不能为空');
+            this._toastr.error('名称不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.role.authority)) {
-            this._toastr.error('编码不能为空');
+            this._toastr.error('编码不能为空！');
             return false;
         }
 

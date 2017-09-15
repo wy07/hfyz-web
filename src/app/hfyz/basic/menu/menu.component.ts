@@ -86,7 +86,7 @@ export class MenuComponent implements OnInit {
                         this.parent = res.parent;
                     }
                 } else {
-                    this.toastr.error('获取数据失败');
+                    this.toastr.error('获取数据失败！');
                 }
             }
         );
@@ -112,7 +112,7 @@ export class MenuComponent implements OnInit {
                     } else {
                         node.parent.children = node.parent.children.filter(n => n.data !== node.data);
                     }
-                    this.toastr.info('删除成功');
+                    this.toastr.info('删除成功！');
                 })
             }
         })
@@ -144,7 +144,7 @@ export class MenuComponent implements OnInit {
         if (this.validate()) {
             this.menuService.save(this.menu).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('保存成功！');
                     this.loadRoot();
                     this.displayDialog = false;
                 }
@@ -159,7 +159,7 @@ export class MenuComponent implements OnInit {
         if (this.validate()) {
             this.menuService.update(this.menu.id, this.menu).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('修改成功！');
                     this.loadRoot();
                     this.displayDialog = false;
                 }
@@ -174,7 +174,7 @@ export class MenuComponent implements OnInit {
 
     validate() {
         if (this.regularService.isBlank(this.menu.position)) {
-            this.toastr.error('请选择菜单位置');
+            this.toastr.error('请选择菜单位置！');
             return false;
         }
 
@@ -184,7 +184,7 @@ export class MenuComponent implements OnInit {
         // }
 
         if (this.regularService.isBlank(this.menu.code)) {
-            this.toastr.error('编码不能为空');
+            this.toastr.error('编码不能为空！');
             return false;
         }
 

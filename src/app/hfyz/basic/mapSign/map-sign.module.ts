@@ -32,7 +32,7 @@ import { TooltipModule } from 'ngx-bootstrap';
         PaginatorModule,
         CalendarModule,
         DropdownModule,
-        TooltipModule
+        TooltipModule,
     ],
     exports: [
     ],

@@ -4,6 +4,7 @@ import { TdLoadingService } from "@covalent/core";
 import { RegularService } from "../../common/shared/regular.service";
 import { ToastsManager } from "ng2-toastr";
 import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'pending-work-order',
@@ -29,7 +30,8 @@ export class PendingWorkOrderComponent implements OnInit, OnDestroy {
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
         , private _toastr: ToastsManager
-        , private _appEmitterService: AppEventEmittersService) {
+        , private _appEmitterService: AppEventEmittersService
+        , private _customDialogService: CustomDialogService) {
         this.workOrderList = [];
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -86,20 +88,22 @@ export class PendingWorkOrderComponent implements OnInit, OnDestroy {
 
     submitExamine(result) {
         if (this._regularService.isBlank(this.examineNote)) {
-            this._toastr.error('审批内容不能为空');
+            this._toastr.error('审批内容不能为空！');
             return false;
         }
-
-        if (!confirm('确认提交审批？')) {
-            return false;
-        }
-
-        this._workOrderService.examine(this.workOrder.id, { note: this.examineNote, result: result }).subscribe(
-            res => {
-                this.action = 'list';
-                this.initData();
+        const msg = '确认审批该工单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._workOrderService.examine(this.workOrder.id, { note: this.examineNote, result: result }).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('审批成功！');
+                    this.action = 'list';
+                    this.initData();
+                })
             }
-        );
+        })
     }
 
     onJudge(id) {
@@ -115,20 +119,22 @@ export class PendingWorkOrderComponent implements OnInit, OnDestroy {
 
     submitJudge(result) {
         if (this._regularService.isBlank(this.judgeNote)) {
-            this._toastr.error('研判内容不能为空');
+            this._toastr.error('研判内容不能为空！');
             return false;
         }
-
-        if (!confirm('确认提交研判？')) {
-            return false;
-        }
-
-        this._workOrderService.judge(this.workOrder.id, { note: this.judgeNote, result: result }).subscribe(
-            res => {
-                this.action = 'list';
-                this.initData();
+        const msg = '确认研判该工单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._workOrderService.judge(this.workOrder.id, { note: this.judgeNote, result: result }).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('研判成功');
+                    this.action = 'list';
+                    this.initData();
+                })
             }
-        );
+        })
     }
 
     ngOnDestroy() {

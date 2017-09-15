@@ -5,11 +5,8 @@ import {RegularService} from './../../common/shared/regular.service';
 import {Component, OnInit, Injector, Renderer, ElementRef, ViewChild} from '@angular/core';
 import {ToastsManager} from 'ng2-toastr';
 import {Router, ActivatedRoute} from '@angular/router';
-import {TreeNode} from 'primeng/components/common/api';
 import {UserService} from './user.service';
-import {Observable} from 'rxjs/Observable';
-import {MultiSelectModule, SelectItem} from 'primeng/primeng';
-import {ListboxModule} from 'primeng/primeng';
+import {SelectItem} from 'primeng/primeng';
 import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
@@ -44,6 +41,8 @@ export class UserComponent implements OnInit {
     isAdmin: boolean;
     disabled: boolean;
     org: any;
+    display: boolean;
+    newPassword: any;
     constructor(private _renderer: Renderer
         , private _router: Router
         , private _activatedRoute: ActivatedRoute
@@ -65,6 +64,8 @@ export class UserComponent implements OnInit {
         this.org = {};
         this.disabled = false;
         this.displayDialog = false;
+        this.display = false;
+        this.newPassword = '';
         // this.layoutComponent = this.inj.get(LayoutComponent);
         this.currentUserId = this._authService.getCurrentUser('id');
         this.currentRoleString = this._authService.getCurrentUser('roleId');
@@ -141,7 +142,7 @@ export class UserComponent implements OnInit {
             this._userService.save(this.user).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                     this.initData();
                 }
             );
@@ -182,7 +183,7 @@ export class UserComponent implements OnInit {
             this._userService.update(this.user.id, this.user).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('修改成功');
+                    this._toastr.success('修改成功！');
                     this.initData()
                 }
             );
@@ -199,14 +200,14 @@ export class UserComponent implements OnInit {
         }
     }
     onDelete(user) {
-        const msg = '确认删除用户为【' + user.name + '】的记录吗？';
+        const msg = '确认删除用户为【' + user.username + '】的记录吗？';
         const title = '删除';
         this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
             if (accept) {
                 this._loadingService.register();
                 this._userService.delete(user.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                     this.initData()
                 })
             }
@@ -214,14 +215,19 @@ export class UserComponent implements OnInit {
     }
 
     onResetPassword(user) {
-        if (confirm(' 您确定要重置' + user.username + '的密码吗' + '？')) {
-            this._userService.resetPassword(user.id).subscribe(
-                res => {
-                    this._toastr.info(`重置密码成功` + user.username);
-                    alert(user.username + '的随机密码为：' + res.newPassword);
-                }
-            );
-        }
+        const msg = '确认重置【' + user.username + '】的密码吗？';
+        const title = '重置密码';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._userService.resetPassword(user.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('重置密码成功！');
+                    this.display = true;
+                    this.newPassword = res.newPassword;
+                })
+            }
+        })
     }
 
     paginate(event) {
@@ -238,28 +244,28 @@ export class UserComponent implements OnInit {
 
     validate() {
         if (this._regularService.isBlank(this.user.name)) {
-            this._toastr.error('名称不能为空');
+            this._toastr.error('名称不能为空！');
             return false;
         }
         if (this._regularService.isBlank(this.user.roles)) {
-            this._toastr.error('角色不能为空');
+            this._toastr.error('角色不能为空！');
             return false;
         }
         if (this._regularService.isBlank(this.user.username)) {
-            this._toastr.error('账号不能为空');
+            this._toastr.error('账号不能为空！');
             return false;
         }
         if (this.isAdmin && this._regularService.isBlank(this.org)) {
-            this._toastr.error('部门不能为空');
+            this._toastr.error('部门不能为空！');
             return false;
         }
         if (this.isAdmin && this.org.code === '24' && this._regularService.isBlank(this.user.companyCode)) {
-            this._toastr.error('请选择业户名称');
+            this._toastr.error('请选择业户名称！');
             return false;
         }
         if (this.isAdmin && this.org.code === '24' && !this._regularService.isBlank(this.selectedCompany)) {
             if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
-                this._toastr.error('请选择正确的业户名称');
+                this._toastr.error('请选择正确的业户名称！');
                 return false;
             }
         }

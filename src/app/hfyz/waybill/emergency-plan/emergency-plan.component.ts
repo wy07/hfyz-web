@@ -86,7 +86,7 @@ export class EmergencyPlanComponent implements OnInit {
                 if (res.result === 'success') {
                     this.pageFlag = 'LIST';
                     this.initData();
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                 } else {
                     this._toastr.error(res.errors);
                 }
@@ -129,7 +129,7 @@ export class EmergencyPlanComponent implements OnInit {
                 if (res.result === 'success') {
                     this.pageFlag = 'LIST';
                     this.initData();
-                    this._toastr.success('更新成功');
+                    this._toastr.success('修改成功！');
                 } else {
                     this._toastr.error(res.errors);
                 }
@@ -145,7 +145,7 @@ export class EmergencyPlanComponent implements OnInit {
                 this._emergencyPlanService.delete(emergencyPlan.id).subscribe(
                     res => {
                         this._loadingService.resolve();
-                        this._toastr.info('删除成功');
+                        this._toastr.info('删除成功！');
                         this.pageFirst = 0;
                         this.initData();
                     }
@@ -171,15 +171,15 @@ export class EmergencyPlanComponent implements OnInit {
 
     validation() {
         if (this._regularService.isBlank(this.emergencyPlan.name)) {
-            this._toastr.info('应急预案名称不能为空');
+            this._toastr.error('应急预案名称不能为空！');
             return false;
         }
         if (this._regularService.isBlank(this.emergencyPlan.dangerousTypeId)) {
-            this._toastr.info('请选择危险品运输类型');
+            this._toastr.error('请选择危险品运输类型！');
             return false;
         }
         if (this._regularService.isBlank(this.emergencyPlan.describe)) {
-            this._toastr.info('描述不能为空');
+            this._toastr.error('描述不能为空！');
             return false;
         }
         return true;

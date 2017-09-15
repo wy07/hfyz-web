@@ -113,10 +113,10 @@ export class WhiteListComponent implements OnInit {
                     res => {
                         this._loadingService.resolve();
                         if (res.result === 'success') {
-                            this.toastr.info('删除成功')
+                            this.toastr.info('删除成功！')
                             this.search()
                         } else {
-                            this.toastr.error('删除失败')
+                            this.toastr.error('删除失败！')
                         }
                     }
                 )

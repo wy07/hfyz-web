@@ -97,7 +97,7 @@ export class SystemCodeComponent implements OnInit {
                         this.parent.info = `${res.parent.codeNum}（${res.parent.name}）`;
                     }
                 } else {
-                    this.toastr.error('获取数据失败');
+                    this.toastr.error('获取数据失败！');
                 }
             }
         );
@@ -123,7 +123,7 @@ export class SystemCodeComponent implements OnInit {
                     } else {
                         node.parent.children = node.parent.children.filter(n => n.data !== node.data);
                     }
-                    this.toastr.info('删除成功');
+                    this.toastr.info('删除成功！');
                 })
             }
         })
@@ -155,7 +155,7 @@ export class SystemCodeComponent implements OnInit {
         if (this.validate()) {
             this.systemCodeService.save(this.systemCode, this.type).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('保存成功！');
                     this.reload();
                     this.displayDialog = false;
                 }
@@ -170,7 +170,7 @@ export class SystemCodeComponent implements OnInit {
         if (this.validate()) {
             this.systemCodeService.update(this.systemCode.id, this.systemCode, this.type).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('修改成功！');
                     this.reload();
                     this.displayDialog = false;
                 }
@@ -180,12 +180,12 @@ export class SystemCodeComponent implements OnInit {
 
     validate() {
         if (this.regularService.isBlank(this.systemCode.name)) {
-            this.toastr.error('名称不能为空');
+            this.toastr.error('名称不能为空！');
             return false;
         }
 
         if (this.regularService.isBlank(this.systemCode.codeNum)) {
-            this.toastr.error('编码不能为空');
+            this.toastr.error('编码不能为空！');
             return false;
         }
 

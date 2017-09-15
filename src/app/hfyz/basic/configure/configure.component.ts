@@ -62,7 +62,7 @@ export class ConfigureComponent implements OnInit {
                 if (res.result === 'success') {
                     this.configure = res.configure;
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );
@@ -74,7 +74,7 @@ export class ConfigureComponent implements OnInit {
         }
         this._configureService.update(this.configure.id, this.configure).subscribe(
             res => {
-                this._toastr.success('保存成功');
+                this._toastr.success('修改成功！');
                 this.initData();
                 this.displayDialog = false;
             }
@@ -87,11 +87,11 @@ export class ConfigureComponent implements OnInit {
 
     validate() {
         if (this._regularService.isBlank(this.configure.name)) {
-            this._toastr.error('名称不能为空');
+            this._toastr.error('名称不能为空！');
             return false;
         }
         if (this._regularService.isBlank(this.configure.configValue)) {
-            this._toastr.error('值不能为空');
+            this._toastr.error('值不能为空!');
             return false;
         }
         return true;

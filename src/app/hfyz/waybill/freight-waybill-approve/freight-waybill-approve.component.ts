@@ -172,12 +172,22 @@ export class FreightWaybillApproveComponent implements OnInit, OnDestroy {
     }
 
     approveOpinion(type) {
-        this._loadingService.register();
-        this._freightWaybillApproveService.approveOpinion(this.freightWaybill.id, type).subscribe(res => {
-            this._loadingService.resolve();
-            this.goBack();
-            // const msg = type === 'agreed' ? '' : '';
-            // this.toastr.info(msg)
+        if (!this.validation()) {
+            return;
+        }
+        const msg = '确认审批该电子路单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._freightWaybillApproveService.approveOpinion(this.freightWaybill.id, type).subscribe(
+                    res => {
+                        this._loadingService.resolve();
+                        this.toastr.success('审批成功');
+                        this.goBack();
+                    }
+                )
+            }
         })
     }
 
@@ -191,5 +201,13 @@ export class FreightWaybillApproveComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    validation() {
+        if (this._regularService.isBlank(this.freightWaybillApprove.approveDesc)) {
+            this.toastr.error('审批意见不能为空！');
+            return false;
+        }
+        return true;
     }
 }

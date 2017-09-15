@@ -144,10 +144,10 @@ export class BlackListComponent implements OnInit {
                     res => {
                         this._loadingService.resolve();
                         if (res.result === 'success') {
-                            this.toastr.info('删除成功')
+                            this.toastr.info('删除成功！')
                             this.search()
                         } else {
-                            this.toastr.error('删除失败')
+                            this.toastr.error('删除失败！')
                         }
                     }
                 )
@@ -254,36 +254,36 @@ export class BlackListComponent implements OnInit {
         }
         if (this._regularService.isBlank(this.blackList.controlBehavior)) {
             flag = false
-            this.toastr.error('布控行为不能为空')
+            this.toastr.error('布控行为不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.blackType)) {
             flag = false
-            this.toastr.error('黑名单不能为空')
+            this.toastr.error('黑名单不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.controlOrg)) {
             flag = false
-            this.toastr.error('布控单位不能为空')
+            this.toastr.error('布控单位不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.controlRange)) {
             flag = false
-            this.toastr.error('布控范围不能为空')
+            this.toastr.error('布控范围不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.executor)) {
             flag = false
-            this.toastr.error('布控人不能为空')
+            this.toastr.error('布控人不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.scheme)) {
             flag = false
-            this.toastr.error('布控方案不能为空')
+            this.toastr.error('布控方案不能为空！')
         }
         if (this._regularService.isBlank(this.blackList.status)) {
             flag = false
-            this.toastr.error('布控状态不能为空')
+            this.toastr.error('布控状态不能为空！')
         }
         if (this.blackList.controlBegin && this.blackList.controlEnd) {
             if (this.blackList.controlBegin >= this.blackList.controlEnd) {
                 flag = false
-                this.toastr.error('开始时间必须小于结束时间')
+                this.toastr.error('开始时间必须小于结束时间！')
             }
         }
         return flag

@@ -5,6 +5,7 @@ import { TdLoadingService } from '@covalent/core';
 import { WorkOrderFlowService } from './../shared/work-order-flow.service';
 import { Component, OnInit } from '@angular/core';
 import { WorkOrderFlowObj } from '../shared/work-order-flow-obj';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
   selector: 'app-work-order-flow',
@@ -38,7 +39,8 @@ export class WorkOrderFlowComponent implements OnInit {
     , private _loadingService: TdLoadingService
     , private _toastr: ToastsManager
     , private _systemCodeService: SystemCodeService
-    , private _regularService: RegularService) {
+    , private _regularService: RegularService
+    , private _customDialogService: CustomDialogService) {
     this.action = 'list';
     this.flowList = [];
     this.pageMax = 10;
@@ -75,17 +77,19 @@ export class WorkOrderFlowComponent implements OnInit {
   }
 
   onEffect(id) {
-    if (!confirm('确认生效该工作流？')) {
-      return false;
-    }
-
-    this._flowService.effect(id).subscribe(
-      res => {
-        this._toastr.info('工作流生效成功！');
-        this.action = 'list';
-        this.initData();
-      }
-    );
+      const msg = '确认生效该工作流？';
+      const title = '提示';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._flowService.effect(id).subscribe(res => {
+                  this._loadingService.resolve();
+                  this._toastr.info('生效成功');
+                  this.action = 'list';
+                  this.initData();
+              })
+          }
+      })
   }
 
   onCreate() {
@@ -154,7 +158,7 @@ export class WorkOrderFlowComponent implements OnInit {
       , judgeFlow: this.judgeFlow
     }).subscribe(
       res => {
-        this._toastr.success('保存成功');
+        this._toastr.success('保存成功！');
         this.initData();
         this.action = 'list';
       }
@@ -173,7 +177,7 @@ export class WorkOrderFlowComponent implements OnInit {
         , judgeFlow: this.judgeFlow
       }).subscribe(
       res => {
-        this._toastr.success('保存成功');
+        this._toastr.success('修改成功！');
         this.initData();
         this.action = 'list';
       }

@@ -88,7 +88,7 @@ export class PlatformManageComponent implements OnInit {
         if (this.validate()) {
             this.platformService.save(this.platform).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('保存成功！');
                     this.initData();
                     this.action = 'list';
                 }
@@ -116,7 +116,7 @@ export class PlatformManageComponent implements OnInit {
                 if (res.result === 'success') {
                     this.platform = res.platform;
                 } else {
-                    this.toastr.error('获取数据失败');
+                    this.toastr.error('获取数据失败！');
                 }
             }
         );
@@ -126,7 +126,7 @@ export class PlatformManageComponent implements OnInit {
         if (this.validate()) {
             this.platformService.update(this.platform.id, this.platform).subscribe(
                 res => {
-                    this.toastr.success('保存成功');
+                    this.toastr.success('修改成功！');
                     this.initData();
                     this.action = 'list';
                 }
@@ -141,31 +141,31 @@ export class PlatformManageComponent implements OnInit {
     validate() {
         // IP地址验证
         if (this.regularService.isBlank(this.platform.ip)) {
-            this.toastr.error('平台IP地址不能为空');
+            this.toastr.error('平台IP地址不能为空！');
             return false;
         }
         if (this.platform.ip === '0.0.0.0' || this.platform.ip === '255.255.255.255' || !(this.platform.ip.match(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/))) {
-            this.toastr.error('请输入正确的IP地址');
+            this.toastr.error('请输入正确的IP地址！');
             return false;
         }
         if (this.regularService.isBlank(this.platform.port)) {
-            this.toastr.error('端口号不能为空');
+            this.toastr.error('端口号不能为空！');
             return false;
         }
         if (this.regularService.isBlank(this.platform.name)) {
-            this.toastr.error('平台名称不能为空');
+            this.toastr.error('平台名称不能为空！');
             return false;
         }
         if (this.regularService.isBlank(this.platform.code)) {
-            this.toastr.error('平台代码不能为空');
+            this.toastr.error('平台代码不能为空！');
             return false;
         }
         if (this.regularService.isBlank(this.platform.contactName)) {
-            this.toastr.error('平台联系人不能为空');
+            this.toastr.error('平台联系人不能为空！');
             return false;
         }
         if (this.regularService.isBlank(this.platform.contactPhone)) {
-            this.toastr.error('平台联系电话不能为空');
+            this.toastr.error('平台联系电话不能为空！');
             return false;
         }
         return true;
@@ -181,7 +181,7 @@ export class PlatformManageComponent implements OnInit {
                 this._loadingService.register();
                 this.platformService.delete(platform.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this.toastr.info('删除成功')
+                    this.toastr.info('删除成功！')
                     this.initData();
                 })
             }

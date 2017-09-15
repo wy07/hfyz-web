@@ -262,7 +262,7 @@ export class CarRealTimeMapComponent implements OnInit, OnDestroy {
         this.clearCompanysAndCars();
 
         if (!this.licenseNo) {
-            this._toastr.error('请输入车牌号');
+            this._toastr.error('请输入车牌号！');
             return false;
         }
         this._loadingService.register();
