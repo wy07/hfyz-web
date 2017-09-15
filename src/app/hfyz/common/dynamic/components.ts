@@ -1,3 +1,4 @@
+import { ElectricFenceComponent } from './../../basic/electric-fence/electric-fence.component';
 import { FreightWaybillApproveComponent } from './../../waybill/freight-waybill-approve/freight-waybill-approve.component';
 import { CarMonitorMapComponent } from './../../car/monitor-map/car-monitor-map.component';
 import { CarHistoryMapComponent } from './../../car/history-map/car-history-map.component';
@@ -101,4 +102,5 @@ export const components = {
     infoCenter: InfoCenterComponent,
     emergencyPlan: EmergencyPlanComponent,
     freightWaybillApprove: FreightWaybillApproveComponent,
+    electricFence: ElectricFenceComponent,
 };

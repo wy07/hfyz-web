@@ -4,6 +4,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { TreeNode } from 'primeng/components/common/api';
 import { RegularService } from '../../common/shared/regular.service';
 import {TdLoadingService} from '@covalent/core';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 @Component({
     selector: 'app-menu',
     templateUrl: 'menu.component.html',
@@ -29,7 +30,8 @@ export class MenuComponent implements OnInit {
     constructor(private toastr: ToastsManager
         , private menuService: MenuService
         , private regularService: RegularService
-        , private _loadingService: TdLoadingService) {
+        , private _loadingService: TdLoadingService
+        , private _customDialogService: CustomDialogService) {
         this.displayDialog = false;
 
         this.menuPositions = [];
@@ -98,18 +100,22 @@ export class MenuComponent implements OnInit {
     }
 
     onDelete(node: TreeNode) {
-        if (confirm('确认移除该数据？')) {
-            this.menuService.delete(node.data.id).subscribe(
-                res => {
+        const msg = '确认删除菜单为【' + node.data.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this.menuService.delete(node.data.id).subscribe(res => {
+                    this._loadingService.resolve();
                     if (!node.parent) {
                         this.menuTree = this.menuTree.filter(n => n.data !== node.data);
                     } else {
                         node.parent.children = node.parent.children.filter(n => n.data !== node.data);
                     }
-                    this.toastr.info(`移除数据成功`);
-                }
-            );
-        }
+                    this.toastr.info('删除成功');
+                })
+            }
+        })
     }
 
     filteredParent(event) {

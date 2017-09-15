@@ -52,10 +52,10 @@
                     <p-column field="status" header="状态"></p-column>
                     <p-column field="" header="操作" styleClass=operation-buttons-3>
                         <ng-template let-hiddenRectificationOrder="rowData" pTemplate="body">
+                            <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
+                                 placement="bottom"></div>
                             <div role="button" class="fa fa-list-alt fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id, 'DSH')" tooltip="审核"
                                 placement="bottom" *ngIf="hiddenRectificationOrder.status=='待审核'"></div>
-                            <div role="button" class="fa fa-list fa-font-size div-distance" (click)="preEdit(hiddenRectificationOrder.id)" tooltip="详情"
-                                placement="bottom"></div>
                             <div role="button" class="fa fa-check fa-font-size div-distance" (click)="onEdit(hiddenRectificationOrder.id, 'DYR')" tooltip="确认"
                                 placement="bottom" *ngIf="hiddenRectificationOrder.status=='待确认'"></div>
                         </ng-template>
@@ -119,6 +119,12 @@
                         <label class="col-sm-5 control-label">检查内容：</label>
                         <div class="col-sm-7">
                             <p class="form-control-static">{{hiddenRectificationOrder.insDesc}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">附件：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.fileName || '无'}}</p>
                         </div>
                     </div>
                     <div class="form-group col-sm-12">
@@ -251,6 +257,12 @@
                         <label class="col-sm-5 control-label">检查内容：</label>
                         <div class="col-sm-7">
                             <p class="form-control-static">{{hiddenRectificationOrder.insDesc}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-5 control-label">附件：</label>
+                        <div class="col-sm-7">
+                            <p class="form-control-static">{{hiddenRectificationOrder.fileName || '无'}}</p>
                         </div>
                     </div>
                     <div class="form-group col-sm-12">

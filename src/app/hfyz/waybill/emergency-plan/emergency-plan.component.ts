@@ -145,9 +145,9 @@ export class EmergencyPlanComponent implements OnInit {
                 this._emergencyPlanService.delete(emergencyPlan.id).subscribe(
                     res => {
                         this._loadingService.resolve();
+                        this._toastr.info('删除成功');
                         this.pageFirst = 0;
                         this.initData();
-                        this._toastr.info(`成功移除应急预案——` + emergencyPlan.name);
                     }
                 );
             }

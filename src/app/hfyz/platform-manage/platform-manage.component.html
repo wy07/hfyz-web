@@ -37,8 +37,8 @@
             <p-column field="contactName" header="平台联系人"></p-column>
             <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-palrform="rowData" pTemplate="body">
-                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
                     <div role="button" class="fa fa-list fa-font-size div-distance" (click)="onShow(palrform.id)" tooltip="详情" placement="bottom"></div>
+                    <div role="button" class="fa fa-pencil-square-o fa-font-size div-distance" (click)="onEdit(palrform)" tooltip="编辑" placement="bottom"></div>
                     <div role="button" class="fa fa-times fa-font-size div-distance" (click)="onDelete(palrform)" tooltip="删除" placement="bottom"></div>
                 </ng-template>
             </p-column>

@@ -7,7 +7,7 @@
                         <input class="topbar-search" placeholder="Type your search here" type="text">
                     </div> -->
                 <ul class="layout-menu ng-tns-c1-0" root="true" visible="true">
-                    <li class="sidebarMenu" *ngFor="let item of sidebarMenu" style='margin:0 10px;' [ngClass]="{'active-menuitem': item.hasChildren}"
+                    <li class="sidebarMenu" *ngFor="let item of sidebarMenu" [ngClass]="{'active-menuitem': item.hasChildren}"
                         [hasPermission]="item.permission_code">
                         <a class="ng-tns-c1-0" (click)="item.code.indexOf('root')==-1?addTab(item):showChildren($event,item)">
                             <i class="ng-tns-c1-0 fa fa-fw {{item.icon}}"></i>

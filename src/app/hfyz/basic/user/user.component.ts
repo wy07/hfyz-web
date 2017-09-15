@@ -10,6 +10,7 @@ import {UserService} from './user.service';
 import {Observable} from 'rxjs/Observable';
 import {MultiSelectModule, SelectItem} from 'primeng/primeng';
 import {ListboxModule} from 'primeng/primeng';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'user',
@@ -52,7 +53,8 @@ export class UserComponent implements OnInit {
         , private _regularService: RegularService
         , private _roleService: RoleService
         , private _loadingService: TdLoadingService
-        , private _authService: AuthService) {
+        , private _authService: AuthService
+        , private _customDialogService: CustomDialogService) {
 
         this.action = 'list';
         this.max = 10;
@@ -197,14 +199,18 @@ export class UserComponent implements OnInit {
         }
     }
     onDelete(user) {
-        if (confirm('确认移除用户——' + user.name + '？')) {
-            this._userService.delete(user.id).subscribe(
-                res => {
+        const msg = '确认删除用户为【' + user.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._userService.delete(user.id).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.info('删除成功');
                     this.initData()
-                    this._toastr.info(`成功移除用户——` + user.name);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
     onResetPassword(user) {

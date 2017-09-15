@@ -32,6 +32,7 @@ export class CompanyRegulationComponent implements OnInit {
     formTitle: string;
     regulation: any;
     systemTypeList: any;
+    fileName: any;
     constructor(private _regulationService: CompanyRegulationService,
         private _regularService: RegularService,
         private _customDialogService: CustomDialogService,
@@ -52,6 +53,7 @@ export class CompanyRegulationComponent implements OnInit {
         this.file = false;
         this.regulation = {};
         this.systemTypeList = [];
+        this.fileName = '';
     }
 
     ngOnInit() {
@@ -148,20 +150,24 @@ export class CompanyRegulationComponent implements OnInit {
         this.formData = new FormData();
     }
 
-    return() {
+    back() {
         this.action = 'list';
         this.regulation = {};
         this.systemType = {id: '', name: ''};
+        this.fileName = '';
     }
 
     fileChangeEvent(fileInput: any) {
         this.file = false;
         const files = fileInput.target.files;
+        this.fileName = '';
         if (files.length > 0) {
             this.formData = new FormData();
             this.file = true;
             this.fileSize = files[0].size;
-            if (this.fileSize > this._regulationService.MAXFILESIZE) {
+            this.fileName = files[0].name;
+            if (this.fileSize > this._regulationService.MAXFILESIZE ||
+                this.fileSize <= this._regulationService.MINFILESIZE) {
                 return;
             }
             this.formData.append('upload', files[0], files[0].fileName);
@@ -185,6 +191,7 @@ export class CompanyRegulationComponent implements OnInit {
                     this.loadData();
                     this.action = 'list';
                     this.file = false;
+                    this.fileName = '';
             }
         )
 
@@ -236,7 +243,7 @@ export class CompanyRegulationComponent implements OnInit {
                     res => {
                         this._loadingService.resolve();
                         this.loadData();
-                        this._toastr.info(`成功移除管理制度——` + regulation.regulationName);
+                        this._toastr.info(`删除成功`);
                     }
                 );
             }
@@ -254,6 +261,10 @@ export class CompanyRegulationComponent implements OnInit {
         }
         if (this.fileSize > this._regulationService.MAXFILESIZE) {
             this._toastr.error('选择的文件过大，请重新选择！');
+            return false;
+        }
+        if (this.fileSize <= this._regulationService.MINFILESIZE) {
+            this._toastr.error('文件内容不能为空，请重新选择！');
             return false;
         }
         return true;

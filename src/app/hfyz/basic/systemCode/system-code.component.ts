@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
 import {TreeNode} from 'primeng/components/common/api';
 import {ToastsManager} from 'ng2-toastr';
 import {TdLoadingService} from '@covalent/core';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 @Component({
     selector: 'system-code',
     templateUrl: 'system-code.component.html',
@@ -30,7 +31,8 @@ export class SystemCodeComponent implements OnInit {
     constructor(private systemCodeService: SystemCodeService
         , private toastr: ToastsManager
         , private regularService: RegularService
-        , private _loadingService: TdLoadingService) {
+        , private _loadingService: TdLoadingService
+        , private _customDialogService: CustomDialogService) {
         this.displayDialog = false;
         this.systemCode = {};
     }
@@ -109,18 +111,22 @@ export class SystemCodeComponent implements OnInit {
     }
 
     onDelete(node: TreeNode) {
-        if (confirm('确认移除该数据？')) {
-            this.systemCodeService.delete(node.data.id, this.type).subscribe(
-                res => {
+        const msg = '确认删除数据字典为【' + node.data.name + '】的记录吗？';
+        const title = '删除';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this.systemCodeService.delete(node.data.id, this.type).subscribe(res => {
+                    this._loadingService.resolve();
                     if (!node.parent) {
                         this.systemCodeTree = this.systemCodeTree.filter(n => n.data !== node.data);
                     } else {
                         node.parent.children = node.parent.children.filter(n => n.data !== node.data);
                     }
-                    this.toastr.info(`移除数据成功`);
-                }
-            );
-        }
+                    this.toastr.info('删除成功');
+                })
+            }
+        })
     }
 
     filteredParent(event) {

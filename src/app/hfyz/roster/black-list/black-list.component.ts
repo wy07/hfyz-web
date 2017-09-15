@@ -135,17 +135,19 @@ export class BlackListComponent implements OnInit {
      * @param vehicleNo 车牌号
      */
     delete(id, vehicleNo) {
-        const msg = '确认删除车牌号【' + vehicleNo + '】的黑名单信息吗？';
+        const msg = '确认删除车牌号为【' + vehicleNo + '】的记录吗？';
         const title = '删除';
         this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
             if (accept) {
+                this._loadingService.register();
                 this._blackListService.delete(id).subscribe(
                     res => {
+                        this._loadingService.resolve();
                         if (res.result === 'success') {
-                            this.toastr.success('删除成功！')
+                            this.toastr.info('删除成功')
                             this.search()
                         } else {
-                            this.toastr.success('删除失败！')
+                            this.toastr.error('删除失败')
                         }
                     }
                 )

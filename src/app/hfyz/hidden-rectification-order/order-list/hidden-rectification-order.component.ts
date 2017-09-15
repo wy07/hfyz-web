@@ -6,6 +6,7 @@ import { TdLoadingService } from '@covalent/core';
 import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
   selector: 'app-hidden-rectification-order',
@@ -42,6 +43,9 @@ export class HiddenRectificationOrderComponent implements OnInit {
   selectedCompany: any;
   ownerName: string;
   zh = zh;
+  formData: FormData;
+  file: boolean;
+  fileSize: number;
 
   constructor(
     private _toastr: ToastsManager
@@ -49,6 +53,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     , private _regularService: RegularService
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
+    , private _customDialogService: CustomDialogService
   ) {
     this.pageMax = 10;
     this.pageTotal = 0;
@@ -115,6 +120,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.inspection = null;
     this.dealine = null;
     this.clear();
+    this.file = false;
     this.hiddenRectificationOrderTitle = '新增';
     this.isAdd = true;
     this.edit = true;
@@ -124,24 +130,43 @@ export class HiddenRectificationOrderComponent implements OnInit {
     if (this.validation()) {
       this.hiddenRectificationOrder.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
       this.hiddenRectificationOrder.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
+      this.formData.append('hiddenRectificationOrder', JSON.stringify(this.hiddenRectificationOrder));
       this._loadingService.register();
-      this._hiddenRectificationOrderService.save(this.hiddenRectificationOrder).subscribe(
+      this._hiddenRectificationOrderService.save(this.formData).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('保存成功');
           this.initData();
           this.edit = false;
+          this.formData = null;
         }
       );
     }
     this.displayDialog = false;
   }
 
+    fileChangeEvent(fileInput: any) {
+        this.file = false;
+        const files = fileInput.target.files;
+        this.hiddenRectificationOrder.fileName = '';
+        if (files.length > 0) {
+            this.formData = new FormData();
+            this.file = true;
+            this.fileSize = files[0].size;
+            this.hiddenRectificationOrder.fileName = files[0].name;
+            if (this.fileSize > this._hiddenRectificationOrderService.MAXFILESIZE ||
+                this.fileSize <= this._hiddenRectificationOrderService.MINFILESIZE) {
+                return;
+            }
+            this.formData.append('upload', files[0], files[0].fileName);
+        }
+    }
   onEdit(hiddenDanger) {
     this.clear();
     this.hiddenRectificationOrderTitle = '编辑';
     this.isAdd = false;
     this.edit = true;
+    this.file = true;
     this.preEdit(hiddenDanger.id);
   }
   getReviewAndApprovalList(id) {
@@ -197,16 +222,21 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
   update() {
     if (this.validation()) {
+      if (this._regularService.isBlank(this.formData)) {
+          this.formData = new FormData();
+      }
       this.hiddenRectificationOrder.inspection = this._datePipe.transform(this.inspection, 'yyyy-MM-dd HH:mm');
       this.hiddenRectificationOrder.dealine = this._datePipe.transform(this.dealine, 'yyyy-MM-dd HH:mm');
       delete this.hiddenRectificationOrder['status'];
+      this.formData.append('hiddenRectificationOrder', JSON.stringify(this.hiddenRectificationOrder));
       this._loadingService.register();
-      this._hiddenRectificationOrderService.update(this.hiddenRectificationOrder.id, this.hiddenRectificationOrder).subscribe(
+      this._hiddenRectificationOrderService.update(this.hiddenRectificationOrder.id, this.formData).subscribe(
         res => {
           this._loadingService.resolve();
           this._toastr.success('保存成功');
           this.initData();
           this.edit = false;
+          this.formData = null;
         }
       );
     }
@@ -214,16 +244,20 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
 
   onDelete(hiddenRectificationOrder) {
-    if (confirm('确认移除编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
-      this._loadingService.register();
-      this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
-        res => {
-          this._loadingService.resolve();
-          this.initData();
-          this._toastr.info('移除数据成功');
-        }
-      );
-    }
+      const msg = '确认删除隐患整改单号为【' + hiddenRectificationOrder.billNo + '】的记录吗？';
+      const title = '删除';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
+                  res => {
+                      this._loadingService.resolve();
+                      this._toastr.info('删除成功');
+                      this.initData();
+                  }
+              )
+          }
+      })
   }
   commit(hiddenRectificationOrder) {
     if (confirm('确认提交编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
@@ -238,6 +272,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
       );
     }
   }
+
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
@@ -291,6 +326,18 @@ export class HiddenRectificationOrderComponent implements OnInit {
     if (this.dealine < this.inspection) {
       this._toastr.info('请选择正确的日期！');
       return false;
+    }
+    if (!this.file) {
+      this._toastr.error('请选择一个文件！');
+      return false;
+    }
+    if (this.fileSize > this._hiddenRectificationOrderService.MAXFILESIZE) {
+      this._toastr.error('选择的文件过大，请重新选择！');
+      return false;
+    }
+    if (this.fileSize <= this._hiddenRectificationOrderService.MINFILESIZE) {
+       this._toastr.error('文件内容不能为空，请重新选择！');
+       return false;
     }
     return true;
   }
