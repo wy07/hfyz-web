@@ -84,7 +84,7 @@ export class WorkOrderFlowComponent implements OnInit {
               this._loadingService.register();
               this._flowService.effect(id).subscribe(res => {
                   this._loadingService.resolve();
-                  this._toastr.info('生效成功');
+                  this._toastr.success('生效成功！');
                   this.action = 'list';
                   this.initData();
               })
