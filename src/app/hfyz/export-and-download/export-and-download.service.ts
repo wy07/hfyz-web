@@ -7,8 +7,6 @@ const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable()
 export class ExportAndDownloadService {
-    constructor() {
-    }
 
     public exportAsExcelFile(json: any[], excelFileName: string): void {
         const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
