@@ -143,7 +143,7 @@ export class CarListComponent implements OnInit {
                 if (res.result === 'success') {
                     this.car = res.car;
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );
@@ -159,7 +159,7 @@ export class CarListComponent implements OnInit {
                     this.pageTotalWarning = res.total;
                     this.pageOffsetWarning = this.pageFirstWarning;
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );
@@ -173,7 +173,7 @@ export class CarListComponent implements OnInit {
                 if (res.result === 'success') {
                     this.historyList = res.historyList;
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );

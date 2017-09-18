@@ -7,6 +7,7 @@ import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
 import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 @Component({
   selector: 'app-enterprise-feedback',
   templateUrl: './enterprise-feedback.component.html',
@@ -31,7 +32,6 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
   endDate: any;
   maxDate: any;
   isDetails: boolean;
-  displayDialog: boolean;
   disabled: boolean;
   enterpirse: any;
   placeholder: any;
@@ -47,6 +47,7 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
     , private _appEmitterService: AppEventEmittersService
+    , private _customDialogService: CustomDialogService
   ) {
     this.edit = false;
     this.hiddenRectificationOrder = {};
@@ -60,7 +61,6 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
     this.endDate = '';
     this.isDetails = false;
     this.maxDate = new Date();
-    this.displayDialog = false;
     this.disabled = false;
     this.status = '';
     this.reply = new Date();
@@ -137,7 +137,7 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
           delete this.hiddenRectificationOrder['inspectionDate'];
           delete this.hiddenRectificationOrder['dealineDate'];
         } else {
-          this._toastr.error('获取数据失败');
+          this._toastr.error('获取数据失败！');
         }
       },
       err => {
@@ -150,27 +150,33 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
   }
 
   feedback() {
-    const reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
-    this._loadingService.register();
-    this._hiddenRectificationOrderService.feedback(this.hiddenRectificationOrder.id, reply,
-      this.hiddenRectificationOrder.replyDesc).subscribe(
-      res => {
-        this._loadingService.resolve();
-        this._toastr.success('反馈成功');
-        this.initData();
-        this.edit = false;
-        this.displayDialog = false;
+      if (!this.validation()) {
+         return;
       }
-      );
+      const reply = this._datePipe.transform(this.reply, 'yyyy-MM-dd HH:mm');
+      const msg = '确认反馈该隐患整改单？';
+      const title = '提示';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._hiddenRectificationOrderService.feedback(this.hiddenRectificationOrder.id, reply,
+                    this.hiddenRectificationOrder.replyDesc).subscribe(res => {
+                  this._loadingService.resolve();
+                  this._toastr.success('反馈成功！');
+                  this.edit = false;
+                  this.initData();
+              })
+          }
+      })
   }
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
-        this._toastr.info('选择的日期不能相同！');
+        this._toastr.error('选择的日期不能相同！');
         return false;
       }
       if (this.endDate < this.startDate) {
-        this._toastr.info('请选择正确的日期！');
+        this._toastr.error('请选择正确的日期！');
         return false;
       }
     }
@@ -178,7 +184,7 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
   }
   validation() {
     if (this._regularService.isBlank(this.hiddenRectificationOrder.replyDesc)) {
-      this._toastr.info('反馈内容不能为空!');
+      this._toastr.error('反馈内容不能为空!');
       return false;
     }
     return true;
@@ -207,16 +213,6 @@ export class EnterpriseFeedbackComponent implements OnInit, OnDestroy {
   back() {
     this.isDetails = false;
     this.edit = false;
-  }
-
-  onCancel() {
-    this.displayDialog = false;
-  }
-
-  onSaveNew() {
-    if (this.validation()) {
-      this.displayDialog = true;
-    }
   }
 
   ngOnDestroy() {

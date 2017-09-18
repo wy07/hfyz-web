@@ -188,18 +188,11 @@
         <div class="panel-footer">
             <div class="row">
                 <div class="col-md-6 col-md-offset-5">
-                    <button type="button" class="btn btn-primary" (click)="onSaveNew()">提交</button>
+                    <button type="button" class="btn btn-primary" (click)="hiddenRectificationOrder.status == '待审核'?onSave():onSure()">提交</button>
                     <button type="button" class="btn btn-primary" (click)="back()">返回</button>
                 </div>
             </div>
         </div>
-        <p-dialog header="提示" [(visible)]="displayDialog" modal="modal" height="200" width="300" [responsive]="true">
-            <P>是否提交审核信息？请选择！</P>
-            <p-footer>
-                <button type="button" pButton icon="fa-check" (click)="hiddenRectificationOrder.status == '待审核'?onSave():onSure()" label="是"></button>
-                <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
-            </p-footer>
-        </p-dialog>
     </div>
 </div>
 <div *ngIf="isDetails">

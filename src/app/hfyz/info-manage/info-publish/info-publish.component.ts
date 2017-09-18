@@ -26,7 +26,6 @@ export class InfoPublishComponent implements OnInit {
     infoStatus: SelectItem[];
     infoType: SelectItem[];
     type: number;
-    displayDialog: boolean;
     user: any;
     userName: any;
     actionStr: string;
@@ -55,7 +54,6 @@ export class InfoPublishComponent implements OnInit {
         , private _loadingService: TdLoadingService
         , private _customDialogService: CustomDialogService) {
         console.log('========InfoPublishComponent==========');
-        this.displayDialog = false;
 
         this.congfig = {
             toolbar: [
@@ -157,7 +155,6 @@ export class InfoPublishComponent implements OnInit {
         this._loadingService.register();
         this.infoPublishService.search(this.textTitle, dateBegin ? dateBegin : '', dateEnd ? dateBegin : '', this.max, offset).subscribe(
             res => {
-                // this.publishList = res.publishList;
                 this._loadingService.resolve();
                 this.publishList = res.publishList.publishList;
                 this.total = res.publishList.total;
@@ -179,16 +176,11 @@ export class InfoPublishComponent implements OnInit {
                     this.isAdd = false;
                     this.actionStr = 'details';
                 } else {
-                    this._toastr.error('获取数据失败');
+                    this._toastr.error('获取数据失败！');
                 }
             }
         );
     }
-
-    onSaveNew() {
-        this.displayDialog = true;
-    }
-
     onSure() {
         if (this.validate()) {
             this.infoaudit.status = 0;
@@ -196,8 +188,7 @@ export class InfoPublishComponent implements OnInit {
             this.infoPublishService.save(this.infoaudit).subscribe(
                 res => {
                     this.actionStr = 'list';
-                    this.displayDialog = false;
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                     this.initData();
                 }
             );
@@ -208,17 +199,12 @@ export class InfoPublishComponent implements OnInit {
         if (this.validate()) {
             this.infoPublishService.update(this.infoaudit.id, this.infoaudit).subscribe(
                 res => {
-                    this._toastr.success('修改成功');
+                    this._toastr.success('修改成功！');
                     this.initData();
                 }
             );
             this.actionStr = 'list';
-            this.displayDialog = false;
         }
-    }
-
-    onCancel() {
-        this.displayDialog = false;
     }
 
     onQuit() {
@@ -234,7 +220,7 @@ export class InfoPublishComponent implements OnInit {
                 this.infoPublishService.delete(infoaudit.id).subscribe(res => {
                     this._loadingService.resolve();
                     this.initData()
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                 })
             }
         })
@@ -243,16 +229,16 @@ export class InfoPublishComponent implements OnInit {
     validate() {
         let result = true
         if (this._regularService.isBlank(this.infoaudit.type)) {
-            this._toastr.error('类型不能为空');
+            this._toastr.error('类型不能为空!');
             result = false;
         }
 
         if (this._regularService.isBlank(this.infoaudit.title)) {
-            this._toastr.error('标题不能为空');
+            this._toastr.error('标题不能为空!');
             result = false;
         }
         if (this._regularService.isBlank(this.infoaudit.vimTime)) {
-            this._toastr.error('起草时间不能为空');
+            this._toastr.error('起草时间不能为空!');
             result = false;
         }
         return result;
@@ -261,11 +247,11 @@ export class InfoPublishComponent implements OnInit {
     validateDate() {
         let result = true
         if (this._regularService.isBlank(this.dateBegin)) {
-            this._toastr.error('开始时间不能为空');
+            this._toastr.error('开始时间不能为空!');
             result = false;
         }
         if (this._regularService.isBlank(this.dateEnd)) {
-            this._toastr.error('结束时间不能为空');
+            this._toastr.error('结束时间不能为空!');
             result = false;
         }
     }

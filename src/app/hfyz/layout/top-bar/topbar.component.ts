@@ -93,11 +93,7 @@ export class TopBarComponent implements OnInit {
               name = this.topbarMenu[i].name;
            }
         }
-        const menu = {};
-        menu['name'] = name;
-        menu['code'] = path;
-        menu['selected'] = true;
-        menu['closable'] = true;
-        this.layoutComponent.addTab(menu);
+        const inputs = {name: name, selected: true, closable: true};
+        this.layoutComponent.toTab(path, inputs);
     }
 }

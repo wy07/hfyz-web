@@ -30,10 +30,10 @@
     </div>
     <div class='basic-bottom'>
         <p-dataTable [value]="platformList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
+            <p-column field="code" header="平台代码"></p-column>
+            <p-column field="name" header="平台名称"></p-column>
             <p-column field="ip" header="平台IP地址"></p-column>
             <p-column field="port" header="端口号"></p-column>
-            <p-column field="name" header="平台名称"></p-column>
-            <p-column field="code" header="平台代码"></p-column>
             <p-column field="contactName" header="平台联系人"></p-column>
             <p-column field="" header="操作" styleClass=operation-buttons-3>
                 <ng-template let-palrform="rowData" pTemplate="body">

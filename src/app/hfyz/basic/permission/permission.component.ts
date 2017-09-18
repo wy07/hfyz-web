@@ -92,7 +92,7 @@ export class PermissionComponent implements OnInit {
             this._permService.save(params).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                     this.initData();
                 }
             );
@@ -112,7 +112,7 @@ export class PermissionComponent implements OnInit {
             this._permService.update(this.perm.id, params).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('修改成功');
+                    this._toastr.success('修改成功！');
                     this.initData()
                 }
             );
@@ -128,7 +128,7 @@ export class PermissionComponent implements OnInit {
                 this._loadingService.register();
                 this._permService.delete(perm.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                     this.initData();
                 })
             }
@@ -146,22 +146,22 @@ export class PermissionComponent implements OnInit {
 
     validate() {
         if (this._regularService.isBlank(this.perm.name)) {
-            this._toastr.error('名称不能为空');
+            this._toastr.error('名称不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.perm.code)) {
-            this._toastr.error('编码不能为空');
+            this._toastr.error('编码不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.perm.category)) {
-            this._toastr.error('权限分组不能为空');
+            this._toastr.error('权限分组不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.perm.url)) {
-            this._toastr.error('URL不能为空');
+            this._toastr.error('URL不能为空！');
             return false;
         }
 

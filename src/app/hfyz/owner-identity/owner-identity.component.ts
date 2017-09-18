@@ -85,7 +85,7 @@ export class OwnerIdentityComponent implements OnInit {
                     this.owner = res.owner;
                     this.pageFlag = 'SHOW';
                 } else {
-                    this.toastr.error('获取数据失败');
+                    this.toastr.error('获取数据失败！');
                 }
             }
         );

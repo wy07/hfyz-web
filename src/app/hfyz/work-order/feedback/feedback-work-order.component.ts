@@ -4,6 +4,7 @@ import { TdLoadingService } from "@covalent/core";
 import { RegularService } from "../../common/shared/regular.service";
 import { ToastsManager } from "ng2-toastr";
 import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 
 @Component({
     selector: 'feedback-work-order',
@@ -26,7 +27,8 @@ export class FeedbackWorkOrderComponent implements OnInit, OnDestroy {
         , private _loadingService: TdLoadingService
         , private _regularService: RegularService
         , private _toastr: ToastsManager
-        , private _appEmitterService: AppEventEmittersService) {
+        , private _appEmitterService: AppEventEmittersService
+        , private _customDialogService: CustomDialogService) {
         this.workOrderList = [];
         this.pageMax = 10;
         this.pageTotal = 0;
@@ -77,20 +79,22 @@ export class FeedbackWorkOrderComponent implements OnInit, OnDestroy {
 
     submitFeedback() {
         if (this._regularService.isBlank(this.note)) {
-            this._toastr.error('反馈内容不能为空');
+            this._toastr.error('反馈内容不能为空！');
             return false;
         }
-
-        if (!confirm('确认提交反馈？')) {
-            return false;
-        }
-
-        this._workOrderService.feedback(this.workOrder.id, { note: this.note }).subscribe(
-            res => {
-                this.action = 'list';
-                this.initData();
+        const msg = '确认反馈该工单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._workOrderService.feedback(this.workOrder.id, { note: this.note }).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('反馈成功！');
+                    this.action = 'list';
+                    this.initData();
+                })
             }
-        );
+        })
     }
 
     ngOnDestroy() {

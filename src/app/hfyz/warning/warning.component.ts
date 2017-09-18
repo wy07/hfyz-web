@@ -77,7 +77,7 @@ export class WarningComponent implements OnInit {
         if (res.result === 'success') {
           this.warning = res.warning;
         } else {
-          this.toastr.error('获取数据失败');
+          this.toastr.error('获取数据失败！');
         }
       }
     );

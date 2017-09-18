@@ -7,6 +7,7 @@ import { RegularService } from '../../common/shared/regular.service';
 import { HiddenRectificationOrderService } from '../shared/hidden-rectification-order.service';
 import { zh } from '../../common/shared/zh';
 import {AppEventEmittersService} from '../../common/shared/app-event-emitters.service';
+import {CustomDialogService} from '../../common/shared/custom-dialog.service';
 @Component({
   selector: 'app-order-examine',
   templateUrl: './order-examine.component.html',
@@ -29,7 +30,6 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
   endDate: any;
   maxDate: any;
   isDetails: boolean;
-  displayDialog: boolean;
   disabled: boolean;
   enterpirse: any;
   placeholder: any;
@@ -49,6 +49,7 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
     , private _datePipe: DatePipe
     , private _loadingService: TdLoadingService
     , private _appEmitterService: AppEventEmittersService
+    , private _customDialogService: CustomDialogService
   ) {
     this.pageMax = 10;
     this.pageTotal = 0;
@@ -63,7 +64,6 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
     this.endDate = '';
     this.isDetails = false;
     this.maxDate = new Date();
-    this.displayDialog = false;
     this.disabled = false;
     this.approveTime = new Date();
     this.statusList = [{ label: '全部', value: '' }, { label: '待审核', value: '1' },
@@ -115,19 +115,23 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
 
   onSave() {
     if (this.validation()) {
-      const time = this._datePipe.transform(this.approveTime, 'yyyy-MM-dd HH:mm');
-      this._loadingService.register();
-      this._hiddenRectificationOrderService.saveApproval(this.hiddenRectificationOrder.id, time,
-        this.approveDesc, this.tempStatus).subscribe(
-        res => {
-          this._loadingService.resolve();
-          this._toastr.success('提交成功');
-          this.initData();
-          this.edit = false;
-        }
-        );
+        const time = this._datePipe.transform(this.approveTime, 'yyyy-MM-dd HH:mm');
+        const msg = '确认审核该隐患整改单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._hiddenRectificationOrderService.saveApproval(this.hiddenRectificationOrder.id, time,
+                    this.approveDesc, this.tempStatus).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('审核成功！');
+                    this.edit = false;
+                    this.initData();
+                })
+            }
+        })
     }
-    this.displayDialog = false;
+
   }
 
   onEdit(id, action = '') {
@@ -162,7 +166,7 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
           delete this.hiddenRectificationOrder['inspectionDate'];
           delete this.hiddenRectificationOrder['dealineDate'];
         } else {
-          this._toastr.error('获取数据失败');
+          this._toastr.error('获取数据失败！');
         }
       },
       err => {
@@ -175,25 +179,31 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
     this.getReviewAndApprovalList(id);
   }
   onSure() {
-    this._loadingService.register();
-    this._hiddenRectificationOrderService.onSure(this.hiddenRectificationOrder.id, this.tempStatus).subscribe(
-      res => {
-        this._loadingService.resolve();
-        this._toastr.success('确认成功');
-        this.initData();
-        this.edit = false;
-        this.displayDialog = false;
+      if (!this.validation()) {
+          return;
       }
-    );
+      const msg = '确认提交该隐患整改单的确认结果？';
+      const title = '提示';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._hiddenRectificationOrderService.onSure(this.hiddenRectificationOrder.id, this.tempStatus).subscribe(res => {
+                  this._loadingService.resolve();
+                  this._toastr.success('确认成功！');
+                  this.edit = false;
+                  this.initData();
+              })
+          }
+      })
   }
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
-        this._toastr.info('选择的日期不能相同！');
+        this._toastr.error('选择的日期不能相同！');
         return false;
       }
       if (this.endDate < this.startDate) {
-        this._toastr.info('请选择正确的日期！');
+        this._toastr.error('请选择正确的日期！');
         return false;
       }
     }
@@ -201,11 +211,11 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
   }
   validation() {
     if (this.hiddenRectificationOrder.status === '待审核' && this._regularService.isBlank(this.approveDesc)) {
-      this._toastr.info('请填写审核意见！');
+      this._toastr.error('请填写审核意见！');
       return false;
     }
     if (this._regularService.isBlank(this.tempStatus)) {
-      this._toastr.info('请选择结果！');
+      this._toastr.error('请选择结果！');
       return false;
     }
     return true;
@@ -237,16 +247,6 @@ export class OrderExamineComponent implements OnInit, OnDestroy {
   back() {
     this.isDetails = false;
     this.edit = false;
-  }
-
-  onCancel() {
-    this.displayDialog = false;
-  }
-
-  onSaveNew() {
-    if (this.validation()) {
-      this.displayDialog = true;
-    }
   }
 
   ngOnDestroy() {

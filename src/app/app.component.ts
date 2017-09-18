@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
         this.platFormService.inspect(id, this.inspectInfo.answer).subscribe(
             res => {
                 this.displayDialog = false;
-                this.toastr.info('查岗应答成功');
+                this.toastr.success('查岗应答成功！');
                 clearInterval(this.timer);
             }
         );

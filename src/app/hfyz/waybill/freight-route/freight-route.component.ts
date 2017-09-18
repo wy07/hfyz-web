@@ -91,6 +91,7 @@ export class FreightRouteComponent implements OnInit {
         this._freightRouteService.save(this.freightRouter).subscribe(res => {
             this._loadingService.resolve();
             if (res.result === 'success') {
+                this.toastr.success('保存成功！');
                 this.switchPage();
             }
         });
@@ -104,7 +105,7 @@ export class FreightRouteComponent implements OnInit {
                 this._loadingService.register();
                 this._freightRouteService.delete(data.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this.toastr.info('删除成功');
+                    this.toastr.info('删除成功！');
                     if (res.result === 'success') {
                         this.switchPage();
                     }
@@ -128,6 +129,7 @@ export class FreightRouteComponent implements OnInit {
         this._freightRouteService.update(this.freightRouter).subscribe(res => {
             this._loadingService.resolve();
             if (res.result === 'success') {
+                this.toastr.success('修改成功！');
                 this.switchPage();
             }
         });
