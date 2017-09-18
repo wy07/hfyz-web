@@ -186,7 +186,7 @@ export class CompanyRegulationComponent implements OnInit {
         this._regulationService.save(this.formData).subscribe(
             res => {
                 this._loadingService.resolve();
-                    this._toastr.info('新增成功');
+                    this._toastr.success('保存成功！');
                     this.systemType = {id: '', name: ''};
                     this.loadData();
                     this.action = 'list';
@@ -227,7 +227,7 @@ export class CompanyRegulationComponent implements OnInit {
                 this._loadingService.resolve();
                 this.action = 'list';
                 this.systemType = {id: '', name: ''};
-                this._toastr.success('修改成功');
+                this._toastr.success('修改成功！');
                 this.loadData()
             }
         );
@@ -243,7 +243,7 @@ export class CompanyRegulationComponent implements OnInit {
                     res => {
                         this._loadingService.resolve();
                         this.loadData();
-                        this._toastr.info(`删除成功`);
+                        this._toastr.info('删除成功！');
                     }
                 );
             }

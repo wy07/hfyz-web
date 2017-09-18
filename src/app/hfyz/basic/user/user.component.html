@@ -86,3 +86,12 @@
         </div>
     </div>
 </div>
+<p-dialog [(visible)]="display">
+    <p-header>
+        提示
+    </p-header>
+    重置后的密码为：{{newPassword}}
+    <p-footer>
+        <button pButton type="button" label="确定" (click)="display=false"></button>
+    </p-footer>
+</p-dialog>

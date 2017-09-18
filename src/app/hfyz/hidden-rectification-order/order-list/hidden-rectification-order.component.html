@@ -174,20 +174,13 @@
         <div class="panel-footer">
             <div class="row">
                 <div class="col-md-6 col-md-offset-5">
-                    <button type="button" class="btn btn-primary" (click)="onSaveNew()">保存</button>
+                    <button type="button" class="btn btn-primary" (click)="isAdd?onSave():update()">保存</button>
                     <button type="button" class="btn btn-primary" (click)="back()">返回</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<p-dialog header="提示" [(visible)]="displayDialog" modal="modal" height="200" width="300" [responsive]="true">
-    <P>是否保存信息？请选择！</P>
-    <p-footer>
-        <button type="button" pButton icon="fa-check" (click)="isAdd?onSave():update()" label="是"></button>
-        <button type="button" pButton icon="fa-close" (click)="onCancel()" label="否"></button>
-    </p-footer>
-</p-dialog>
 
 <div *ngIf="isDetails">
     <div class="panel panel-default panel-show">

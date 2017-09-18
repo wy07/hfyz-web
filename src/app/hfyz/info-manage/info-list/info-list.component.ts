@@ -136,7 +136,7 @@ export class InfoListComponent implements OnInit {
           this.infoaudit = res.infoaudit;
           this.actionStr = 'details';
         } else {
-          this._toastr.error('获取数据失败');
+          this._toastr.error('获取数据失败！');
         }
       }
     );

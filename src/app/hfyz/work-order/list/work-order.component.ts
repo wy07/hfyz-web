@@ -87,7 +87,7 @@ export class WorkOrderComponent implements OnInit, OnDestroy {
           this.workOrder = res.workOrder;
           this.workOrderRecords = res.workOrderRecords ? res.workOrderRecords : [];
         } else {
-          this._toastr.error('获取数据失败');
+          this._toastr.error('获取数据失败！');
         }
       }
     );

@@ -57,12 +57,12 @@ export class PlatFormComponent implements OnInit {
     validation() {
         if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
             if (this.endDate.getTime() === this.startDate.getTime()) {
-                this._toastr.info('选择的日期不能相同！');
+                this._toastr.error('选择的日期不能相同！');
                 return false;
             }
 
             if (this.endDate < this.startDate) {
-                this._toastr.info('请选择正确的日期！');
+                this._toastr.error('请选择正确的日期！');
                 return false;
             }
         }
@@ -121,16 +121,16 @@ export class PlatFormComponent implements OnInit {
 
     inspect() {
         if (this._regularService.isBlank(this.inspectQ.companyCode)) {
-            this._toastr.info('业户组织机构代码不能为空！');
+            this._toastr.error('业户组织机构代码不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.inspectQ.question)) {
-            this._toastr.info('查岗问题不能为空！');
+            this._toastr.error('查岗问题不能为空！');
             return false;
         }
         if (this._regularService.isBlank(this.inspectQ.answer)) {
-            this._toastr.info('查岗答案不能为空！');
+            this._toastr.error('查岗答案不能为空！');
             return false;
         }
 
@@ -144,10 +144,10 @@ export class PlatFormComponent implements OnInit {
         };
         this.eventBuservice.inspectSend('inspect',address, data, res => {
             if (res.result === 'success') {
-                $this._toastr.info('生成查岗成功');
+                $this._toastr.success('生成查岗成功！');
                 $this.inspectDisplay = false;
             } else {
-                $this._toastr.error('生成查岗失败');
+                $this._toastr.error('生成查岗失败！');
             }
         });
     }

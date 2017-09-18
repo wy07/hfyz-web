@@ -279,7 +279,7 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
             this._loadingService.register();
             this._freightWaybillService.save(this.freightWaybill).subscribe(res => {
                 this._loadingService.resolve();
-                this.toastr.info('新增成功.')
+                this.toastr.success('新增成功.')
                 this.goBack();
             })
         }
@@ -310,7 +310,7 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
             this.freightWaybill.backTime = this._datePipe.transform(this.freightWaybill.backTime, 'yyyy-MM-dd HH:mm');
             this._freightWaybillService.update(this.freightWaybill).subscribe(res => {
                 this._loadingService.resolve();
-                this.toastr.info('修改成功.')
+                this.toastr.success('修改成功.')
                 this.goBack();
             })
         }
@@ -333,39 +333,46 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
 
     validationData() {
         if (this._regularService.isBlank(this.freightWaybill.vehicleNo)) {
-            this.toastr.error('车牌号不能为空.');
+            this.toastr.error('车牌号不能为空！');
             return false
         }
         if (this._regularService.isBlank(this.freightWaybill.driver.name)) {
-            this.toastr.error('驾驶员信息不能为空.');
+            this.toastr.error('驾驶员信息不能为空！');
             return false
         }
         if (this._regularService.isBlank(this.freightWaybill.supercargo.name)) {
-            this.toastr.error('押运员信息不能为空.');
+            this.toastr.error('押运员信息不能为空！');
             return false
         }
         if (this._regularService.isBlank(this.freightWaybill.departArea)) {
-            this.toastr.error('出发的不能为空.');
+            this.toastr.error('出发的不能为空！');
             return false
         }
         if (this._regularService.isBlank(this.freightWaybill.arriveArea)) {
-            this.toastr.error('目的地不能为空.');
+            this.toastr.error('目的地不能为空！');
             return false
         }
         if (this._regularService.isBlank(this.freightWaybill.viaLand)) {
-            this.toastr.error('途径地不能为空.');
+            this.toastr.error('途径地不能为空！');
             return false
         }
         return true
     }
 
     submit(id) {
-        this._loadingService.register();
-        this._freightWaybillService.submit(id).subscribe(res => {
-            this.loadData().then(obj => {
-                this._loadingService.resolve();
-                this.toastr.info('提交审核成功.')
-            })
+        const msg = '确认提交该电子路单？';
+        const title = '提示';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._freightWaybillService.submit(id).subscribe(
+                    res => {
+                        this._loadingService.resolve();
+                        this.toastr.success('提交成功！');
+                        this.goBack();
+                    }
+                )
+            }
         })
     }
 

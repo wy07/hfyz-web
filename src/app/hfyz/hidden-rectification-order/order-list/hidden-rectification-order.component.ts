@@ -32,7 +32,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
   endDate: any;
   maxDate: any;
   isDetails: boolean;
-  displayDialog: boolean;
   disabled: boolean;
   enterpirse: string;
   filteredEnterpirses: any[];
@@ -69,7 +68,6 @@ export class HiddenRectificationOrderComponent implements OnInit {
     this.endDate = '';
     this.isDetails = false;
     this.maxDate = new Date();
-    this.displayDialog = false;
     this.disabled = false;
     this.status = '';
     this.statusList = [{ label: '全部', value: '' }, { label: '起草', value: '0' },
@@ -135,14 +133,13 @@ export class HiddenRectificationOrderComponent implements OnInit {
       this._hiddenRectificationOrderService.save(this.formData).subscribe(
         res => {
           this._loadingService.resolve();
-          this._toastr.success('保存成功');
+          this._toastr.success('保存成功！');
           this.initData();
           this.edit = false;
           this.formData = null;
         }
       );
     }
-    this.displayDialog = false;
   }
 
     fileChangeEvent(fileInput: any) {
@@ -195,7 +192,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
           delete this.hiddenRectificationOrder['inspectionDate'];
           delete this.hiddenRectificationOrder['dealineDate'];
         } else {
-          this._toastr.error('获取数据失败');
+          this._toastr.error('获取数据失败！');
         }
       }
     );
@@ -233,14 +230,13 @@ export class HiddenRectificationOrderComponent implements OnInit {
       this._hiddenRectificationOrderService.update(this.hiddenRectificationOrder.id, this.formData).subscribe(
         res => {
           this._loadingService.resolve();
-          this._toastr.success('保存成功');
+          this._toastr.success('修改成功！');
           this.initData();
           this.edit = false;
           this.formData = null;
         }
       );
     }
-    this.displayDialog = false;
   }
 
   onDelete(hiddenRectificationOrder) {
@@ -252,7 +248,7 @@ export class HiddenRectificationOrderComponent implements OnInit {
               this._hiddenRectificationOrderService.delete(hiddenRectificationOrder.id).subscribe(
                   res => {
                       this._loadingService.resolve();
-                      this._toastr.info('删除成功');
+                      this._toastr.info('删除成功！');
                       this.initData();
                   }
               )
@@ -260,27 +256,31 @@ export class HiddenRectificationOrderComponent implements OnInit {
       })
   }
   commit(hiddenRectificationOrder) {
-    if (confirm('确认提交编号为："' + hiddenRectificationOrder.billNo + '"的隐患整改单？')) {
-      this._loadingService.register();
-      this._hiddenRectificationOrderService.commit(hiddenRectificationOrder.id).subscribe(
-        res => {
-          this._loadingService.resolve();
-          this.disabled = true;
-          this.initData();
-          this._toastr.info('提交成功');
-        }
-      );
-    }
+      const msg = '确认提交该隐患整改单？';
+      const title = '提示';
+      this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+          if (accept) {
+              this._loadingService.register();
+              this._hiddenRectificationOrderService.commit(hiddenRectificationOrder.id).subscribe(
+                  res => {
+                      this._loadingService.resolve();
+                      this._toastr.success('提交成功！');
+                      this.disabled = true;
+                      this.initData();
+                  }
+              )
+          }
+      })
   }
 
   validation_search() {
     if (!this._regularService.isBlank(this.startDate) && !this._regularService.isBlank(this.endDate)) {
       if (this.endDate.getTime() === this.startDate.getTime()) {
-        this._toastr.info('选择的日期不能相同！');
+        this._toastr.error('选择的日期不能相同！');
         return false;
       }
       if (this.endDate < this.startDate) {
-        this._toastr.info('请选择正确的日期！');
+        this._toastr.error('请选择正确的日期！');
         return false;
       }
     }
@@ -288,43 +288,43 @@ export class HiddenRectificationOrderComponent implements OnInit {
   }
   validation() {
     if (this.selectedCompany.info !== this.ownerName || this._regularService.isBlank(this.selectedCompany.info)) {
-      this._toastr.info('请选择正确的企业名称');
+      this._toastr.error('请选择正确的企业名称！');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.examiner)) {
-      this._toastr.info('检查人不能为空');
+      this._toastr.error('检查人不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.inspection)) {
-      this._toastr.info('检查日期不能为空');
+      this._toastr.error('检查日期不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.dealine)) {
-      this._toastr.info('整改期限不能为空');
+      this._toastr.error('整改期限不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insPosition)) {
-      this._toastr.info('检查地点不能为空');
+      this._toastr.error('检查地点不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insDesc)) {
-      this._toastr.info('检查内容不能为空');
+      this._toastr.error('检查内容不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.insQuestion)) {
-      this._toastr.info('存在问题不能为空');
+      this._toastr.error('存在问题不能为空！');
       return false;
     }
     if (this._regularService.isBlank(this.hiddenRectificationOrder.proPosal)) {
-      this._toastr.info('整改意见不能为空');
+      this._toastr.error('整改意见不能为空！');
       return false;
     }
     if (this.inspection.getTime() === this.dealine.getTime()) {
-      this._toastr.info('选择的日期不能相同！');
+      this._toastr.error('选择的日期不能相同！');
       return false;
     }
     if (this.dealine < this.inspection) {
-      this._toastr.info('请选择正确的日期！');
+      this._toastr.error('请选择正确的日期！');
       return false;
     }
     if (!this.file) {
@@ -360,15 +360,5 @@ export class HiddenRectificationOrderComponent implements OnInit {
   back() {
     this.isDetails = false;
     this.edit = false;
-  }
-
-  onCancel() {
-    this.displayDialog = false;
-  }
-
-  onSaveNew() {
-    if (this.validation()) {
-      this.displayDialog = true;
-    }
   }
 }

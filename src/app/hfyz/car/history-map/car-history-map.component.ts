@@ -183,19 +183,19 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
     const startDate = new Date(this.startDate).getTime();
     const endDate = new Date(this.endDate).getTime();
     if (!this.licenseNo) {
-      this._toastr.error('请输入车牌号');
+      this._toastr.error('请输入车牌号！');
       return false;
     }
     if (!this.startDate) {
-      this._toastr.error('请选择开始时间');
+      this._toastr.error('请选择开始时间！');
       return false;
     }
     if (!this.endDate) {
-      this._toastr.error('请选择结束时间');
+      this._toastr.error('请选择结束时间！');
       return false;
     }
     if (endDate < startDate) {
-      this._toastr.error('查询结束时间不能小于开始时间.');
+      this._toastr.error('查询结束时间不能小于开始时间！');
       return false;
     }
     return true

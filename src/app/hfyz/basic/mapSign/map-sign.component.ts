@@ -85,7 +85,7 @@ export class MapSignComponent implements OnInit {
                 this._loadingService.register();
                 this._mapSignService.delete(mapSign.id).subscribe(res => {
                     this._loadingService.resolve();
-                    this._toastr.info('删除成功');
+                    this._toastr.info('删除成功！');
                     this.initData();
                 })
             }
@@ -93,14 +93,18 @@ export class MapSignComponent implements OnInit {
     }
 
     changeDisplay(mapSign) {
-        if (confirm('确认修改"' + mapSign.name + '"路标状态？')) {
-            this._mapSignService.changeDisplay(mapSign.id, !mapSign.display).subscribe(
-                res => {
+        const msg = '确认修改路标【' + mapSign.name + '】的状态吗？';
+        const title = '修改';
+        this._customDialogService.openBasicConfirm(title, msg).subscribe((accept: boolean) => {
+            if (accept) {
+                this._loadingService.register();
+                this._mapSignService.changeDisplay(mapSign.id, !mapSign.display).subscribe(res => {
+                    this._loadingService.resolve();
+                    this._toastr.success('修改成功！');
                     this.initData();
-                    this._toastr.info(`修改成功`);
-                }
-            );
-        }
+                })
+            }
+        })
     }
 
     paginate(event) {
@@ -160,12 +164,15 @@ export class MapSignComponent implements OnInit {
     }
 
     save() {
+        if (this._regularService.isBlank(this.mapSign.display)) {
+            this.mapSign.display = false;
+        }
         if (this.validate()) {
             this.mapSign.mapSignType = { id: this.mapSign.typeId };
             this._mapSignService.save(this.mapSign).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('保存成功');
+                    this._toastr.success('保存成功！');
                     this.initData();
                 }
             );
@@ -201,7 +208,7 @@ export class MapSignComponent implements OnInit {
             this._mapSignService.update(this.mapSign.id, this.mapSign).subscribe(
                 res => {
                     this.action = 'list';
-                    this._toastr.success('修改成功');
+                    this._toastr.success('修改成功！');
                     this.initData();
                 }
             );
@@ -210,23 +217,23 @@ export class MapSignComponent implements OnInit {
 
     validate() {
         if (this._regularService.isBlank(this.mapSign.name)) {
-            this._toastr.error('名称不能为空');
+            this._toastr.error('名称不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.mapSign.typeId)) {
-            this._toastr.error('类型不能为空');
+            this._toastr.error('类型不能为空！');
             return false;
         }
 
         if (this._regularService.isBlank(this.mapSign.longitude)) {
-            this._toastr.error('类型不能为空');
+            this._toastr.error('类型不能为空！');
             return false;
         }
 
 
         if (this._regularService.isBlank(this.mapSign.latitude)) {
-            this._toastr.error('纬度不能为空');
+            this._toastr.error('纬度不能为空！');
             return false;
         }
 
