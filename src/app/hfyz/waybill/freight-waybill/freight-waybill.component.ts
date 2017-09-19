@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { RegularService } from '../../common/shared/regular.service';
 import { zh } from '../../common/shared/zh';
 import {AppEventEmittersService} from "../../common/shared/app-event-emitters.service";
+import {ExportAndDownloadService} from '../../export-and-download/export-and-download.service';
 
 @Component({
     selector: 'app-freight-waybill',
@@ -45,7 +46,8 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
         private _regularService: RegularService,
         private _datePipe: DatePipe,
         private toastr: ToastsManager,
-        private _appEmitterService: AppEventEmittersService) {
+        private _appEmitterService: AppEventEmittersService,
+        private _exportAndDownloadService: ExportAndDownloadService) {
         this.pageMax = 10;
         this.pageTotal = 0;
         this.pageFirst = 0;
@@ -378,5 +380,14 @@ export class FreightWaybillComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    export() {
+        const begin = this.dateBegin ? this._datePipe.transform(this.dateBegin, 'yyyy-MM-dd HH:mm:ss') : '';
+        const end = this.dateEnd ? this._datePipe.transform(this.dateEnd, 'yyyy-MM-dd HH:mm:ss') : '';
+        this._freightWaybillService.export(this.vehicleNo, this.ownerName, begin, end).subscribe(
+            res => {
+                this._exportAndDownloadService.exportAsExcelFile(res.freightWaybillList, '危货电子路单');
+            });
     }
 }
