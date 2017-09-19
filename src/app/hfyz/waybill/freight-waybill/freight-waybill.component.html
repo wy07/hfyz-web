@@ -35,12 +35,13 @@
             </div>
             <div class="col-sm-5 col-sm-offset-1">
                 <button type="button" class="btn btn-primary" (click)="search()">检索</button>
+                <button type="button" class="btn btn-primary" (click)="export()">导出</button>
                 <button type="button" class="btn btn-primary" (click)="reset()">重置</button>
             </div>
         </div>
     </div>
     <div class="top-buttons">
-        <button pButton type="button" label="新增" (click)="add()"></button>
+        <button type="button" class="btn btn-primary"(click)="add()">新增</button>
     </div>
     <div class='basic-bottom'>
         <p-dataTable [value]="waybillList" [emptyMessage]="'暂无数据'" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true"

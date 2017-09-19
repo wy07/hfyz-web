@@ -68,4 +68,9 @@ export class FreightWaybillService {
     submit(id) {
         return this.restangular.one('freight-waybills', id).customPOST({}, 'submit');
     }
+
+    export(vehicleNo, ownerName, dateBegin, dateEnd) {
+        return this.restangular.all('freight-waybills').customGET('export',
+            {vehicleNo: vehicleNo, ownerName: ownerName, dateBegin: dateBegin, dateEnd: dateEnd});
+    }
 }
