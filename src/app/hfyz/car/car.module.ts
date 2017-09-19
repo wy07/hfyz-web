@@ -10,7 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {
     DataTableModule, ChartModule, PanelModule, DropdownModule, SplitButtonModule, PaginatorModule,
-    CalendarModule, MultiSelectModule, ListboxModule, TabViewModule
+    CalendarModule, MultiSelectModule, ListboxModule, TabViewModule, SliderModule
 
 } from 'primeng/primeng';
 
@@ -48,7 +48,8 @@ import { TooltipModule, TabsModule, AccordionModule } from 'ngx-bootstrap';
         CommonModule,
         TabsModule.forRoot(),
         AccordionModule.forRoot(),
-        TabViewModule
+        TabViewModule,
+        SliderModule
     ],
     exports: [MapTabsBarComponent],
     providers: [

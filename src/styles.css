@@ -366,3 +366,16 @@ body .ui-tabview.ui-tabview-top .ui-tabview-nav li, body .ui-tabview.ui-tabview-
 td-dialog-title {
     font-weight: bold;
 }
+
+.slider-bar{
+    float: left;
+    height: 20px
+}
+
+.slider-bar .ui-slider-handle{
+    height: 20px;
+    top: -.1em !important;
+    border-radius: unset!important;
+    width: 10px;
+    margin-left:0px !important;
+}
