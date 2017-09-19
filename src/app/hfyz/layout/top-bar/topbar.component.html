@@ -20,28 +20,31 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right u-navigation-ul" style="padding: 5px 0px;" >
-          <li style="font-size: 18px;"><a>你好，{{currentUser}} ！</a></li>
+          <li style="font-size: 19px;"><a>你好，{{currentUser}} ！</a></li>
           <li *ngFor="let menu of topbarMenu" class="{{menu.style}}">
               <a href="#"  (click)="menu.children===undefined?toRouter(menu.code):null">{{menu.name}}
-                  <i [ngClass]="{'message':menu.code == 'infoCenter' && showPoint == true}"></i>
-                <b *ngIf="menu.children!==undefined" class="caret"></b>
+                  <div class="info" *ngIf="menu.code == 'infoCenter' && unreadMessageCount>0">
+                      <span class="message">{{unreadMessageCount}}</span>
+                      <span class="remind">{{unreadMessageCount}}条未读消息</span>
+                  </div>
+                  <b *ngIf="menu.children!==undefined" class="caret"></b>
               </a>
               <ul class="hoverdown-menu" *ngIf="menu.children!==undefined">
                   <ng-template ngFor let-childmenu [ngForOf]="menu.children" >
                       <li *ngIf="childmenu.name!='divider' ; else elseBlock">
-                        <a href="#"  (click)="toRouter(childmenu.code)">{{childmenu.name}}</a>
+                          <a href="#"  (click)="toRouter(childmenu.code)">{{childmenu.name}}</a>
 
                       </li>
                       <ng-template #elseBlock>
-                        <li class="hoverdown-divider"></li>
-                    </ng-template>
-                </ng-template>
+                          <li class="hoverdown-divider"></li>
+                      </ng-template>
+                  </ng-template>
               </ul>
-        </li>
-        <li style="margin-right:10px"></li>
-      </ul>
+          </li>
+            <li style="margin-right:10px"></li>
+          </ul>
 
-    </div><!-- /.navbar-collapse -->
+        </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <div style="clear:both;"></div>
