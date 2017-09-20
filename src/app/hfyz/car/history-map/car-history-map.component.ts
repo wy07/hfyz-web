@@ -28,6 +28,8 @@ declare var MPolyline: any;
 })
 export class CarHistoryMapComponent implements OnInit, OnDestroy {
   historyLocations = [];
+  locationCount: number;
+
   warnings = [];
 
   licenseNo: string;
@@ -47,6 +49,10 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
 
   subscription: any;
 
+  playTimes: number;
+  progress: number;
+  progressTimer: any;
+
   constructor(private _toastr: ToastsManager
     , private _regularService: RegularService
     , private datePipe: DatePipe
@@ -60,7 +66,11 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
     this.endDate = null;
     this.playIndex = -1;
     this.playPoints = [];
+    this.locationCount = 0;
     this.palyerAction = '';
+    this.playTimes = 1;
+    this.progress = 0;
+
 
     this.subscription = _appEmitterService.tabChange.subscribe((inputs: any) => {
       if (inputs.code === 'historyMap' && inputs.licenseNo) {
@@ -82,6 +92,7 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
     if (!this.validate()) {
       return false;
     }
+    this.clear();
     this._loadingService.register();
     this._carService.getHistoryInfo(this.licenseNo
       , this.datePipe.transform(this.startDate, 'yyyy-MM-dd HH:mm')
@@ -89,21 +100,37 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
       res => {
         this._loadingService.resolve();
         this.historyLocations = res.historyLocations;
+        this.locationCount = this.historyLocations.length;
         this.warnings = res.warnings;
         this.showPath();
       }
       );
   }
 
+  clear() {
+    this.playIndex = 0;
+    this.playPoints = [];
+    this.locationCount = 0;
+    this.playTimes = 1;
+    this.progress = 0;
+    if (this.carMarker) {
+      this.maplet.removeOverlay(this.carMarker);
+    }
+    if (this.playline) {
+      this.maplet.removeOverlay(this.playline);
+    }
+  }
+
   showPath() {
     this.palyerAction = '';
     this.maplet.clearOverlays(true);
-    for (let i = 0; i < this.historyLocations.length; i++) {
+    for (let i = 0; i < this.locationCount; i++) {
       const pointData = this.historyLocations[i];
       const point = new MPoint(pointData.geoPoint);
       const marker = new MMarker(
         point,
-        new MIcon(pointData.alarmState === 0 ? 'assets/images/green.png' : 'assets/images/red.png', 16, 16),
+        new MIcon('<span style="color: ' + (pointData.alarmState === 0 ? 'green' : 'red')
+          + ' "  width="8px" height="8px">●</span>', 8, 8),
         new MInfoWindow('详细信息', GnssData.getRealTimeInfo(pointData))
       );
       this.maplet.addOverlay(marker);
@@ -115,7 +142,12 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
   }
 
   start() {
+    if (this.locationCount === 0) {
+      this._toastr.error('暂无位置信息，无法播放！');
+      return;
+    }
     this.playIndex = 0;
+    this.playTimes = 1;
     this.palyerAction = 'start';
     this.play();
   }
@@ -127,17 +159,32 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
 
   play() {
     this.playTimerHandler();
+    this.initPlayTimer();
+  }
+
+  initPlayTimer() {
     this.playTimer = setInterval(() => {
       this.playTimerHandler();
-    }, 1000);
+    }, 1000 / this.playTimes);
+  }
+
+  fastforward() {
+    clearInterval(this.playTimer);
+    if (this.playTimes * 2 < 33) {
+      this.playTimes *= 2;
+    } else {
+      this.playTimes = 1;
+    }
+    this.play();
   }
 
   playTimerHandler() {
-    if (this.playIndex >= this.historyLocations.length) {
+
+    if (this.playIndex >= this.locationCount) {
       clearInterval(this.playTimer)
       return;
     }
-
+    this.resetProgress();
     if (this.carMarker) {
       this.maplet.removeOverlay(this.carMarker);
     }
@@ -173,10 +220,72 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
 
   replay() {
     this.palyerAction = 'replay';
+    this.playTimes = 1;
     clearInterval(this.playTimer);
     this.playPoints = [];
     this.playIndex = 0;
     this.play();
+  }
+
+  handleChange(e) {
+    clearInterval(this.progressTimer);
+
+    this.progressTimer = setTimeout(() => {
+      this.changeProgress()
+    }, 50);
+
+  }
+
+  changeProgress() {
+    clearInterval(this.playTimer)
+
+    if (this.locationCount === 0) {
+      this._toastr.error('暂无位置信息，无法播放！');
+      return;
+    }
+    this.palyerAction = 'start';
+
+    if (this.carMarker) {
+      this.maplet.removeOverlay(this.carMarker);
+    }
+    if (this.playline) {
+      this.maplet.removeOverlay(this.playline);
+    }
+
+    this.playIndex = Math.floor(this.locationCount * this.progress / 100);
+    if (this.locationCount > 0 && this.playIndex === this.locationCount) {
+      this.playIndex -= 1;
+    }
+
+    this.playPoints = [];
+    for (let i = 0; i <= this.playIndex; i++) {
+      const pointData = this.historyLocations[i];
+      const point = new MPoint(pointData.geoPoint);
+      this.playPoints.push(point);
+
+      if (i === this.playIndex) {
+        this.carMarker = new MMarker(
+          point,
+          new MIcon('<img class="con" id="icon_realTimeMonitor" src="assets/images/car0.png"  width="24px" height="48px"/>', 24, 48)
+        );
+        this.maplet.addOverlay(this.carMarker);
+        mianMapObject.setDirection('icon_realTimeMonitor', pointData.direction);
+      }
+    }
+
+    if (this.playPoints.length > 1) {
+      const brush = new MBrush('#3287ff', 8);
+      brush.transparency = 70;
+      this.playline = new MPolyline(this.playPoints, brush, null);
+      this.maplet.addOverlay(this.playline);
+    }
+    this.playIndex += 1;
+    this.initPlayTimer();
+  }
+
+  resetProgress() {
+    console.log(`${this.playIndex}===${this.locationCount}`)
+    this.progress = Math.floor((this.playIndex + 1) / this.locationCount * 100);
   }
 
   validate() {
@@ -202,7 +311,8 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    clearInterval(this.playTimer)
+    clearInterval(this.playTimer);
+    clearInterval(this.progressTimer);
     this.subscription.unsubscribe();
   }
 }
