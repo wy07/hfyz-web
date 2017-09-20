@@ -46,8 +46,13 @@
       </span>
     </div>
     <div>
-      <p-slider [(ngModel)]="progress" [style]="{'width':'200px'}" (onChange)="handleChange($event)" styleClass=slider-bar>nihao</p-slider>
-      <span tooltip="播放进度" class="progress-span">{{progress}}%</span>
+      <div>
+          <p-slider [(ngModel)]="progress" [style]="{'width':'200px'}" (onChange)="handleChange($event)" styleClass=slider-bar>nihao</p-slider>
+          <span tooltip="播放进度" class="progress-span">{{progress}}%</span>    
+      </div>
+      <div style="width:200px;position: relative;top: -22px;">
+          <div style="background-color:#0275d8;height:20px;" [ngStyle]="{'width':progress+'%'}"></div>          
+      </div>
     </div>
 
   </div>

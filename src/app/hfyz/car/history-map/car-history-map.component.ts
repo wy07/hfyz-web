@@ -129,7 +129,8 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
       const point = new MPoint(pointData.geoPoint);
       const marker = new MMarker(
         point,
-        new MIcon(pointData.alarmState === 0 ? 'assets/images/green.png' : 'assets/images/red.png', 8, 8),
+        new MIcon('<span style="color: ' + (pointData.alarmState === 0 ? 'green' : 'red')
+          + ' "  width="8px" height="8px">●</span>', 8, 8),
         new MInfoWindow('详细信息', GnssData.getRealTimeInfo(pointData))
       );
       this.maplet.addOverlay(marker);
@@ -227,7 +228,6 @@ export class CarHistoryMapComponent implements OnInit, OnDestroy {
   }
 
   handleChange(e) {
-    console.log("======in handleChange")
     clearInterval(this.progressTimer);
 
     this.progressTimer = setTimeout(() => {
