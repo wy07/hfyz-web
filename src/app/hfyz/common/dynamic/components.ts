@@ -49,6 +49,7 @@ import { CompanyRegulationComponent } from '../../owner-identity/company-regulat
 import { PlatformStatisticComponent } from '../../statistic/platform-statistic/platform-statistic.componemt';
 import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-map.component';
 import {InfoCenterComponent} from '../../info-center/info-center.component';
+import {FreightStationComponent} from '../../waybill/freight-station/freight-station.component';
 
 export const components = {
     role: RoleComponent,
@@ -103,4 +104,5 @@ export const components = {
     emergencyPlan: EmergencyPlanComponent,
     freightWaybillApprove: FreightWaybillApproveComponent,
     electricFence: ElectricFenceComponent,
+    freightStation: FreightStationComponent
 };
