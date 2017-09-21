@@ -13,5 +13,14 @@
     right: 0px;
     padding: 15px 50px 0 15px;
     width: 350px;
-    text-align: right;
+    text-align: left;
+}
+
+.playBtns .fa{
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.playBtns .progress-span{
+    margin-left: 10px;
 }
