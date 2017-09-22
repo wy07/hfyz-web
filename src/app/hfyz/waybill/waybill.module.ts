@@ -13,11 +13,16 @@ import { FreightRouteComponent } from './freight-route/freight-route.component';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FreightWaybillComponent } from './freight-waybill/freight-waybill.component';
-import { CalendarModule, DataTableModule, DialogModule, DropdownModule, PaginatorModule, TriStateCheckboxModule } from 'primeng/primeng';
+import {
+    CalendarModule, DataTableModule, DialogModule, DropdownModule, ListboxModule, PaginatorModule,
+    TriStateCheckboxModule
+} from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { WuCitySelectModule } from 'ngx-select-city';
 import { TooltipModule } from 'ngx-bootstrap';
 import {EmergencyPlanService} from './emergency-plan/sheard/emergency-plan.service';
+import {FreightStationComponent} from './freight-station/freight-station.component';
+import {FreightStationService} from './freight-station/sheard/freight-station.service';
 
 @NgModule({
     imports: [
@@ -30,7 +35,8 @@ import {EmergencyPlanService} from './emergency-plan/sheard/emergency-plan.servi
         DialogModule,
         TooltipModule,
         DropdownModule,
-        CustomDirectiveModule
+        CustomDirectiveModule,
+        ListboxModule
     ],
     declarations: [
         FreightWaybillComponent,
@@ -38,7 +44,8 @@ import {EmergencyPlanService} from './emergency-plan/sheard/emergency-plan.servi
         PassLineBusinessBasicComponent,
         PassLinePhysicalBasicComponent,
         EmergencyPlanComponent,
-        FreightWaybillApproveComponent
+        FreightWaybillApproveComponent,
+        FreightStationComponent
     ],
     providers: [
         FreightWaybillService,
@@ -47,6 +54,7 @@ import {EmergencyPlanService} from './emergency-plan/sheard/emergency-plan.servi
         PassLinePhysicalBasicService,
         EmergencyPlanService,
         FreightWaybillApproveService,
+        FreightStationService,
         DatePipe
     ]
 })

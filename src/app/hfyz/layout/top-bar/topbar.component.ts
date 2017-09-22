@@ -20,7 +20,7 @@ export class TopBarComponent implements OnInit {
     appbrand: string;
     layoutComponent: any;
     currentUser: string;
-    showPoint: boolean;
+    unreadMessageCount: number;
     constructor(private _router: Router
         , private _authService: AuthService
         , private _configService: ConfigService
@@ -28,6 +28,7 @@ export class TopBarComponent implements OnInit {
         , private inj: Injector
         , private _layoutService: LayoutService
         , private _loadingService: TdLoadingService) {
+        this.unreadMessageCount = 0;
         this.layoutComponent = this.inj.get(LayoutComponent);
         radio.on('TOP_BAR').subscribe((topbarMenu) => {
             this.topbarMenu = topbarMenu;
@@ -46,7 +47,7 @@ export class TopBarComponent implements OnInit {
         this._layoutService.unreadMessage().subscribe(
             res => {
                 if (res.unreadMessageCount > 0) {
-                    this.showPoint = true;
+                    this.unreadMessageCount = res.unreadMessageCount;
                 }
             }
         );
@@ -75,7 +76,7 @@ export class TopBarComponent implements OnInit {
                     return
                 }
                 if (path === 'infoCenter') {
-                    this.showPoint = false;
+                    this.unreadMessageCount = 0;
                     this.addTab(path);
                     return
                 }

@@ -58,6 +58,7 @@ import { CarRealTimeMapComponent } from '../../car/real-time-map/car-real-time-m
 import { InfoCenterComponent } from '../../info-center/info-center.component';
 import { WorkOrderService } from '../../work-order/shared/work-order.service';
 import { HiddenRectificationOrderService } from '../../hidden-rectification-order/shared/hidden-rectification-order.service';
+import {FreightStationComponent} from '../../waybill/freight-station/freight-station.component';
 
 @Component({
     selector: 'dynamic-container',
@@ -73,7 +74,7 @@ import { HiddenRectificationOrderService } from '../../hidden-rectification-orde
         PassLinePhysicalBasicComponent, WorkOrderStatisticComponent, CarBasicStatisticsComponent,
         AlarmInfoStatisticComponent, OwnerIdentityStatisticComponent, CompanyRegulationComponent, PlatformStatisticComponent,
         WorkOrderFlowComponent, CarRealTimeMapComponent, CarHistoryMapComponent, CarMonitorMapComponent, InfoCenterComponent,
-        EmergencyPlanComponent, FreightWaybillApproveComponent, ElectricFenceComponent
+        EmergencyPlanComponent, FreightWaybillApproveComponent, ElectricFenceComponent, FreightStationComponent
     ],
 
     template: `

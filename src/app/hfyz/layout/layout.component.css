@@ -71,7 +71,7 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
     display: block;
 }
 .hoverdown-menu{
-    width: 106px;
+    width: 119px;
     margin-right: -1px;
     position: absolute;
     top: 100%;
@@ -439,13 +439,34 @@ ul.nav li.hoverdown:hover > ul.hoverdown-menu {
     padding-left:5px;
 }
 
-.message {
-    display: block;
-    background:#f00;
-    border-radius: 50%;
-    width: 0.6em;
-    height: 0.6em;
-    top: 8px;
-    right: 0.5em;
-    position: absolute;
+.nav li {
+    font-size: 18px;
 }
+.message {
+    background: #f00;
+    text-align: center;
+    line-height: 100%;
+    border-radius: 50%;
+    padding: 2px 8px;
+    position: relative;
+    font-size: 20px;
+}
+
+.info {
+    display: inline;
+}
+
+.info .remind{
+    display: none;
+}
+
+.info:hover .remind {
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    border: 1px solid black;
+    padding: 3px;
+    color: black;
+}
+
+
