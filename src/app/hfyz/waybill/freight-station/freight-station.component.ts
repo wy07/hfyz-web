@@ -38,6 +38,9 @@ export class FreightStationComponent implements OnInit {
     newfrontPhoto: boolean;
     newsidePhoto: boolean;
 
+    manageStatusId: any;
+    manageRangeId: any;
+    levelId: any
     constructor(private _freightStationService: FreightStationService
         , private _toastr: ToastsManager
         , private _regularService: RegularService
@@ -66,6 +69,9 @@ export class FreightStationComponent implements OnInit {
 
         this.newfrontPhoto = false;
         this.newsidePhoto = false;
+        this.manageStatusId = '';
+        this.levelId = '';
+        this.manageRangeId = [];
     }
 
     ngOnInit() {
@@ -119,12 +125,13 @@ export class FreightStationComponent implements OnInit {
         this.freightStation.build =  this.datePipe.transform(this.buildDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.check = this.datePipe.transform(this.checkDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.operate =  this.datePipe.transform(this.operateDate, 'yyyy-MM-dd HH:mm:ss');
-        this.freightStation.manageStatus = {id:  this.freightStation.manageStatus};
-        this.freightStation.level = {id: this.freightStation.level};
-        for (const item of this.freightStation.manageRange) {
+        this.freightStation.manageStatus = {id:  this.manageStatusId};
+        this.freightStation.level = {id: this.levelId};
+        for (const item of this.manageRangeId) {
             this.manageRangeSelected.push({id: item});
         }
         this.freightStation.manageRange = this.manageRangeSelected;
+        this.formData.delete('freightStation');
         this.formData.append('freightStation', JSON.stringify(this.freightStation));
 
         this._loadingService.register();
@@ -187,6 +194,9 @@ export class FreightStationComponent implements OnInit {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
                     this.freightStation = res.freightStation;
+                    this.manageStatusId = this.freightStation.manageStatus;
+                    this.manageRangeId = this.freightStation.manageRange;
+                    this.levelId = this.freightStation.level;
                     this.completedDate = new Date(this.freightStation.completedDate);
                     this.buildDate = new Date(this.freightStation.buildDate);
                     this.checkDate = new Date(this.freightStation.checkDate);
@@ -214,12 +224,13 @@ export class FreightStationComponent implements OnInit {
         this.freightStation.build =  this.datePipe.transform(this.buildDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.check = this.datePipe.transform(this.checkDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.operate =  this.datePipe.transform(this.operateDate, 'yyyy-MM-dd HH:mm:ss');
-        this.freightStation.manageStatus = {id:  this.freightStation.manageStatus};
-        this.freightStation.level = {id: this.freightStation.level};
-        for (const item of this.freightStation.manageRange) {
+        this.freightStation.manageStatus = {id:  this.manageStatusId};
+        this.freightStation.level = {id: this.levelId};
+        for (const item of this.manageRangeId) {
             this.manageRangeSelected.push({id: item});
         }
         this.freightStation.manageRange = this.manageRangeSelected;
+        this.formData.delete('freightStation');
         this.formData.append('freightStation', JSON.stringify(this.freightStation));
 
         this._loadingService.register();
@@ -282,6 +293,9 @@ export class FreightStationComponent implements OnInit {
         this.dangerousTypes = [];
         this.manageStatus = [];
         this.freightStationLevels = [];
+        this.manageRangeId = [];
+        this.manageStatusId = '';
+        this.levelId = '';
     }
 
     validation() {
@@ -293,7 +307,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('批准文号不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.cn)) {
+        if (this._regularService.isBlank(this.freightStation.sn)) {
             this._toastr.error('货运站编号不能为空！');
             return false;
         }
@@ -305,7 +319,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('行政区划名称不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.manageStatus)) {
+        if (this._regularService.isBlank(this.manageStatusId)) {
             this._toastr.error('经营状态不能为空！');
             return false;
         }
@@ -325,7 +339,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('投入营运日期不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.level)) {
+        if (this._regularService.isBlank(this.levelId)) {
             this._toastr.error('货运站级别不能为空！');
             return false;
         }
@@ -361,11 +375,11 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('侧面照片不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.manageRange)) {
-            this._toastr.error('危险品运输类型不能为空！');
+        if (this.manageRangeId.length <= 0) {
+            this._toastr.error('经营范围不能为空！');
             return false;
         }
-        if (this.freightStation.cn.length !== 9) {
+        if (this.freightStation.sn.length !== 9) {
             this._toastr.error('请输入正确的货运站编号！');
             return false;
         }
