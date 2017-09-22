@@ -152,10 +152,11 @@
             <div class="form-group" *ngIf="pageFlag=='ADD'">
                 <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
                 <div class=" col-sm-6 ">
-                    {{frontPhotoName}}
                     <a href="javascript:;" class="file">上传照片
                         <input type="file" id="frontPhotoadd" name="frontPhotoadd" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                     </a>
+                    <img [src]="imgList[0]?.frontPhoto" *ngIf="imgList.length>0">
+                    {{frontPhotoName}}
                 </div>
             </div>
             <div class="form-group" *ngIf="pageFlag=='EDIT'">
@@ -165,6 +166,14 @@
                     <a href="javascript:;" class="file">重新上传照片
                         <input type="file" id="frontPhotoedit" name="frontPhotoedit" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                     </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>经营范围：</label>
+                <div class="col-sm-4">
+                    <p-listbox [options]="dangerousTypes" [(ngModel)]="manageRangeId" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'230px','max-height':'150px'}"></p-listbox>
                 </div>
             </div>
         </div>
@@ -185,14 +194,6 @@
                     <a href="javascript:;" class="file">重新上传照片
                         <input type="file" id="sidePhotoedit" name="sidePhotoedit" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                     </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>经营范围：</label>
-                <div class="col-sm-4">
-                    <p-listbox [options]="dangerousTypes" [(ngModel)]="manageRangeId" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'230px','max-height':'150px'}"></p-listbox>
                 </div>
             </div>
         </div>

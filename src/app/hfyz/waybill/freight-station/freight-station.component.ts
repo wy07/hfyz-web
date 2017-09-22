@@ -40,7 +40,9 @@ export class FreightStationComponent implements OnInit {
 
     manageStatusId: any;
     manageRangeId: any;
-    levelId: any
+    levelId: any;
+
+    imgList: any;
     constructor(private _freightStationService: FreightStationService
         , private _toastr: ToastsManager
         , private _regularService: RegularService
@@ -72,6 +74,8 @@ export class FreightStationComponent implements OnInit {
         this.manageStatusId = '';
         this.levelId = '';
         this.manageRangeId = [];
+
+        this.imgList = [];
     }
 
     ngOnInit() {
@@ -154,6 +158,7 @@ export class FreightStationComponent implements OnInit {
     }
 
     frontPhotoChangeEvent(fileInput: any) {
+        this.imgList = [];
         const files = fileInput.target.files;
         this.frontPhotoName = '';
         this.newfrontPhoto = false;
@@ -161,6 +166,7 @@ export class FreightStationComponent implements OnInit {
             this.frontPhotoName = files[0].name;
             this.newfrontPhoto = true;
             this.formData.append('frontPhoto', files[0], files[0].fileName);
+            this.showImg(files[0], this.imgList);
         }
     }
 
@@ -173,6 +179,24 @@ export class FreightStationComponent implements OnInit {
             this.newsidePhoto = true;
             this.formData.append('sidePhoto', files[0], files[0].fileName);
         }
+    }
+
+    showImg(photo, imgList) {
+            const file = photo;
+            const reader = new FileReader();
+            reader.onload = function (e: any) {
+                const image = new Image();
+                image.src = e.target.result;
+                image.onload = function (evt) {
+                    const imgWidth = image.width;
+                    const imgHeight = image.height;
+                          console.log('=====before===' + e.target.result)
+                          imgList.push({ frontPhoto: e.target.result, fileName: file.name, file: file });
+                          console.log('=====after======' + JSON.stringify(imgList));
+                };
+            };
+            console.log('==========end===' + JSON.stringify(this.imgList));
+            reader.readAsDataURL(file);
     }
 
     showDetail(id) {
