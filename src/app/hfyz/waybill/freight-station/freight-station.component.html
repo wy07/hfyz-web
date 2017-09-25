@@ -148,27 +148,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group" *ngIf="pageFlag=='ADD'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
-                <div class=" col-sm-6 ">
-                    <a href="javascript:;" class="file">上传照片
-                        <input type="file" id="frontPhotoadd" name="frontPhotoadd" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                    <img [src]="imgList[0]?.frontPhoto" *ngIf="imgList.length>0">
-                    {{frontPhotoName}}
-                </div>
-            </div>
-            <div class="form-group" *ngIf="pageFlag=='EDIT'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
-                <div class=" col-sm-6 ">
-                    {{frontPhotoName}}
-                    <a href="javascript:;" class="file">重新上传照片
-                        <input type="file" id="frontPhotoedit" name="frontPhotoedit" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="clearfix"></div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>经营范围：</label>
@@ -177,23 +157,47 @@
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
+        <div class="col-md-6">
+            <div class="form-group" *ngIf="pageFlag=='ADD'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">上传照片
+                        <input type="file" id="frontPhotoadd" name="frontPhotoadd" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="frontPhoto[0]?.img" onError="this.src='assets/images/front.jpg'">
+                </div>
+            </div>
+            <div class="form-group" *ngIf="pageFlag=='EDIT'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">重新上传照片
+                        <input type="file" id="frontPhotoedit" name="frontPhotoedit" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="'data:image/jpg;base64,' + frontPhotobase64String" *ngIf="isNewFrontPhoto == false">
+                    <img [src]="frontPhoto[0]?.img" onError="this.src='assets/images/front.jpg'" *ngIf="isNewFrontPhoto == true">
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-6">
             <div class="form-group" *ngIf="pageFlag=='ADD'">
                 <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
                 <div class=" col-sm-6 ">
-                    {{sidePhotoName}}
                     <a href="javascript:;" class="file">上传照片
                         <input type="file" id="sidePhotoadd" name="sidePhotoadd" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                     </a>
+                    <img [src]="sidePhoto[0]?.img" onError="this.src='assets/images/side.jpg'">
                 </div>
             </div>
             <div class="form-group" *ngIf="pageFlag=='EDIT'">
                 <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
                 <div class=" col-sm-6 ">
-                    {{sidePhotoName}}
                     <a href="javascript:;" class="file">重新上传照片
                         <input type="file" id="sidePhotoedit" name="sidePhotoedit" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
                     </a>
+                    <img [src]="'data:image/jpg;base64,' + sidePhotobase64String" *ngIf="isNewSidePhoto == false">
+                    <img [src]="sidePhoto[0]?.img" onError="this.src='assets/images/side.jpg'" *ngIf="isNewSidePhoto == true">
                 </div>
             </div>
         </div>
@@ -322,6 +326,18 @@
                     <label class="col-sm-2 control-label" style="width: 13.7%">详细地址：</label>
                     <div class="col-sm-10">
                         <p class="form-control-static">{{freightStation.address}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">正面照：</label>
+                    <div class="col-sm-7">
+                        <img [src]="'data:image/jpg;base64,' + frontPhotobase64String">
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">侧面照：</label>
+                    <div class="col-sm-7">
+                        <img [src]="'data:image/jpg;base64,' + sidePhotobase64String">
                     </div>
                 </div>
             </div>

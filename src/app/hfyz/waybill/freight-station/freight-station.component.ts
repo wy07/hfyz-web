@@ -42,7 +42,12 @@ export class FreightStationComponent implements OnInit {
     manageRangeId: any;
     levelId: any;
 
-    imgList: any;
+    frontPhoto: any;
+    sidePhoto: any;
+    frontPhotobase64String: any;
+    sidePhotobase64String: any;
+    isNewFrontPhoto: boolean;
+    isNewSidePhoto: boolean;
     constructor(private _freightStationService: FreightStationService
         , private _toastr: ToastsManager
         , private _regularService: RegularService
@@ -75,7 +80,10 @@ export class FreightStationComponent implements OnInit {
         this.levelId = '';
         this.manageRangeId = [];
 
-        this.imgList = [];
+        this.frontPhoto = [];
+        this.sidePhoto = [];
+        this.isNewFrontPhoto = false;
+        this.isNewSidePhoto = false;
     }
 
     ngOnInit() {
@@ -158,30 +166,34 @@ export class FreightStationComponent implements OnInit {
     }
 
     frontPhotoChangeEvent(fileInput: any) {
-        this.imgList = [];
+        this.frontPhoto = [];
         const files = fileInput.target.files;
         this.frontPhotoName = '';
         this.newfrontPhoto = false;
         if (files.length > 0) {
             this.frontPhotoName = files[0].name;
             this.newfrontPhoto = true;
+            this.isNewFrontPhoto = true;
             this.formData.append('frontPhoto', files[0], files[0].fileName);
-            this.showImg(files[0], this.imgList);
+            this.showImg(files[0], this.frontPhoto);
         }
     }
 
     sidePhotoChangeEvent(fileInput: any) {
+        this.sidePhoto = [];
         const files = fileInput.target.files;
         this.sidePhotoName = '';
         this.newsidePhoto = false;
         if (files.length > 0) {
             this.sidePhotoName = files[0].name;
             this.newsidePhoto = true;
+            this.isNewSidePhoto = true;
             this.formData.append('sidePhoto', files[0], files[0].fileName);
+            this.showImg(files[0], this.sidePhoto);
         }
     }
 
-    showImg(photo, imgList) {
+    showImg(photo, img) {
             const file = photo;
             const reader = new FileReader();
             reader.onload = function (e: any) {
@@ -190,12 +202,9 @@ export class FreightStationComponent implements OnInit {
                 image.onload = function (evt) {
                     const imgWidth = image.width;
                     const imgHeight = image.height;
-                          console.log('=====before===' + e.target.result)
-                          imgList.push({ frontPhoto: e.target.result, fileName: file.name, file: file });
-                          console.log('=====after======' + JSON.stringify(imgList));
+                    img.push({ img: e.target.result});
                 };
             };
-            console.log('==========end===' + JSON.stringify(this.imgList));
             reader.readAsDataURL(file);
     }
 
@@ -225,6 +234,9 @@ export class FreightStationComponent implements OnInit {
                     this.buildDate = new Date(this.freightStation.buildDate);
                     this.checkDate = new Date(this.freightStation.checkDate);
                     this.operateDate = new Date(this.freightStation.operateDate);
+                    this.frontPhotobase64String = this.freightStation.frontPhotobase64String;
+                    this.sidePhotobase64String = this.freightStation.sidePhotobase64String;
+
                     for (const item of res.dangerousTypeList) {
                         this.dangerousTypes.push({ label: item.name, value: item.id });
                     }
@@ -254,6 +266,8 @@ export class FreightStationComponent implements OnInit {
             this.manageRangeSelected.push({id: item});
         }
         this.freightStation.manageRange = this.manageRangeSelected;
+        delete this.freightStation['frontPhotobase64String'];
+        delete this.freightStation['sidePhotobase64String'];
         this.formData.delete('freightStation');
         this.formData.append('freightStation', JSON.stringify(this.freightStation));
 
@@ -320,6 +334,12 @@ export class FreightStationComponent implements OnInit {
         this.manageRangeId = [];
         this.manageStatusId = '';
         this.levelId = '';
+        this.frontPhoto = [];
+        this.sidePhoto = [];
+        this.isNewSidePhoto = false;
+        this.isNewFrontPhoto = false;
+        this.sidePhotobase64String = '';
+        this.frontPhotobase64String = '';
     }
 
     validation() {
