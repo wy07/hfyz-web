@@ -38,6 +38,16 @@ export class FreightStationComponent implements OnInit {
     newfrontPhoto: boolean;
     newsidePhoto: boolean;
 
+    manageStatusId: any;
+    manageRangeId: any;
+    levelId: any;
+
+    frontPhoto: any;
+    sidePhoto: any;
+    frontPhotobase64String: any;
+    sidePhotobase64String: any;
+    isNewFrontPhoto: boolean;
+    isNewSidePhoto: boolean;
     constructor(private _freightStationService: FreightStationService
         , private _toastr: ToastsManager
         , private _regularService: RegularService
@@ -66,6 +76,14 @@ export class FreightStationComponent implements OnInit {
 
         this.newfrontPhoto = false;
         this.newsidePhoto = false;
+        this.manageStatusId = '';
+        this.levelId = '';
+        this.manageRangeId = [];
+
+        this.frontPhoto = [];
+        this.sidePhoto = [];
+        this.isNewFrontPhoto = false;
+        this.isNewSidePhoto = false;
     }
 
     ngOnInit() {
@@ -119,12 +137,13 @@ export class FreightStationComponent implements OnInit {
         this.freightStation.build =  this.datePipe.transform(this.buildDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.check = this.datePipe.transform(this.checkDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.operate =  this.datePipe.transform(this.operateDate, 'yyyy-MM-dd HH:mm:ss');
-        this.freightStation.manageStatus = {id:  this.freightStation.manageStatus};
-        this.freightStation.level = {id: this.freightStation.level};
-        for (const item of this.freightStation.manageRange) {
+        this.freightStation.manageStatus = {id:  this.manageStatusId};
+        this.freightStation.level = {id: this.levelId};
+        for (const item of this.manageRangeId) {
             this.manageRangeSelected.push({id: item});
         }
         this.freightStation.manageRange = this.manageRangeSelected;
+        this.formData.delete('freightStation');
         this.formData.append('freightStation', JSON.stringify(this.freightStation));
 
         this._loadingService.register();
@@ -147,25 +166,46 @@ export class FreightStationComponent implements OnInit {
     }
 
     frontPhotoChangeEvent(fileInput: any) {
+        this.frontPhoto = [];
         const files = fileInput.target.files;
         this.frontPhotoName = '';
         this.newfrontPhoto = false;
         if (files.length > 0) {
             this.frontPhotoName = files[0].name;
             this.newfrontPhoto = true;
+            this.isNewFrontPhoto = true;
             this.formData.append('frontPhoto', files[0], files[0].fileName);
+            this.showImg(files[0], this.frontPhoto);
         }
     }
 
     sidePhotoChangeEvent(fileInput: any) {
+        this.sidePhoto = [];
         const files = fileInput.target.files;
         this.sidePhotoName = '';
         this.newsidePhoto = false;
         if (files.length > 0) {
             this.sidePhotoName = files[0].name;
             this.newsidePhoto = true;
+            this.isNewSidePhoto = true;
             this.formData.append('sidePhoto', files[0], files[0].fileName);
+            this.showImg(files[0], this.sidePhoto);
         }
+    }
+
+    showImg(photo, img) {
+            const file = photo;
+            const reader = new FileReader();
+            reader.onload = function (e: any) {
+                const image = new Image();
+                image.src = e.target.result;
+                image.onload = function (evt) {
+                    const imgWidth = image.width;
+                    const imgHeight = image.height;
+                    img.push({ img: e.target.result});
+                };
+            };
+            reader.readAsDataURL(file);
     }
 
     showDetail(id) {
@@ -187,10 +227,16 @@ export class FreightStationComponent implements OnInit {
                 this._loadingService.resolve();
                 if (res.result === 'success') {
                     this.freightStation = res.freightStation;
+                    this.manageStatusId = this.freightStation.manageStatus;
+                    this.manageRangeId = this.freightStation.manageRange;
+                    this.levelId = this.freightStation.level;
                     this.completedDate = new Date(this.freightStation.completedDate);
                     this.buildDate = new Date(this.freightStation.buildDate);
                     this.checkDate = new Date(this.freightStation.checkDate);
                     this.operateDate = new Date(this.freightStation.operateDate);
+                    this.frontPhotobase64String = this.freightStation.frontPhotobase64String;
+                    this.sidePhotobase64String = this.freightStation.sidePhotobase64String;
+
                     for (const item of res.dangerousTypeList) {
                         this.dangerousTypes.push({ label: item.name, value: item.id });
                     }
@@ -214,12 +260,15 @@ export class FreightStationComponent implements OnInit {
         this.freightStation.build =  this.datePipe.transform(this.buildDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.check = this.datePipe.transform(this.checkDate, 'yyyy-MM-dd HH:mm:ss');
         this.freightStation.operate =  this.datePipe.transform(this.operateDate, 'yyyy-MM-dd HH:mm:ss');
-        this.freightStation.manageStatus = {id:  this.freightStation.manageStatus};
-        this.freightStation.level = {id: this.freightStation.level};
-        for (const item of this.freightStation.manageRange) {
+        this.freightStation.manageStatus = {id:  this.manageStatusId};
+        this.freightStation.level = {id: this.levelId};
+        for (const item of this.manageRangeId) {
             this.manageRangeSelected.push({id: item});
         }
         this.freightStation.manageRange = this.manageRangeSelected;
+        delete this.freightStation['frontPhotobase64String'];
+        delete this.freightStation['sidePhotobase64String'];
+        this.formData.delete('freightStation');
         this.formData.append('freightStation', JSON.stringify(this.freightStation));
 
         this._loadingService.register();
@@ -282,6 +331,15 @@ export class FreightStationComponent implements OnInit {
         this.dangerousTypes = [];
         this.manageStatus = [];
         this.freightStationLevels = [];
+        this.manageRangeId = [];
+        this.manageStatusId = '';
+        this.levelId = '';
+        this.frontPhoto = [];
+        this.sidePhoto = [];
+        this.isNewSidePhoto = false;
+        this.isNewFrontPhoto = false;
+        this.sidePhotobase64String = '';
+        this.frontPhotobase64String = '';
     }
 
     validation() {
@@ -293,7 +351,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('批准文号不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.cn)) {
+        if (this._regularService.isBlank(this.freightStation.sn)) {
             this._toastr.error('货运站编号不能为空！');
             return false;
         }
@@ -305,7 +363,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('行政区划名称不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.manageStatus)) {
+        if (this._regularService.isBlank(this.manageStatusId)) {
             this._toastr.error('经营状态不能为空！');
             return false;
         }
@@ -325,7 +383,7 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('投入营运日期不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.level)) {
+        if (this._regularService.isBlank(this.levelId)) {
             this._toastr.error('货运站级别不能为空！');
             return false;
         }
@@ -361,11 +419,11 @@ export class FreightStationComponent implements OnInit {
             this._toastr.error('侧面照片不能为空！');
             return false;
         }
-        if (this._regularService.isBlank(this.freightStation.manageRange)) {
-            this._toastr.error('危险品运输类型不能为空！');
+        if (this.manageRangeId.length <= 0) {
+            this._toastr.error('经营范围不能为空！');
             return false;
         }
-        if (this.freightStation.cn.length !== 9) {
+        if (this.freightStation.sn.length !== 9) {
             this._toastr.error('请输入正确的货运站编号！');
             return false;
         }

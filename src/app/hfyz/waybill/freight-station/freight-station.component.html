@@ -6,7 +6,7 @@
         <p-dataTable [emptyMessage]="'暂无数据'" [value]="freightStationList" [lazy]="true" [rows]="pageMax" [totalRecords]="pageTotal" [paginator]="true" (onLazyLoad)="paginate($event)" [(first)]="pageFirst">
             <p-column field="orgCode" header="组织机构代码"></p-column>
             <p-column field="name" header="货运站名称"></p-column>
-            <p-column field="cn" header="货运站编号"></p-column>
+            <p-column field="sn" header="货运站编号"></p-column>
             <p-column field="manageStatus" header="经营状态"></p-column>
             <p-column field="approvalNumber" header="批准文号"></p-column>
             <p-column field="districtName" header="行政区划名称"></p-column>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label text-right"><span class="required">*</span>货运站编号：</label>
                 <div class="col-xs-6 ">
-                    <input type="text" class="form-control" [(ngModel)]="freightStation.cn">
+                    <input type="text" class="form-control" [(ngModel)]="freightStation.sn">
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="form-group">
                 <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>经营状态：</label>
                 <div class="col-sm-4">
-                    <p-dropdown [options]="manageStatus" [(ngModel)]="freightStation.manageStatus" placeholder="请选择" [style]="{'width':'100%'}" styleClass=p-dropdown-form-control></p-dropdown>
+                    <p-dropdown [options]="manageStatus" [(ngModel)]="manageStatusId" placeholder="请选择" [style]="{'width':'100%'}" styleClass=p-dropdown-form-control></p-dropdown>
                 </div>
             </div>
         </div>
@@ -112,7 +112,7 @@
             <div class="form-group">
                 <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>货运站级别：</label>
                 <div class="col-sm-4">
-                    <p-dropdown [options]="freightStationLevels" [(ngModel)]="freightStation.level" placeholder="请选择" [style]="{'width':'100%'}" styleClass=p-dropdown-form-control></p-dropdown>
+                    <p-dropdown [options]="freightStationLevels" [(ngModel)]="levelId" placeholder="请选择" [style]="{'width':'100%'}" styleClass=p-dropdown-form-control></p-dropdown>
                 </div>
             </div>
         </div>
@@ -148,51 +148,56 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group" *ngIf="pageFlag=='ADD'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
-                <div class=" col-sm-6 ">
-                    {{frontPhotoName}}
-                    <a href="javascript:;" class="file">上传照片
-                        <input type="file" id="frontPhotoadd" name="frontPhotoadd" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                </div>
-            </div>
-            <div class="form-group" *ngIf="pageFlag=='EDIT'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
-                <div class=" col-sm-6 ">
-                    {{frontPhotoName}}
-                    <a href="javascript:;" class="file">重新上传照片
-                        <input type="file" id="frontPhotoedit" name="frontPhotoedit" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group" *ngIf="pageFlag=='ADD'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
-                <div class=" col-sm-6 ">
-                    {{sidePhotoName}}
-                    <a href="javascript:;" class="file">上传照片
-                        <input type="file" id="sidePhotoadd" name="sidePhotoadd" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                </div>
-            </div>
-            <div class="form-group" *ngIf="pageFlag=='EDIT'">
-                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
-                <div class=" col-sm-6 ">
-                    {{sidePhotoName}}
-                    <a href="javascript:;" class="file">重新上传照片
-                        <input type="file" id="sidePhotoedit" name="sidePhotoedit" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
-                    </a>
-                </div>
-            </div>
-        </div>
+        <div class="clearfix"></div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class=" col-sm-4 controsl-label text-right"><span class="required">*</span>经营范围：</label>
                 <div class="col-sm-4">
-                    <p-listbox [options]="dangerousTypes" [(ngModel)]="freightStation.manageRange" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'230px','max-height':'150px'}"></p-listbox>
+                    <p-listbox [options]="dangerousTypes" [(ngModel)]="manageRangeId" multiple="multiple" checkbox="checkbox" filter="filter" [style]="{'width':'230px','max-height':'150px'}"></p-listbox>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-6">
+            <div class="form-group" *ngIf="pageFlag=='ADD'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">上传照片
+                        <input type="file" id="frontPhotoadd" name="frontPhotoadd" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="frontPhoto[0]?.img" onError="this.src='assets/images/front.jpg'">
+                </div>
+            </div>
+            <div class="form-group" *ngIf="pageFlag=='EDIT'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>正面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">重新上传照片
+                        <input type="file" id="frontPhotoedit" name="frontPhotoedit" (change)="frontPhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="'data:image/jpg;base64,' + frontPhotobase64String" *ngIf="isNewFrontPhoto == false">
+                    <img [src]="frontPhoto[0]?.img" onError="this.src='assets/images/front.jpg'" *ngIf="isNewFrontPhoto == true">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group" *ngIf="pageFlag=='ADD'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">上传照片
+                        <input type="file" id="sidePhotoadd" name="sidePhotoadd" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="sidePhoto[0]?.img" onError="this.src='assets/images/side.jpg'">
+                </div>
+            </div>
+            <div class="form-group" *ngIf="pageFlag=='EDIT'">
+                <label class=" col-sm-4 control-label text-right"><span class="required">*</span>侧面照片：</label>
+                <div class=" col-sm-6 ">
+                    <a href="javascript:;" class="file">重新上传照片
+                        <input type="file" id="sidePhotoedit" name="sidePhotoedit" (change)="sidePhotoChangeEvent($event)" accept="image/gif,image/jpeg,image/jpg,image/png">
+                    </a>
+                    <img [src]="'data:image/jpg;base64,' + sidePhotobase64String" *ngIf="isNewSidePhoto == false">
+                    <img [src]="sidePhoto[0]?.img" onError="this.src='assets/images/side.jpg'" *ngIf="isNewSidePhoto == true">
                 </div>
             </div>
         </div>
@@ -230,7 +235,7 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-5 control-label">货运站编号：</label>
                     <div class="col-sm-7">
-                        <p class="form-control-static">{{freightStation.cn}}</p>
+                        <p class="form-control-static">{{freightStation.sn}}</p>
                     </div>
                 </div>
                 <div class="form-group col-sm-4">
@@ -321,6 +326,18 @@
                     <label class="col-sm-2 control-label" style="width: 13.7%">详细地址：</label>
                     <div class="col-sm-10">
                         <p class="form-control-static">{{freightStation.address}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">正面照：</label>
+                    <div class="col-sm-7">
+                        <img [src]="'data:image/jpg;base64,' + frontPhotobase64String">
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-5 control-label">侧面照：</label>
+                    <div class="col-sm-7">
+                        <img [src]="'data:image/jpg;base64,' + sidePhotobase64String">
                     </div>
                 </div>
             </div>
